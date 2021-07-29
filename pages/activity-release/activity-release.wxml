@@ -1,14 +1,7 @@
 <!--pages/activity-release/activity-release.wxml-->
 <view class="release">
-	<van-tabs 
-		id="tabs"
-		active="a"
-		animated
-		swipeable
-		color="#07c160"
-		title-active-color="#07c160"
-	>
-		<van-tab title="常用" name="a">
+	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
+		<van-tab title="常用" name="a" >
 			<view class="activityTemplate">
 				<view class="templateItem">
 					<text class="itemMainText">班级会议</text>
@@ -22,7 +15,7 @@
 					<text class="itemMainText">班级活动</text>
 					<text class="itemSideText">组织开展班级活动</text>
 				</view>
-				
+
 			</view>
 		</van-tab>
 		<van-tab title="模版库" name="b">
@@ -51,11 +44,11 @@
 					<text class="itemMainText">干部竞选</text>
 					<text class="itemSideText">组织开展各级干部竞选活动</text>
 				</view>
-				
+
 			</view>
 		</van-tab>
 		<van-tab title="自定义" name="c">
-			
+
 		</van-tab>
 	</van-tabs>
 </view>

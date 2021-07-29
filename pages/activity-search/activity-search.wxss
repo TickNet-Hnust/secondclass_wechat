@@ -1,0 +1,36 @@
+/* pages/activity-search/activity-search.wxss */
+.search {
+	position: relative;
+}
+.hotNow {
+	position: absolute;
+	right: 23rpx;
+	top: 25rpx;
+	z-index: 99;
+}
+.search .title {
+	font-size: 25rpx;
+	vertical-align: super;
+	margin-right: 12rpx;
+}
+.search .van-tabs__wrap {
+	width: 50%;
+}
+.search .searchBody,.searchResult,.searchAll,.searchHot {
+	padding: 0 30rpx;
+}
+.history {
+	display: flex;
+	justify-content: space-between;
+}
+.history text {
+	font-weight: 700;
+
+}
+.historyText {
+	font-size: 26rpx;
+	color: #333;
+	font-weight: 400;
+	line-height: 60rpx;
+}
+

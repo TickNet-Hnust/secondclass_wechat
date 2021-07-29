@@ -1,0 +1,58 @@
+/* pages/activity-release/activity-release.wxss */
+.release {
+	padding: 0 30rpx;
+	overflow: hidden;
+}
+.release  .van-tabs__wrap {
+	width: 50%;
+	margin: 0 auto;
+}
+.release .van-tabs__content {
+	/* padding: 0 30rpx; */
+}
+.activityTemplate {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.templateItem {
+	position: relative;
+	width: 47%;
+	background-color: red;
+	height: 165rpx;
+	border-radius: 6px;
+	margin: 20rpx 0;
+}
+.itemMainText {
+	position: absolute;
+    top: 39rpx;
+    left: 28rpx;
+    font-size: 35rpx;
+    color: #fff;
+    font-weight: 700;
+}
+.itemSideText {
+	position: absolute;
+    top: 94rpx;
+	font-size: 23rpx;
+	color: #fff;
+    left: 31rpx;
+}
+.templateItem:nth-child(1) {
+	background-color: rgba(245, 100, 129, 1)
+}
+.templateItem:nth-child(2) {
+	background-color: rgba(87, 193, 244, 1);
+}
+.templateItem:nth-child(3) {
+	background-color: rgba(50, 197, 196, 1);
+}
+.templateItem:nth-child(4) {
+	background-color: rgba(88, 168, 208, 1);
+}
+.templateItem:nth-child(5) {
+	background-color: rgba(237, 149, 72, 1);
+}
+.templateItem:nth-child(6) {
+	background-color: rgba(163, 207, 98, 1);
+}

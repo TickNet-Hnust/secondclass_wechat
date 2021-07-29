@@ -1,0 +1,47 @@
+/* pages/activity/activity.wxss */
+.containerActivity {
+	padding: 40rpx;
+}
+.activityTop {
+	display: flex;
+	justify-content: space-around;
+}
+.activitySearch {
+	position: relative;
+	text-align: center;
+	width: 45%;
+	height: 120rpx;
+}
+.activityRocket {
+	position: relative;
+	left: 0;
+	text-align: center;
+	width: 45%;
+	height: 120rpx;
+}
+.activityBgImg {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 120rpx;
+}
+.activitySideText {
+	position: absolute;
+	left: 20rpx;
+	top: 15rpx;
+	color: #fff;
+}
+.activityText {
+	color: #fff;
+	font-size: 60rpx;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+.containerActivity .van-tabs__wrap {
+	width: 50%;
+	margin: 0 auto;
+}
+

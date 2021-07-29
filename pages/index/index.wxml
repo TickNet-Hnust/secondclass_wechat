@@ -1,0 +1,92 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="chooseTop">
+    <image class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image>
+    <ul class="navs">
+      <li bindtap="jumpActivity">
+        <image  src="../../images/gift.png"></image>
+        <view>
+          <text>活动</text>
+        </view>
+      </li>
+      <li>
+        <image  src="../../images/gift.png"></image>
+        <view>
+          <text>群组</text>
+        </view>
+      </li>
+      <li>
+        <image  src="../../images/gift.png"></image>
+        <view>
+          <text>场地</text>
+        </view>
+      </li>
+      <li>
+        <image  src="../../images/gift.png"></image>
+        <view>
+          <text>认证</text>
+        </view>
+      </li>
+      <li>
+        <image  src="../../images/gift.png"></image>
+        <view>
+          <text>报名</text>
+        </view>
+      </li>
+      <li>
+        <image  src="../../images/gift.png"></image>
+        <view>
+          <text>投票</text>
+        </view>
+      </li>
+      <li>
+        <image  src="../../images/gift.png"></image>
+        <view>
+          <text>证书</text>
+        </view>
+      </li>
+    </ul>
+  </view>
+  <view class="chooseMiddle">
+      <view class="chooseMsg">• 关于开展向“心与馨”志愿支教服务队学习的倡议</view>
+      <view class="chooseMsg">• 撒旦士大夫撒旦 关于湖南科技大学第十九届学生会主席团候选人资格审查.</view>
+      <view class="chooseMsg">• 关于开展湖南科技大学第十九届学生会主席团候选人报名</view>
+      <view class="Middlearrow">></view>
+  </view>
+  <view class="chooseBottom">
+    <view class="chooseButtomTitle">
+      <view>新闻中心</view>
+      <view>></view>
+    </view>
+    <view>
+      <view class="newViews">
+        <text>
+          习近平:决胜全面建成小康社会决战脱贫攻坚继续建设经济繁荣民族团结环境优美
+        </text>
+        <view>
+          <text class="topping">置顶</text>
+          <text class="chooseFootText">人民网</text>
+        </view>
+      </view>
+      <view class="newViews">
+        <text>
+          二○—九年中国共产党党内统计公报
+        </text>
+        <view>
+          <text class="topping">置顶</text>
+          <text class="chooseFootText">人民网</text>
+          <text class="chooseFootText">2020年07月07日</text>
+        </view>
+      </view>
+      <view class="newViews">
+        <text>
+          《求是》杂志发表习近平总书记重要文章在“不忘初心、牢记使命”主题教育总结大会上的讲话
+        </text>
+        <view>
+          <text class="topping">置顶</text>
+          <text class="chooseFootText">人民网</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

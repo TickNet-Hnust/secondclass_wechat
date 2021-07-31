@@ -8,6 +8,11 @@ Page({
 		active: 1,
 		value: ''
 	},
+	jumpDetail() {
+		wx.navigateTo({
+		  url: '../activity-detail/activity-detail',
+		})
+	},
 	jumpSearch() {
 		wx.navigateTo({
 		  url: '../activity-search/activity-search',

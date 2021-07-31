@@ -23,7 +23,7 @@
 	>
 		<van-tab title="推荐" name="a">
 			<view class="activityAbstract">
-				<view>
+				<view bindtap="jumpDetail">
 					<view>
 						<image src="https://img0.baidu.com/it/u=2087814202,375258500&fm=26&fmt=auto&gp=0.jpg"></image>
 					</view>
@@ -34,7 +34,7 @@
 						<text class="tabSideText">大学生读书节</text>
 					</view>
 				</view>
-				<view>
+				<view bindtap="jumpDetail">
 					<view>
 						<image src="https://img0.baidu.com/it/u=3217878538,1375708071&fm=26&fmt=auto&gp=0.jpg"></image>
 					</view>
@@ -45,7 +45,7 @@
 						<text class="tabSideText">大学生读书节</text>
 					</view>
 				</view>
-				<view>
+				<view bindtap="jumpDetail">
 					<view>
 						<image src="https://img1.baidu.com/it/u=2011953861,1241475733&fm=26&fmt=auto&gp=0.jpg"></image>
 					</view>
@@ -56,7 +56,7 @@
 						<text class="tabSideText">大学生读书节</text>
 					</view>
 				</view>
-				<view>
+				<view bindtap="jumpDetail">
 					<view>
 						<image src="https://img2.baidu.com/it/u=1705575043,3141098063&fm=26&fmt=auto&gp=0.jpg"></image>
 					</view>
@@ -71,7 +71,7 @@
 		</van-tab>
 		<van-tab title="收藏" name="b">
 			<view class="activityAbstract">				
-				<view>
+				<view bindtap="jumpDetail">
 					<view>
 						<image src="https://img0.baidu.com/it/u=3217878538,1375708071&fm=26&fmt=auto&gp=0.jpg"></image>
 					</view>
@@ -82,7 +82,7 @@
 						<text class="tabSideText">大学生读书节</text>
 					</view>
 				</view>
-				<view>
+				<view bindtap="jumpDetail">
 					<view>
 						<image src="https://img1.baidu.com/it/u=2011953861,1241475733&fm=26&fmt=auto&gp=0.jpg"></image>
 					</view>
@@ -93,7 +93,7 @@
 						<text class="tabSideText">大学生读书节</text>
 					</view>
 				</view>
-				<view>
+				<view bindtap="jumpDetail">
 					<view>
 						<image src="https://img2.baidu.com/it/u=1705575043,3141098063&fm=26&fmt=auto&gp=0.jpg"></image>
 					</view>
@@ -108,7 +108,7 @@
 		</van-tab>
 		<van-tab title="我的" name="c">
 			<view class="activityAbstract">
-				<view>
+				<view bindtap="jumpDetail">
 					<view>
 						<image src="https://img0.baidu.com/it/u=2087814202,375258500&fm=26&fmt=auto&gp=0.jpg"></image>
 					</view>
@@ -120,7 +120,7 @@
 					</view>
 				</view>
 				
-				<view>
+				<view bindtap="jumpDetail">
 					<view>
 						<image src="https://img1.baidu.com/it/u=2011953861,1241475733&fm=26&fmt=auto&gp=0.jpg"></image>
 					</view>

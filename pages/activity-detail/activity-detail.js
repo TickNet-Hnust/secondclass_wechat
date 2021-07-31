@@ -1,17 +1,24 @@
-// pages/activity-search/activity-search.js
+// pages/activity-detail/activity-detail.js
 Page({
 
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
-		checked: true,
-		active: 'a'
+		show:false,
+		name: 'sfaf'
 	},
-	onChange({ detail }) {
-		// 需要手动对 checked 状态进行更新
-		this.setData({ checked: detail });
-	  },
+	showDialog() {
+		this.setData({
+			show: true
+		})
+	},
+	getUserInfo(event) {
+		console.log(event.detail);
+	},
+	onClose() {
+		this.setData({ show: false });
+	},
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
@@ -37,16 +44,14 @@ Page({
 	 * 生命周期函数--监听页面隐藏
 	 */
 	onHide: function () {
-		wx.reLaunch({
-			url: '../activity-search/activity-search'
-		  })
+
 	},
 
 	/**
 	 * 生命周期函数--监听页面卸载
 	 */
 	onUnload: function () {
-		
+
 	},
 
 	/**

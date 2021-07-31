@@ -1,2 +1,69 @@
 <!--pages/activity-custom/activity-custom.wxml-->
-<text>pages/activity-custom/activity-custom.wxml</text>
+<view class="custom">
+	<van-cell-group custom-style="customStyle">
+		
+		<van-field
+			model:value="{{ name }}"
+			placeholder="编辑活动名称"
+			label="活动名称"
+			title-width="7em"
+		/>
+	</van-cell-group>
+	<view class="customTitle">
+		<h5>概要</h5>
+	</view>
+	<van-cell-group>
+		<van-field
+			label="主办方"
+			title-width="7em"
+		/>
+		<van-field
+			label="发布人"
+			title-width="7em"
+		/>
+		<van-field
+			label="指导单位"
+			title-width="7em"
+		/>
+		<van-field
+			label="指导老师"
+			title-width="7em"
+		/>
+	</van-cell-group>
+	<view class="customTitle">
+		<h5>报名信息</h5>
+	</view>
+	<van-cell-group>
+		<van-field
+			label="报名时间"
+			title-width="7em"
+		/>
+		<van-field
+			label="录取方式"
+			title-width="7em"
+		/>
+		<van-field
+			label="报名范围"
+			title-width="7em"
+		/>
+		<van-field
+			label="报名年级"
+			title-width="7em"
+		/>
+		<van-field
+			label="最大录取人数"
+			title-width="7em"
+		/>
+		<van-field
+			label="报名须知"
+			title-width="7em"
+			type="textarea"
+			maxlength="200"
+			autosize
+			show-word-limit
+		/>
+	</van-cell-group>
+	<view class="stickyButton" >
+		<van-button type="primary">提交请求</van-button>
+	</view>
+</view>

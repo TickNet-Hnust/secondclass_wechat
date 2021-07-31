@@ -1,0 +1,261 @@
+<!--pages/activity-detail/activity-detail.wxml-->
+<view class="detail">
+	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
+		<van-tab title="概况" name="a" >
+			<view class="activityTemplate">
+				<view class="boxs" style="padding-top:0">
+					<swiper autoplay interval="5000" duration="500" style="height: 230rpx;">
+						<swiper-item>
+							<image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image>
+						</swiper-item>
+						<swiper-item>
+							<image mode="widthFix" class="adImg" src="../../images/choose/ad2.png" alt="" srcset=""></image>
+						</swiper-item>
+						<swiper-item>
+							<image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image>
+						</swiper-item>
+					</swiper>
+					<view style="padding:0 20rpx">
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle" span="6">• 主办方</van-col>
+							<van-col class="rightContent" span="18">投资理财俱乐部（商学院）</van-col>
+						</van-row>
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle"  span="6">• 活动级别</van-col>
+							<van-col class="rightContent" span="18">院级</van-col>
+						</van-row>
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle"  span="6">• 积分方案</van-col>
+							<van-col class="rightContent" span="18">活动签到获取积分 + 个人申报获取积分，管理员认定</van-col>
+						</van-row>
+					</view>
+					<van-divider />
+					<view style="text-align: center;" bindtap="showDialog"> ﹀</view>
+				</view>
+				<view class="boxs">
+					
+					<view style="padding:0 20rpx">
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle" span="6">• 报名须知</van-col>
+							
+						</van-row>
+						<van-row style="line-height: 40rpx;">
+							<text class="box-p">为表彰先进，树立典型，引领和激励全体同学刻苦学习、发奋成才，营造良好的学习氛围，经学校研究，决定召开2019年学生表彰大会，对取得优秀成绩的学生进行表彰。现将有关事项通知如下：</text>
+						</van-row>
+						
+					</view>
+					<van-divider />
+					<view style="text-align: center;" bindtap="showDialog"> ﹀</view>
+				</view>
+				<view class="flexLines">
+					<van-row>
+						<van-col span="4">
+							<view>
+								<icon class="icon-box-img" type="success" size="35"></icon>
+							</view>
+						</van-col>
+						<van-col span="15">
+							<view class="flexMainTitle">活动的附件文档</view>
+							<view class="flexSideTitle">附件</view>
+						</van-col>
+						<van-col span="5" ><text style="font-size: 24rpx;color:#bbb">下载</text></van-col>
+					</van-row>
+				</view>
+				<view class="flexLines">
+					<van-row>
+						<van-col span="4">
+							<view>
+								<icon class="icon-box-img" type="success" size="35"></icon>
+							</view>
+						</van-col>
+						<van-col span="15">
+							<view class="flexMainTitle">第三教学楼302室</view>
+							<view class="flexSideTitle">活动地点</view>
+						</van-col>
+						<van-col span="5" ><text style="font-size: 24rpx;color:#bbb">查看地图</text></van-col>
+					</van-row>
+				</view>
+				<view class="flexLines">
+					<van-row>
+						<van-col span="4">
+							<view>
+								<icon class="icon-box-img" type="success" size="35"></icon>
+							</view>
+						</van-col>
+						<van-col span="15">
+							<view class="flexMainTitle">报名时间</view>
+							<view class="flexSideTitle">21-7-23 至 21-7-25</view>
+						</van-col>
+						<van-col span="5" ><van-button type="primary" size="small">报名</van-button></van-col>
+					</van-row>
+				</view>
+				<view class="flexLines">
+					<van-row>
+						<van-col span="4">
+							<view>
+								<icon class="icon-box-img" type="success" size="35"></icon>
+							</view>
+						</van-col>
+						<van-col span="15">
+							<view class="flexMainTitle">活动时间</view>
+							<view class="flexSideTitle">21-7-26</view>
+						</van-col>
+						<van-col span="5" ><van-button type="primary" size="small">签到</van-button></van-col>
+					</van-row>
+				</view>
+				<view class="flexLines">
+					<van-row>
+						<van-col span="4">
+							<view>
+								<icon class="icon-box-img" type="success" size="35"></icon>
+							</view>
+						</van-col>
+						<van-col span="15">
+							<view class="flexMainTitle">请假</view>
+							<view class="flexSideTitle">请假时间</view>
+						</van-col>
+						<van-col span="5" ><van-button type="primary" size="small">请假</van-button></van-col>
+					</van-row>
+				</view>
+				<view class="flexLines">
+					<van-row>
+						<van-col span="4">
+							<view>
+								<icon class="icon-box-img" type="success" size="35"></icon>
+							</view>
+						</van-col>
+						<van-col span="15">
+							<view class="flexMainTitle">申请积分</view>
+							<view class="flexSideTitle">为活动参与人申请积分</view>
+						</van-col>
+						<van-col span="5" ><van-button type="primary" size="small">详情</van-button></van-col>
+					</van-row>
+				</view>
+				<view class="flexLines">
+					<van-row>
+						<van-col span="4">
+							<view>
+								<icon class="icon-box-img" type="success" size="35"></icon>
+							</view>
+						</van-col>
+						<van-col span="15">
+							<view class="flexMainTitle">活动管理</view>
+							<view class="flexSideTitle">本次活动的控制台</view>
+						</van-col>
+						<van-col span="5" ><text style="font-size: 24rpx;color:#bbb">进入控制台</text></van-col>
+					</van-row>
+				</view>
+			</view>
+				<van-dialog
+					use-slot
+					title="活动详情"
+					show="{{ show }}"
+					closeOnClickOverlay
+					bind:close="onClose"
+					bind:confirm="getUserInfo"
+				>
+			<scroll-view scroll-y="true" style="height: 70vh;">
+				<van-cell-group custom-style="customStyle">
+					<van-field
+						readonly
+						input-align="right"
+						model:value="{{ name }}"
+						placeholder="编辑活动名称"
+						label="活动名称"
+						title-width="7em"
+					/>
+				</van-cell-group>
+				<view class="customTitle">
+					<h5>概要</h5>
+				</view>
+				<van-cell-group>
+					<van-field
+						readonly
+						input-align="right"
+						label="主办方"
+						title-width="7em"
+					/>
+					<van-field
+						readonly
+						input-align="right"
+						label="发布人"
+						title-width="7em"
+					/>
+					<van-field
+						readonly
+						input-align="right"
+						label="指导单位"
+						title-width="7em"
+					/>
+					<van-field
+						readonly
+						input-align="right"
+						label="指导老师"
+						title-width="7em"
+					/>
+				</van-cell-group>
+				<view class="customTitle">
+					<h5>报名信息</h5>
+				</view>
+				<van-cell-group>
+					<van-field
+						readonly
+						input-align="right"
+						label="报名时间"
+						title-width="7em"
+					/>
+					<van-field
+						readonly
+						input-align="right"
+						label="录取方式"
+						title-width="7em"
+					/>
+					<van-field
+						readonly
+						input-align="right"
+						label="报名范围"
+						title-width="7em"
+					/>
+					<van-field
+						readonly
+						input-align="right"
+						label="报名年级"
+						title-width="7em"
+					/>
+					<van-field
+						readonly
+						input-align="right"
+						label="最大录取人数"
+						title-width="7em"
+					/>
+					<van-field
+						readonly
+						input-align="right"
+						label="报名须知"
+						title-width="7em"
+						type="textarea"
+						maxlength="200"
+						autosize
+						show-word-limit
+					/>
+				</van-cell-group>
+			</scroll-view>
+				</van-dialog>
+		</van-tab>
+		<van-tab title="参与人" name="b">
+			<view class="activityTemplate">
+
+			</view>
+		</van-tab>
+		<van-tab title="花絮" name="c">
+			<view class="activityTemplate">
+
+			</view>
+		</van-tab>
+		<van-tab title="评论" name="d">
+			<view class="activityTemplate">
+
+			</view>
+		</van-tab>
+	</van-tabs>
+</view>

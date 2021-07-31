@@ -1,0 +1,92 @@
+<!--pages/activity-template/activity-template.wxml-->
+<view class="template">
+	<view class="templateTitle">
+		<h3>班级会议</h3>
+	</view>
+	<view>
+		<van-tabs id="tabs" active="a" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
+			<van-tab title="必填" name="a" >
+				<view class="activityTemplate">
+					<view class="customTitle">
+						<h5>概要</h5>
+					</view>
+					<van-cell-group>
+						<van-field
+							label="名称"
+							title-width="5em"
+						/>
+						<van-field
+							label="时间"
+							title-width="5em"
+						/>
+						<van-field
+							label="地点"
+							title-width="5em"
+						/>
+					</van-cell-group>
+					<view class="stickyButton" >
+						<van-button type="primary">提交请求</van-button>
+					</view>
+				</view>
+			</van-tab>
+			<van-tab title="选填" name="b">
+				<view class="activityTemplate">
+					<view class="customTitle">
+						<h5>概要</h5>
+					</view>
+					<van-cell-group>
+						<van-field
+							label="主办方"
+							title-width="7em"
+						/>
+						<van-field
+							label="发布人"
+							title-width="7em"
+						/>
+						<van-field
+							label="指导单位"
+							title-width="7em"
+						/>
+						<van-field
+							label="指导老师"
+							title-width="7em"
+						/>
+					</van-cell-group>
+					<view class="customTitle">
+						<h5>报名信息</h5>
+					</view>
+					<van-cell-group>
+						<van-field
+							label="报名时间"
+							title-width="7em"
+						/>
+						<van-field
+							label="录取方式"
+							title-width="7em"
+						/>
+						<van-field
+							label="报名范围"
+							title-width="7em"
+						/>
+						<van-field
+							label="报名年级"
+							title-width="7em"
+						/>
+						<van-field
+							label="最大录取人数"
+							title-width="7em"
+						/>
+						<van-field
+							label="报名须知"
+							title-width="7em"
+							type="textarea"
+							maxlength="200"
+							autosize
+							show-word-limit
+						/>
+					</van-cell-group>
+				</view>
+			</van-tab>
+		</van-tabs>
+	</view>
+</view>

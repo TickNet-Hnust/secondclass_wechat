@@ -7,6 +7,11 @@ Page({
 	data: {
 		active: 'a'
 	},
+	jumpTemplate(e) {
+		wx.navigateTo({
+		  url: '../activity-template/activity-template',
+		})
+	},
 	switchTab(e) {
 		console.log(e.detail.title)
 		if(e.detail.title == '自定义')

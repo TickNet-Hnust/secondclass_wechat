@@ -6,7 +6,9 @@
 		"pages/my/my",
 		"pages/activity-search/activity-search",
 		"pages/activity-release/activity-release",
-		"pages/activity-custom/activity-custom"
+		"pages/activity-custom/activity-custom",
+		"pages/activity-template/activity-template",
+		"pages/activity-detail/activity-detail"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -44,7 +46,13 @@
 		"van-tabs": "@vant/weapp/tabs/index",
 		"van-search": "@vant/weapp/search/index",
 		"van-icon": "@vant/weapp/icon/index",
-		"van-switch": "@vant/weapp/switch/index"
+		"van-switch": "@vant/weapp/switch/index",
+		"van-field": "@vant/weapp/field/index",
+		"van-button": "@vant/weapp/button/index",
+		"van-dialog": "@vant/weapp/dialog/index",
+		"van-row": "@vant/weapp/row/index",
+		"van-col": "@vant/weapp/col/index",
+		"van-divider": "@vant/weapp/divider/index"
 	},
 	"sitemapLocation": "sitemap.json"
 }

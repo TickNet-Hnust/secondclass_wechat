@@ -1,19 +1,24 @@
-/* pages/activity-custom/activity-custom.wxss */
-.custom {
+/* pages/activity-template/activity-template.wxss */
+.template {
+	padding: 0 30rpx;
 	padding-bottom: 140rpx;
+	overflow: hidden;
+}
+.template  .van-tabs__wrap {
+	width: 50%;
+	margin: 0 auto;
+}
+.templateTitle {
+	text-align: center;
+    font-weight: 700;
+    padding: 29rpx;
+    font-size: 42rpx;
 }
 .customTitle {
 	padding: 10rpx 36rpx;
 	font-size: 24rpx;
 	color: #646566;
 	margin: 40rpx 0 0 0;
-}
-.customStyle {
-	background-color: red;
-}
-.custom .van-field__label {
-	font-size: 32rpx;
-	color: #000;
 }
 .stickyButton {
 	position: fixed;

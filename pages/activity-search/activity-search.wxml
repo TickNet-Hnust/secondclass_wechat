@@ -1,19 +1,19 @@
 <!--pages/activity-search/activity-search.wxml-->
 <view class="search">
 	<view class="hotNow">
-					<text class="title">正在进行</text>
-					<van-switch 
-					checked="{{ checked }}"
-					bind:change="onChange"
-					size="20px"
-					active-color="#07c160"
-					inactive-color="#c0c0c0"
-					custom-class="switch"
-				/>
-				</view>
+		<text class="title">正在进行</text>
+		<van-switch 
+		checked="{{ checked }}"
+		bind:change="onChange"
+		size="20px"
+		active-color="#07c160"
+		inactive-color="#c0c0c0"
+		custom-class="switch"
+	/>
+	</view>
 	<van-tabs 
 		id="tabs"
-		active="a"
+		active="{{active}}"
 		animated
 		swipeable
 		color="#07c160"

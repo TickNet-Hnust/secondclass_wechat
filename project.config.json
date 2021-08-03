@@ -21,9 +21,9 @@
         "checkSiteMap": true,
         "uploadWithSourceMap": true,
         "compileHotReLoad": false,
-        "useMultiFrameRuntime": true,
-        "useApiHook": true,
-        "useApiHostProcess": true,
+        "useMultiFrameRuntime": false,
+        "useApiHook": false,
+        "useApiHostProcess": false,
         "babelSetting": {
             "ignore": [],
             "disablePlugins": [],
@@ -55,6 +55,10 @@
         "servePath": ""
     },
     "isGameTourist": false,
+    "simulatorType": "qywx_simulator_plugin",
+    "simulatorPluginLibVersion": {
+        "qywx_simulator_plugin": "2.4.0"
+    },
     "condition": {
         "search": {
             "list": []

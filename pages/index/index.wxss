@@ -1,5 +1,6 @@
 /**index.wxss**/
 .chooseTop {
+  width: 100%;
   background-color: #fff;
 }
 .adImg {

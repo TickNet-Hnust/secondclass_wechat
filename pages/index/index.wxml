@@ -13,8 +13,16 @@
           </swiper-item>
       </swiper>
     
-    
-    <ul class="navs">
+      <van-grid column-num="4">
+        <van-grid-item icon="photo-o" link-type="switchTab" url="/pages/activity/activity" text="活动" />
+        <van-grid-item icon="photo-o" text="群组" />
+        <van-grid-item icon="photo-o" text="场地" />
+        <van-grid-item icon="photo-o" text="认证" />
+        <van-grid-item icon="photo-o" text="报名" />
+        <van-grid-item icon="photo-o" text="投票" />
+        <van-grid-item icon="photo-o" text="证书" />
+      </van-grid>
+    <!-- <ul class="navs">
       <li bindtap="jumpActivity">
         <image  src="../../images/gift.png"></image>
         <view>
@@ -57,7 +65,7 @@
           <text>证书</text>
         </view>
       </li>
-    </ul>
+    </ul> -->
   </view>
   <view class="chooseMiddle">
       <view class="chooseMsg">• 关于开展向“心与馨”志愿支教服务队学习的倡议</view>

@@ -14,6 +14,24 @@ const formatNumber = n => {
   return n[1] ? n : `0${n}`
 }
 
+// const bindClass = function(index){
+//   switch(index){
+//     case 0:
+//       return 'activityClassify1';
+//       break;
+//     case 1:
+//       return 'activityClassify2';
+//       break;
+//     case 2:
+//       return 'activityClassify3';
+//       break;
+//     default:
+//       return '';
+//       break;
+//   }
+// }
+
+
 module.exports = {
-  formatTime
+  formatTime,
 }

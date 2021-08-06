@@ -1,0 +1,71 @@
+<!--pages/activity-score/activity-score.wxml-->
+<view class="score">
+  <van-tabs id="tabs" active="{{ tabsActive }}" animated  color="#07c160" title-active-color="#07c160" bind:change="tabsOnChange">
+      <van-tab title="概况">
+        <view class="activitySocreInfor">
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle" span="6" >• 活动名称</van-col>
+							<van-col class="rightContent" span="18" style="color: gray;">郑商所杯期货模拟交易大赛</van-col>
+						</van-row>
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle"  span="6">• 活动级别</van-col>
+							<van-col class="rightContent" span="18" style="color:green">院级</van-col>
+						</van-row>
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle"  span="6">• 积分方案</van-col>
+							<van-col class="rightContent=" span="18" style="color:green">活动签到获取积分 + 个人申报获取积分，管理员认定</van-col>
+						</van-row>
+
+                  <van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle"  span="6">• 说明</van-col>
+							<van-col class="rightContent" span="18" style="color:green">个人积分 = 积分项 + 加分项</van-col>
+						</van-row>
+
+                  <van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle"  span="6">• 活动分类</van-col>
+
+                     <van-col class="rightContent" span="18">
+                           <view wx:for="{{ 3 }}" wx:key="index" class="activityClassify{{index+1}}">
+                             <view style="margin: 8rpx 17rpx;">
+                              {{index+1}}. 思想政治与人文素养思想政治与人文素养思想政治与
+                              </view>
+                           </view>                    
+                     </van-col>
+                     
+                  </van-row>
+			</view>
+
+          <view class="activityScoreRule">
+             <van-row >
+                <van-col class="ruleText" span="6">• 积分规则</van-col>
+             </van-row>
+							
+             <van-row>
+              <van-grid column-num="2" gutter="10">
+                <van-grid-item use-slot wx:for="{{ 4 }}" wx:key="index">
+                   <view style="text-align:left;width:100%;margin-bottom: 10rpx">
+                    <text>成功参与</text>
+                   </view>
+                   <view style="text-align:right;width:100%;margin-bottom: 5rpx;">
+                     <text style="font-weight:bold;font-size: 67rpx;margin-right: 12rpx;">1.5</text>
+                     <text>分</text>
+                   </view>  
+                </van-grid-item>
+              </van-grid>
+             </van-row>	 
+             <van-row style="width:100%;text-align: center;">
+              <van-button type="primary">现在申报</van-button>
+             </van-row>
+          </view>
+
+
+      </van-tab>
+
+
+      <van-tab title="已申报">
+          已申报内容
+      </van-tab>
+  </van-tabs>
+</view>
+
+

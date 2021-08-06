@@ -8,6 +8,11 @@ Page({
 		show:false,
 		name: 'sfaf'
 	},
+	jumpActivityScore() {
+		wx.navigateTo({
+			url: '../activity-score/activity-score',
+		})
+	},
 	showDialog() {
 		this.setData({
 			show: true

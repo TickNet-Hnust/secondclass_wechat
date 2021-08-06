@@ -131,7 +131,7 @@
 							<view class="flexMainTitle">申请积分</view>
 							<view class="flexSideTitle">为活动参与人申请积分</view>
 						</van-col>
-						<van-col span="5" ><van-button type="primary" size="small">详情</van-button></van-col>
+						<van-col span="5" ><van-button type="primary" size="small" bind:tap="jumpActivityScore">详情</van-button></van-col>
 					</van-row>
 				</view>
 				<view class="flexLines">
@@ -145,7 +145,7 @@
 							<view class="flexMainTitle">活动管理</view>
 							<view class="flexSideTitle">本次活动的控制台</view>
 						</van-col>
-						<van-col span="5" ><text style="font-size: 24rpx;color:#bbb">进入控制台</text></van-col>
+						<van-col span="5" ><text style="font-size: 24rpx;color:#bbb" >进入控制台</text></van-col>
 					</van-row>
 				</view>
 			</view>

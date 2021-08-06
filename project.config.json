@@ -33,50 +33,9 @@
         "useIsolateContext": true,
         "userConfirmedBundleSwitch": false,
         "packNpmManually": false,
-        "packNpmRelationList": [
-            {
-                "packageJsonPath": "./package.json",
-                "miniprogramNpmDistDir": "./../miniprogram-2"
-            }
-        ],
+        "packNpmRelationList": [],
         "minifyWXSS": true,
         "showES6CompileOption": false
     },
-    "compileType": "miniprogram",
-    "libVersion": "2.18.1",
-    "appid": "wxcfba675bcd332ebf",
-    "projectname": "erke",
-    "debugOptions": {
-        "hidedInDevtools": []
-    },
-    "scripts": {},
-    "staticServerOptions": {
-        "baseURL": "",
-        "servePath": ""
-    },
-    "isGameTourist": false,
-    "simulatorType": "qywx_simulator_plugin",
-    "simulatorPluginLibVersion": {
-        "qywx_simulator_plugin": "2.4.0"
-    },
-    "condition": {
-        "search": {
-            "list": []
-        },
-        "conversation": {
-            "list": []
-        },
-        "game": {
-            "list": []
-        },
-        "plugin": {
-            "list": []
-        },
-        "gamePlugin": {
-            "list": []
-        },
-        "miniprogram": {
-            "list": []
-        }
-    }
+    "condition": {}
 }

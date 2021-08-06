@@ -1,4 +1,7 @@
 <!--index.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{false}}"><view slot="backText">返回</view>
+	<view slot="content">主页</view>
+</cu-custom>
 <view class="container">
   <view class="chooseTop">
     <swiper autoplay interval="5000" duration="500" style="height: 230rpx;">

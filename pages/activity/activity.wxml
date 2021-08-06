@@ -1,4 +1,7 @@
 <!--pages/activity/activity.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{false}}"><view slot="backText">返回</view>
+	<view slot="content">活动</view>
+</cu-custom>
 <view class="containerActivity">
   <view class="activityTop">
 	<view class="activitySearch" bindtap="jumpSearch">
@@ -12,6 +15,7 @@
 		<text class="activityText">2</text>
 	</view>
   </view>
+
   <view>
 	<van-tabs 
 		id="tabs"
@@ -20,120 +24,61 @@
 		swipeable
 		color="#07c160"
 		title-active-color="#07c160"
+		bind:change="activeChange"
 	>
 		<van-tab title="推荐" name="a">
 			<view class="activityAbstract">
-				<view bindtap="jumpDetail">
-					<view>
-						<image src="https://img0.baidu.com/it/u=2087814202,375258500&fm=26&fmt=auto&gp=0.jpg"></image>
+				<view  wx:for="{{recommendActivityList}}" wx:key="*this" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-slide-left':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+						<view>
+							<image src="{{item.image}}"></image>
+						</view>
+						<view >
+							<view class="tabMainText">
+								{{item.name}}
+							</view>
+						</view>
+						<view>
+							<text class="tabSideText">{{item.activityTag}}</text>
+						</view>
 					</view>
-					<view>
-						<text class="tabMainText">第二届中国汨罗江文学奖香草美人奖征文活动</text>
-					</view>
-					<view>
-						<text class="tabSideText">大学生读书节</text>
-					</view>
-				</view>
-				<view bindtap="jumpDetail">
-					<view>
-						<image src="https://img0.baidu.com/it/u=3217878538,1375708071&fm=26&fmt=auto&gp=0.jpg"></image>
-					</view>
-					<view>
-						<text class="tabMainText">第二届中国汨罗江文学奖香草美人奖征文活动</text>
-					</view>
-					<view>
-						<text class="tabSideText">大学生读书节</text>
-					</view>
-				</view>
-				<view bindtap="jumpDetail">
-					<view>
-						<image src="https://img1.baidu.com/it/u=2011953861,1241475733&fm=26&fmt=auto&gp=0.jpg"></image>
-					</view>
-					<view>
-						<text class="tabMainText">第二届中国汨罗江文学奖香草美人奖征文活动</text>
-					</view>
-					<view>
-						<text class="tabSideText">大学生读书节</text>
-					</view>
-				</view>
-				<view bindtap="jumpDetail">
-					<view>
-						<image src="https://img2.baidu.com/it/u=1705575043,3141098063&fm=26&fmt=auto&gp=0.jpg"></image>
-					</view>
-					<view>
-						<text class="tabMainText">第二届中国汨罗江文学奖香草美人奖征文活动</text>
-					</view>
-					<view>
-						<text class="tabSideText">大学生读书节</text>
-					</view>
-				</view>
 			</view>
 		</van-tab>
 		<van-tab title="收藏" name="b">
 			<view class="activityAbstract">				
-				<view bindtap="jumpDetail">
-					<view>
-						<image src="https://img0.baidu.com/it/u=3217878538,1375708071&fm=26&fmt=auto&gp=0.jpg"></image>
+				<view wx:for="{{collectionActivityList}}" wx:key="*this" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+						<view>
+							<image src="{{item.image}}"></image>
+						</view>
+						<view >
+							<view class="tabMainText">
+								{{item.name}}
+							</view>
+						</view>
+						<view class="tabSideText">
+							<text >{{item.activityTag}}</text>
+						</view>
 					</view>
-					<view>
-						<text class="tabMainText">第二届中国汨罗江文学奖香草美人奖征文活动</text>
-					</view>
-					<view>
-						<text class="tabSideText">大学生读书节</text>
-					</view>
-				</view>
-				<view bindtap="jumpDetail">
-					<view>
-						<image src="https://img1.baidu.com/it/u=2011953861,1241475733&fm=26&fmt=auto&gp=0.jpg"></image>
-					</view>
-					<view>
-						<text class="tabMainText">第二届中国汨罗江文学奖香草美人奖征文活动</text>
-					</view>
-					<view>
-						<text class="tabSideText">大学生读书节</text>
-					</view>
-				</view>
-				<view bindtap="jumpDetail">
-					<view>
-						<image src="https://img2.baidu.com/it/u=1705575043,3141098063&fm=26&fmt=auto&gp=0.jpg"></image>
-					</view>
-					<view>
-						<text class="tabMainText">第二届中国汨罗江文学奖香草美人奖征文活动</text>
-					</view>
-					<view>
-						<text class="tabSideText">大学生读书节</text>
-					</view>
-				</view>
 			</view>
 		</van-tab>
 		<van-tab title="我的" name="c">
 			<view class="activityAbstract">
-				<view bindtap="jumpDetail">
-					<view>
-						<image src="https://img0.baidu.com/it/u=2087814202,375258500&fm=26&fmt=auto&gp=0.jpg"></image>
+				<view wx:for="{{myActivityList}}" wx:key="*this" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-slide-right':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+						<view>
+							<image src="{{item.image}}"></image>
+						</view>
+						<view >
+							<view class="tabMainText">
+								{{item.name}}
+							</view>
+						</view>
+						<view>
+							<text class="tabSideText">{{item.activityTag}}</text>
+						</view>
 					</view>
-					<view>
-						<text class="tabMainText">第二届中国汨罗江文学奖香草美人奖征文活动</text>
-					</view>
-					<view>
-						<text class="tabSideText">大学生读书节</text>
-					</view>
-				</view>
-				
-				<view bindtap="jumpDetail">
-					<view>
-						<image src="https://img1.baidu.com/it/u=2011953861,1241475733&fm=26&fmt=auto&gp=0.jpg"></image>
-					</view>
-					<view>
-						<text class="tabMainText">第二届中国汨罗江文学奖香草美人奖征文活动</text>
-					</view>
-					<view>
-						<text class="tabSideText">大学生读书节</text>
-					</view>
-				</view>
 				
 			</view>
 		</van-tab>
 	</van-tabs>
+	
   </view>
 </view>

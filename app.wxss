@@ -1,4 +1,8 @@
 /**app.wxss**/
+/* @import '@vant/weapp/common/index.wxss'; */
+@import "colorui/main.wxss";
+@import "colorui/icon.wxss";
+@import "colorui/animation.wxss";
 .container {
   height: 100%;
   display: flex;
@@ -16,21 +20,43 @@
 	flex-wrap: wrap;
 }
 .activityAbstract > view {
-	width: 45%;
-	height: 350rpx;
+	width: 49%;
+	height: 296rpx;
 	/* background-color: red; */
-	margin: 20rpx 0;
+	margin: 1% 0;
 }
 .activityAbstract image {
-	border-radius: 20rpx;
+	/* border-radius: 20rpx; */
 	width: 100%;
 	height: 200rpx;
 }
+.van-empty image {
+	height: 100%;
+}
+.van-sticky-wrap {
+	background-color: #fff ;
+}
 .tabMainText {
-	font-size: 30rpx;
+	font-size: 25rpx;
+	padding: 0 20rpx;
+	padding-top: 10rpx;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
 	color: #333333;
 }
 .tabSideText {
 	font-size: 25rpx;
+	padding: 0 20rpx;
+	/* margin-bottom: 10rpx; */
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
 	color: #7F7F7F;
+}
+.activityFull {
+	border-radius: 5px;
+    overflow: hidden;
+	background-color: #fff;
+	box-shadow:  0 0 8rpx #ccc;
 }

@@ -5,8 +5,60 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		active: 'a'
+		active: 'a',
+		toggleDelay:false,
+		use: [
+			{
+				title: '班级会议',
+				side: '组织开展班会',
+			},
+			{
+				title: '团组织生活会',
+				side: '组织开展班级团员活动',
+			},
+			{
+				title: '班级活动',
+				side: '组织开展班级活动',
+			}
+		],
+		list:[
+			{
+				title: '班级会议',
+				side: '组织开展班会',
+			},
+			{
+				title: '团组织生活会',
+				side: '组织开展班级团员活动',
+			},
+			{
+				title: '班级活动',
+				side: '组织开展班级活动',
+			},
+			{
+				title: '线下讲座',
+				side: '组织开展有场地的线下讲座',
+			},
+			{
+				title: '线上活动',
+				side: '组织开展无场地的线上活动',
+			},
+			{
+				title: '干部竞选',
+				side: '组织开展各级干部竞选活动',
+			}
+		]
 	},
+	toggleDelay() {
+		var that = this;
+		that.setData({
+		  toggleDelay: true
+		})
+		setTimeout(function() {
+		  that.setData({
+			toggleDelay: false
+		  })
+		}, 1000)
+	  },
 	jumpTemplate(e) {
 		wx.navigateTo({
 		  url: '../activity-template/activity-template',
@@ -14,6 +66,7 @@ Page({
 	},
 	switchTab(e) {
 		console.log(e.detail.title)
+		this.toggleDelay()
 		if(e.detail.title == '自定义')
 		wx.navigateTo({
 		  url: '../activity-custom/activity-custom',

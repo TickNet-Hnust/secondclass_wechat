@@ -6,7 +6,7 @@
 	padding: 10rpx 36rpx;
 	font-size: 24rpx;
 	color: #646566;
-	margin: 40rpx 0 0 0;
+	margin: 25rpx 0 0 0;
 }
 .customStyle {
 	background-color: red;

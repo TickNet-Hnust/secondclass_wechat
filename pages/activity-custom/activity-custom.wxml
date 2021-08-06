@@ -1,4 +1,7 @@
 <!--pages/activity-custom/activity-custom.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">自定义活动</view>
+</cu-custom>
 <view class="custom">
 	<van-cell-group custom-style="customStyle">
 		
@@ -14,19 +17,23 @@
 	</view>
 	<van-cell-group>
 		<van-field
+			model:value="{{groupId}}"
 			label="主办方"
 			title-width="7em"
 		/>
 		<van-field
 			label="发布人"
+			model:value="{{activityReleaserId}}"
 			title-width="7em"
 		/>
 		<van-field
 			label="指导单位"
+			model:value="{{deptId}}"
 			title-width="7em"
 		/>
 		<van-field
 			label="指导老师"
+			model:value="{{guideTeacherId}}"
 			title-width="7em"
 		/>
 	</van-cell-group>
@@ -37,6 +44,7 @@
 		<van-field
 			label="报名时间"
 			title-width="7em"
+			bind:focus="pickEnrollTime"
 		/>
 		<van-field
 			label="录取方式"
@@ -56,6 +64,79 @@
 		/>
 		<van-field
 			label="报名须知"
+			title-width="7em"
+			type="textarea"
+			maxlength="200"
+			autosize
+			show-word-limit
+		/>
+	</van-cell-group>
+	<view class="customTitle">
+		<h5>活动信息</h5>
+	</view>
+	<van-cell-group>
+		<van-field
+			label="活动级别"
+			title-width="7em"
+		/>
+		<van-field
+			label="活动标签"
+			title-width="7em"
+		/>
+		<van-field
+			label="活动分类"
+			title-width="7em"
+		/>
+		<van-field
+			label="活动时间"
+			title-width="7em"
+		/>
+		<van-field
+			label="允许请假"
+			title-width="7em"
+		/>
+		<van-field
+			label="花絮管理"
+			title-width="7em"
+		/>
+		<van-field
+			label="评价管理"
+			title-width="7em"
+		/>
+		<van-field
+			label="活动地点"
+			title-width="7em"
+		/>
+		<van-field
+			label="签到时间"
+			title-width="7em"
+		/>
+		<van-field
+			label="签到距离"
+			title-width="7em"
+		/>
+		<van-field
+			label="活动负责人"
+			title-width="7em"
+		/>
+		<van-field
+			label="活动组织者"
+			title-width="7em"
+		/>
+		<van-field
+			label="图片素材"
+			title-width="7em"
+		/>
+		<van-field
+			label="相关附件"
+			title-width="7em"
+		/>
+		<van-field
+			label="活动介绍"
+			title-width="7em"
+		/>
+		<van-field
+			label="活动介绍"
 			title-width="7em"
 			type="textarea"
 			maxlength="200"

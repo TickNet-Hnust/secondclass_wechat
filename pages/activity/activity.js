@@ -1,13 +1,32 @@
 // pages/activity/activity.js
+let http = require('../../js/http.js')
 Page({
 
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
+		toggleDelay:false,
 		active: 1,
-		value: ''
+		value: '',
+		recommendActivityList: [],
+		collectionActivityList: [],
+		myActivityList: [],
 	},
+	activeChange() {
+		this.toggleDelay()
+	},
+	toggleDelay() {
+		var that = this;
+		that.setData({
+		  toggleDelay: true
+		})
+		setTimeout(function() {
+		  that.setData({
+			toggleDelay: false
+		  })
+		}, 1000)
+	  },
 	jumpDetail() {
 		wx.navigateTo({
 		  url: '../activity-detail/activity-detail',
@@ -33,7 +52,21 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-
+		http.getData('/secondClass/activity/list',{recommend:1},(res) => {
+			this.setData({
+				recommendActivityList:res.rows
+			})
+		})
+		http.getData('/secondClass/activity/collection/list',{},(res) => {
+			this.setData({
+				collectionActivityList:res.rows
+			})
+		})
+		http.getData('/secondClass/activity/user',{},(res) => {
+			this.setData({
+				myActivityList:res.rows
+			})
+		})
 	},
 
 	/**

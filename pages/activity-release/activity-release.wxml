@@ -1,49 +1,25 @@
 <!--pages/activity-release/activity-release.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">活动发布</view>
+</cu-custom>
 <view class="release">
 	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
 		<van-tab title="常用" name="a" >
 			<view class="activityTemplate">
-				<view class="templateItem" bindtap="jumpTemplate">
-					<text class="itemMainText">班级会议</text>
-					<text class="itemSideText">组织开展班会</text>
-				</view>
-				<view class="templateItem" bindtap="jumpTemplate">
-					<text class="itemMainText">团组织生活会</text>
-					<text class="itemSideText">组织开展班级团员活动</text>
-				</view>
-				<view class="templateItem" bindtap="jumpTemplate">
-					<text class="itemMainText">班级活动</text>
-					<text class="itemSideText">组织开展班级活动</text>
+				<view wx:for="{{use}}" wx:key="index"  bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<text class="itemMainText">{{item.title}}</text>
+					<text class="itemSideText">{{item.side}}</text>
 				</view>
 
 			</view>
 		</van-tab>
 		<van-tab title="模版库" name="b">
 			<view class="activityTemplate">
-				<view class="templateItem" bindtap="jumpTemplate">
-					<text class="itemMainText">班级会议</text>
-					<text class="itemSideText">组织开展班会</text>
+				<view wx:for="{{list}}" wx:key="index"  bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<text class="itemMainText">{{item.title}}</text>
+					<text class="itemSideText">{{item.side}}</text>
 				</view>
-				<view class="templateItem" bindtap="jumpTemplate">
-					<text class="itemMainText">团组织生活会</text>
-					<text class="itemSideText">组织开展班级团员活动</text>
-				</view>
-				<view class="templateItem" bindtap="jumpTemplate">
-					<text class="itemMainText">班级活动</text>
-					<text class="itemSideText">组织开展班级活动</text>
-				</view>
-				<view class="templateItem" bindtap="jumpTemplate">
-					<text class="itemMainText">线下讲座</text>
-					<text class="itemSideText">组织开展有场地的线下讲座</text>
-				</view>
-				<view class="templateItem" bindtap="jumpTemplate">
-					<text class="itemMainText">线上活动</text>
-					<text class="itemSideText">组织开展无场地的线上活动</text>
-				</view>
-				<view class="templateItem">
-					<text class="itemMainText">干部竞选</text>
-					<text class="itemSideText">组织开展各级干部竞选活动</text>
-				</view>
+				
 
 			</view>
 		</van-tab>

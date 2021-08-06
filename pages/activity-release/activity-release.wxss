@@ -2,6 +2,7 @@
 .release {
 	padding: 0 30rpx;
 	overflow: hidden;
+	background-color: #fff;
 }
 .release  .van-tabs__wrap {
 	width: 50%;

@@ -1,6 +1,8 @@
 /* pages/activity-search/activity-search.wxss */
+
 .search {
 	position: relative;
+	background-color: #f1f1f1;
 }
 .hotNow {
 	position: absolute;
@@ -16,8 +18,13 @@
 .search .van-tabs__wrap {
 	width: 50%;
 }
-.search .searchBody,.searchResult,.searchAll,.searchHot {
+.search .searchBody {
+	padding: 10rpx 30rpx;
+	background-color: #fff;
+}
+.searchResult,.searchAll,.searchHot {
 	padding: 0 30rpx;
+	
 }
 .history {
 	display: flex;
@@ -28,9 +35,14 @@
 
 }
 .historyText {
-	font-size: 26rpx;
-	color: #333;
-	font-weight: 400;
-	line-height: 60rpx;
+	display: flex;
+	justify-content: start;
+	flex-wrap: wrap;
+}
+.tag {
+	margin: 15rpx 10rpx;
+}
+.tag:last-child {
+    margin-right: auto;
 }
 

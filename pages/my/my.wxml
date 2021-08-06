@@ -1,4 +1,7 @@
 <!--pages/my/my.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">我的</view>
+</cu-custom>
 <view>
 	<van-button bindtap="getUserInfo">点击授权</van-button>
 	<text>pages/my/my.wxml</text>

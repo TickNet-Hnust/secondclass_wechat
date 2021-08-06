@@ -1,22 +1,24 @@
 /* pages/activity/activity.wxss */
 .containerActivity {
-	padding: 40rpx;
+	padding: 2%;
+	/* background-color: #fff; */
 }
 .activityTop {
 	display: flex;
-	justify-content: space-around;
+	margin-bottom: 20rpx;
+	justify-content: space-between;
 }
 .activitySearch {
 	position: relative;
 	text-align: center;
-	width: 45%;
+	width: 48%;
 	height: 120rpx;
 }
 .activityRocket {
 	position: relative;
 	left: 0;
 	text-align: center;
-	width: 45%;
+	width: 48%;
 	height: 120rpx;
 }
 .activityBgImg {

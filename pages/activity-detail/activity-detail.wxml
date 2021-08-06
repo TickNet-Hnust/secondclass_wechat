@@ -1,4 +1,7 @@
 <!--pages/activity-detail/activity-detail.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">活动详情</view>
+</cu-custom>
 <view class="detail">
 	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
 		<van-tab title="概况" name="a" >

@@ -1,4 +1,4 @@
 module.exports = {
 	httpServer: "http://localhost:8080",  // 业务服务器地址 每个人的不一样，按照需要改！
-	httpToken: 'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjczNjk1OTVhLTgyYWMtNGZjMC05ZTc5LTY2NjVjOGI1MTgxZCJ9.KIHmTBnW4bmDYREgRPS9iVvjEPw9WgXq_GrYEE4ti7Hr1U54rHhpkuPAdkBuze62Sg-xi07-CjmFi4wOH6usZg',  // 存放业务服务器提供的 token 
+	httpToken: 'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImFjNGNjNmRlLTU4N2QtNGM1Yy05ZWRlLTRkZGU5YzViMGI4YiJ9.LBL8alNcNDAqkCdbvwxTa3Dn09X17NwlgmO6UVXnkIpptqj478U2RJOfppr67NQIoa2te5HeJpGHbpQ0g10zEA',  // 存放业务服务器提供的 token 
   }

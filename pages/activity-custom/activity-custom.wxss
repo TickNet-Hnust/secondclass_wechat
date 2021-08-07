@@ -26,3 +26,7 @@
     background-color: #fff;
     text-align: center;
 }
+.cu-form-group .title {
+	min-width: calc(6em + 30rpx);
+  }
+  

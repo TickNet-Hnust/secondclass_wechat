@@ -1,4 +1,7 @@
 <!--pages/activity-score/activity-score.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">自定义活动</view>
+</cu-custom>
 <view class="score">
   <van-tabs id="tabs" active="{{ tabsActive }}" animated  color="#07c160" title-active-color="#07c160" bind:change="tabsOnChange">
       <van-tab title="概况">

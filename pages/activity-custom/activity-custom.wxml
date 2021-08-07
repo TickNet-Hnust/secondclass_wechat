@@ -3,148 +3,194 @@
 	<view slot="content">自定义活动</view>
 </cu-custom>
 <view class="custom">
-	<van-cell-group custom-style="customStyle">
-		
-		<van-field
-			model:value="{{ name }}"
-			placeholder="编辑活动名称"
-			label="活动名称"
-			title-width="7em"
-		/>
-	</van-cell-group>
-	<view class="customTitle">
-		<h5>概要</h5>
+	<form>
+		<view class="cu-form-group">
+		<view class="title">标题</view>
+		<input placeholder="请填写" model="{{postData.name}}"></input>
 	</view>
-	<van-cell-group>
-		<van-field
-			model:value="{{groupId}}"
-			label="主办方"
-			title-width="7em"
-		/>
-		<van-field
-			label="发布人"
-			model:value="{{activityReleaserId}}"
-			title-width="7em"
-		/>
-		<van-field
-			label="指导单位"
-			model:value="{{deptId}}"
-			title-width="7em"
-		/>
-		<van-field
-			label="指导老师"
-			model:value="{{guideTeacherId}}"
-			title-width="7em"
-		/>
-	</van-cell-group>
-	<view class="customTitle">
-		<h5>报名信息</h5>
+	<view class="cu-bar solid-bottom ">
+		<view class="action">
+			<text class="cuIcon-title text-blue"></text>概要
+		</view>
 	</view>
-	<van-cell-group>
-		<van-field
-			label="报名时间"
-			title-width="7em"
-			bind:focus="pickEnrollTime"
-		/>
-		<van-field
-			label="录取方式"
-			title-width="7em"
-		/>
-		<van-field
-			label="报名范围"
-			title-width="7em"
-		/>
-		<van-field
-			label="报名年级"
-			title-width="7em"
-		/>
-		<van-field
-			label="最大录取人数"
-			title-width="7em"
-		/>
-		<van-field
-			label="报名须知"
-			title-width="7em"
-			type="textarea"
-			maxlength="200"
-			autosize
-			show-word-limit
-		/>
-	</van-cell-group>
-	<view class="customTitle">
-		<h5>活动信息</h5>
+	<view class="cu-form-group">
+		<view class="title">主办方</view>
+		<input placeholder="请填写" value="{{postData.groupId}}"></input>
 	</view>
-	<van-cell-group>
-		<van-field
-			label="活动级别"
-			title-width="7em"
-		/>
-		<van-field
-			label="活动标签"
-			title-width="7em"
-		/>
-		<van-field
-			label="活动分类"
-			title-width="7em"
-		/>
-		<van-field
-			label="活动时间"
-			title-width="7em"
-		/>
-		<van-field
-			label="允许请假"
-			title-width="7em"
-		/>
-		<van-field
-			label="花絮管理"
-			title-width="7em"
-		/>
-		<van-field
-			label="评价管理"
-			title-width="7em"
-		/>
-		<van-field
-			label="活动地点"
-			title-width="7em"
-		/>
-		<van-field
-			label="签到时间"
-			title-width="7em"
-		/>
-		<van-field
-			label="签到距离"
-			title-width="7em"
-		/>
-		<van-field
-			label="活动负责人"
-			title-width="7em"
-		/>
-		<van-field
-			label="活动组织者"
-			title-width="7em"
-		/>
-		<van-field
-			label="图片素材"
-			title-width="7em"
-		/>
-		<van-field
-			label="相关附件"
-			title-width="7em"
-		/>
-		<van-field
-			label="活动介绍"
-			title-width="7em"
-		/>
-		<van-field
-			label="活动介绍"
-			title-width="7em"
-			type="textarea"
-			maxlength="200"
-			autosize
-			show-word-limit
-		/>
-	</van-cell-group>
+	<view class="cu-form-group">
+		<view class="title">发布人</view>
+		<input placeholder="请填写" value="{{postData.activityReleaserId}}"></input>
+	</view>
+	
+	<view class="cu-form-group">
+		<view class="title">指导老师</view>
+		<input placeholder="请填写" value="{{postData.guideTeacherId}}"></input>
+	</view>
+
+	<view class="cu-form-group">
+		<view class="title">指导单位</view>
+		<picker bindchange="deptChange" value="{{fakeData.deptno}}" range="{{picker}}">
+			<view class="picker">
+				{{fakeData.deptno?picker[fakeData.deptno]:'请填写指导单位'}}
+			</view>
+		</picker>
+	</view>
+	<view class="cu-bar solid-bottom ">
+		<view class="action">
+			<text class="cuIcon-title text-blue"></text>报名信息
+		</view>
+	</view>
+	<view class="cu-form-group ">
+		<view class="title">报名开始日期</view>
+		<picker mode="date" value="{{fakeData.enrollStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="enrollStartTimeFrontChange">
+			<view class="picker">
+				{{fakeData.enrollStartTimeFront}}
+			</view>
+		</picker>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">报名开始时间</view>
+		<picker mode="time" value="{{fakeData.enrollStartTimeEnd}}" start="00:00" end="24:00" bindchange="enrollStartTimeEndChange">
+			<view class="picker">
+				{{fakeData.enrollStartTimeEnd}}
+			</view>
+		</picker>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">报名结束日期</view>
+		<picker mode="date" value="{{fakeData.enrollEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="enrollEndTimeFrontChange">
+			<view class="picker">
+				{{fakeData.enrollEndTimeFront}}
+			</view>
+		</picker>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">报名结束时间</view>
+		<picker mode="time" value="{{fakeData.enrollEndTimeEnd}}" start="00:00" end="24:00" bindchange="enrollEndTimeEndChange">
+			<view class="picker">
+				{{fakeData.enrollEndTimeEnd}}
+			</view>
+		</picker>
+	</view>
+
+	<view class="cu-form-group">
+		<view class="title">录取方式</view>
+		<picker bindchange="PickerChange" value="{{postData.deptId}}" range="{{picker}}">
+			<view class="picker">
+				{{postData.deptId?deptList[postData.deptId]:'录取方式'}}
+			</view>
+		</picker>
+	</view>
+
+	<view class="cu-form-group">
+		<view class="title">报名范围</view>
+		<view class="action">
+			<button class="cu-btn bg-green shadow" bindtap="showModal" data-target="ChooseModal">Choose</button>
+		</view>
+	</view>
+	<view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap="hideModal">
+		<view class="cu-dialog" catchtap>
+			<view class="cu-bar bg-white">
+			<view class="action text-blue" bindtap="hideModal">取消</view>
+			<view class="action text-green" bindtap="hideModal">确定</view>
+			</view>
+			<view class="grid col-3 padding-sm">
+			<view wx:for="{{range}}" class="padding-xs" wx:key="index">
+				<button class="cu-btn orange lg block {{item.checked?'bg-green':'line-green'}}" bindtap="ChooseCheckbox" data-value="{{item.value}}"> 
+					{{item.name}}
+				</button>
+			</view>
+			</view>
+		</view>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">最大录取人数</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group align-start">
+		<view class="title">报名须知</view>
+		<textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaBInput" placeholder="多行文本输入框"></textarea>
+	</view>
+
+	<view class="cu-bar solid-bottom ">
+		<view class="action">
+			<text class="cuIcon-title text-blue"></text>活动信息
+		</view>
+	</view>
+	<view class="cu-form-group ">
+		<view class="title">活动级别</view>
+		<picker bindchange="PickerChange" value="{{postData.deptId}}" range="{{picker}}">
+			<view class="picker">
+				{{postData.deptId?deptList[postData.deptId]:'请填写活动级别'}}
+			</view>
+		</picker>
+	</view>
+
+	<view class="cu-form-group">
+		<view class="title">活动标签</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">活动分类</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">活动时间</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">允许请假</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">花絮管理</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">评价管理</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">活动地点</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">签到时间</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">签到距离</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">活动负责人</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">活动组织者</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">图片素材</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">相关附件</view>
+		<input placeholder="请填写"></input>
+	</view>
+	<view class="cu-form-group align-start">
+		<view class="title">报名须知</view>
+		<textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaBInput" placeholder="多行文本输入框"></textarea>
+	</view>
+
+
+
+</form>
+	
+	
+	
+	
 	<view class="stickyButton" >
-		<van-button type="primary">提交请求</van-button>
+		<van-button type="primary" bindtap="postActivity">提交请求</van-button>
 	</view>
 </view>

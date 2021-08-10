@@ -37,5 +37,10 @@
         "minifyWXSS": true,
         "showES6CompileOption": false
     },
+    "compileType": "miniprogram",
+    "simulatorType": "qywx_simulator_plugin",
+    "simulatorPluginLibVersion": {
+        "qywx_simulator_plugin": "2.4.0"
+    },
     "condition": {}
 }

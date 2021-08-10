@@ -54,7 +54,7 @@
 					<van-empty image="search" description="没有找到匹配的活动" style="margin: 0 auto;"/>
 				</view>
 				<view class="activityAbstract">
-					<view class="activityFull" wx:for="{{serchActivityList}}" wx:key="*this">
+					<view class="activityFull" wx:for="{{serchActivityList}}" wx:key="index">
 						<view>
 							<image src="{{item.image}}"></image>
 						</view>
@@ -75,7 +75,7 @@
 			<view class="searchAll">
 				
 				<view class="activityAbstract">
-					<view wx:for="{{allActivityList}}" wx:key="*this" class="activityFull {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
 						<image src="{{item.image}}"></image>
 					</view>
@@ -94,7 +94,7 @@
 		<van-tab title="热门" name="c">
 			<view class="searchHot">
 				<view class="activityAbstract">
-				<view wx:for="{{hotActivityList}}" wx:key="*this" class="activityFull {{toggleDelay?'animation-slide-right':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view wx:for="{{hotActivityList}}" wx:key="index" class="activityFull {{toggleDelay?'animation-slide-right':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
 						<image src="{{item.image}}"></image>
 					</view>

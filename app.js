@@ -1,45 +1,36 @@
 // app.js
-let http = require('js/http.js')
+// let http = require('js/http.js')
+
 App({
   onLaunch() {
-    wx.request({
-      url: 'http://127.0.0.1:8080/system/dict/data/type/sc_activity_admission_way',
-      success:(res) => {
-        console.log(res)
-      },
-      header:{
-        'Authorization':'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImFjNGNjNmRlLTU4N2QtNGM1Yy05ZWRlLTRkZGU5YzViMGI4YiJ9.LBL8alNcNDAqkCdbvwxTa3Dn09X17NwlgmO6UVXnkIpptqj478U2RJOfppr67NQIoa2te5HeJpGHbpQ0g10zEA',
-        // "User-Agent": "PostmanRuntime/7.26.8",
-        "Content-Type": "multipart/form-data; boundary=--------------827246071184144487089220"
-      }
-    })
+    // wx.setStorageSync('token', 'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjQ3YWVlNTYyLTEzYzctNDU1MS1hOTlmLWNhYzhkYWZiOTAwMyJ9.ajnsSWw2lcuYP7tTIb_elJKNHb1QcqCHhsqxVvdjGOvC5yz_dHq3wDc1EcPXIu1rY48bJxTu8yHWUQVPqFriAA')
 	//获取部门
-	http.getData('/dept/util/listByType',{type:1},(res) => {
-		wx.setStorageSync('dept', res.data)
-		console.log(wx.getStorageSync('dept'),res,123)
-  })
-  //获取报名方式字典
-  // http.getData('/system/dict/data/type/sc_activity_admission_way',{type:1},(res) => {
-	// 	// wx.setStorageSync('dept', res.data)
+	// http.getData('/dept/util/listByType',{type:1},(res) => {
+	// 	wx.setStorageSync('dept', res.data)
+	// 	console.log(wx.getStorageSync('dept'),res,123)
+  // })
+  // //获取报名方式字典
+  // http.getData('/dict/data/type/sc_activity_admission_way',{type:1},(res) => {
+	// 	wx.setStorageSync('admisstionWay', res.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})))
+	// 	console.log(res,123)
+  // })
+  // //获取活动级别
+  // http.getData('/dict/data/type/sc_train_program_rank',{type:1},(res) => {
+	// 	wx.setStorageSync('rank', res.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})))
+	// 	console.log(res,123)
+  // })
+  // //活动花絮管理方案
+  // http.getData('/dict/data/type/sc_activity_flower_scheme',{type:1},(res) => {
+	// 	wx.setStorageSync('flower', res.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})))
+	// 	console.log(res,123)
+  // })
+  // //活动评价管理方案
+  // http.getData('/dict/data/type/sc_activity_evaluate_scheme',{type:1},(res) => {
+	// 	wx.setStorageSync('evaluate', res.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})))
 	// 	console.log(res,123)
   // })
     // 登录
-    wx.qy.login({
-			success: function(res) {
-				console.log(res)
-				// if (res.code) {
-				//   //发起网络请求
-				//   wx.request({
-				// 	url: 'http://127.0.0.1:8080/loginByCode',
-				// 	data: {
-				// 	  code: res.code
-				// 	}
-				//   })
-				// } else {
-				//   console.log('登录失败！' + res.errMsg)
-				// }	
-			}
-		})
+    
 		wx.getSystemInfo({
 			success: e => {
 			  this.globalData.StatusBar = e.statusBarHeight;
@@ -52,6 +43,29 @@ App({
 			  }
 			}
 		  })
+  },
+  onShow(e) {
+    wx.qy.login({
+			success: function(res) {
+				console.log(res)
+				if (res.code) {
+				  //发起网络请求
+				  wx.request({
+            url: `http://192.168.124.8:8080/MpLoginByCode/${res.code}`,
+            success:(res) => {
+              console.log(res,45)
+              wx.setStorageSync('token', res.data.data.token)
+            },
+            fail:(res) => {
+              console.log(res,46)
+            }
+          })
+          
+				} else {
+				  console.log('登录失败！' + res.errMsg)
+				}	
+			}
+    })
   },
   globalData: {
     ColorList: [{

@@ -1,5 +1,5 @@
 // pages/activity/activity.js
-let http = require('../../js/http.js')
+import {request} from '../../js/http.js'
 Page({
 
 	/**
@@ -52,19 +52,37 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		http.getData('/secondClass/activity/list',{recommend:1},(res) => {
+		request({
+			url:'/secondClass/activity/list',
+			method: 'GET',
+			data:{recommend:1}
+		}).then(value => {
+			console.log(value)
 			this.setData({
-				recommendActivityList:res.rows
+				recommendActivityList:value.rows
 			})
 		})
-		http.getData('/secondClass/activity/collection/list',{},(res) => {
+
+
+		request({
+			url:'/secondClass/activity/list',
+			method: 'GET',
+			data:{}
+		}).then(value => {
+			console.log(value)
 			this.setData({
-				collectionActivityList:res.rows
+				collectionActivityList:value.rows
 			})
 		})
-		http.getData('/secondClass/activity/user',{},(res) => {
+
+		request({
+			url:'/secondClass/activity/list',
+			method: 'GET',
+			data:{recommend:1}
+		}).then(value => {
+			console.log(value)
 			this.setData({
-				myActivityList:res.rows
+				myActivityList:value.rows
 			})
 		})
 	},

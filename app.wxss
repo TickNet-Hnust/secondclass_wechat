@@ -3,6 +3,8 @@
 @import "colorui/main.wxss";
 @import "colorui/icon.wxss";
 @import "colorui/animation.wxss";
+
+  
 .container {
   height: 100%;
   display: flex;
@@ -60,3 +62,4 @@
 	background-color: #fff;
 	box-shadow:  0 0 8rpx #ccc;
 }
+

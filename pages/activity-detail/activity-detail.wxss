@@ -11,9 +11,7 @@
 .adImg {
 	width: 100%; 
 }
-.activityTemplate {
-	
-}
+
 .customTitle {
 	padding: 10rpx 36rpx;
 	font-size: 24rpx;
@@ -61,4 +59,10 @@
 }
 .flexLines button{
 	margin: 10rpx auto !important;
+}
+.iconBg {
+	text-align: center;
+	height: 83rpx;
+	font-size: 32rpx;
+	border-top: 1px solid #ddd;
 }

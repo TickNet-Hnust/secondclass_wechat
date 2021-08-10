@@ -1,5 +1,5 @@
 // pages/activity-search/activity-search.js
-let http = require('../../js/http.js')
+import {request} from '../../js/http.js'
 Page({
 
 	/**
@@ -102,21 +102,20 @@ Page({
 	},
 	//api请求数据
 	getActivityList(condition,option) {
-		wx.showLoading({
-			title:'加载数据中',
-			mask:true
-		})
-		http.getData('/secondClass/activity/list',option,(res) => {
+		request({
+			url: '/secondClass/activity/list',
+			method: 'GET',
+			data: option
+		}).then(value => {
 			if(condition == 0) {
 				this.setData({
-					serchActivityList:res.rows
+					serchActivityList:value.rows
 				})
 			}else {
 				this.setData({
-					allActivityList:res.rows
+					allActivityList:value.rows
 				})
 			}
-			wx.hideLoading()
 		})
 	},
 	activeChange(event) {
@@ -130,16 +129,14 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		wx.showLoading({
-			title:'加载数据中',
-			mask:true
-		})
-		http.getData('/secondClass/activity/hotList',{},(res) => {
-			console.log(res)
+		request({
+			url: '/secondClass/activity/hotList',
+			method: 'GET'
+		}).then(value => {
+			console.log(value)
 			this.setData({
-				hotActivityList:res.rows
+				hotActivityList:value.rows
 			})
-			wx.hideLoading()
 		})
 		this.getActivityList(1)
 		this.setData({

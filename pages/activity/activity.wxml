@@ -1,5 +1,5 @@
 <!--pages/activity/activity.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{false}}"><view slot="backText">返回</view>
+<cu-custom  bgColor="bg-gradual-blue" isBack="{{false}}"><view slot="backText">返回</view>
 	<view slot="content">活动</view>
 </cu-custom>
 <view class="containerActivity">
@@ -28,7 +28,7 @@
 	>
 		<van-tab title="推荐" name="a">
 			<view class="activityAbstract">
-				<view  wx:for="{{recommendActivityList}}" wx:key="*this" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-slide-left':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view  wx:for="{{recommendActivityList}}" wx:key="index" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-slide-left':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 						<view>
 							<image src="{{item.image}}"></image>
 						</view>
@@ -45,7 +45,7 @@
 		</van-tab>
 		<van-tab title="收藏" name="b">
 			<view class="activityAbstract">				
-				<view wx:for="{{collectionActivityList}}" wx:key="*this" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view wx:for="{{collectionActivityList}}" wx:key="index" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 						<view>
 							<image src="{{item.image}}"></image>
 						</view>
@@ -62,7 +62,7 @@
 		</van-tab>
 		<van-tab title="我的" name="c">
 			<view class="activityAbstract">
-				<view wx:for="{{myActivityList}}" wx:key="*this" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-slide-right':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view wx:for="{{myActivityList}}" wx:key="index" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-slide-right':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 						<view>
 							<image src="{{item.image}}"></image>
 						</view>

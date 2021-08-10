@@ -18,7 +18,7 @@
 							<image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image>
 						</swiper-item>
 					</swiper>
-					<view style="padding:0 20rpx">
+					<view style="padding:20rpx 20rpx">
 						<van-row style="line-height: 40rpx;">
 							<van-col class="leftTitle" span="6">• 主办方</van-col>
 							<van-col class="rightContent" span="18">投资理财俱乐部（商学院）</van-col>
@@ -32,8 +32,9 @@
 							<van-col class="rightContent" span="18">活动签到获取积分 + 个人申报获取积分，管理员认定</van-col>
 						</van-row>
 					</view>
-					<van-divider />
-					<view style="text-align: center;" bindtap="showDialog"> ﹀</view>
+					<view class="iconBg  padding-top" bindtap="showDialog">
+						<text class="cuIcon-unfold "></text>
+					</view>
 				</view>
 				<view class="boxs">
 					
@@ -47,8 +48,10 @@
 						</van-row>
 						
 					</view>
-					<van-divider />
-					<view style="text-align: center;" bindtap="showDialog"> ﹀</view>
+					<view class="iconBg  padding-top" bindtap="showDialog">
+						<text class="cuIcon-unfold "></text>
+					</view>
+					
 				</view>
 				<view class="flexLines">
 					<van-row>

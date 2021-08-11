@@ -1,0 +1,114 @@
+<!--pages/activity-search/activity-search.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">群组查看</view>
+</cu-custom>
+<view class="search">
+	<view class="hotNow" wx:if="{{active == 'b'}}">
+		<text class="title">正在进行</text>
+		<van-switch 
+		checked="{{ checked }}"
+		bind:change="onChange"
+		size="20px"
+		active-color="#07c160"
+		inactive-color="#c0c0c0"
+		custom-class="switch"
+	/>
+	</view>
+	<van-tabs 
+		id="tabs"
+		active="{{active}}"
+		animated
+		swipeable
+		color="#07c160"
+		bind:change="activeChange"
+		title-active-color="#07c160"
+	>
+		<van-tab title="搜索" name="a">
+			<van-search 
+				value="{{ value }}" 
+				placeholder="请输入搜索关键词" 
+				bind:search="serchActivity"
+				bind:focus="focusSearch"
+				bind:blur="blurSearch"
+				focus
+			/>
+			<view class="searchBody"  wx:if="{{show}}">
+				<view class="history">
+					<text>搜索历史</text>
+					<van-icon name="delete-o" bindtap="clearTags"/>
+				</view>
+				<view class="historyText">
+					<van-tag 
+						wx:for="{{tags}}"
+						wx:key="index"
+						type="success" 
+						size="large" 
+						custom-class="tag"
+						data-item="{{item}}"
+						bindtap="tagSearch"
+					>{{item}}</van-tag>
+				</view>
+			</view>
+			<view class="searchResult" wx:if="{{!show}}">
+				<view class="activityAbstract" wx:if="{{serchActivityList.length == 0}}" >
+					<van-empty image="search" description="没有找到匹配的活动" style="margin: 0 auto;"/>
+				</view>
+				<view class="activityAbstract">
+					<view class="activityFull" wx:for="{{serchActivityList}}" wx:key="index">
+						<view>
+							<image src="{{item.image}}"></image>
+						</view>
+						<view >
+							<view class="tabMainText">
+								{{item.name}}
+							</view>
+						</view>
+						<view class="tabSideText">
+							<text>{{item.activityTag}}</text>
+						</view>
+					</view>
+				</view>
+				
+			</view>
+		</van-tab>
+		<van-tab title="全部" name="b">
+			<view class="searchAll">
+				
+				<view class="activityAbstract">
+					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<view>
+						<image src="{{item.image}}"></image>
+					</view>
+					<view >
+						<view class="tabMainText">
+							{{item.name}}
+						</view>
+					</view>
+					<view class="tabSideText">
+						<text>{{item.activityTag}}</text>
+					</view>
+				</view>
+			</view>
+			</view>
+		</van-tab>
+		<van-tab title="热门" name="c">
+			<view class="searchHot">
+				<view class="activityAbstract">
+				<view wx:for="{{hotActivityList}}" wx:key="index" class="activityFull {{toggleDelay?'animation-slide-right':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<view>
+						<image src="{{item.image}}"></image>
+					</view>
+					<view >
+						<view class="tabMainText">
+							{{item.name}}
+						</view>
+					</view>
+					<view class="tabSideText">
+						<text>{{item.activityTag}}</text>
+					</view>
+				</view>
+			</view>
+			</view>
+		</van-tab>
+	</van-tabs>
+</view>

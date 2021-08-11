@@ -1,0 +1,100 @@
+<!--pages/activity/activity.wxml-->
+<cu-custom  bgColor="bg-gradual-blue" isBack="{{false}}"><view slot="backText">返回</view>
+	<view slot="content">群组</view>
+</cu-custom>
+<view class="containerActivity">
+  <view class="activityTop">
+	<view class="activitySearch" bindtap="jumpSearch">
+		<image class="activityBgImg" src="../../images/activity/search.png"></image>
+		<text class="activitySideText">搜索</text>
+		<text class="activityText">792</text>
+	</view>
+	<view class="activityRocket" bindtap="jumpRelease">
+		<image class="activityBgImg" src="../../images/activity/rocket.png"></image>
+		<text class="activitySideText">发布</text>
+		<text class="activityText">2</text>
+	</view>
+  </view>
+
+  <view>
+	<van-tabs 
+		id="tabs"
+		active="a"
+		animated
+		swipeable
+		color="#07c160"
+		title-active-color="#07c160"
+		bind:change="activeChange"
+	>
+		<van-tab title="推荐" name="a">
+			<view class="">
+				<view class="cu-list menu-avatar">
+					<view class="cu-item solid-top">
+						<view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
+							<view class="cu-tag badge">99+</view>
+						</view>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">花式跳绳社</text>
+								<view class="cu-tag round bg-blue sm">正常</view>
+							</view>
+							<view class="text-gray text-sm flex">
+							<text class="text-cut">社团与协会-院级-土木工程学院</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-capsule round">
+								<view class="cu-tag bg-blue sm">
+									<text class="cuIcon-peoplelist"></text>
+								</view>
+								<view class="cu-tag line-blue sm">
+									1234
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="cu-item solid-top">
+						<view class="cu-avatar radius lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
+							<view class="cu-tag badge">18</view>
+						</view>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">理学社</text>
+								<view class="cu-tag round bg-gray sm">待审核</view>
+							</view>
+							<view class="text-gray text-sm flex">
+							<text class="text-cut">社团与协会-院级-土木工程学院</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-capsule round">
+								<view class="cu-tag bg-blue sm">
+									<text class="cuIcon-peoplelist"></text>
+								</view>
+								<view class="cu-tag line-blue sm">
+									253
+								</view>
+							</view>
+						</view>
+					</view>
+					
+					
+					
+				</view>
+			</view>
+		</van-tab>
+		<van-tab title="我的" name="b">
+			<view class="">				
+				
+			</view>
+		</van-tab>
+		<van-tab title="收藏" name="c">
+			<view class="">
+				
+				
+			</view>
+		</van-tab>
+	</van-tabs>
+	
+  </view>
+</view>

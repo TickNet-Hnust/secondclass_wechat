@@ -1,6 +1,6 @@
 /* pages/activity-detail/activity-detail.wxss */
 .detail {
-	padding: 0 30rpx;
+	padding: 0 2%;
 	overflow: hidden;
 	background-color: #f8f9fb;
 }
@@ -65,4 +65,11 @@
 	height: 83rpx;
 	font-size: 32rpx;
 	border-top: 1px solid #ddd;
+}
+.cu-list .action {
+	width: 150rpx !important;
+	text-align: right !important;
+}
+.peoples .cu-item {
+	height: 150rpx;
 }

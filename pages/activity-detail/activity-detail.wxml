@@ -94,8 +94,77 @@
 											<input class="text-right" disabled value=""></input>
 										</view>
 										<view class="cu-form-group">
-											<view class="title">报名范围</view>
+											<view class="title">报名年级</view>
 											<input class="text-right" disabled value="2020、2021、2022"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">最大录取人数</view>
+											<input class="text-right" disabled value="120"></input>
+										</view>
+										<!-- <view class="cu-form-group align-start">
+											<view class="title">报名须知</view>
+											<textarea placeholder="多行文本输入框"></textarea>
+										</view> -->
+										<view class="cu-bar solid-bottom ">
+											<view class="action">
+												<text class="cuIcon-title text-blue"></text>报名信息
+											</view>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">活动级别</view>
+											<input class="text-right" disabled value="校级"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">活动标签</view>
+											<input class="text-right" disabled value="好活动一起来"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">关联课程</view>
+											<input class="text-right" disabled value="青年马克思工程"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">活动开始日期</view>
+											<input class="text-right" disabled value="2021-9-10 24:00:00"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">活动结束日期</view>
+											<input class="text-right" disabled value="2021-9-10 24:00:00"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">允许请假</view>
+											<input class="text-right" disabled value="是"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">花絮管理</view>
+											<input class="text-right" disabled value="无"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">评价管理</view>
+											<input class="text-right" disabled value="无"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">活动地点</view>
+											<input class="text-right" disabled value="逸夫楼308"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">签到时间</view>
+											<input class="text-right" disabled value="2021-10-1"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">签到距离</view>
+											<input class="text-right" disabled value="100"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">活动负责人</view>
+											<input class="text-right" disabled value="林舒恒"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">活动组织者</view>
+											<input class="text-right" disabled value="林舒恒"></input>
+										</view>
+										<view class="cu-form-group align-start">
+											<view class="title">活动介绍</view>
+											<textarea placeholder="多行文本输入框"></textarea>
 										</view>
 									</form>
 								</scroll-view>
@@ -115,10 +184,65 @@
 						</van-row>
 						
 					</view>
-					<view class="iconBg  padding-top" bindtap="showDialog">
+					<view class="iconBg  padding-top" bindtap="showModal" data-target="notice">
 						<text class="cuIcon-unfold "></text>
 					</view>
-					
+					<view class="cu-modal {{modalName=='notice'?'show':''}}">
+						<view class="cu-dialog">
+							<view class="cu-bar bg-white justify-end">
+							<view class="content">活动详情</view>
+							<view class="action" bindtap="hideModal">
+								<text class="cuIcon-close text-red"></text>
+							</view>
+							</view>
+							<view class="">
+								<scroll-view scroll-y style="height: 70vh;">
+									<text>
+										各二级学院、有关部门：
+为表彰先进，树立典型，引领和激励全体同学刻苦学习、发奋成才，营造良好的学习氛围，经学校研究，决定召开2019年学生表彰大会，对取得优秀成绩的学生进行表彰。现将有关事项通知如下：
+
+
+
+一、会议时间
+
+
+
+2019年5月29日（星期三） 14:30
+
+
+
+二、会议地点
+
+
+
+会峰校区水上报告厅
+
+
+
+三、参会人员
+
+
+
+校领导，校办公室、党委组织部、党委宣传部、教务处、学生处、后勤管理与基建处、安全保卫处、团委等部门负责人，各学院党政负责人、辅导员，2017-2018学年度国家奖学金获得者，2017-2018学年国家励志奖学金获得者、2019届省级和校级品学兼优毕业生、2017-2018学年度校级奖学金获得者、校级优秀学生干部、校级三好学生、2019届毕业生考取硕士研究生学生代表，2017-2018学年先进班集体标兵班获奖班级代表，学生代表。
+
+
+
+四、相关要求
+
+
+
+1.请各学院通知并组织相关人员按时参会，通知上台领奖学生于5月29日12：30到达会峰校区水上报告厅进行彩排。
+
+
+
+2.请会峰校区各学院分别安排20名学生代表（不包含上台领奖学生）参加表彰大会（需要有辅导员带队），5月29日14:00前完成入场。
+
+
+									</text>
+								</scroll-view>
+							</view>
+						</view>
+					</view>
 				</view>
 				<view class="flexLines">
 					<van-row>
@@ -315,19 +439,191 @@
 			</scroll-view>
 				</van-dialog>
 		</van-tab>
-		<van-tab title="参与人" name="b">
+		<van-tab title="参与人" name="b" class="peoples">
 			<view class="activityTemplate">
-
+				<view class="cu-list menu-avatar">
+					<view class="cu-item solid-top">
+						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
+							<view class="cu-tag badge">本人</view>
+						</view>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">李慧慧</text>
+								<view class="cu-tag round bg-blue sm">商学院2019级</view>
+								<view class="cu-tag round bg-green sm">获奖：一等奖</view>
+							</view>
+							<view class="text-gray text-xs flex">
+							<text class="text-cut">报名时间：21-7-25，签到时间：21-7-26</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-tag radius sm">已签到</view>
+							<view class="cu-tag radius sm">积分：2分</view>
+						</view>
+					</view>
+					<view class="cu-item solid-top">
+						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
+							<view class="cu-tag badge">本人</view>
+						</view>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">李慧慧</text>
+								<view class="cu-tag round bg-blue sm">商学院2019级</view>
+								<view class="cu-tag round bg-green sm">获奖：一等奖</view>
+							</view>
+							<view class="text-gray text-xs flex">
+							<text class="text-cut">报名时间：21-7-25，签到时间：21-7-26</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-tag radius sm">已签到</view>
+							<view class="cu-tag radius sm">积分：2分</view>
+						</view>
+					</view>
+					<view class="cu-item solid-top">
+						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
+							<view class="cu-tag badge">本人</view>
+						</view>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">李慧慧</text>
+								<view class="cu-tag round bg-blue sm">商学院2019级</view>
+								<view class="cu-tag round bg-green sm">获奖：一等奖</view>
+							</view>
+							<view class="text-gray text-xs flex">
+							<text class="text-cut">报名时间：21-7-25，签到时间：21-7-26</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-tag radius sm">已签到</view>
+							<view class="cu-tag radius sm">积分：2分</view>
+						</view>
+					</view>
+					<view class="cu-item solid-top">
+						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
+							<view class="cu-tag badge">本人</view>
+						</view>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">李慧慧</text>
+								<view class="cu-tag round bg-blue sm">商学院2019级</view>
+								<view class="cu-tag round bg-green sm">获奖：一等奖</view>
+							</view>
+							<view class="text-gray text-xs flex">
+							<text class="text-cut">报名时间：21-7-25，签到时间：21-7-26</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-tag radius sm">已签到</view>
+							<view class="cu-tag radius sm">积分：2分</view>
+						</view>
+					</view>
+					<view class="cu-item solid-top">
+						<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Taric.png);">
+							<view class="cu-tag badge">本人</view>
+						</view>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">李慧慧</text>
+								<view class="cu-tag round bg-blue sm">商学院2019级</view>
+								<view class="cu-tag round bg-green sm">获奖：一等奖</view>
+							</view>
+							<view class="text-gray text-xs flex">
+							<text class="text-cut">报名时间：21-7-25，签到时间：21-7-26</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-tag radius sm">已签到</view>
+							<view class="cu-tag radius sm">积分：2分</view>
+						</view>
+					</view>
+					
+					
+				</view>
 			</view>
 		</van-tab>
 		<van-tab title="花絮" name="c">
 			<view class="activityTemplate">
-
+				<view class="cu-card dynamic no-card">
+					<view class="cu-item shadow">
+						<view class="cu-list menu-avatar">
+						<view class="cu-item">
+							<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+							<view class="content flex-sub">
+							<view>凯尔</view>
+							<view class="text-gray text-sm flex justify-between">
+								2019年12月3日
+							</view>
+							</view>
+						</view>
+						</view>
+						<view class="text-content">
+						折磨生出苦难，苦难又会加剧折磨，凡间这无穷的循环，将有我来终结！
+						</view>
+						<view class="grid flex-sub padding-lr col-3 grid-square">
+						<view class="bg-img " style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);" wx:for="{{9}}" wx:key="index">
+						</view>
+						</view>
+						<view class="text-gray text-sm text-right padding">
+						<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
+						<text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
+						<text class="cuIcon-messagefill margin-lr-xs"></text> 30
+						</view>
+						<view class="cu-list menu-avatar comment solids-top">
+						
+						</view>
+					</view>
+					</view>
 			</view>
 		</van-tab>
 		<van-tab title="评论" name="d">
 			<view class="activityTemplate">
-
+				<view class="cu-list menu-avatar comment ">
+				<view class="cu-item solids-top" >
+					<view class="cu-avatar round" style="background-image:url(https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png);"></view>
+					<view class="content">
+					<view class="text-grey">莫甘娜</view>
+					<view class="text-gray text-content text-df">
+						凯尔，你被自己的光芒变的盲目。
+					</view>
+					<!-- <view class="bg-grey padding-sm radius margin-top-sm  text-sm">
+						<view class="flex">
+						<view>凯尔：</view>
+						<view class="flex-sub">妹妹，你在帮他们给黑暗找借口吗?</view>
+						</view>
+					</view> -->
+					<view class="margin-top-sm flex justify-between">
+						<view class="text-gray text-df">2018年12月4日</view>
+						<view>
+						<text class="cuIcon-appreciatefill text-red"></text>
+						<text class="cuIcon-messagefill text-gray margin-left-sm"></text>
+						</view>
+					</view>
+					</view>
+				</view>
+				<view class="cu-item solids-top">
+					<view class="cu-avatar round" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+					<view class="content">
+					<view class="text-grey">凯尔</view>
+					<view class="text-gray text-content text-df">
+						妹妹，如果不是为了飞翔，我们要这翅膀有什么用?
+					</view>
+					<!-- <view class="bg-grey padding-sm radius margin-top-sm  text-sm">
+						<view class="flex">
+						<view>莫甘娜：</view>
+						<view class="flex-sub">如果不能立足于大地，要这双脚又有何用?</view>
+						</view>
+					</view> -->
+					<view class="margin-top-sm flex justify-between">
+						<view class="text-gray text-df">2018年12月4日</view>
+						<view>
+						<text class="cuIcon-appreciate text-gray"></text>
+						<text class="cuIcon-messagefill text-gray margin-left-sm"></text>
+						</view>
+					</view>
+					</view>
+				</view>
+				</view>
 			</view>
 		</van-tab>
 	</van-tabs>

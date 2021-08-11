@@ -6,11 +6,22 @@ Page({
 	 */
 	data: {
 		show:false,
-		name: 'sfaf'
+		name: 'sfaf',
+		aid: null,
 	},
+	showModal(e) {
+		this.setData({
+		  modalName: e.currentTarget.dataset.target
+		})
+	  },
+	  hideModal(e) {
+		this.setData({
+		  modalName: null
+		})
+	  },
 	jumpActivityScore() {
 		wx.navigateTo({
-			url: '../activity-score/activity-score',
+			url: `../activity-score/activity-score?aid=${this.data.aid}`,
 		})
 	},
 	showDialog() {
@@ -28,7 +39,10 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-
+		console.log(options)
+		this.setData({
+			aid:options.aid
+		})
 	},
 
 	/**

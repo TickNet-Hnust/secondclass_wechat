@@ -27,9 +27,10 @@ Page({
 		  })
 		}, 1000)
 	  },
-	jumpDetail() {
+	jumpDetail(e) {
+		console.log(e)
 		wx.navigateTo({
-		  url: '../activity-detail/activity-detail',
+		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
 		})
 	},
 	jumpSearch() {

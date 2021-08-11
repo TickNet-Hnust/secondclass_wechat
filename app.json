@@ -2,13 +2,16 @@
 	"pages": [
 		"pages/index/index",
 		"pages/logs/logs",
-		"pages/activity/activity",
 		"pages/my/my",
+		"pages/activity/activity",
 		"pages/activity-search/activity-search",
 		"pages/activity-release/activity-release",
 		"pages/activity-custom/activity-custom",
 		"pages/activity-template/activity-template",
-		"pages/activity-detail/activity-detail"
+		"pages/activity-detail/activity-detail",
+		"pages/group/group",
+		"pages/group-search/group-search",
+		"pages/group-custom/group-custom"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -33,6 +36,12 @@
 				"iconPath": "images/nav/order-off.png",
 				"selectedIconPath": "images/nav/order-on.png",
 				"text": "活动"
+			},
+			{
+				"pagePath": "pages/group/group",
+				"iconPath": "images/nav/fl-off.png",
+				"selectedIconPath": "images/nav/fl-on.png",
+				"text": "群组"
 			},
 			{
 				"pagePath": "pages/my/my",

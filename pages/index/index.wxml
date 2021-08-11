@@ -3,7 +3,7 @@
 	<view slot="content">主页</view>
 </cu-custom>
 <view class="container">
-  <view class="chooseTop">
+  <view class="chooseTop padding-top-sm">
     <swiper autoplay interval="5000" duration="500" style="height: 230rpx;">
           <swiper-item>
             <image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image>
@@ -18,7 +18,7 @@
     
       <van-grid column-num="4">
         <van-grid-item icon="photo-o" link-type="switchTab" url="/pages/activity/activity" text="活动" />
-        <van-grid-item icon="photo-o" text="群组" />
+        <van-grid-item icon="photo-o" link-type="switchTab" url="/pages/group/group" text="群组" />
         <van-grid-item icon="photo-o" text="场地" />
         <van-grid-item icon="photo-o" text="认证" />
         <van-grid-item icon="photo-o" text="报名" />
@@ -71,13 +71,65 @@
     </ul> -->
   </view>
   <view class="chooseMiddle">
-      <view class="chooseMsg">• 关于开展向“心与馨”志愿支教服务队学习的倡议</view>
+    <view class="cu-list menu">
+      <view class="cu-item arrow">
+        <view class="content text-cut">
+          <text class="cuIcon-title text-grey "></text>
+          <text class="text-grey">关于开展向“心与馨”志愿支教服务队学习的倡议</text>
+        </view>
+      </view>
+      <view class="cu-item arrow">
+        <view class="content text-cut">
+          <text class="cuIcon-title text-grey"></text>
+          <text class="text-grey">关于湖南科技大学第十九届学生会主席团候选人资格审查</text>
+        </view>
+      </view>
+      <view class="cu-item arrow">
+        <view class="content text-cut">
+          <text class="cuIcon-title text-grey"></text>
+          <text class="text-grey">关于开展湖南科技大学第十九届学生会主席团候选人报名</text>
+        </view>
+      </view>
+    </view>
+      <!-- <view class="chooseMsg">• 关于开展向“心与馨”志愿支教服务队学习的倡议</view>
       <view class="chooseMsg">• 撒旦士大夫撒旦 关于湖南科技大学第十九届学生会主席团候选人资格审查.</view>
       <view class="chooseMsg">• 关于开展湖南科技大学第十九届学生会主席团候选人报名</view>
-      <view class="Middlearrow">></view>
+      <view class="Middlearrow">></view> -->
   </view>
   <view class="chooseBottom">
-    <view class="chooseButtomTitle">
+    <view class="cu-bar bg-white">
+    <view class="action">
+      <text class="cuIcon-titles text-green"></text>
+      <text class="text-xl text-bold">新闻中心</text>
+    </view>
+  </view>
+  <view class="cu-card article no-card">
+    <view class="cu-item shadow solid-bottom margin-bottom" >
+      <view class="content">
+        <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="aspectFill"></image>
+        <view class="desc">
+          <view class="text-content text-pink">  习近平:决胜全面建成小康社会决战脱贫攻坚继续建设经济繁荣民族团结环境优美</view>
+          <view>
+            <view class="cu-tag bg-red light sm round">置顶</view>
+            <view class="cu-tag bg-green light sm round">人民网</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="cu-item shadow padding-top">
+    <view class="content">
+      <!-- <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="aspectFill"></image> -->
+      <view class="desc">
+        <view class="text-content text-pink">  习近平:决胜全面建成小康社会决战脱贫攻坚继续建设经济繁荣民族团结环境优美</view>
+        <view>
+          <view class="cu-tag bg-red light sm round">置顶</view>
+          <view class="cu-tag bg-green light sm round">人民网</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+    <!-- <view class="chooseButtomTitle">
       <view>新闻中心</view>
       <view>></view>
     </view>
@@ -110,6 +162,6 @@
           <text class="chooseFootText">人民网</text>
         </view>
       </view>
-    </view>
+    </view> -->
   </view>
 </view>

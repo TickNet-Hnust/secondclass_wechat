@@ -56,7 +56,7 @@ Page({
 				this.setData({
 					tags:[]
 				})
-				wx.setStorageSync('Atags', [])
+				wx.setStorageSync('Gtags', [])
 				wx.showToast({
 					title: '清除成功',
 					icon: 'success',
@@ -81,15 +81,15 @@ Page({
 			show: true
 		})
 		this.setData({
-			tags: wx.getStorageSync('Atags')
+			tags: wx.getStorageSync('Gtags')
 		})
 	},
 	//确认搜索触发
 	serchActivity(event){
 		if(event.detail) {
-			let temp = wx.getStorageSync('Atags') || []
+			let temp = wx.getStorageSync('Gtags') || []
 			temp.unshift(event.detail)
-			wx.setStorageSync('Atags',temp)
+			wx.setStorageSync('Gtags',temp)
 
 			this.getActivityList(0,{
 				name: event.detail
@@ -140,7 +140,7 @@ Page({
 		})
 		this.getActivityList(1)
 		this.setData({
-			tags: wx.getStorageSync('Atags')
+			tags: wx.getStorageSync('Gtags')
 		})
 	},
 

@@ -22,8 +22,8 @@
 		active="a"
 		animated
 		swipeable
-		color="#07c160"
-		title-active-color="#07c160"
+		color="#2d7ecd"
+		title-active-color="#2d7ecd"
 		bind:change="activeChange"
 	>
 		<van-tab title="推荐" name="a">

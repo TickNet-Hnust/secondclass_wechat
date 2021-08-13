@@ -1,4 +1,5 @@
 // pages/activity-detail/activity-detail.js
+import {request} from '../../js/http.js'
 Page({
 
 	/**
@@ -8,6 +9,34 @@ Page({
 		show:false,
 		name: 'sfaf',
 		aid: null,
+		showData:{
+			name: '',
+			groupId: '林舒恒',
+			activityReleaserName: '林书豪',
+			guideTeacherName: '指导老师林',
+			deptName: '计算机学院',
+			enrollStartTime: '',
+			enrollEndTime: '',
+			admissionWay: '报名方式', //
+			enrollRange: '',
+			enrollGrade:'',
+			maxAdmissionNumber:'',
+			rankId: '', //
+			activityTag: '',
+			courseId: '',//
+			activityStartTime:'',
+			activityEndTime:'',
+			vacate:'',
+			flowerStatus:'',
+			evaluateStatus:'',
+			activityPlaceName:'',
+			registeStartTime:'',
+			registeEndTime:'',
+			activityRegisteDistance:'',
+			activityManagerName:'',
+			activityOrganizerName:'',
+			activityIntroduce:'',
+		}
 	},
 	showModal(e) {
 		this.setData({
@@ -40,6 +69,15 @@ Page({
 	 */
 	onLoad: function (options) {
 		console.log(options)
+		request({
+			url: `/admins/secondClass/activity/${options.aid}`,
+			method: 'GET'
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				showData: value.data
+			})
+		})
 		this.setData({
 			aid:options.aid
 		})

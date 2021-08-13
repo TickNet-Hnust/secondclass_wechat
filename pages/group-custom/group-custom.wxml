@@ -283,7 +283,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">签到时间</view>
-		<input placeholder="请填写"></input>
+		<switch checked bindchange="vacateChange"></switch>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">签到距离</view>

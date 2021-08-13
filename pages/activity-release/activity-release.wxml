@@ -3,7 +3,14 @@
 	<view slot="content">活动发布</view>
 </cu-custom>
 <view class="release">
-	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
+	<van-tabs 
+		id="tabs" 
+		active="{{active}}" 
+		animated  
+		color="#2d7ecd"
+		title-active-color="#2d7ecd" 
+		bind:click="switchTab"
+	>
 		<van-tab title="常用" name="a" >
 			<view class="activityTemplate">
 				<view wx:for="{{use}}" wx:key="index"  bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">

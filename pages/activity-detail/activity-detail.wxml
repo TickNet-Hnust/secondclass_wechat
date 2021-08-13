@@ -6,33 +6,34 @@
 	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
 		<van-tab title="概况" name="a" >
 			<view class="activityTemplate">
-				<view class="boxs" style="padding-top:0">
-					<swiper autoplay interval="5000" duration="500" style="height: 230rpx;">
-						<swiper-item>
-							<image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image>
-						</swiper-item>
-						<swiper-item>
+				<view class="boxs solid shadow-warp" style="padding-top:0">
+					<!-- <swiper autoplay interval="5000" duration="500" style="height: 230rpx;"> -->
+						<!-- <swiper-item> -->
+							<!-- <image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image> -->
+						<!-- </swiper-item> -->
+						<!-- <swiper-item> -->
 							<image mode="widthFix" class="adImg" src="../../images/choose/ad2.png" alt="" srcset=""></image>
-						</swiper-item>
-						<swiper-item>
-							<image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image>
-						</swiper-item>
-					</swiper>
+							<view class="actTitle">{{showData.name}}</view>
+						<!-- </swiper-item> -->
+						<!-- <swiper-item> -->
+							<!-- <image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image> -->
+						<!-- </swiper-item> -->
+					<!-- </swiper> -->
 					<view style="padding:20rpx 20rpx">
 						<van-row style="line-height: 40rpx;">
-							<van-col class="leftTitle" span="6">• 主办方</van-col>
-							<van-col class="rightContent" span="18">投资理财俱乐部（商学院）</van-col>
+							<van-col class="leftTitle" span="6"><text class="cuIcon-title text-black"></text>主办方</van-col>
+							<van-col class="rightContent" span="18">{{showData.groupId}}</van-col>
 						</van-row>
 						<van-row style="line-height: 40rpx;">
-							<van-col class="leftTitle"  span="6">• 活动级别</van-col>
-							<van-col class="rightContent" span="18">院级</van-col>
+							<van-col class="leftTitle"  span="6"><text class="cuIcon-title text-black"></text>活动级别</van-col>
+							<van-col class="rightContent" span="18">{{showData.rankId}}</van-col>
 						</van-row>
 						<van-row style="line-height: 40rpx;">
-							<van-col class="leftTitle"  span="6">• 积分方案</van-col>
-							<van-col class="rightContent" span="18">活动签到获取积分 + 个人申报获取积分，管理员认定</van-col>
+							<van-col class="leftTitle"  span="6"><text class="cuIcon-title text-black"></text>报名范围</van-col>
+							<van-col class="rightContent" span="18">{{showData.enrollGrade}}</van-col>
 						</van-row>
 					</view>
-					<view class="iconBg  padding-top" bindtap="showModal" data-target="Detail">
+					<view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="Detail">
 						<text class="cuIcon-unfold "></text>
 					</view>
 					<view class="cu-modal {{modalName=='Detail'?'show':''}}">
@@ -48,7 +49,7 @@
 									<form>
 										<view class="cu-form-group ">
 											<view class="title">标题</view>
-											<input class="text-right" >明月讲坛</input>
+											<input class="text-right" disabled value="{{showData.name}}">明月讲坛</input>
 										</view>
 										<view class="cu-bar solid-bottom ">
 											<view class="action">
@@ -57,20 +58,20 @@
 										</view>
 										<view class="cu-form-group ">
 											<view class="title">主办方</view>
-											<input class="text-right" disabled value="保卫处"></input>
+											<input class="text-right" disabled value="{{showData.groupId}}"></input>
 										</view>
 										
 										<view class="cu-form-group">
 											<view class="title">发布人</view>
-											<input class="text-right" disabled value="林舒恒"></input>
+											<input class="text-right" disabled value="{{showData.activityReleaserName}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">指导老师</view>
-											<input class="text-right" disabled value="刘上力"></input>
+											<input class="text-right" disabled value="{{showData.guideTeacherName}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">指导单位</view>
-											<input class="text-right" disabled value="计算机科学与工程学院"></input>
+											<input class="text-right" disabled value="{{showData.deptName}}"></input>
 										</view>
 										<view class="cu-bar solid-bottom ">
 											<view class="action">
@@ -79,27 +80,27 @@
 										</view>
 										<view class="cu-form-group">
 											<view class="title">报名开始日期</view>
-											<input class="text-right" disabled value="2021-9-10 24:00:00"></input>
+											<input class="text-right" disabled value="{{showData.enrollStartTime}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">报名结束日期</view>
-											<input class="text-right" disabled value="2021-9-10 24:00:00"></input>
+											<input class="text-right" disabled value="{{showData.enrollEndTime}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">录取方式</view>
-											<input class="text-right" disabled></input>
+											<input class="text-right" disabled value="{{showData.admissionWay}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">报名范围</view>
-											<input class="text-right" disabled value=""></input>
+											<input class="text-right" disabled value="{{showData.enrollRange}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">报名年级</view>
-											<input class="text-right" disabled value="2020、2021、2022"></input>
+											<input class="text-right" disabled value="{{showData.enrollGrade}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">最大录取人数</view>
-											<input class="text-right" disabled value="120"></input>
+											<input class="text-right" disabled value="{{showData.maxAdmissionNumber}}"></input>
 										</view>
 										<!-- <view class="cu-form-group align-start">
 											<view class="title">报名须知</view>
@@ -112,59 +113,63 @@
 										</view>
 										<view class="cu-form-group">
 											<view class="title">活动级别</view>
-											<input class="text-right" disabled value="校级"></input>
+											<input class="text-right" disabled value="{{showData.rankId}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">活动标签</view>
-											<input class="text-right" disabled value="好活动一起来"></input>
+											<input class="text-right" disabled value="{{showData.activityTag}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">关联课程</view>
-											<input class="text-right" disabled value="青年马克思工程"></input>
+											<input class="text-right" disabled value="{{showData.courseId}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">活动开始日期</view>
-											<input class="text-right" disabled value="2021-9-10 24:00:00"></input>
+											<input class="text-right" disabled value="{{showData.activityStartTime}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">活动结束日期</view>
-											<input class="text-right" disabled value="2021-9-10 24:00:00"></input>
+											<input class="text-right" disabled value="{{showData.activityEndTime}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">允许请假</view>
-											<input class="text-right" disabled value="是"></input>
+											<input class="text-right" disabled value="{{!showData.vacate}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">花絮管理</view>
-											<input class="text-right" disabled value="无"></input>
+											<input class="text-right" disabled value="{{showData.flowerStatus}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">评价管理</view>
-											<input class="text-right" disabled value="无"></input>
+											<input class="text-right" disabled value="{{showData.evaluateStatus}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">活动地点</view>
-											<input class="text-right" disabled value="逸夫楼308"></input>
+											<input class="text-right" disabled value="{{showData.activityPlaceName}}"></input>
 										</view>
 										<view class="cu-form-group">
-											<view class="title">签到时间</view>
-											<input class="text-right" disabled value="2021-10-1"></input>
+											<view class="title">签到开始时间</view>
+											<input class="text-right" disabled value="{{showData.registeStartTime}}"></input>
+										</view>
+										<view class="cu-form-group">
+											<view class="title">签到结束时间</view>
+											<input class="text-right" disabled value="{{showData.registeEndTime}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">签到距离</view>
-											<input class="text-right" disabled value="100"></input>
+											<input class="text-right" disabled value="{{showData.activityRegisteDistance}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">活动负责人</view>
-											<input class="text-right" disabled value="林舒恒"></input>
+											<input class="text-right" disabled value="{{showData.activityManagerName}}"></input>
 										</view>
 										<view class="cu-form-group">
 											<view class="title">活动组织者</view>
-											<input class="text-right" disabled value="林舒恒"></input>
+											<input class="text-right" disabled value="{{showData.activityOrganizerName}}"></input>
 										</view>
 										<view class="cu-form-group align-start">
 											<view class="title">活动介绍</view>
-											<textarea placeholder="多行文本输入框"></textarea>
+											<textarea class="text-right" placeholder="多行文本输入框" value="{{showData.activityIntroduce}}"></textarea>
 										</view>
 									</form>
 								</scroll-view>
@@ -172,19 +177,19 @@
 						</view>
 					</view>
 				</view>
-				<view class="boxs">
+				<view class="boxs solid shadow-warp">
 					
 					<view style="padding:20rpx 20rpx">
 						<van-row style="line-height: 40rpx;">
-							<van-col class="leftTitle" span="6">• 报名须知</van-col>
-							
+							<van-col class="leftTitle" span="6">
+								<text class="cuIcon-title text-black"></text>报名须知
+							</van-col>
 						</van-row>
 						<van-row style="line-height: 40rpx;">
-							<text class="box-p">为表彰先进，树立典型，引领和激励全体同学刻苦学习、发奋成才，营造良好的学习氛围，经学校研究，决定召开2019年学生表彰大会，对取得优秀成绩的学生进行表彰。现将有关事项通知如下：</text>
+							<text class="box-p">{{showData.activityIntroduce}}</text>
 						</van-row>
-						
 					</view>
-					<view class="iconBg  padding-top" bindtap="showModal" data-target="notice">
+					<view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="notice">
 						<text class="cuIcon-unfold "></text>
 					</view>
 					<view class="cu-modal {{modalName=='notice'?'show':''}}">
@@ -195,49 +200,9 @@
 								<text class="cuIcon-close text-red"></text>
 							</view>
 							</view>
-							<view class="">
-								<scroll-view scroll-y style="height: 70vh;">
-									<text>
-										各二级学院、有关部门：
-为表彰先进，树立典型，引领和激励全体同学刻苦学习、发奋成才，营造良好的学习氛围，经学校研究，决定召开2019年学生表彰大会，对取得优秀成绩的学生进行表彰。现将有关事项通知如下：
-
-
-
-一、会议时间
-
-
-
-2019年5月29日（星期三） 14:30
-
-
-
-二、会议地点
-
-
-
-会峰校区水上报告厅
-
-
-
-三、参会人员
-
-
-
-校领导，校办公室、党委组织部、党委宣传部、教务处、学生处、后勤管理与基建处、安全保卫处、团委等部门负责人，各学院党政负责人、辅导员，2017-2018学年度国家奖学金获得者，2017-2018学年国家励志奖学金获得者、2019届省级和校级品学兼优毕业生、2017-2018学年度校级奖学金获得者、校级优秀学生干部、校级三好学生、2019届毕业生考取硕士研究生学生代表，2017-2018学年先进班集体标兵班获奖班级代表，学生代表。
-
-
-
-四、相关要求
-
-
-
-1.请各学院通知并组织相关人员按时参会，通知上台领奖学生于5月29日12：30到达会峰校区水上报告厅进行彩排。
-
-
-
-2.请会峰校区各学院分别安排20名学生代表（不包含上台领奖学生）参加表彰大会（需要有辅导员带队），5月29日14:00前完成入场。
-
-
+							<view class="padding bg-white solid-top">
+								<scroll-view scroll-y style="max-height: 70vh;">
+									<text> {{showData.activityIntroduce}}
 									</text>
 								</scroll-view>
 							</view>

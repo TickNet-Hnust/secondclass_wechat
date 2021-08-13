@@ -73,23 +73,33 @@ export function upload(ossData, file, ossFileUrl) {
     //     //     })
     //     // }).then(res => {
     // param.append('file', file)
+    console.log('formdata',{
+        'name':`${photoName}`,
+        'key': `${key}`,
+        'policy': `${policy}`,
+        'OSSAccessKeyId': `${OSSAccessKeyId}`,
+        'success_action_status': 200,
+        'signature': `${signature}`,
+        // 'file':file
+    })
     wx.uploadFile({
         url: host, //仅为示例，非真实的接口地址
         filePath: file,
         name: 'file',
         formData:{
-            'name':`${photoName}`,
+            // 'name':`${photoName}`,
             'key': `${key}`,
             'policy': `${policy}`,
             'OSSAccessKeyId': `${OSSAccessKeyId}`,
+            'Signature': `${signature}`,
             'success_action_status': 200,
-            'signature': `${signature}`,
-            'file':file
+            // 'file':file
         },
         success: function(res){
         var data = res.data
+        
         //do something
-        // console.log(res,'yes')
+        console.log(res,'yes')
         }
     })
 		// return request({

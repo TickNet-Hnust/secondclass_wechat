@@ -12,7 +12,7 @@ var commonParams = {
 	data: {},
 	method: 'POST',
 	header: {
-		'Content-Type': 'application/x-www-form-urlencoded',
+	
 	},
 	dataType: 'json'
 };
@@ -41,7 +41,26 @@ export const request = (opt) => {
 								wx.navigateTo({ url: '/pages/my/my' })
 							}
 						})
- 
+						wx.qy.login({
+							success: function(res) {
+								console.log(res)
+								if (res.code) {
+								  //发起网络请求
+								  	wx.request({
+										url: `http://192.168.124.8:8080/MpLoginByCode/${res.code}`,
+										success:(res) => {
+											console.log(res,45)
+											wx.setStorageSync('token', res.data.data.token)
+										},
+										fail:(res) => {
+											console.log(res,46)
+										}
+									})
+								} else {
+									console.log('登录失败！' + res.errMsg)
+								}	
+							}
+							})
 					} else {
 						resolve(res.data)
 					}

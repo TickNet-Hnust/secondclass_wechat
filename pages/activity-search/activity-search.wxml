@@ -19,9 +19,9 @@
 		active="{{active}}"
 		animated
 		swipeable
-		color="#07c160"
+		color="#2d7ecd"
+		title-active-color="#2d7ecd"
 		bind:change="activeChange"
-		title-active-color="#07c160"
 	>
 		<van-tab title="搜索" name="a">
 			<van-search 

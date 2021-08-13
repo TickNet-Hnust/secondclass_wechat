@@ -1,12 +1,12 @@
 <!--pages/activity-custom/activity-custom.wxml-->
-<cu-custom bgColor="bg-gradual-red" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">自定义活动</view>
 </cu-custom>
 <view class="custom">
 	<form>
 		<view class="cu-form-group">
 		<view class="title">标题</view>
-		<input placeholder="请填写" model="{{postData.name}}"></input>
+		<input placeholder="请填写" bindinput="nameChanged" value="{{postData.name}}"></input>
 	</view>
 	<view class="cu-bar solid-bottom ">
 		<view class="action">
@@ -42,7 +42,7 @@
 	</view>
 	<view class="cu-form-group ">
 		<view class="title">报名开始日期</view>
-		<picker mode="date" value="{{fakeData.enrollStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="enrollStartTimeFrontChange">
+		<picker mode="date" value="{{fakeData.enrollStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.enrollStartTimeFront">
 			<view class="picker">
 				{{fakeData.enrollStartTimeFront}}
 			</view>
@@ -50,7 +50,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">报名开始时间</view>
-		<picker mode="time" value="{{fakeData.enrollStartTimeEnd}}" start="00:00" end="24:00" bindchange="enrollStartTimeEndChange">
+		<picker mode="time" value="{{fakeData.enrollStartTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.enrollStartTimeEnd">
 			<view class="picker">
 				{{fakeData.enrollStartTimeEnd}}
 			</view>
@@ -58,7 +58,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">报名结束日期</view>
-		<picker mode="date" value="{{fakeData.enrollEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="enrollEndTimeFrontChange">
+		<picker mode="date" value="{{fakeData.enrollEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.enrollEndTimeFront">
 			<view class="picker">
 				{{fakeData.enrollEndTimeFront}}
 			</view>
@@ -77,7 +77,7 @@
 		<view class="title">录取方式</view>
 		<picker bindchange="admissionWayChange" value="{{fakeData.admissionWay}}" range="{{dict_admissionWay}}" range-key="dictLabel">
 			<view class="picker">
-				{{fakeData.admissionWay?dict_admissionWay[fakeData.admissionWay]:'录取方式'}}
+				{{fakeData.admissionWay?dict_admissionWay[fakeData.admissionWay].dictLabel:'录取方式'}}
 			</view>
 		</picker>
 	</view>
@@ -127,11 +127,11 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">最大录取人数</view>
-		<input placeholder="请填写" model:value="{{postData.maxAdmissionNumber}}"></input>
+		<input value="{{postData.maxAdmissionNumber}}" placeholder="请填写" bindinput="numberChanged"></input>
 	</view>
 	<view class="cu-form-group align-start">
 		<view class="title">报名须知</view>
-		<textarea model:value="{{postData.enrollNotice}}"  placeholder="多行文本输入框"></textarea>
+		<textarea value="{{postData.enrollNotice}}" bindinput="VALUECHANGED" data-value="postData.enrollNotice"  placeholder="多行文本输入框"></textarea>
 	</view>
 
 	<view class="cu-bar solid-bottom ">
@@ -143,42 +143,40 @@
 		<view class="title">活动级别</view>
 		<picker bindchange="rankChange" value="{{fakeData.rankIdno}}" range="{{dict_rank}}" range-key="dictLabel">
 			<view class="picker">
-				{{fakeData.rankIdno?dict_rank[fakeData.rankIdno].dictLabel:'请填写活动级别'}}
+				{{fakeData.rankIdno!=null?dict_rank[fakeData.rankIdno].dictLabel:'请填写活动级别'}}
 			</view>
 		</picker>
 	</view>
 
 	<view class="cu-form-group">
 		<view class="title">活动标签</view>
-		<input placeholder="用分号隔开"></input>
+		<input placeholder="多个用分号隔开" value="{{postData.activityTag}}" data-value="{{'postData.activityTag'}}" bindinput="VALUECHANGED"></input>
 	</view>
 
 	<view class="cu-form-group">
-		<view class="title">关联课程</view>
-		<view class="action">
+		<view class="title">关联分类</view>
+		<view class="action ">
 			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
-			<text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button>
+			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">Choose</button> -->
+			<picker
+			mode="multiSelector"
+			range="{{multiArray}}"
+			value="{{multiIndex}}"
+			bindcolumnchange="MultiColumnChange"
+		>
+			<view class="picker classification text-cut">
+				{{multiArray[1][multiIndex[1]]}}
+			</view>
+		</picker>
 		</view>
 	</view>
-	<view class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}" bindtap="hideModal">
-	<view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
-		<scroll-view scroll-y scroll-into-view="indexes-{{listCurID}}" style="height:calc(100vh - {{CustomBar}}px - 50px)" scroll-with-animation="true" enable-back-to-top="true">
-			<view class="cu-list menu text-left">
-			<view 
-				class="cu-item" 
-				wx:for="{{courseList}}" 
-				wx:key="index" 
-				bindtap="pickCourse" 
-				data-id="{{item.id}}" 
-				data-classificationId="{{item.classificationId}}"
-				data-classificationIdPath="{{item.classificationPath}}"
-				data-name="{{item.name}}"
-			>
-				{{item.name}}<text class="cuIcon-title text-green "></text>
+	<view class="cu-form-group ">
+		<view class="title">关联课程</view>
+		<picker bindchange="courseChange" value="{{multiCourseIndex}}" range="{{multiCourse}}" range-key="name">
+			<view class="picker">
+				{{multiCourseIndex?multiCourse[multiCourseIndex].name:'请选择课程'}}
 			</view>
-			</view>
-		</scroll-view>
-	</view>
+		</picker>
 	</view>
 
 	<view class="cu-modal bottom-modal {{modalName=='classification'?'show':''}}">
@@ -192,14 +190,17 @@
     </view>
   </view>
 </view>
-
 	<view class="cu-form-group">
-		<view class="title">活动时间</view>
-		<input placeholder="请填写"></input>
+		<view class="title">积分方案</view>
+		<picker bindchange="integralChange" value="{{fakeData.integralStatus}}" range="{{dict_integral}}" range-key="dictLabel">
+			<view class="picker">
+				{{fakeData.integralStatus?dict_integral[fakeData.integralStatus].dictLabel:'请选择积分方案'}}
+			</view>
+		</picker>
 	</view>
 	<view class="cu-form-group ">
 		<view class="title">活动开始日期</view>
-		<picker mode="date" value="{{fakeData.activityStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="activityStartTimeFrontChange">
+		<picker mode="date" value="{{fakeData.activityStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.activityStartTimeFront">
 			<view class="picker">
 				{{fakeData.activityStartTimeFront}}
 			</view>
@@ -207,7 +208,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动开始时间</view>
-		<picker mode="time" value="{{fakeData.activityStartTimeEnd}}" start="00:00" end="24:00" bindchange="activityStartTimeEndChange">
+		<picker mode="time" value="{{fakeData.activityStartTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.activityStartTimeEnd">
 			<view class="picker">
 				{{fakeData.activityStartTimeEnd}}
 			</view>
@@ -215,7 +216,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动结束日期</view>
-		<picker mode="date" value="{{fakeData.activityEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="activityEndTimeFrontChange">
+		<picker mode="date" value="{{fakeData.activityEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.activityEndTimeFront">
 			<view class="picker">
 				{{fakeData.activityEndTimeFront}}
 			</view>
@@ -223,7 +224,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动结束时间</view>
-		<picker mode="time" value="{{fakeData.activityEndTimeEnd}}" start="00:00" end="24:00" bindchange="activityEndTimeEndChange">
+		<picker mode="time" value="{{fakeData.activityEndTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.activityEndTimeEnd">
 			<view class="picker">
 				{{fakeData.activityEndTimeEnd}}
 			</view>
@@ -279,23 +280,59 @@
 
 	<view class="cu-form-group">
 		<view class="title">地点详细描述</view>
-		<input placeholder="请填写" mode:valuel="{{postData.activityPlaceName}}"></input>
+		<input placeholder="例：逸夫楼308" data-value="postData.activityPlaceName" value="{{postData.activityPlaceName}}" bindinput="VALUECHANGED"></input>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">签到时间</view>
-		<input placeholder="请填写"></input>
+		<view class="action">
+		<text class="margin-right" wx:if="{{fakeData.registerStatus}}">不限</text>
+		<text class="margin-right" wx:if="{{!fakeData.registerStatus}}">限制</text>
+		<switch checked bindchange="registerChange"></switch>
+		</view>
+	</view>
+	<view class="cu-form-group " wx:if="{{!fakeData.registerStatus}}">
+		<view class="title">签到开始日期</view>
+		<picker mode="date" value="{{fakeData.registerStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.registerStartTimeFront">
+			<view class="picker">
+				{{fakeData.registerStartTimeFront}}
+			</view>
+		</picker>
+	</view>
+	<view class="cu-form-group" wx:if="{{!fakeData.registerStatus}}">
+		<view class="title">签到开始时间</view>
+		<picker mode="time" value="{{fakeData.registerStartTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.registerStartTimeEnd">
+			<view class="picker">
+				{{fakeData.registerStartTimeEnd}}
+			</view>
+		</picker>
+	</view>
+	<view class="cu-form-group" wx:if="{{!fakeData.registerStatus}}">
+		<view class="title">签到结束日期</view>
+		<picker mode="date" value="{{fakeData.registerEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.registerEndTimeFront">
+			<view class="picker">
+				{{fakeData.registerEndTimeFront}}
+			</view>
+		</picker>
+	</view>
+	<view class="cu-form-group" wx:if="{{!fakeData.registerStatus}}">
+		<view class="title">签到结束时间</view>
+		<picker mode="time" value="{{fakeData.registerEndTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.registerEndTimeEnd">
+			<view class="picker">
+				{{fakeData.registerEndTimeEnd}}
+			</view>
+		</picker>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">签到距离</view>
-		<input placeholder="请填写"></input>
+		<input placeholder="请填写" value="{{postData.activityRegisteDistance}}" bindinput="VALUECHANGED" data-value="postData.activityRegisteDistance"></input>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动负责人</view>
-		<input placeholder="请填写" model:value="{{postData.activityManagerId}}"></input>
+		<input placeholder="请填写" value="{{postData.activityManagerId}}"></input>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动组织者</view>
-		<input placeholder="请填写" model:value="{{postData.activityOrganizerId}}"></input>
+		<input placeholder="请填写" value="{{postData.activityOrganizerId}}"></input>
 	</view>
 	<view class="cu-bar bg-white margin-top">
 		<view class="action">
@@ -321,7 +358,7 @@
 	
 	<view class="cu-form-group align-start">
 		<view class="title">活动介绍</view>
-		<textarea model:value="{{postData.activityIntroduce}}" placeholder="多行文本输入框"></textarea>
+		<textarea value="{{postData.activityIntroduce}}" data-value="postData.activityIntroduce" placeholder="多行文本输入框" bindinput="VALUECHANGED"></textarea>
 	</view>
 </form>
 	<view class="stickyButton" >

@@ -99,7 +99,7 @@
   <view class="chooseBottom">
     <view class="cu-bar bg-white">
     <view class="action">
-      <text class="cuIcon-titles text-green"></text>
+      <text class="cuIcon-titles text-blue"></text>
       <text class="text-xl text-bold">新闻中心</text>
     </view>
   </view>

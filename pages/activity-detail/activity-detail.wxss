@@ -33,10 +33,19 @@
 	text-overflow: ellipsis;
 }
 .boxs {
+	position: relative;
 	background-color: #fff; 
 	border-radius: 18rpx;
 	margin-top: 30rpx;
 	padding-top: 20rpx;
+}
+.actTitle {
+	position: absolute;
+	top: 11%;
+	color:#fff;
+	font-size: 40rpx;
+	opacity: 0.9;
+	left: 7%;
 }
 .box-p {
 	font-size: 24rpx;
@@ -64,7 +73,7 @@
 	text-align: center;
 	height: 83rpx;
 	font-size: 32rpx;
-	border-top: 1px solid #ddd;
+	/* border-top: 1px solid #ddd; */
 }
 .cu-list .action {
 	width: 150rpx !important;

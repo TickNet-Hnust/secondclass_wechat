@@ -22,6 +22,7 @@
   padding: 30rpx;
   background-color: white;
   font-size: 25rpx;
+  height: 430rpx;
 }
 
 .leftTitle{
@@ -30,7 +31,7 @@
 }
 
 .van-col{
-  margin-bottom: 5rpx;
+  margin-bottom: 10rpx;
 }
 
 .activityClassify1{

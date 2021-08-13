@@ -1,6 +1,6 @@
 <!--pages/activity-score/activity-score.wxml-->
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
-	<view slot="content">自定义活动</view>
+	<view slot="content">{{activityName}}</view>
 </cu-custom>
 <view class="score">
   <van-tabs id="tabs" active="{{ tabsActive }}" animated  color="#07c160" title-active-color="#07c160" bind:change="tabsOnChange">
@@ -8,15 +8,15 @@
         <view class="activitySocreInfor">
 						<van-row style="line-height: 40rpx;">
 							<van-col class="leftTitle" span="6" >• 活动名称</van-col>
-							<van-col class="rightContent" span="18" style="color: gray;">郑商所杯期货模拟交易大赛</van-col>
+							<van-col class="rightContent" span="18" style="color: gray;">{{activityName}}</van-col>
 						</van-row>
 						<van-row style="line-height: 40rpx;">
 							<van-col class="leftTitle"  span="6">• 活动级别</van-col>
-							<van-col class="rightContent" span="18" style="color:green">院级</van-col>
+							<van-col class="rightContent" span="18" style="color:green">{{dict_sc_train_program_rank[activityRank].dictLabel}}</van-col>
 						</van-row>
 						<van-row style="line-height: 40rpx;">
 							<van-col class="leftTitle"  span="6">• 积分方案</van-col>
-							<van-col class="rightContent=" span="18" style="color:green">活动签到获取积分 + 个人申报获取积分，管理员认定</van-col>
+							<van-col class="rightContent=" span="18" style="color:green">{{dict_sc_activity_integral_scheme[integralScheme].dictLabel}}</van-col>
 						</van-row>
 
                   <van-row style="line-height: 40rpx;">
@@ -29,8 +29,8 @@
 
                      <van-col class="rightContent" span="18">
                            <view wx:for="{{ 3 }}" wx:key="index" class="activityClassify{{index+1}}">
-                             <view style="margin: 8rpx 17rpx;">
-                              {{index+1}}. 思想政治与人文素养思想政治与人文素养思想政治与
+                             <view style="margin: 12rpx 17rpx;">
+                              {{index+1}}.{{courseClassificationName}}
                               </view>
                            </view>                    
                      </van-col>
@@ -44,13 +44,13 @@
              </van-row>
 							
              <van-row>
-              <van-grid column-num="2" gutter="10">
-                <van-grid-item use-slot wx:for="{{ 4 }}" wx:key="index">
+              <van-grid column-num="2" gutter="8">
+                <van-grid-item use-slot wx:for="{{ integrationRule }}" wx:key="index">
                    <view style="text-align:left;width:100%;margin-bottom: 10rpx">
-                    <text>成功参与</text>
+                    <text>{{item.name}}</text>
                    </view>
-                   <view style="text-align:right;width:100%;margin-bottom: 5rpx;">
-                     <text style="font-weight:bold;font-size: 67rpx;margin-right: 12rpx;">1.5</text>
+                   <view style="text-align:right;width:100%;">
+                     <text style="font-weight:bold;font-size: 67rpx;margin-right: 12rpx;">{{item.integrationRange}}</text>
                      <text>分</text>
                    </view>  
                 </van-grid-item>

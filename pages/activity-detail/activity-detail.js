@@ -9,6 +9,9 @@ Page({
 		show:false,
 		name: 'sfaf',
 		aid: null,
+		memberList:[],
+		flowerList:[],
+		remarkList:[],
 		showData:{
 			name: '',
 			groupId: '林舒恒',
@@ -70,12 +73,60 @@ Page({
 	onLoad: function (options) {
 		console.log(options)
 		request({
+			url: `/secondClass/activity/${options.aid}/participants`,
+			method: 'GET'
+		}).then(value => {
+			console.log(value)
+			value.rows.forEach(item => {
+				let tempArr = []
+				if(item.identities.includes(0)) {
+					tempArr.push('发布者')
+				}if(item.identities.includes(2)) {
+					tempArr.push('负责人')
+				}  if(item.identities.includes(3)) {
+					tempArr.push('组织者')
+				} if(item.identities.includes(1)){
+					tempArr.push('参与者')
+				}
+				item.identities = tempArr
+			})
+			this.setData({
+				memberList:value.rows
+			})
+		})
+		request({
 			url: `/admins/secondClass/activity/${options.aid}`,
 			method: 'GET'
 		}).then(value => {
 			console.log(value)
 			this.setData({
 				showData: value.data
+			})
+		})
+		//花絮
+		request({
+			url: '/secondClass/activity/flower/list',
+			method: 'GET',
+			data:{
+				activityId:options.aid
+			}
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				flowerList: value.rows
+			})
+		})
+		//评论
+		request({
+			url: '/secondClass/activity/evaluation/list',
+			method: 'GET',
+			data:{
+				activityId:options.aid
+			}
+		}).then(value => {
+			console.log(value,'评论')
+			this.setData({
+				remarkList: value.rows
 			})
 		})
 		this.setData({

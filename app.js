@@ -51,7 +51,7 @@ App({
 				if (res.code) {
 				  //发起网络请求
 				  wx.request({
-            url: `http://localhost:8080/MpLoginByCode/${res.code}`,
+            url: `http://192.168.124.8:8080/MpLoginByCode/${res.code}`,
             success:(res) => {
               console.log(res,45)
               wx.setStorageSync('token', res.data.data.token)

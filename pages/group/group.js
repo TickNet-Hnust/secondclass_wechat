@@ -9,6 +9,10 @@ Page({
 		toggleDelay:false,
 		active: 1,
 		value: '',
+		recommendGroupList:[],
+		myGroupList:[],
+		collectionGroupList:[]
+
 	},
 	activeChange() {
 		this.toggleDelay()
@@ -27,7 +31,7 @@ Page({
 	jumpDetail(e) {
 		console.log(e)
 		wx.navigateTo({
-		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
+		  url: `../group-detail/group-detail?aid=${e.currentTarget.dataset.id}`,
 		})
 	},
 	jumpSearch() {
@@ -50,39 +54,7 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		request({
-			url:'/secondClass/activity/list',
-			method: 'GET',
-			data:{recommend:1}
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				recommendActivityList:value.rows
-			})
-		})
-
-
-		request({
-			url:'/secondClass/activity/list',
-			method: 'GET',
-			data:{}
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				collectionActivityList:value.rows
-			})
-		})
-
-		request({
-			url:'/secondClass/activity/list',
-			method: 'GET',
-			data:{recommend:1}
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				myActivityList:value.rows
-			})
-		})
+		
 	},
 
 	/**
@@ -96,7 +68,35 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+		request({
+			url: '/group/list',
+			method: 'GET',
+			data: {
+				recommend:1
+			}
+		}).then(value => {
+			console.log(value)
+		})
 
+		request({
+			url: '/group/list',
+			method: 'GET',
+			data: {
+				recommend:1
+			}
+		}).then(value => {
+			console.log(value)
+		})
+
+		request({
+			url: '/group/list',
+			method: 'GET',
+			data: {
+				recommend:1
+			}
+		}).then(value => {
+			console.log(value)
+		})
 	},
 
 	/**

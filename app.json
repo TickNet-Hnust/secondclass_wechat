@@ -27,26 +27,26 @@
 		"list": [
 			{
 				"pagePath": "pages/index/index",
-				"iconPath": "images/tabbar/hom-off.png",
-				"selectedIconPath": "images/tabbar/hom-on.png",
+				"iconPath": "images/tabbar/home-off.png",
+				"selectedIconPath": "images/tabbar/home-on.png",
 				"text": "精选"
 			},
 			{
 				"pagePath": "pages/activity/activity",
-				"iconPath": "images/tabbar/acti-off.png",
-				"selectedIconPath": "images/tabbar/acti-on.png",
+				"iconPath": "images/tabbar/act-off.png",
+				"selectedIconPath": "images/tabbar/act-on.png",
 				"text": "活动"
 			},
 			{
 				"pagePath": "pages/group/group",
-				"iconPath": "images/tabbar/gro-off.png",
-				"selectedIconPath": "images/tabbar/gro-on.png",
+				"iconPath": "images/tabbar/group-off.png",
+				"selectedIconPath": "images/tabbar/group-on.png",
 				"text": "群组"
 			},
 			{
 				"pagePath": "pages/my/my",
-				"iconPath": "images/tabbar/my-off.png",
-				"selectedIconPath": "images/tabbar/my-on.png",
+				"iconPath": "images/tabbar/myi-off.png",
+				"selectedIconPath": "images/tabbar/myi-on.png",
 				"text": "我的"
 			}
 		]

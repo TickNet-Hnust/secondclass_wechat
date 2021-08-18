@@ -1,6 +1,7 @@
 // pages/activity-custom/activity-custom.js
 import {request} from '../../js/http.js'
 import getImgUrl from '../../utils/upload.js'
+import {nullToast} from '../../utils/nullToast.js'
 import {filterTwoLayer} from '../../utils/filterTwoLayer.js'
 import {filter} from '../../utils/filter'
 const app = getApp()
@@ -15,6 +16,9 @@ Page({
 		multiIndex:[0,0],
 		multiCourse:[],
 		multiCourseIndex:0,
+		searchValue:'',
+		farSearch:[],
+		searchShow: false,
 		//当前学年
 		nowYear:null,
 		//地图
@@ -33,6 +37,8 @@ Page({
 		dict_evaluate_scheme:[],
 		//部门列表
 		deptList:[],
+		//群组
+		groupList:[],
 		//报名范围
 		range: [{
 			name: '2020',
@@ -62,19 +68,25 @@ Page({
 			registerEndTimeEnd: '24:00',
 			registerStatus: true, //签到状态
 			deptIdno:null,
+			groupIdno:null,
 			enrollRange: null,
-			rankIdno: 0,
+			rankIdno: null,
 			admissionWay:null,
 			flowerStatus:null,
 			integralStatus: null,//积分状态
-			evaluateStatus:null
+			evaluateStatus:null,
+
 		},
+		activityReleaserName: '',//发布人
+		guideTeacherName:'', //指导老师
+		activityManagerName:'',//负责人
+		activityOrganizerName:'',//组织者
 		postData:{
 			name:'', //活动名称
-			groupId: 205, //主办方
-			activityReleaserId: 111, //活动发布人
-			deptId: null, //指导单位
-			guideTeacherId: 105, //指导老师ID
+			groupId: '', //主办方
+			activityReleaserId: '', //活动发布人
+			deptId: '', //指导单位
+			guideTeacherId: '', //指导老师ID
 
 			enrollStartTime: '', //报名开始时间
 			enrollEndTime: '',  //报名结束时间
@@ -84,7 +96,7 @@ Page({
 			maxAdmissionNumber: '', //最大录取人数
 			enrollNotice: '', //报名须知
 
-			rankId: 0, //活动级别
+			rankId: '', //活动级别
 			activityTag: '', //活动标签
 			courseId:'',
 			courseClassificationId: '', //课程分类
@@ -102,15 +114,18 @@ Page({
 			registeTime: '', //签到时间
 			registeStartTime: '', //签到开始时间
 			registeEndTime: '', //签到结束时间
-			activityManagerId: 103, //活动负责人
-			activityOrganizerId: 103, //活动组织者
+			activityManagerId: '', //活动负责人
+			activityOrganizerId: '', //活动组织者
 			images: '', //活动素材
 			enclosure: '', //相关附件链接
 			activityIntroduce: '', //活动介绍
 			schoolYearId: '',
-			recommend: 0
+			recommend: 0 //默认不推荐
+		},
+		state:{
+			name: '',
+			id: '',
 		}
-		
 
 
 	},
@@ -212,6 +227,61 @@ Page({
 		  }
 		})
 	},
+	onClick() {
+		wx.showLoading({
+		  title: '加载中',
+		})
+		request({
+			url: '/user/util/listByName',
+			method: 'get',
+			data:{
+				name:this.data.searchValue
+			}
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				'farSearch' :value.data
+			})
+			wx.hideLoading()
+		})
+		console.log(this.data.searchValue)
+	},
+	//选定人
+	sureHuman(e) {
+		let {name,id} = this.data.state
+		console.log(name,id,e,1212)
+		this.setData({
+			[name]: e.currentTarget.dataset.name,
+			[id]: e.currentTarget.dataset.id
+		})
+		this.setData({
+			searchShow:false
+		})
+		console.log(this.data[name],)
+		console.log(e.currentTarget.dataset.name)
+		console.log(e.currentTarget.dataset.id)
+	},
+	onSearch(){},
+	onChange(e) {
+		this.setData({
+			searchValue:e.detail
+		})
+	},
+	//打开远程搜索框
+	showSearch(e) {
+		this.setData({
+			searchShow:true,
+			'state.name':e.currentTarget.dataset.name,
+			'state.id':e.currentTarget.dataset.id,
+		})
+		console.log(this.data.state)
+	},
+	//隐藏远程搜索框
+	hideSearch() {
+		this.setData({
+			searchShow:false
+		})
+	},
 	//name改变
 	nameChanged(e) {
 		this.setData({
@@ -230,34 +300,19 @@ Page({
 			'postData.maxAdmissionNumber': e.detail.value
 		})
 	},
-	//分类列改变
-	MultiColumnChange(e) {
-		console.log(e)
-		let temp = [...this.data.multiArray]
-		let index = [...this.data.multiIndex]
-		if(e.detail.column==0) {
-			temp[1] = this.data.courseClassificationList[e.detail.value].children.map(item => item.name)
-			index[0] = e.detail.value
-			index[1] = 0
-		}else {
-			index[1] = e.detail.value
-		}
+	//确定分类
+	MultiChange(e) {
+		console.log(e.detail.value[0])
 		this.setData({
-			multiArray:temp,
-			multiIndex:index,
-			'postData.courseClassificationId': this.data.courseClassificationList[index[0]].children[index[1]].id,
-			'postData.courseClassificationIdPath': this.data.courseClassificationList[index[0]].id + ',' +this.data.courseClassificationList[index[0]].children[index[1]].id
+			'postData.courseClassificationId': this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id,
+			'postData.courseClassificationIdPath': this.data.courseClassificationList[e.detail.value[0]].id + ',' +this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id
 		})
-		console.log(this.data.courseClassificationList[index[0]].children[index[1]].id)
-		console.log(this.data.nowYear)
-		console.log(this.data.postData.rankId)
-		// e.datail.value
 		request({
 			url: '/secondClass/course/list',
 			method: 'GET',
 			data:{
-				classificationId: this.data.courseClassificationList[index[0]].children[index[1]].id,
-				schoolYearId: this.data.nowYear,
+				classificationId: this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id,
+				schoolYearId: this.data.nowYear, 
 				status: 1,
 				term: 1,
 				rank: this.data.postData.rankId
@@ -268,6 +323,32 @@ Page({
 				multiCourse:value.data
 			})
 		})
+	},
+	//分类列改变
+	MultiColumnChange(e) {
+		console.log(e)
+		//复制数组
+		let temp = [...this.data.multiArray]
+		let index = [...this.data.multiIndex]
+		//改变的是第一列，则让第二列为第一列对应的值children
+		if(e.detail.column==0) {
+			temp[1] = this.data.courseClassificationList[e.detail.value].children.map(item => item.name)
+			index[0] = e.detail.value //改变选中的下标
+			index[1] = 0
+		}else { //否则，就只用改变第二列的选择
+			index[1] = e.detail.value
+		}
+		this.setData({
+			multiArray:temp,
+			multiIndex:index,
+			// 'postData.courseClassificationId': this.data.courseClassificationList[index[0]].children[index[1]].id,
+			// 'postData.courseClassificationIdPath': this.data.courseClassificationList[index[0]].id + ',' +this.data.courseClassificationList[index[0]].children[index[1]].id
+		})
+		console.log(this.data.courseClassificationList[index[0]].children[index[1]].id)
+		console.log(this.data.nowYear)
+		console.log(this.data.postData.rankId)
+		// e.datail.value
+		
 	},
 	//确定经纬度
 	surePosition() {
@@ -428,7 +509,30 @@ Page({
 		this.setData({
 			'postData.deptId' : this.data.deptList[e.detail.value].deptId
 		})
+		request({
+			url: '/admins/group/list',
+			method: 'get',
+			data:{
+				parentId: this.data.deptList[e.detail.value].deptId
+			}
+		}).then(value => {
+			console.log(value,'group')
+			this.setData({
+				groupList: value.rows
+			})
+			this.setData({
+				'fakeData.groupIdno': 0
+			})
+		})
+	},
+	groupChange(e) {
 		
+		this.setData({
+			'fakeData.groupIdno': e.detail.value
+		})
+		this.setData({
+			'postData.groupId' : this.data.groupList[e.detail.value].deptId
+		})
 	},
 	//提交
 	postActivity() {
@@ -462,39 +566,56 @@ Page({
 		})
 		//收集报名年级
 		this.setData({
-			'postData.enrollGrade': this.data.range.filter(item => item.checked).map(item => item.name).join(';')
+			'postData.enrollGrade': this.data.range.filter(item => item.checked).map(item => item.name).join(',')
 		})
 		this.setData({
-			'postData.schoolYearId': this.data.nowYear
+			'postData.schoolYearId': this.data.nowYear //默认当前学年
 		})
 		console.log(this.data.postData)
-		request({
-			url: '/admins/secondClass/activity',
-			method: 'POST',
-			data:this.data.postData
-		}).then(value => {
-			console.log(value)
-			if(value.code == 500) {
-				wx.showToast({
-					title: value.msg,
-					icon: 'none',
-					duration: 2000
-				})
-			} else if(value.code == 200) {
-				wx.showToast({
-					title: '成功',
-					icon: 'success',
-					duration: 2000
-				  })
-			}
-		})
+		let msg = nullToast(this.data.postData)
+
+		if(msg == 'ok') {
+			request({
+				url: '/admins/secondClass/activity',
+				method: 'POST',
+				data:this.data.postData
+			}).then(value => {
+				console.log(value)
+				if(value.code == 500) {
+					wx.showToast({
+						title: value.msg,
+						icon: 'none',
+						duration: 2000
+					})
+				} else if(value.code == 200) {
+					wx.showToast({
+						title: '成功',
+						icon: 'success',
+						duration: 2000,
+						success:() =>{
+							wx.navigateBack({
+							  delta: 2,
+							})
+						}
+					})
+					
+				}
+			})
+		} else {
+			wx.showToast({
+			  	title: msg,
+			  	icon: 'none',
+				duration: 2000
+			})
+		}
+		
+		
 	},
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
 		this.mapCtx = wx.createMapContext('myMap')
-		
 	},
 
 	/**
@@ -520,7 +641,9 @@ Page({
 		this.setData({
 			dict_admissionWay: wx.getStorageSync('dict_admissionWay').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
 		})
-	
+		// this.setData({
+		// 	'postData.admissionWay': this.data.dict_admissionWay[0].dictValue
+		// })
 
 		this.setData({
 			dict_flower: wx.getStorageSync('dict_flower').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
@@ -542,9 +665,10 @@ Page({
 		})
 		let temp = []
 		temp.push(this.data.courseClassificationList.map(item => item.name))
-		temp.push(this.data.courseClassificationList[0].children.map(item =>item.name))
+		temp.push(this.data.courseClassificationList[0]?.children?.map(item =>item.name))
 		this.setData({
-			multiArray: temp
+			multiArray: temp,
+			multiCourseIndex:0
 		})
 
 		this.setData({

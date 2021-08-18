@@ -1,6 +1,6 @@
 /* pages/activity/activity.wxss */
 .containerActivity {
-	padding: 2%;
+	padding: 2% 2%;
 	/* background-color: #fff; */
 }
 .activityTop {

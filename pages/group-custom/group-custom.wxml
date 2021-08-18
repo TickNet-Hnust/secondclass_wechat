@@ -1,11 +1,11 @@
 <!--pages/activity-custom/activity-custom.wxml-->
-<cu-custom bgColor="bg-gradual-red" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">自定义群组</view>
 </cu-custom>
 <view class="custom">
 	<form>
 		<view class="cu-form-group">
-		<view class="title">标题</view>
+		<view class="title">群组名称</view>
 		<input placeholder="请填写" model="{{postData.name}}"></input>
 	</view>
 	<view class="cu-bar solid-bottom ">
@@ -14,8 +14,21 @@
 		</view>
 	</view>
 	<view class="cu-form-group">
-		<view class="title">主办方</view>
-		<input placeholder="请填写" value="{{postData.groupId}}"></input>
+		<view class="title">分类</view>
+		<view class="action ">
+			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
+			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">Choose</button> -->
+			<picker
+			mode="multiSelector"
+			range="{{multiArray}}"
+			value="{{multiIndex}}"
+			bindcolumnchange="MultiColumnChange"
+		>
+			<view class="picker classification text-cut">
+				{{multiArray[1][multiIndex[1]]}}
+			</view>
+		</picker>
+		</view>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">发布人</view>

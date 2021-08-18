@@ -54,7 +54,40 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		
+		//推荐
+		request({
+			url: '/group/list',
+			method: 'GET',
+			data: {
+				recommend:1,
+				status: 0
+			}
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				recommendGroupList: value.rows
+			})
+		})
+		//我的
+		request({
+			url: '/group/list/user',
+			method: 'GET'
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				myGroupList: value.rows
+			})
+		})
+		//收藏
+		request({
+			url: '/group/collection/list',
+			method: 'GET'
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				collectionGroupList: value.rows
+			})
+		})
 	},
 
 	/**
@@ -68,35 +101,7 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-		request({
-			url: '/group/list',
-			method: 'GET',
-			data: {
-				recommend:1
-			}
-		}).then(value => {
-			console.log(value)
-		})
-
-		request({
-			url: '/group/list',
-			method: 'GET',
-			data: {
-				recommend:1
-			}
-		}).then(value => {
-			console.log(value)
-		})
-
-		request({
-			url: '/group/list',
-			method: 'GET',
-			data: {
-				recommend:1
-			}
-		}).then(value => {
-			console.log(value)
-		})
+		
 	},
 
 	/**

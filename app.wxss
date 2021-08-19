@@ -18,14 +18,17 @@
 /** 活动css */
 .activityAbstract {
 	display: flex;
+	padding: 20rpx 4%;
+	background-color: #fff;
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
 .activityAbstract > view {
-	width: 49%;
-	height: 296rpx;
+	width: 46%;
+	height: 320rpx;
+	margin-top: 20rpx;
 	/* background-color: red; */
-	margin: 1% 0;
+	margin: 30rpx 0;
 }
 .activityAbstract image {
 	/* border-radius: 20rpx; */
@@ -40,26 +43,28 @@
 }
 .tabMainText {
 	font-size: 25rpx;
-	padding: 0 20rpx;
-	padding-top: 10rpx;
-	overflow: hidden;
-	text-overflow:ellipsis;
-	white-space: nowrap;
+	/* padding: 0 20rpx; */
+	font-weight: 700;
+	padding-top: 20rpx;
+	padding-bottom: 20rpx;
+	/* overflow: hidden; */
+	/* text-overflow:ellipsis; */
+	/* white-space: nowrap; */
 	color: #333333;
 }
 .tabSideText {
-	font-size: 25rpx;
-	padding: 0 20rpx;
+	font-size: 22rpx;
+	/* padding: 0 20rpx; */
 	/* margin-bottom: 10rpx; */
 	overflow: hidden;
 	text-overflow:ellipsis;
 	white-space: nowrap;
 	color: #7F7F7F;
 }
-.activityFull {
+.activityFull  image {
 	border-radius: 5px;
     overflow: hidden;
-	background-color: #fff;
-	box-shadow:  0 0 8rpx #ccc;
+	/* background-color: #fff; */
+	/* box-shadow:  0 0 8rpx #ccc; */
 }
 

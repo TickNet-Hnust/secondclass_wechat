@@ -1,7 +1,7 @@
 // pages/activity-custom/activity-custom.js
 import {request} from '../../js/http.js'
 import getImgUrl from '../../utils/upload.js'
-import {filterCourseClassificationList} from '../../utils/filterCourseClassificationList.js'
+import {filterGroupClassificationList} from '../../utils/filterCourseClassificationList.js'
 import {filter} from '../../utils/filter'
 const app = getApp()
 Page({
@@ -11,6 +11,8 @@ Page({
 	 */
 	data: {
 		//当前学年
+		multiArray:[],
+		multiIndex:[0,0],
 		nowYear:null,
 		mapCtx:null,
 		CustomBar: app.globalData.CustomBar,
@@ -110,18 +112,9 @@ Page({
 		  modalName: null
 		})
 	},
-	getCenterLocation: function () {
-		this.mapCtx.getCenterLocation({
-		  success: function(res){
-			console.log(res.longitude)
-			console.log(res.latitude)
-		  }
-		})
-	  },
-	  moveToLocation: function () {
-		this.mapCtx.moveToLocation()
-	  
-	  },
+	MultiColumnChange(e) {
+		
+	},
 	ViewImage(e) {
 		wx.previewImage({
 		  urls: this.data.imgList,
@@ -133,26 +126,6 @@ Page({
 			urls: this.data.imgList,
 			current: e.currentTarget.dataset.url
 		  });
-	},
-	ChooseImage() {
-		wx.chooseMedia({
-		  count: 4, //默认9
-		  sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-		  sourceType: ['album'], //从相册选择
-		  success: (res) => {
-			  console.log(res)
-			  getImgUrl(res.tempFilePaths[0]).then(value => console.log(value,147))
-			if (this.data.imgList.length != 0) {
-			  this.setData({
-				imgList: this.data.imgList.concat(res.tempFilePaths)
-			  })
-			} else {
-			  this.setData({
-				imgList: res.tempFilePaths
-			  })
-			}
-		  }
-		});
 	},
 	ChooseImage() {
 		wx.chooseImage({
@@ -190,141 +163,6 @@ Page({
 		  }
 		})
 	},
-	surePosition() {
-		this.mapCtx.getCenterLocation({
-			success: function(res){
-			  console.log(res.longitude)
-			  console.log(res.latitude)
-			}
-		  })
-		this.hideModal()
-	},
-	//点击了课程
-	pickCourse(e) {
-		console.log(e)
-		this.setData({
-			'fakeData.courseName':e.target.dataset.name
-		})
-		this.hideModal()
-	},
-	//点击了部门多选项
-	ChooseDeptCheckbox(e) {
-		let items = this.data.deptList;
-		let values = e.currentTarget.dataset.value;
-		for (let i = 0, lenI = items.length; i < lenI; ++i) {
-		  if (i == values) {
-			items[i].checked = !items[i].checked;
-			break
-		  }
-		}
-		this.setData({
-			deptList: items
-		})
-	},
-	//允许请假改变
-	vacateChange(e){
-		this.setData({
-			'postData.vacate': Number(e.detail.value)
-		})
-	},
-	//点击了报名年级多选项
-	ChooseRangeCheckbox(e) {
-		let items = this.data.range;
-		let values = e.currentTarget.dataset.value;
-		for (let i = 0, lenI = items.length; i < lenI; ++i) {
-		  if (i == values) {
-			items[i].checked = !items[i].checked;
-			break
-		  }
-		}
-		this.setData({
-			range: items
-		})
-		console.log(this.data.range,values)
-	},
-	//活动开始日期改变
-	activityStartTimeFrontChange(e) {
-		this.setData({
-			'fakeData.activityStartTimeFront': e.detail.value
-		})
-	},
-	//活动开始时间改变
-	activityStartTimeEndChange(e) {
-		this.setData({
-			'fakeData.activityStartTimeEnd': e.detail.value
-		})
-	},
-	//活动结束日期改变
-	activityEndTimeFrontChange(e) {
-		this.setData({
-			'fakeData.activityEndTimeFront': e.detail.value
-		})
-	},
-	//活动结束时间改变
-	activityEndTimeEndChange(e) {
-		this.setData({
-			'fakeData.activityEndTimeEnd': e.detail.value
-		})
-	},
-	//报名开始日期改变
-	enrollStartTimeFrontChange(e) {
-		this.setData({
-			'fakeData.enrollStartTimeFront': e.detail.value
-		})
-	},
-	//报名开始时间改变
-	enrollStartTimeEndChange(e) {
-		this.setData({
-			'fakeData.enrollStartTimeEnd': e.detail.value
-		})
-	},
-	//报名结束日期改变
-	enrollEndTimeFrontChange(e) {
-		this.setData({
-			'fakeData.enrollEndTimeFront': e.detail.value
-		})
-	},
-	//报名结束时间改变
-	enrollEndTimeEndChange(e) {
-		this.setData({
-			'fakeData.enrollEndTimeEnd': e.detail.value
-		})
-	},
-	evaluateStatusChange(e) {
-		this.setData({
-			'fakeData.evaluateStatus': e.detail.value
-		})
-		this.setData({
-			'postData.evaluateStatus' : this.data.dict_evaluate_scheme[e.detail.value].dictValue
-		})
-	},
-	//花絮改变
-	flowerChange(e) {
-		this.setData({
-			'fakeData.flowerStatus': e.detail.value
-		})
-		this.setData({
-			'postData.flowerStatus' : this.data.dict_flower[e.detail.value].dictValue
-		})
-	},
-	//录取方式改变
-	admissionWayChange(e) {
-		this.setData({
-			'fakeData.admissionWay': e.detail.value
-		})
-		this.setData({
-			'postData.admissionWay' : this.data.dict_admissionWay[e.detail.value].dictValue
-		})
-	},
-	//活动级别改变
-	rankChange(e) {
-		this.setData({
-			'fakeData.rankIdno': e.detail.value
-		})
-		this.setData({
-			'postData.rankId' : this.data.dict_rank[e.detail.value].dictValue
-		})
-	},
 	//部门改变
 	deptChange(e) {
 		this.setData({
@@ -334,30 +172,6 @@ Page({
 			'postData.deptId' : this.data.deptList[e.detail.value].deptId
 		})
 		
-	},
-	//提交
-	postActivity() {
-		//收集报名开始与结束时间
-		this.setData({
-			'postData.enrollStartTime' : `${this.data.fakeData.enrollStartTimeFront} ${this.data.fakeData.enrollStartTimeEnd}:00`,
-			'postData.enrollEndTime' : `${this.data.fakeData.enrollEndTimeFront} ${this.data.fakeData.enrollEndTimeEnd}:00`
-		})
-		//收集活动开始时间与结束时间
-		this.setData({
-			'postData.activityStartTime' : `${this.data.fakeData.activityStartTimeFront} ${this.data.fakeData.activityStartTimeEnd}:00`,
-			'postData.activityEndTime' : `${this.data.fakeData.activityEndTimeFront} ${this.data.fakeData.activityEndTimeEnd}:00`
-		})
-		console.log()
-		//收集报名学院范围
-		this.setData({
-			'postData.enrollRange': this.data.deptList.filter(item => item.checked).map(item => item.deptId).join(';')
-		})
-		//收集报名年级
-		this.setData({
-			'postData.enrollGrade': this.data.range.filter(item => item.checked).map(item => item.name).join(';')
-		})
-		
-		console.log(this.data.postData)
 	},
 	/**
 	 * 生命周期函数--监听页面加载
@@ -370,76 +184,14 @@ Page({
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function () {
-		setTimeout(() => {
-			this.mapCtx.moveToLocation()
-		},1000)  
+	onReady: function () { 
 		//获取部门
 		request({
-			url: '/dept/util/listByType',
-			method: 'GET',
-			data:{type:1}
+			url: '/dept/util/listCollege',
+			method: 'GET'
 		}).then(value => {
-			let tempArr =  value.data
 			this.setData({
-				deptList: tempArr.map(item => ({...item,checked:false}))
-			})
-			this.setData({
-				deptList_picker: tempArr.map(item => item.deptName)
-			})
-		})
-		//获取字典
-		//活动级别
-		request({
-			url: '/dict/data/type/sc_train_program_rank',
-			method: 'GET',
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				dict_rank: value.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
-			})
-			this.setData({
-				dict_rank_picker: value.data.map(item => item.dictLabel)
-			})
-		})
-		//报名方式
-		request({
-			url: '/dict/data/type/sc_activity_admission_way',
-			method: 'GET',
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				dict_admissionWay: value.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
-			})
-		})
-		//花絮管理
-		request({
-			url: '/dict/data/type/sc_activity_flower_scheme',
-			method: 'GET',
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				dict_flower: value.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
-			})
-		})
-		//评价管理 
-		request({
-			url: '/dict/data/type/sc_activity_evaluate_scheme',
-			method: 'GET',
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				dict_evaluate_scheme: value.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
-			})
-		})
-		//所有课程
-		request({
-			url: '/admins/secondClass/trainingProgram/detail',
-			method: 'GET',
-		}).then(value => {
-			console.log(value,1212)
-			this.setData({
-				courseList: value.data.pageData.list
+				deptList: value.data
 			})
 		})
 		request({
@@ -449,6 +201,12 @@ Page({
 			this.setData({
 				nowYear: Object.keys(value.data)[0]
 			})
+		})
+		request({
+			url: '/admins/group/type/list',
+			method: 'GET',
+		}).then(value => {
+			console.log(value, '分类列表')
 		})
 		
 	},

@@ -13,18 +13,42 @@
 			<text class="cuIcon-title text-blue"></text>概要
 		</view>
 	</view>
-	<view class="cu-form-group">
-		<view class="title">主办方</view>
-		<input placeholder="请填写" value="{{postData.groupId}}"></input>
-	</view>
+
+	<van-popup
+		show="{{ searchShow }}"
+		position="top"
+		custom-style="padding-top:{{CustomBar}}px;"
+		bind:close="hideSearch"
+	>
+	<van-search id="searchName" value="{{ searchValue }}" bind:change="onChange" bind:search="onClick" placeholder="请输入搜索关键词" focus/>
+		<!-- <van-search
+			label="地址"
+			value="{{searchValue}}"
+			placeholder="请输入姓名"
+			use-action-slot
+			bind:change="onChange"
+			bind:search="onSearch"
+		>
+			<view slot="action" bind:tap="onClick">搜索</view>
+		</van-search> -->
+		<view class="cu-list menu">
+			<view class="cu-item " wx:for="{{farSearch}}" wx:key="index">
+			<view class="content" data-id="{{item.userId}}" data-name="{{item.userName}}-{{item.nickName}}" bindtap="sureHuman">
+				<text class="text-grey">{{item.userName}}-{{item.nickName}}</text>
+			</view>
+			</view>
+		</view>
+	</van-popup>
 	<view class="cu-form-group">
 		<view class="title">发布人</view>
-		<input placeholder="请填写" value="{{postData.activityReleaserId}}"></input>
+		{{activityReleaserName}}
+		<button class="cu-btn line-green " data-id="postData.activityReleaserId" data-name="activityReleaserName" bindtap="showSearch" >Choose</button>
 	</view>
 	
 	<view class="cu-form-group">
 		<view class="title">指导老师</view>
-		<input placeholder="请填写" value="{{postData.guideTeacherId}}"></input>
+		{{guideTeacherName}}
+		<button class="cu-btn line-green " data-id="postData.guideTeacherId" data-name="guideTeacherName" bindtap="showSearch" >Choose</button>
 	</view>
 
 	<view class="cu-form-group">
@@ -32,6 +56,14 @@
 		<picker bindchange="deptChange" value="{{fakeData.deptIdno}}" range="{{deptList}}" range-key="deptName">
 			<view class="picker">
 				{{fakeData.deptIdno?deptList[fakeData.deptIdno].deptName:'请填写指导单位'}}
+			</view>
+		</picker>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">主办方</view>
+		<picker bindchange="groupChange" value="{{fakeData.groupIdno}}" range="{{groupList}}" range-key="deptName">
+			<view class="picker">
+				{{fakeData.groupIdno?groupList[fakeData.groupIdno].deptName:'请填写主办方'}}
 			</view>
 		</picker>
 	</view>
@@ -85,7 +117,7 @@
 	<view class="cu-form-group">
 		<view class="title">报名范围</view>
 		<view class="action">
-			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="deptModal">Choose</button>
+			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green " bindtap="showModal" data-target="deptModal">Choose</button>
 		</view>
 	</view>
 	<view class="cu-modal bottom-modal {{modalName=='deptModal'?'show':''}}" bindtap="hideModal">
@@ -107,7 +139,7 @@
 	<view class="cu-form-group">
 		<view class="title">报名年级</view>
 		<view class="action">
-			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="rangeModal">Choose</button>
+			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green " bindtap="showModal" data-target="rangeModal">Choose</button>
 		</view>
 	</view>
 	<view class="cu-modal bottom-modal {{modalName=='rangeModal'?'show':''}}" bindtap="hideModal">
@@ -158,14 +190,15 @@
 		<view class="action ">
 			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
 			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">Choose</button> -->
-			<picker
+		<picker
 			mode="multiSelector"
 			range="{{multiArray}}"
 			value="{{multiIndex}}"
 			bindcolumnchange="MultiColumnChange"
+			bindchange="MultiChange"
 		>
 			<view class="picker classification text-cut">
-				{{multiArray[1][multiIndex[1]]}}
+				{{multiArray[1][multiIndex[1]]?multiArray[1][multiIndex[1]]:'请选择课程'}}
 			</view>
 		</picker>
 		</view>
@@ -253,7 +286,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动地点</view>
-		<button class="cu-btn line-green shadow" bindtap="showModal" data-target="bottomModal">Choose</button>
+		<button class="cu-btn line-green" bindtap="showModal" data-target="bottomModal">Choose</button>
 	</view>
 	<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
   <view class="cu-dialog">
@@ -328,29 +361,31 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动负责人</view>
-		<input placeholder="请填写" value="{{postData.activityManagerId}}"></input>
+		{{activityManagerName}}
+		<button class="cu-btn line-green " data-id="postData.activityManagerId" data-name="activityManagerName" bindtap="showSearch" >Choose</button>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动组织者</view>
-		<input placeholder="请填写" value="{{postData.activityOrganizerId}}"></input>
+		{{activityOrganizerName}}
+		<button class="cu-btn line-green " data-id="postData.activityOrganizerId" data-name="activityOrganizerName" bindtap="showSearch" >Choose</button>
 	</view>
 	<view class="cu-bar bg-white margin-top">
 		<view class="action">
 			图片素材
 		</view>
 		<view class="action">
-			{{imgList.length}}/4
+			{{imgList.length}}/1
 		</view>
 	</view>
 	<view class="cu-form-group">
-		<view class="grid col-4 grid-square flex-sub">
+		<view class="grid col-4 grid-square flex-sub" >
 			<view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
 				<image src='{{imgList[index]}}' mode='aspectFill'></image>
 				<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
 					<text class="cuIcon-close"></text>
 				</view>
 			</view>
-			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<4}}">
+			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<1}}">
 				<text class="cuIcon-cameraadd"></text>
 			</view>
 		</view>

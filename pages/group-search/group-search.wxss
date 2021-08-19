@@ -45,4 +45,15 @@
 .tag:last-child {
     margin-right: auto;
 }
-
+.cu-tag {
+	margin-top: 0 !important;
+}
+.action {
+	width: 135rpx !important;
+}
+.cu-item {
+	height: 170rpx !important;
+}
+.cu-list {
+	background-color: #fff;
+}

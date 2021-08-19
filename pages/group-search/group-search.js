@@ -1,4 +1,4 @@
-// pages/activity-search/activity-search.js
+// pages/Group-search/Group-search.js
 import {request} from '../../js/http.js'
 Page({
 
@@ -12,9 +12,9 @@ Page({
 		value: '',
 		show: true,
 		tags: [],
-		hotActivityList:[],
-		allActivityList:[],
-		serchActivityList:[],
+		hotGroupList:[],
+		allGroupList:[],
+		searchGroupList:[],
 	},
 	toggleDelay() {
 		var that = this;
@@ -31,8 +31,8 @@ Page({
 	onChange({ detail }) {
 		// 需要手动对 checked 状态进行更新
 		this.setData({ checked: detail });
-		this.getActivityList(1,{
-			status: +this.data.checked
+		this.getGroupList(1,{
+			status: this.data.checked?0:''
 		})
 	},
 	//点击标签触发
@@ -41,8 +41,8 @@ Page({
 			value:event.target.dataset.item,
 			show:false
 		})
-		this.getActivityList(0,{
-			name: event.target.dataset.item
+		this.getGroupList(0,{
+			deptName: event.target.dataset.item
 		})
 	},
 	//点击垃圾桶触发
@@ -85,14 +85,14 @@ Page({
 		})
 	},
 	//确认搜索触发
-	serchActivity(event){
+	searchGroup(event){
 		if(event.detail) {
 			let temp = wx.getStorageSync('Gtags') || []
 			temp.unshift(event.detail)
 			wx.setStorageSync('Gtags',temp)
 
-			this.getActivityList(0,{
-				name: event.detail
+			this.getGroupList(0,{
+				deptName: event.detail
 			})
 			this.setData({
 				show: false
@@ -101,19 +101,19 @@ Page({
 	
 	},
 	//api请求数据
-	getActivityList(condition,option) {
+	getGroupList(condition,option) {
 		request({
-			url: '/secondClass/activity/list',
+			url: '/group/list',
 			method: 'GET',
 			data: option
 		}).then(value => {
 			if(condition == 0) {
 				this.setData({
-					serchActivityList:value.rows
+					searchGroupList:value.rows
 				})
 			}else {
 				this.setData({
-					allActivityList:value.rows
+					allGroupList:value.rows
 				})
 			}
 		})
@@ -130,15 +130,15 @@ Page({
 	 */
 	onLoad: function (options) {
 		request({
-			url: '/secondClass/activity/hotList',
+			url: '/group/hotList',
 			method: 'GET'
 		}).then(value => {
 			console.log(value)
 			this.setData({
-				hotActivityList:value.rows
+				hotGroupList:value.rows
 			})
 		})
-		this.getActivityList(1)
+		this.getGroupList(1)
 		this.setData({
 			tags: wx.getStorageSync('Gtags')
 		})
@@ -163,7 +163,7 @@ Page({
 	 */
 	onHide: function () {
 		wx.reLaunch({
-			url: '../activity-search/activity-search'
+			url: '../Group-search/Group-search'
 		  })
 	},
 

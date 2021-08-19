@@ -1,6 +1,7 @@
-export function nullToast(data) {
-	
-		let str =  (
+export function nullToast(data,state) {
+		let str	
+		if(state == 'activity')
+		str =  (
 			(data.name=='' && '标题') || 
 			(data.activityReleaserId == '' && '发布人') ||
 			(data.guideTeacherId == '' && '指导老师') ||
@@ -25,6 +26,16 @@ export function nullToast(data) {
 			(data.activityOrganizerId == '' && '活动组织者') ||
 			(data.images == '' && '图片素材') ||
 			(data.activityIntroduce == '' && '活动介绍') || 'ok'
+		)
+		else
+		str =  (
+			(data.deptName=='' && '群组名称') ||
+			(data.teacher=='' && '指导老师') ||
+			(data.type=='' && '分类') ||
+			(data.parentId=='' && '指导单位') ||
+			(data.joinRule=='' && '加入规则') ||
+			(data.avatar=='' && '图片素材') ||
+			(data.introduce=='' && '报名须知') || 'ok'
 		)
 
 		return str == 'ok'? str: str + '不能为空'

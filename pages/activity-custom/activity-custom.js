@@ -188,7 +188,7 @@ Page({
 	ChooseImage() {
 		let that = this
 		wx.chooseImage({
-		  count: 4, //默认9
+		  count: 1, //默认9
 		  sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 		  sourceType: ['album'], //从相册选择
 		  success: (res) => {
@@ -566,13 +566,13 @@ Page({
 		})
 		//收集报名年级
 		this.setData({
-			'postData.enrollGrade': this.data.range.filter(item => item.checked).map(item => item.name).join(',')
+			'postData.enrollGrade': this.data.range.filter(item => item.checked).map(item => item.name).join('，')
 		})
 		this.setData({
 			'postData.schoolYearId': this.data.nowYear //默认当前学年
 		})
 		console.log(this.data.postData)
-		let msg = nullToast(this.data.postData)
+		let msg = nullToast(this.data.postData,'activity')
 
 		if(msg == 'ok') {
 			request({

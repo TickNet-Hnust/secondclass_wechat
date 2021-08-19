@@ -35,11 +35,9 @@ export const request = (opt) => {
 				if (res && res.statusCode == 200 && res.data) {
 					if (res.data.code == 403) {
 						wx.showToast({
-							title: '您尚未登录或登录信息已过期',
+							title: '无权限操作',
 							icon: "loading",
-							success: () => {
-								wx.navigateTo({ url: '/pages/my/my' })
-							}
+							duration:2000
 						})
 						// wx.qy.login({
 						// 	success: function(res) {

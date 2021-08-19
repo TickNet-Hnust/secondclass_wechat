@@ -1,8 +1,8 @@
 // pages/activity-custom/activity-custom.js
 import {request} from '../../js/http.js'
 import getImgUrl from '../../utils/upload.js'
-import {filterGroupClassificationList} from '../../utils/filterCourseClassificationList.js'
-import {filter} from '../../utils/filter'
+import {filterGroupClassificationList} from '../../utils/filterGroupClassificationList.js'
+import {nullToast} from '../../utils/nullToast'
 const app = getApp()
 Page({
 
@@ -10,95 +10,89 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		//当前学年
+		imgList:[],
+		searchShow:false,
 		multiArray:[],
 		multiIndex:[0,0],
-		nowYear:null,
-		mapCtx:null,
+		dict_ga_group_join_rule:[],
+		index:null,
 		CustomBar: app.globalData.CustomBar,
 		courseList:[],
-		imgList:[],
-		fileList:[],
-		index: 5,
-		modalName: '',
-		dict_admissionWay:[],
-		dict_rank:[],
-		dict_flower:[],
-		dict_evaluate_scheme:[],
 		//部门列表
 		deptList:[],
-		//报名范围
-		range: [{
-			name: '2020',
-			checked:false
-		},{
-			name: '2021',
-			checked:false
-		},{
-			name: '2022',
-			checked:false
-		},{
-			name: '2023',
-			checked:false
-		}],
 		fakeData:{
-			enrollStartTimeFront: '2021-07-01',
-			enrollStartTimeEnd: '00:00',
-			enrollEndTimeFront: '2021-09-01',
-			enrollEndTimeEnd: '24:00',
-			activityStartTimeFront: '2021-07-01',
-			activityStartTimeEnd: '00:00',
-			activityEndTimeFront: '2021-09-01',
-			activityEndTimeEnd: '24:00',
-			deptIdno:null,
-			enrollRange: null,
-			rankIdno: null,
-			admissionWay:null,
-			flowerStatus:null,
-			evaluateStatus:null
+			deptIdno:null
 		},
 		postData:{
-			name:'', //活动名称
-			groupId: 205, //主办方
-			activityReleaserId: 111, //活动发布人
-			deptId: null, //指导单位
-			guideTeacherId: 105, //指导老师ID
-
-			enrollStartTime: '', //报名开始时间
-			enrollEndTime: '',  //报名结束时间
-			admissionWay: '', //录取方式
-			enrollRange: '', //报名范围
-			enrollGrade: '', //报名年级
-			maxAdmissionNumber: '', //最大录取人数
-			enrollNotice: '', //报名须知
-
-			rankId: '', //活动级别
-			activityTag: 'sdf,sdg', //活动标签
-			courseClassificationId: '', //课程分类
-			courseClassificationName: '', //关联的课程的课程分类完整名字
-			integralScheme: '', //积分方案
-			activityTime: '', //转换前的活动时间
-			activityStartTime: '', //活动开始时间
-			activityEndTime: '', //活动结束时间
-			vacate: 1, //允许请假
-			flowerStatus: '', //是否开启花絮
-			evaluateStatus: '', //是否开启评价
-			activityPlace: '', //活动地点坐标
-			activityRegisteDistance: '', //活动签到距离
-			activityPlaceName: '', //活动地点名称
-			registeTime: '', //签到时间
-			registeStartTime: '', //签到开始时间
-			registeEndTime: '', //签到结束时间
-			activityManagerId: 103, //活动负责人
-			activityOrganizerId: 103, //活动组织者
-			images: '', //活动素材
-			enclosure: '', //相关附件链接
-			activityIntroduce: '', //活动介绍
-			schoolYearId: ''
+			deptName:'',
+			type: '',
+			parentId:'',
+			teacher: '',
+			joinRule:'',
+			recommend:'',
+			avatar:'',
+			introduce:''
 		}
 		
 
 
+	},
+	onClick() {
+		wx.showLoading({
+		  title: '加载中',
+		})
+		request({
+			url: '/user/util/listByName',
+			method: 'get',
+			data:{
+				name:this.data.searchValue
+			}
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				'farSearch' :value.data
+			})
+			wx.hideLoading()
+		})
+		console.log(this.data.searchValue)
+	},
+	onChange(e) {
+		this.setData({
+			searchValue:e.detail
+		})
+	},
+	//打开远程搜索框
+	showSearch(e) {
+		this.setData({
+			searchShow:true,
+			'state.name':e.currentTarget.dataset.name,
+			'state.id':e.currentTarget.dataset.id,
+		})
+		console.log(this.data.state)
+	},
+	//隐藏远程搜索框
+	hideSearch() {
+		this.setData({
+			searchShow:false
+		})
+	},
+	//选定人
+	sureHuman(e) {
+		let {name,id} = this.data.state
+		console.log(name,id,e,1212)
+		this.setData({
+			'postData.teacher': e.currentTarget.dataset.name
+		})
+		this.setData({
+			searchShow:false
+		})
+	},
+	change(e) {
+		console.log(e)
+		this.setData({
+			'postData.joinRule' :e.detail.value,
+			"index": e.detail.value,
+		})
 	},
 	//弹出
 	showModal(e) {
@@ -112,8 +106,31 @@ Page({
 		  modalName: null
 		})
 	},
+	//确定
+	MultiChange(e) {
+
+		this.setData({
+			'postData.type':  this.data.typeList[e.detail.value[0]].children[e.detail.value[1]].id
+		})
+	},
 	MultiColumnChange(e) {
-		
+		console.log(e)
+		//复制数组
+		let temp = [...this.data.multiArray]
+		let index = [...this.data.multiIndex]
+		if(e.detail.column == 0) {
+			temp[1] = this.data.typeList[e.detail.value].children.map(item => item.name)
+			index[0] = e.detail.value //改变选中的下标
+			index[1] = 0
+		} else {
+			index[1] = e.detail.value
+		}
+		this.setData({
+			multiArray:temp,
+			multiIndex:index,
+			'postData.type': this.data.typeList[index[0]].children[index[1]].id,
+			// 'postData.courseClassificationIdPath': this.data.courseClassificationList[index[0]].id + ',' +this.data.courseClassificationList[index[0]].children[index[1]].id
+		})
 	},
 	ViewImage(e) {
 		wx.previewImage({
@@ -128,13 +145,18 @@ Page({
 		  });
 	},
 	ChooseImage() {
+		let that =  this
 		wx.chooseImage({
-		  count: 4, //默认9
+		  count: 1, //默认9
 		  sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 		  sourceType: ['album'], //从相册选择
 		  success: (res) => {
 			  console.log(res)
-			  getImgUrl(res.tempFilePaths[0]).then(value => console.log(value,147))
+			  getImgUrl(res.tempFilePaths[0]).then(value => {
+				that.setData({
+					'postData.avatar': value
+				})
+			  })
 			if (this.data.imgList.length != 0) {
 			  this.setData({
 				imgList: this.data.imgList.concat(res.tempFilePaths)
@@ -169,8 +191,58 @@ Page({
 			'fakeData.deptIdno': e.detail.value
 		})
 		this.setData({
-			'postData.deptId' : this.data.deptList[e.detail.value].deptId
+			'postData.parentId' : this.data.deptList[e.detail.value].deptId
 		})
+		
+	},
+	//群组名改变
+	nameChange(e) {
+		this.setData({
+			'postData.deptName':e.detail.value
+		})
+	},
+	//介绍改变
+	introduceChange(e) {
+		console.log(e)
+		this.setData({
+			'postData.introduce':e.detail.value
+		})
+	},
+	postGroup() {
+		this.data.postData.recommend = 1
+		this.data.postData.orderNum = 0
+        this.data.postData.ancestors = 0 + ',' + this.data.postData.parentId
+        this.data.postData.status = 2 //待审核
+		console.log(this.data.postData)
+		let msg = nullToast(this.data.postData,'group')
+		if(msg == 'ok') {
+			request({
+				url: '/group',
+				method: 'post',
+				data:this.data.postData
+			}).then(value => {
+				console.log(value)
+				if(value.code == 200) {
+					wx.showToast({
+						title: '成功',
+						icon: 'success',
+						duration: 2000,
+						success:() =>{
+							wx.navigateBack({
+							  delta: 1,
+							})
+						}
+					})
+					
+				}
+			})
+		} else {
+			wx.showToast({
+				title: msg,
+				icon: 'none',
+			  duration: 2000
+		  })
+		}
 		
 	},
 	/**
@@ -184,7 +256,25 @@ Page({
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function () { 
+	onReady: function () {
+		request({
+			url: '/admins/group/type/list',
+			method: 'GET'
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				typeList: filterGroupClassificationList(value.data)
+			})
+			let temp = []
+			temp.push(this.data.typeList.map(item => item.name))
+			temp.push(this.data.typeList[0]?.children?.map(item =>item.name))
+			this.setData({
+				multiArray: temp
+			})
+			this.setData({
+				'postData.type': this.data.typeList[0]?.children[0].id
+			})
+		})
 		//获取部门
 		request({
 			url: '/dept/util/listCollege',
@@ -194,20 +284,23 @@ Page({
 				deptList: value.data
 			})
 		})
-		request({
-			url: '/secondClass/schoolYear/nowYear',
-			method: 'GET'
-		}).then(value => {
-			this.setData({
-				nowYear: Object.keys(value.data)[0]
-			})
+		this.setData({
+			dict_ga_group_join_rule: wx.getStorageSync('dict_ga_group_join_rule')
 		})
-		request({
-			url: '/admins/group/type/list',
-			method: 'GET',
-		}).then(value => {
-			console.log(value, '分类列表')
-		})
+		// request({
+		// 	url: '/secondClass/schoolYear/nowYear',
+		// 	method: 'GET'
+		// }).then(value => {
+		// 	this.setData({
+		// 		nowYear: Object.keys(value.data)[0]
+		// 	})
+		// })
+		// request({
+		// 	url: '/admins/group/type/list',
+		// 	method: 'GET',
+		// }).then(value => {
+		// 	console.log(value, '分类列表')
+		// })
 		
 	},
 

@@ -90,6 +90,7 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+		this.toggleDelay()
 		this.setData({     //解决bug做出的奇怪行为1
 			active : 'a'     
 		})

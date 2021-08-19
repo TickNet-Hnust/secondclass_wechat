@@ -6,14 +6,34 @@
 	<form>
 		<view class="cu-form-group">
 		<view class="title">群组名称</view>
-		<input placeholder="请填写" model="{{postData.name}}"></input>
+		<input placeholder="请填写" bindinput="nameChange" model="{{postData.deptName}}"></input>
 	</view>
-	<view class="cu-bar solid-bottom ">
+	<!-- <view class="cu-bar solid-bottom ">
 		<view class="action">
-			<text class="cuIcon-title text-blue"></text>概要
+			<text class="cuIcon-title text-blue"></text>发布人
 		</view>
+	</view> -->
+	<van-popup
+		show="{{ searchShow }}"
+		position="top"
+		custom-style="padding-top:{{CustomBar}}px;"
+		bind:close="hideSearch"
+	>
+	<van-search id="searchName" value="{{ searchValue }}" bind:change="onChange" bind:search="onClick" placeholder="请输入搜索关键词" focus/>
+		<view class="cu-list menu">
+			<view class="cu-item " wx:for="{{farSearch}}" wx:key="index">
+			<view class="content" data-id="{{item.userId}}" data-name="{{item.nickName}}" bindtap="sureHuman">
+				<text class="text-grey">{{item.userName}}-{{item.nickName}}</text>
+			</view> 
+			</view>
+		</view>
+	</van-popup>
+	<view class="cu-form-group margin-top">
+		<view class="title">指导老师</view>
+		{{postData.teacher}}
+		<button class="cu-btn line-green " data-id="postData.activityReleaserId" data-name="activityReleaserName" bindtap="showSearch" >Choose</button>
 	</view>
-	<view class="cu-form-group">
+	<view class="cu-form-group margin-top">
 		<view class="title">分类</view>
 		<view class="action ">
 			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
@@ -22,25 +42,16 @@
 			mode="multiSelector"
 			range="{{multiArray}}"
 			value="{{multiIndex}}"
+			bindchange="MultiChange"
 			bindcolumnchange="MultiColumnChange"
 		>
 			<view class="picker classification text-cut">
-				{{multiArray[1][multiIndex[1]]}}
+				{{multiArray[1][multiIndex[1]]?multiArray[1][multiIndex[1]]:'请选择分类'}}
 			</view>
 		</picker>
 		</view>
 	</view>
-	<view class="cu-form-group">
-		<view class="title">发布人</view>
-		<input placeholder="请填写" value="{{postData.activityReleaserId}}"></input>
-	</view>
-	
-	<view class="cu-form-group">
-		<view class="title">指导老师</view>
-		<input placeholder="请填写" value="{{postData.guideTeacherId}}"></input>
-	</view>
-
-	<view class="cu-form-group">
+	<view class="cu-form-group ">
 		<view class="title">指导单位</view>
 		<picker bindchange="deptChange" value="{{fakeData.deptIdno}}" range="{{deptList}}" range-key="deptName">
 			<view class="picker">
@@ -48,297 +59,53 @@
 			</view>
 		</picker>
 	</view>
-	<view class="cu-bar solid-bottom ">
-		<view class="action">
-			<text class="cuIcon-title text-blue"></text>报名信息
-		</view>
-	</view>
+	
 	<view class="cu-form-group ">
-		<view class="title">报名开始日期</view>
-		<picker mode="date" value="{{fakeData.enrollStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="enrollStartTimeFrontChange">
-			<view class="picker">
-				{{fakeData.enrollStartTimeFront}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">报名开始时间</view>
-		<picker mode="time" value="{{fakeData.enrollStartTimeEnd}}" start="00:00" end="24:00" bindchange="enrollStartTimeEndChange">
-			<view class="picker">
-				{{fakeData.enrollStartTimeEnd}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">报名结束日期</view>
-		<picker mode="date" value="{{fakeData.enrollEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="enrollEndTimeFrontChange">
-			<view class="picker">
-				{{fakeData.enrollEndTimeFront}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">报名结束时间</view>
-		<picker mode="time" value="{{fakeData.enrollEndTimeEnd}}" start="00:00" end="24:00" bindchange="enrollEndTimeEndChange">
-			<view class="picker">
-				{{fakeData.enrollEndTimeEnd}}
-			</view>
-		</picker>
-	</view>
-
-	<view class="cu-form-group">
-		<view class="title">录取方式</view>
-		<picker bindchange="admissionWayChange" value="{{fakeData.admissionWay}}" range="{{dict_admissionWay}}" range-key="dictLabel">
-			<view class="picker">
-				{{fakeData.admissionWay?dict_admissionWay[fakeData.admissionWay]:'录取方式'}}
-			</view>
-		</picker>
-	</view>
-
-	<view class="cu-form-group">
-		<view class="title">报名范围</view>
-		<view class="action">
-			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="deptModal">Choose</button>
-		</view>
-	</view>
-	<view class="cu-modal bottom-modal {{modalName=='deptModal'?'show':''}}" bindtap="hideModal">
-		<view class="cu-dialog" catchtap>
-			<view class="cu-bar bg-white">
-			<view class="action text-blue" bindtap="hideModal">取消</view>
-			<view class="action text-green" bindtap="hideModal">确定</view>
-			</view>
-			<view class="grid col-3 padding-sm">
-			<view wx:for="{{deptList}}" class="padding-xs" wx:key="index">
-				<button class="cu-btn orange lg block {{item.checked?'bg-green':'line-green'}}" bindtap="ChooseDeptCheckbox" data-value="{{index}}"> 
-					{{item.deptName}}
-				</button>
-			</view>
-			</view>
-		</view>
-	</view>
-
-	<view class="cu-form-group">
-		<view class="title">报名年级</view>
-		<view class="action">
-			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="rangeModal">Choose</button>
-		</view>
-	</view>
-	<view class="cu-modal bottom-modal {{modalName=='rangeModal'?'show':''}}" bindtap="hideModal">
-		<view class="cu-dialog" catchtap>
-			<view class="cu-bar bg-white">
-			<view class="action text-blue" bindtap="hideModal">取消</view>
-			<view class="action text-green" bindtap="hideModal">确定</view>
-			</view>
-			<view class="grid col-3 padding-sm">
-			<view wx:for="{{range}}" class="padding-xs" wx:key="index">
-				<button class="cu-btn orange lg block {{item.checked?'bg-green':'line-green'}}" bindtap="ChooseRangeCheckbox" data-value="{{index}}"> 
-					{{item.name}}
-				</button>
-			</view>
-			</view>
-		</view>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">最大录取人数</view>
-		<input placeholder="请填写" model:value="{{postData.maxAdmissionNumber}}"></input>
-	</view>
-	<view class="cu-form-group align-start">
-		<view class="title">报名须知</view>
-		<textarea model:value="{{postData.enrollNotice}}"  placeholder="多行文本输入框"></textarea>
-	</view>
-
-	<view class="cu-bar solid-bottom ">
-		<view class="action">
-			<text class="cuIcon-title text-blue"></text>活动信息
-		</view>
-	</view>
-	<view class="cu-form-group ">
-		<view class="title">活动级别</view>
-		<picker bindchange="rankChange" value="{{fakeData.rankIdno}}" range="{{dict_rank}}" range-key="dictLabel">
-			<view class="picker">
-				{{fakeData.rankIdno?dict_rank[fakeData.rankIdno].dictLabel:'请填写活动级别'}}
-			</view>
-		</picker>
-	</view>
-
-	<view class="cu-form-group">
-		<view class="title">活动标签</view>
-		<input placeholder="用分号隔开"></input>
-	</view>
-
-	<view class="cu-form-group">
-		<view class="title">关联课程</view>
-		<view class="action">
+		<view class="title">加入规则</view>
+		<view class="action ">
 			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
-			<text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button>
-		</view>
-	</view>
-	<view class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}" bindtap="hideModal">
-	<view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
-		<scroll-view scroll-y scroll-into-view="indexes-{{listCurID}}" style="height:calc(100vh - {{CustomBar}}px - 50px)" scroll-with-animation="true" enable-back-to-top="true">
-			<view class="cu-list menu text-left">
-			<view 
-				class="cu-item" 
-				wx:for="{{courseList}}" 
-				wx:key="index" 
-				bindtap="pickCourse" 
-				data-id="{{item.id}}" 
-				data-classificationId="{{item.classificationId}}"
-				data-classificationIdPath="{{item.classificationPath}}"
-				data-name="{{item.name}}"
-			>
-				{{item.name}}<text class="cuIcon-title text-green "></text>
-			</view>
-			</view>
-		</scroll-view>
-	</view>
-	</view>
-
-	<view class="cu-modal bottom-modal {{modalName=='classification'?'show':''}}">
-  	<view class="cu-dialog">
-    <view class="cu-bar bg-white">
-      <view class="action text-green">确定</view>
-      <view class="action text-blue" bindtap="hideModal">取消</view>
-    </view>
-    <view class="padding-xl">
-		
-    </view>
-  </view>
-</view>
-
-	<view class="cu-form-group">
-		<view class="title">活动时间</view>
-		<input placeholder="请填写"></input>
-	</view>
-	<view class="cu-form-group ">
-		<view class="title">活动开始日期</view>
-		<picker mode="date" value="{{fakeData.activityStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="activityStartTimeFrontChange">
-			<view class="picker">
-				{{fakeData.activityStartTimeFront}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">活动开始时间</view>
-		<picker mode="time" value="{{fakeData.activityStartTimeEnd}}" start="00:00" end="24:00" bindchange="activityStartTimeEndChange">
-			<view class="picker">
-				{{fakeData.activityStartTimeEnd}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">活动结束日期</view>
-		<picker mode="date" value="{{fakeData.activityEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="activityEndTimeFrontChange">
-			<view class="picker">
-				{{fakeData.activityEndTimeFront}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">活动结束时间</view>
-		<picker mode="time" value="{{fakeData.activityEndTimeEnd}}" start="00:00" end="24:00" bindchange="activityEndTimeEndChange">
-			<view class="picker">
-				{{fakeData.activityEndTimeEnd}}
-			</view>
-		</picker>
-	</view>
-
-	<view class="cu-form-group">
-		<view class="title">允许请假</view>
-		<switch checked bindchange="vacateChange"></switch>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">花絮管理</view>
-		<picker bindchange="flowerChange" value="{{fakeData.flowerStatus}}" range="{{dict_flower}}" range-key="dictLabel">
-			<view class="picker">
-				{{fakeData.flowerStatus?dict_flower[fakeData.flowerStatus].dictLabel:'请选择花絮管理'}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">评价管理</view>
-		<picker bindchange="evaluateStatusChange" value="{{fakeData.evaluateStatus}}" range="{{dict_evaluate_scheme}}" range-key="dictLabel">
-			<view class="picker">
-				{{fakeData.evaluateStatus?dict_evaluate_scheme[fakeData.evaluateStatus].dictLabel:'请选择评价管理'}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">活动地点</view>
-		<button class="cu-btn line-green shadow" bindtap="showModal" data-target="bottomModal">Choose</button>
-	</view>
-	<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white">
-      <view class="action text-green" bindtap="surePosition">确定</view>
-      <view class="action text-blue" bindtap="hideModal">取消</view>
-    </view>
-    <view >
-		<map 
-			id="myMap" 
-			show-location 
+			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">Choose</button> -->
+			<picker
+			range="{{dict_ga_group_join_rule}}"
+			range-key="dictLabel"
+			value="{{index}}"
+			bindchange="change"
 		>
-			<!-- <view class="maker">&#xe664;</view> -->
-			<image  class="maker" src="../../images/my_marker.png"></image>
-
-		</map>
-		<!-- <button class="cu-btn bg-green margin-right margin-tb-sm lg" bindtap="getCenterLocation">获取位置</button> -->
-		<button class="cu-btn bg-green margin-tb-sm lg" bindtap="moveToLocation">移动到当前位置</button>
-		<!-- <button type="primary" bindtap="getCenterLocation">获取位置</button> -->
-		<!-- <button type="primary" bindtap="moveToLocation">移动位置</button> -->
-    </view>
-  </view>
-</view>
-
-	<view class="cu-form-group">
-		<view class="title">地点详细描述</view>
-		<input placeholder="请填写" mode:valuel="{{postData.activityPlaceName}}"></input>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">签到时间</view>
-		<switch checked bindchange="vacateChange"></switch>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">签到距离</view>
-		<input placeholder="请填写"></input>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">活动负责人</view>
-		<input placeholder="请填写" model:value="{{postData.activityManagerId}}"></input>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">活动组织者</view>
-		<input placeholder="请填写" model:value="{{postData.activityOrganizerId}}"></input>
+			<view class="picker classification text-cut">
+				{{dict_ga_group_join_rule[index]?dict_ga_group_join_rule[index].dictLabel:'请选择加入规则'}}
+			</view>
+		</picker>
+		</view>
 	</view>
 	<view class="cu-bar bg-white margin-top">
 		<view class="action">
 			图片素材
 		</view>
 		<view class="action">
-			{{imgList.length}}/4
+			{{imgList.length}}/1
 		</view>
 	</view>
 	<view class="cu-form-group">
-		<view class="grid col-4 grid-square flex-sub">
+		<view class="grid col-4 grid-square flex-sub" >
 			<view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
 				<image src='{{imgList[index]}}' mode='aspectFill'></image>
 				<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
 					<text class="cuIcon-close"></text>
 				</view>
 			</view>
-			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<4}}">
+			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<1}}">
 				<text class="cuIcon-cameraadd"></text>
 			</view>
 		</view>
 	</view>
-	
 	<view class="cu-form-group align-start">
-		<view class="title">活动介绍</view>
-		<textarea model:value="{{postData.activityIntroduce}}" placeholder="多行文本输入框"></textarea>
+		<view class="title">报名须知</view>
+		<textarea value="{{postData.introduce}}" bindinput="introduceChange" placeholder="多行文本输入框"></textarea>
 	</view>
+
 </form>
 	<view class="stickyButton" >
 		<!-- <button class="cu-btn bg-red margin-tb-sm lg">嫣红</button> -->
-		<button class="cu-btn bg-green lg" bindtap="postActivity">提交活动</button>
+		<button class="cu-btn bg-green lg" bindtap="postGroup">提交活动</button>
 	</view>
 </view>

@@ -83,6 +83,14 @@ Page({
 			console.log('储存评价管理')
 			wx.setStorageSync('dict_evaluate_scheme',value.data)
     })
+    //群组加入规则 
+		request({
+			url: '/dict/data/type/ga_group_join_rule',
+			method: 'GET',
+		}).then(value => {
+			console.log('储存群组加入规则')
+			wx.setStorageSync('dict_ga_group_join_rule',value.data)
+    })
     //所有分类
     request({
 			url: '/admins/secondClass/courseClassification/list',
@@ -98,7 +106,7 @@ Page({
 		}).then(value => {
 			console.log('储存当前学年')
 			wx.setStorageSync('nowYear',Object.keys(value.data)[0])
-		})
+    })
   },
   getUserProfile(e) {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗

@@ -11,7 +11,8 @@
 		"pages/activity-detail/activity-detail",
 		"pages/group/group",
 		"pages/group-search/group-search",
-		"pages/group-custom/group-custom"
+		"pages/group-custom/group-custom",
+		"pages/group-detail/group-detail"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

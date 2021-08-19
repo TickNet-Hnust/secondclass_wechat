@@ -13,8 +13,8 @@ Page({
 		collectionActivityList: [],
 		myActivityList: [],
 	},
-	activeChange() {
-		this.toggleDelay()
+	activeChange(e) {
+		e!= '自定义' && this.toggleDelay()
 	},
 	toggleDelay() {
 		var that = this;
@@ -67,6 +67,7 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+		this.toggleDelay()
 		request({
 			url:'/secondClass/activity/list',
 			method: 'GET',

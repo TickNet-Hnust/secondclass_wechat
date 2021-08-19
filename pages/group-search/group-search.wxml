@@ -24,10 +24,11 @@
 		title-active-color="#07c160"
 	>
 		<van-tab title="搜索" name="a">
+			<view style="min-height: 100vh;background-color: #fff;">
 			<van-search 
 				value="{{ value }}" 
 				placeholder="请输入搜索关键词" 
-				bind:search="serchActivity"
+				bind:search="searchGroup"
 				bind:focus="focusSearch"
 				bind:blur="blurSearch"
 				focus
@@ -49,66 +50,101 @@
 					>{{item}}</van-tag>
 				</view>
 			</view>
-			<view class="searchResult" wx:if="{{!show}}">
-				<view class="activityAbstract" wx:if="{{serchActivityList.length == 0}}" >
-					<van-empty image="search" description="没有找到匹配的活动" style="margin: 0 auto;"/>
+			<view class="" wx:if="{{!show}}">
+				<view class="" wx:if="{{searchGroupList.length == 0}}" >
+					<van-empty image="search" description="没有找到匹配的群组" style="margin: 0 auto;"/>
 				</view>
-				<view class="activityAbstract">
-					<view class="activityFull" wx:for="{{serchActivityList}}" wx:key="index">
-						<view>
-							<image src="{{item.image}}"></image>
+				<view class="">
+					<view class="cu-list menu-avatar">
+						<view wx:for="{{searchGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
+							<view class="cu-tag badge">{{item.activityNumber}}</view>
 						</view>
-						<view >
-							<view class="tabMainText">
-								{{item.name}}
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">{{item.deptName}}</text>
+								<view class="cu-tag round bg-blue sm">{{item.status}}</view>
+							</view>
+							<view class="text-gray text-sm flex">
+							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
 							</view>
 						</view>
-						<view class="tabSideText">
-							<text>{{item.activityTag}}</text>
+						<view class="action">
+							<view class="cu-capsule round">
+								<view class="cu-tag bg-blue sm">
+									<text class="cuIcon-peoplelist"></text>
+								</view>
+								<view class="cu-tag line-blue sm">
+									{{item.memberNumber}}
+								</view>
+							</view>
+						</view>
 						</view>
 					</view>
 				</view>
-				
 			</view>
+		</view>
 		</van-tab>
 		<van-tab title="全部" name="b">
-			<view class="searchAll">
-				
-				<view class="activityAbstract">
-					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-					<view>
-						<image src="{{item.image}}"></image>
-					</view>
-					<view >
-						<view class="tabMainText">
-							{{item.name}}
+			<view style="min-height: 100vh;background-color: #fff;">
+					<view class="cu-list menu-avatar">
+						<view wx:for="{{allGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
+							<view class="cu-tag badge">{{item.activityNumber}}</view>
+						</view>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">{{item.deptName}}</text>
+								<view class="cu-tag round bg-blue sm">{{item.status}}</view>
+							</view>
+							<view class="text-gray text-sm flex">
+							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-capsule round">
+								<view class="cu-tag bg-blue sm">
+									<text class="cuIcon-peoplelist"></text>
+								</view>
+								<view class="cu-tag line-blue sm">
+									{{item.memberNumber}}
+								</view>
+							</view>
+						</view>
 						</view>
 					</view>
-					<view class="tabSideText">
-						<text>{{item.activityTag}}</text>
-					</view>
 				</view>
-			</view>
-			</view>
+
 		</van-tab>
 		<van-tab title="热门" name="c">
-			<view class="searchHot">
-				<view class="activityAbstract">
-				<view wx:for="{{hotActivityList}}" wx:key="index" class="activityFull {{toggleDelay?'animation-slide-right':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-					<view>
-						<image src="{{item.image}}"></image>
-					</view>
-					<view >
-						<view class="tabMainText">
-							{{item.name}}
+				<view style="min-height: 100vh;background-color: #fff;">
+					<view class="cu-list menu-avatar">
+						<view wx:for="{{hotGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
+							<view class="cu-tag badge">{{item.activityNumber}}</view>
 						</view>
-					</view>
-					<view class="tabSideText">
-						<text>{{item.activityTag}}</text>
-					</view>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">{{item.deptName}}</text>
+								<view class="cu-tag round bg-blue sm">{{item.status}}</view>
+							</view>
+							<view class="text-gray text-sm flex">
+							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-capsule round">
+								<view class="cu-tag bg-blue sm">
+									<text class="cuIcon-peoplelist"></text>
+								</view>
+								<view class="cu-tag line-blue sm">
+									{{item.memberNumber}}
+								</view>
+							</view>
+						</view>
+						</view>
+					</view>			
 				</view>
-			</view>
-			</view>
 		</van-tab>
 	</van-tabs>
 </view>

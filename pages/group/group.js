@@ -31,7 +31,7 @@ Page({
 	jumpDetail(e) {
 		console.log(e)
 		wx.navigateTo({
-		  url: `../group-detail/group-detail?aid=${e.currentTarget.dataset.id}`,
+		  url: `../group-detail/group-detail?gid=${e.currentTarget.dataset.id}`,
 		})
 	},
 	jumpSearch() {
@@ -101,7 +101,7 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-		
+		this.toggleDelay()
 	},
 
 	/**

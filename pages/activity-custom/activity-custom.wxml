@@ -21,21 +21,11 @@
 		bind:close="hideSearch"
 	>
 	<van-search id="searchName" value="{{ searchValue }}" bind:change="onChange" bind:search="onClick" placeholder="请输入搜索关键词" focus/>
-		<!-- <van-search
-			label="地址"
-			value="{{searchValue}}"
-			placeholder="请输入姓名"
-			use-action-slot
-			bind:change="onChange"
-			bind:search="onSearch"
-		>
-			<view slot="action" bind:tap="onClick">搜索</view>
-		</van-search> -->
 		<view class="cu-list menu">
 			<view class="cu-item " wx:for="{{farSearch}}" wx:key="index">
 			<view class="content" data-id="{{item.userId}}" data-name="{{item.userName}}-{{item.nickName}}" bindtap="sureHuman">
 				<text class="text-grey">{{item.userName}}-{{item.nickName}}</text>
-			</view>
+			</view> 
 			</view>
 		</view>
 	</van-popup>

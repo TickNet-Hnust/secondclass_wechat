@@ -1,0 +1,168 @@
+<!--pages/activity-detail/activity-detail.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">群组详情</view>
+</cu-custom>
+<view class="detail">
+	<view class="cu-list menu-avatar mainShow">
+        <view class="cu-item">
+          <view class="cu-avatar radius lg" style="background-image:url({{showData.avatar}});"></view>
+          <view class="content">
+            <view class="text-black">{{showData.deptName}}<text class="green cuIcon-favor"></text></view>
+            <view class="text-gray text-sm flex">
+              <text class="text-cut">
+					<text class="cuIcon-location"></text>{{showData.status}}
+					<!-- <text class="cuIcon-infofill text-red  margin-right-xs"></text> 我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。我已天理为凭，踏入这片荒芜，不再受凡人的枷锁遏制。 -->
+              </text>
+            </view>
+			<view text-sm>
+				<text class="cuIcon-friend text-sm"></text>成员：{{showData.memberNumber}}，ID：{{showData.deptId}}
+			</view>
+          </view>
+          <view class="action">
+            <view class="text-grey text-lg"><text class="cuIcon-like"></text></view>
+            
+          </view>
+        </view>
+	</view>
+	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
+		<van-tab title="概况" name="a" >
+			<scroll-view scroll-y>
+				<view class="activityTemplate">
+				<view class="boxs solid shadow-warp" style="padding-top:0">
+					<view style="padding:20rpx 20rpx">
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle" span="6"><text class="cuIcon-title text-black"></text>分类</van-col>
+							<van-col class="rightContent" span="18">{{showData.type}}</van-col>
+						</van-row>
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle"  span="6"><text class="cuIcon-title text-black"></text>指导单位</van-col>
+							<van-col class="rightContent" span="18">{{showData.parentName}}</van-col>
+						</van-row>
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle"  span="6"><text class="cuIcon-title text-black"></text>指导老师</van-col>
+							<van-col class="rightContent" span="18">{{showData.teacher}}</van-col>
+						</van-row>
+					</view>
+					<!-- <view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="Detail">
+						<text class="cuIcon-unfold "></text>
+					</view> -->
+				</view>
+				<view class="boxs solid shadow-warp">
+					
+					<view style="padding:20rpx 20rpx">
+						<van-row style="line-height: 40rpx;">
+							<van-col class="leftTitle" span="6">
+								<text class="cuIcon-title text-black"></text>介绍
+							</van-col>
+						</van-row>
+						<van-row style="line-height: 40rpx;">
+							<text class="box-p">{{showData.introduce}}</text>
+						</van-row>
+					</view>
+					<view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="notice">
+						<text class="cuIcon-unfold "></text>
+					</view>
+					<view class="cu-modal {{modalName=='notice'?'show':''}}">
+						<view class="cu-dialog">
+							<view class="cu-bar bg-white justify-end">
+							<view class="content">群组介绍</view>
+							<view class="action" bindtap="hideModal">
+								<text class="cuIcon-close text-red"></text>
+							</view>
+							</view>
+							<view class="padding bg-white solid-top">
+								<scroll-view scroll-y style="max-height: 70vh;">
+									<text> {{showData.introduce}}
+									</text>
+								</scroll-view>
+							</view>
+						</view>
+					</view>
+				</view>
+				
+				<view class="flexLines">
+					<van-row>
+						<van-col span="4">
+							<view>
+								<icon class="icon-box-img" type="success" size="35"></icon>
+							</view>
+						</van-col>
+						<van-col span="14">
+							<view class="flexMainTitle">加入群组</view>
+							<view class="flexSideTitle">{{showData.enrollStartTime}} 至 <view></view> {{showData.enrollEndTime}}</view>
+						</van-col>
+						<van-col span="6" >
+							<button 
+								bindtap="joinGroup"
+								class="cu-btn radius bg-green text-sm fr"
+							>申请</button>
+						</van-col>
+					</van-row>
+				</view>
+				
+				<view class="flexLines">
+					<van-row>
+						<van-col span="4">
+							<view>
+								<icon class="icon-box-img" type="success" size="35"></icon>
+							</view>
+						</van-col>
+						<van-col span="15">
+							<view class="flexMainTitle">群组管理</view>
+							<view class="flexSideTitle">群组的控制台</view>
+						</van-col>
+						<van-col span="5" ><text style="font-size: 24rpx;color:#bbb" >进入控制台</text></van-col>
+					</van-row>
+				</view>
+				</view>
+			</scroll-view>
+		</van-tab>
+		<van-tab title="成员" name="b" class="peoples">
+			<scroll-view scroll-y>
+				<view class="activityTemplate">
+				<view class="cu-list menu-avatar">
+					<view class="cu-item solid-top" wx:for="{{memberList}}" wx:key="index">
+						<view class="cu-avatar round lg" style="background-image:url({{item.avatar}})">
+							<!-- <view class="cu-tag badge">
+								{{item.identities}}
+							</view> -->
+							<!-- <view class="cu-tag badge" wx:if="item.identities[1]==undefined">{{item.identities[1]!=undefined?'负责人'}}</view> -->
+						</view>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">{{item.nickName}}</text>
+								<view class="cu-tag round bg-blue sm" wx:for="{{item.identities}}" wx:key="index">{{item}}</view>
+								<view class="cu-tag round bg-green sm">获奖：{{item.prize?item.prize :'无'}}</view>
+							</view>
+							<view class="text-gray text-xs flex">
+							<text class="text-cut">报名时间：{{item.enrollTime}}，签到时间：{{item.registeTime}}</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-tag radius sm">{{item.registeStatus?'未签到':'已签到'}}</view>
+							<view class="cu-tag radius sm">积分：2分</view>
+						</view>
+					</view>
+				</view>
+				</view>
+			</scroll-view>
+		</van-tab>
+		<van-tab title="活动" name="c">
+			<view class="activityAbstract">
+				<view  wx:for="{{activityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+						<view>
+							<image src="{{item.image}}"></image>
+						</view>
+						<view >
+							<view class="tabMainText">
+								{{item.name}}
+							</view>
+						</view>
+						<view>
+							<text class="tabSideText">{{item.activityTag}}</text>
+						</view>
+					</view>
+			</view>
+		</van-tab>
+	</van-tabs>
+</view>

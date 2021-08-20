@@ -22,7 +22,7 @@
   padding: 30rpx;
   background-color: white;
   font-size: 25rpx;
-  height: 430rpx;
+  height: 340rpx;
 }
 
 .leftTitle{
@@ -35,13 +35,9 @@
 }
 
 .activityClassify1{
-    background-color: #5698c3;
-    color: white;
-    border-top-right-radius: 2em;
-    border-bottom-right-radius: 2em;
-    display:block;
+    color: #5698c3;
 }
-.activityClassify2{
+/* .activityClassify2{
     background-color:#f07c82;
     color: white;
     border-top-right-radius: 2em;
@@ -53,10 +49,9 @@
     border-top-right-radius: 2em;
     border-bottom-right-radius: 2em;
     display: block;
-}
+} */
 
 .activityScoreRule{
-  
   /* background-color: rgba(196, 255, 226, 0.904); */
   font-size: 25rpx;
 }

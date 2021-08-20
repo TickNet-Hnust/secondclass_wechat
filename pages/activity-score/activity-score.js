@@ -1,5 +1,6 @@
 // pages/activity-score/activity-score.js
 import {request} from '../../js/http.js'
+import {filterCourseClassificationList2} from '../../utils/filterCourseClassificationList'
 Page({
 
   /**
@@ -18,6 +19,10 @@ Page({
     dict_sc_activity_integral_scheme:[],
     dict_sc_integral_type:[],
     integrationRule:[],
+    //根据id 当前查找到的课程分类
+    currentCourseClassification:[],
+    filterCourseClassificationList:[],
+    maxLayer:'',
 
   },
   
@@ -41,6 +46,7 @@ Page({
     this.setData({
       aid:options.aid,
     })
+
     //活动积分概况请求
     request({
 			url:`/secondClass/activity/${this.data.aid}/integral`,
@@ -51,60 +57,89 @@ Page({
       this.setData({
             activityName : value.data.activityName,
             activityRank : value.data.activityRank,
-  courseClassificationId : value.data.courseClassificationId,
+  // courseClassificationId : value.data.courseClassificationId,
+  courseClassificationId : 87,
 courseClassificationName : value.data.courseClassificationName,
           integralScheme : value.data.integralScheme,
       })
           //获取活动积分规则 
           //放在概况请求里面是因为要先通过上面请求拿到courseClassificationId再发请求
           request({
-            url:`/admins/secondClass/courseClassification/sort/list/${this.data.courseClassificationId}`,
+            url:'/admins/secondClass/courseClassification/list',
             method:'GET',
           }).then(value=>{
-            this.setData({
-              integrationRule:value.data,
-            })
-            console.log(this.data.integrationRule,'活动积分规则')
+            console.log(value,'课程分类列表')
+            value.data.forEach((item)=>{
+              if(item.id===this.data.courseClassificationId)
+              {
+                  this.setData({
+                    currentCourseClassification:JSON.parse(JSON.stringify(item)),
+                  })
+              }
+             })
+
+                  console.log(this.data.currentCourseClassification,'当前查找到的课程分类id')
+                  
+                  this.setData({
+                     filterCourseClassificationList:filterCourseClassificationList2(value.data,this.data.currentCourseClassification,this.data.courseClassificationId),
+                  })
+                  
+                  console.log(this.data.filterCourseClassificationList,'过滤后的数组');
+
+                   
+                  this.setData({
+                     maxLayer:this.data.filterCourseClassificationList.maxLayer
+                  })
+
+                  console.log(this.data.maxLayer,'最大层级');
+
+                  // 积分在第三层
+                  if(this.data.maxLayer==3)
+                  {
+                    this.setData({
+                      integrationRule:this.data.filterCourseClassificationList.children
+                   })
+
+                  console.log(this.data.integrationRule,'积分规则数组1'); 
+
+                  }            
+                  // 积分在第一层
+                  else if(this.data.maxLayer==1||(this.data.maxLayer==2&&this.data.filterCourseClassificationList.children[0].type==2))
+                  {
+
+                    this.setData({
+                      integrationRule:this.data.filterCourseClassificationList
+                   })
+                  
+                  console.log(this.data.integrationRule,'积分规则数组2'); 
+                  }
+                  //积分在第二层
+                  else
+                  {
+                    this.setData({
+                      integrationRule:this.data.filterCourseClassificationList
+                   })
+                  
+                  console.log(this.data.integrationRule,'积分规则数组3'); 
+                  }
+              
+          
+
           })
     })
-    //获取活动级别字典
-    request({
-      url:'/system/dict/data/type/' + 'sc_train_program_rank',
-      method:'GET',
-    }).then(value=>{
-
-      this.setData({
-        dict_sc_train_program_rank : value.data,
-      })
-      
-      console.log(this.data.dict_sc_train_program_rank,'活动级别字典')
-
+     
+    //活动级别
+    this.setData({
+			dict_sc_train_program_rank: wx.getStorageSync('dict_rank').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
     })
-    //获取积分方案字典
-    request({
-      url:'/system/dict/data/type/' + 'sc_activity_integral_scheme',
-      method:'GET',
-    }).then(value=>{
-
-      this.setData({
-        dict_sc_activity_integral_scheme : value.data,
-      })
-      
-      console.log(this.data.dict_sc_activity_integral_scheme,'积分方案字典')
+    //活动积分方案
+    this.setData({
+			dict_sc_activity_integral_scheme: wx.getStorageSync('dict_integral').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
     })
-    //获取积分类型字典
-    request({
-      url:'/system/dict/data/type/' + 'sc_integral_type',
-      method:'GET',
-    }).then(value=>{
-
-      this.setData({
-        dict_sc_integral_type : value.data,
-      })
-      
-      console.log(this.data.dict_sc_integral_type,'积分类型字典')
-    })
-
+    //活动积分方案
+    this.setData({
+			dict_sc_integral_type: wx.getStorageSync('dict_integral_type').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
+		})
   },
 
   /**

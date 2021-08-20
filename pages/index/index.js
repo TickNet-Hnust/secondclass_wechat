@@ -75,6 +75,14 @@ Page({
 			console.log('储存积分管理')
 			wx.setStorageSync('dict_integral',value.data)
     })
+    //积分类型
+		request({
+			url: '/dict/data/type/sc_integral_type',
+			method: 'GET',
+		}).then(value => {
+			console.log(value.data,'积分类型')
+			wx.setStorageSync('dict_integral_type',value.data)
+    })
     //评价管理 
 		request({
 			url: '/dict/data/type/sc_activity_evaluate_scheme',
@@ -104,7 +112,7 @@ Page({
 			url: '/secondClass/schoolYear/nowYear',
 			method: 'GET'
 		}).then(value => {
-			console.log('储存当前学年')
+      console.log(value.data,'储存当前学年')
 			wx.setStorageSync('nowYear',Object.keys(value.data)[0])
     })
   },

@@ -299,7 +299,7 @@
 						<van-col span="6" >
 							<button 
 								class="cu-btn line-green text-sm fr" 
-								bindtap="registe"
+								bindtap="leave"
 								disabled="{{leave.disabled}}"
 							>{{leave.content}}
 							</button>
@@ -322,7 +322,7 @@
 						<van-col span="6" >
 							<button 
 								class="cu-btn line-green text-sm fr" 
-								bindtap="leave"
+								bind:tap="jumpActivityScore"
 							>详情
 							</button>
 						</van-col>

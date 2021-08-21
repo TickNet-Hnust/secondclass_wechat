@@ -31,12 +31,13 @@
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
 						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
-							<view class="cu-tag badge">{{item.activityNumber}}</view>
+							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
 						</view>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
-								<view class="cu-tag round bg-blue sm">{{item.status}}</view>
+								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
+								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
 							</view>
 							<view class="text-gray text-sm flex">
 							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
@@ -51,6 +52,7 @@
 									{{item.memberNumber}}
 								</view>
 							</view>
+							
 						</view>
 					</view>
 				</view>
@@ -59,14 +61,15 @@
 		<van-tab title="我的" name="b">
 			<view class="">				
 				<view class="cu-list menu-avatar">
-					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" bindtap="jumpDetail">
+					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
 						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
-							<view class="cu-tag badge">{{item.activityNumber}}</view>
+							
 						</view>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
-								<view class="cu-tag round bg-blue sm">{{item.status}}</view>
+								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
+								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
 							</view>
 							<view class="text-gray text-sm flex">
 							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
@@ -89,14 +92,15 @@
 		<van-tab title="收藏" name="c">
 			<view class="">
 				<view class="cu-list menu-avatar">
-					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelay?'animation-slide-top':''}}" style="animation-delay: {{(index+1)*0.1}}s;" bindtap="jumpDetail">
+					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelay?'animation-slide-top':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
 						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
-							<view class="cu-tag badge">{{item.activityNumber}}</view>
+							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
 						</view>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
-								<view class="cu-tag round bg-blue sm">{{item.status}}</view>
+								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
+								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
 							</view>
 							<view class="text-gray text-sm flex">
 							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>

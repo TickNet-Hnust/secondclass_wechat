@@ -1,5 +1,6 @@
 // pages/activity-detail/activity-detail.js
 import {request} from '../../js/http.js'
+const app = getApp()
 Page({
 
 	/**
@@ -8,11 +9,56 @@ Page({
 	data: {
 		show:false,
 		gid: null,
+		isCollection: false,
 		memberList:[],
 		activityList: [],
+		CustomBar: app.globalData.CustomBar,
 		showData:{
 
+		},
+		postData:{
+			title: '',
+			text: '',
 		}
+	},
+	titleChange(e) {
+		this.setData({
+			'postData.title':e.detail.value
+		})
+	},
+	textChange(e) {
+		this.setData({
+			'postData.text':e.detail.value
+		})
+	},
+	postMsg() {
+		request({
+			url: '/group/msg',
+			method: 'POST',
+			data:{
+				title: this.data.postData.title,
+				text: this.data.postData.text,
+				groupId: this.data.postData.gid
+			}
+		}).then(value => {
+			console.log(value)
+			this.hideModal()
+			this.setData({
+				'postData.title': '',
+				'postData.text': '',
+			})
+		})
+	},
+	//解散群组
+	disMissGoup() {
+		request({
+			url: `/group/${this.data.gid}`,
+			method:'DELETE'
+		}).then(value => {
+			wx.navigateBack({
+			  delta: 1,
+			})
+		})
 	},
 	showModal(e) {
 		this.setData({
@@ -23,7 +69,12 @@ Page({
 		this.setData({
 		  modalName: null
 		})
-	  },
+	},
+	jumpGroupCustom() {
+		wx.navigateTo({
+		  url: `../group-custom/group-custom?gid=${this.data.gid}`
+		})
+	},
 	jumpActivityScore() {
 		wx.navigateTo({
 			url: `../activity-score/activity-score?aid=${this.data.aid}`,
@@ -48,6 +99,19 @@ Page({
 			// 	memberList:value.rows
 			// })
 			this.getMember()
+			this.getDetail()
+		})
+	},
+	getDetail() {
+		request({
+			url: `/group/${this.data.gid}/detail`,
+			method: 'GET'
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				showData: value.data.groupDetail
+
+			})
 		})
 	},
 	getMember() {
@@ -71,6 +135,35 @@ Page({
 	onClose() {
 		this.setData({ show: false });
 	},
+	getCollection() {
+		//是否收藏了改群组
+		request({
+			url: '/group/collection',
+			method: 'get',
+			data:{
+				groupId: this.data.gid
+			}
+		}).then(value => {
+			console.log('是否收藏了',value)
+			this.setData({
+				isCollection: value.data
+			})
+		})
+	},
+	setCollection() {
+		//改变收藏了改群组
+		request({
+			url: `/group/collection?groupId=${this.data.gid}`,
+			method: 'PUT'
+		}).then(value => {
+			console.log('收藏了',value)
+			this.getCollection()
+			wx.showToast({
+				title: '操作成功',
+				duration:1000
+			})
+		})
+	},
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
@@ -80,16 +173,7 @@ Page({
 		})
 		console.log(options)
 		this.getMember()
-		request({
-			url: `/group/${options.gid}/detail`,
-			method: 'GET'
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				showData: value.data.groupDetail
-
-			})
-		})
+		this.getDetail()
 		request({
 			url: `/secondClass/activity/group/list`,
 			method: 'GET',
@@ -100,9 +184,14 @@ Page({
 			console.log(value)
 			this.setData({
 				activityList: value.rows
-
 			})
 		})
+
+		//人员状态
+		this.setData({
+			'dict_ga_group_user_status':wx.getStorageSync('dict_ga_group_user_status')
+		})
+		this.getCollection()
 	},
 
 	/**

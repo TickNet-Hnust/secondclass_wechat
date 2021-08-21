@@ -2,9 +2,9 @@
 var flag = false;
 var _baseUrl = '';
 if (flag) {
-	_baseUrl = 'http://127.0.0.1:8080';
+	_baseUrl = 'http://192.168.124.8:8080';
 } else {
-	_baseUrl = 'http://127.0.0.1:8080';
+	_baseUrl = 'http://192.168.124.8:8080';
 }
 var baseUrl = _baseUrl;
 var commonParams = {
@@ -39,6 +39,7 @@ export const request = (opt) => {
 							icon: "loading",
 							duration:2000
 						})
+						reject(res)
 						// wx.qy.login({
 						// 	success: function(res) {
 						// 		console.log(res)
@@ -59,6 +60,13 @@ export const request = (opt) => {
 						// 		}	
 						// 	}
 						// 	})
+					} else if(res.data.msg == '不允许重复提交，请稍后再试') {
+						wx.showToast({
+							title: '不允许频繁操作，请稍后再试',
+							icon:'none',
+							mask: true,
+							duration:2000
+						})
 					} else {
 						resolve(res.data)
 					}

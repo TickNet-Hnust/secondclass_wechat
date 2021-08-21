@@ -29,53 +29,52 @@
 		<van-tab title="推荐" name="a">
 			<view class="activityAbstract">
 				<view  wx:for="{{recommendActivityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-						<view>
-							<image src="{{item.image}}"></image>
-						</view>
-						<view >
-							<view class="tabMainText">
-								{{item.name}}
-							</view>
-						</view>
-						<view>
-							<text class="tabSideText">{{item.activityTag}}</text>
+					<view>
+						<image src="{{item.image}}"></image>
+					</view>
+					<view >
+						<view class="tabMainText">
+							{{item.name}}
 						</view>
 					</view>
+					<view class="tabSideText">
+						<text>{{item.activityTag}}</text>
+					</view>
+				</view>
 			</view>
 		</van-tab>
 		<van-tab title="收藏" name="b">
 			<view class="activityAbstract">				
 				<view wx:for="{{collectionActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}" class="activityFull {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-						<view>
-							<image src="{{item.image}}"></image>
-						</view>
-						<view >
-							<view class="tabMainText">
-								{{item.name}}
-							</view>
-						</view>
-						<view class="tabSideText">
-							<text >{{item.activityTag}}</text>
+					<view>
+						<image src="{{item.image}}"></image>
+					</view>
+					<view >
+						<view class="tabMainText">
+							{{item.name}}
 						</view>
 					</view>
+					<view class="tabSideText">
+						<text>{{item.activityTag}}</text>
+					</view>
+				</view>
 			</view>
 		</van-tab>
 		<van-tab title="我的" name="c">
 			<view class="activityAbstract">
 				<view wx:for="{{myActivityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-						<view>
-							<image src="{{item.image}}"></image>
-						</view>
-						<view >
-							<view class="tabMainText">
-								{{item.name}}
-							</view>
-						</view>
-						<view>
-							<text class="tabSideText">{{item.activityTag}}</text>
+					<view>
+						<image src="{{item.image}}"></image>
+					</view>
+					<view >
+						<view class="tabMainText">
+							{{item.name}}
 						</view>
 					</view>
-				
+					<view class="tabSideText">
+						<text>{{item.activityTag}}</text>
+					</view>
+				</view>
 			</view>
 		</van-tab>
 	</van-tabs>

@@ -17,7 +17,6 @@
 }
 
 .activitySocreInfor{
-  margin-top: 15rpx;
   margin-bottom: 20rpx;
   padding: 30rpx;
   background-color: white;

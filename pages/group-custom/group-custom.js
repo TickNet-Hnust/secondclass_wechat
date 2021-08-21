@@ -10,6 +10,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		title: '自定义群组',
 		imgList:[],
 		searchShow:false,
 		multiArray:[],
@@ -214,6 +215,29 @@ Page({
         this.data.postData.ancestors = 0 + ',' + this.data.postData.parentId
         this.data.postData.status = 2 //待审核
 		console.log(this.data.postData)
+		if(this.data.title == '修改群组信息') {
+			request({
+				url: '/group',
+				method: 'PUT',
+				data:this.data.postData
+			}).then(value => {
+				console.log(value)
+				if(value.code == 200) {
+					wx.showToast({
+						title: '成功',
+						icon: 'success',
+						duration: 2000,
+						success:() =>{
+							wx.navigateBack({
+							  delta: 1,
+							})
+						}
+					})
+					
+				}
+			})
+			return 
+		}
 		let msg = nullToast(this.data.postData,'group')
 		if(msg == 'ok') {
 			request({
@@ -250,7 +274,36 @@ Page({
 	 */
 	onLoad: function (options) {
 		this.mapCtx = wx.createMapContext('myMap')
-		
+		if(options.gid) {
+			this.setData({
+				title: '修改群组信息'
+			})
+			request({
+				url:`/group/${options.gid}/detail`,
+				method: 'GET'
+			}).then(value => {
+				console.log(value)
+				this.setData({
+					'postData.deptId':value.data.groupDetail.deptId,
+					'postData.deptName': value.data.groupDetail.deptName,
+					'postData.status': value.data.groupDetail.status,
+					'postData.memberNumber': value.data.groupDetail.memberNumber,
+					'postData.parentName': value.data.groupDetail.parentName,
+					'postData.teacher': value.data.groupDetail.teacher,
+					// 'postData.parentId': value.groupDetail.parentId, //
+					'postData.type': value.data.groupDetail.type,
+					'postData.introduce': value.data.groupDetail.introduce,
+					'postData.avatar': value.data.groupDetail.avatar,
+					'postData.flag': value.data.groupDetail.flag,
+					'postData.orderNum': 0,
+					'postData.joinStatus': value.data.groupDetail.joinStatus, //
+					'postData.joinRule': value.data.groupDetail.joinRule, //
+					'imgList':[value.data.groupDetail.avatar],
+					index: value.data.groupDetail.joinRule,
+				})
+			})
+			console.log(options)
+		}
 	},
 
 	/**

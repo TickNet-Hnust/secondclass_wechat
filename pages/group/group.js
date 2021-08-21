@@ -7,6 +7,7 @@ Page({
 	 */
 	data: {
 		toggleDelay:false,
+		dict_ga_group_status:[],
 		active: 1,
 		value: '',
 		recommendGroupList:[],
@@ -55,6 +56,23 @@ Page({
 	 */
 	onLoad: function (options) {
 		//推荐
+		this.setData({
+			dict_ga_group_status: wx.getStorageSync('dict_ga_group_status')
+		})
+	},
+
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady: function () {
+		this.selectComponent('#tabs').resize();
+	},
+
+	/**
+	 * 生命周期函数--监听页面显示
+	 */
+	onShow: function () {
+		this.toggleDelay()
 		request({
 			url: '/group/list',
 			method: 'GET',
@@ -88,20 +106,6 @@ Page({
 				collectionGroupList: value.rows
 			})
 		})
-	},
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {
-		this.selectComponent('#tabs').resize();
-	},
-
-	/**
-	 * 生命周期函数--监听页面显示
-	 */
-	onShow: function () {
-		this.toggleDelay()
 	},
 
 	/**

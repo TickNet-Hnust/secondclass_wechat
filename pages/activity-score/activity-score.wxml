@@ -5,7 +5,7 @@
 <view class="score">
   <van-tabs id="tabs" active="{{ tabsActive }}" animated  color="#07c160" title-active-color="#07c160" bind:change="tabsOnChange">
       <van-tab title="概况">
-        <view class="activitySocreInfor">
+        <view class="activitySocreInfor margin-top-sm">
 						<van-row style="line-height: 40rpx;">
 							<van-col class="leftTitle" span="6" >• 活动名称</van-col>
 							<van-col class="rightContent" span="18" style="color: gray;">{{activityName}}</van-col>
@@ -150,7 +150,71 @@
 
 
       <van-tab title="已申报">
-          已申报内容
+        <view class="cu-bar bg-white margin-top-sm">
+          <view class="action ">
+            <radio-group bindchange="SetBorderSize">
+                  <label class="margin-left-sm">
+                    <radio class="blue sm radio" value="" checked></radio>
+                    <text class="text-sm">全部</text>
+                  </label>
+                  <label class="margin-left-sm">
+                    <radio class="blue sm radio" value="s"></radio>
+                    <text class="text-sm">认定通过</text>
+                  </label>
+                  <label class="margin-left-sm">
+                    <radio class="blue sm radio" value="s"></radio>
+                    <text class="text-sm">认定不通过</text>
+                  </label>
+                  <label class="margin-left-sm">
+                    <radio class="blue sm radio" value="s"></radio>
+                    <text class="text-sm">待认定</text>
+                  </label>
+                </radio-group>
+          </view>
+        </view>
+
+        <view class="cu-list menu">
+          <view class="cu-item  margin-top-sm">
+            <view class="content padding-tb-sm">
+              <view>
+                <text class="text-sm">张慧慧 • 1903040523</text>
+                <view class="cu-tag round bg-green sm">本人</view>
+                <view class="cu-tag round bg-blue sm">负责人</view>
+                <view class="cu-tag round bg-gray sm">待认定</view>
+              </view>
+              <view class="text-gray text-sm">
+                商学院 2019级
+              </view>
+              <view class="text-gray text-sm">
+                申报理由: 成功参与
+              </view>
+            </view>
+            <view class="action" style="position: absolute; right:0">
+              <view class="cu-tag line-gray sm fr margin-right-sm">认定：1分</view>
+              <view class="cu-tag line-gray sm fr margin-right-sm">申请：1分</view>
+            </view>
+          </view>
+          <view class="cu-item  margin-top-sm">
+            <view class="content padding-tb-sm">
+              <view>
+                <text class="text-sm">张慧慧 • 1903040523</text>
+                <view class="cu-tag round bg-green sm">本人</view>
+                <view class="cu-tag round bg-blue sm">负责人</view>
+                <view class="cu-tag round bg-gray sm">待认定</view>
+              </view>
+              <view class="text-gray text-sm">
+                商学院 2019级
+              </view>
+              <view class="text-gray text-sm">
+                申报理由: 成功参与
+              </view>
+            </view>
+            <view class="action" style="position: absolute; right:0">
+              <view class="cu-tag line-gray sm fr margin-right-sm">认定：1分</view>
+              <view class="cu-tag line-gray sm fr margin-right-sm">申请：1分</view>
+            </view>
+          </view>
+        </view>
       </van-tab>
   </van-tabs>
 </view>

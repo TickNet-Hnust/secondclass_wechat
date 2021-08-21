@@ -99,6 +99,24 @@ Page({
 			console.log('储存群组加入规则')
 			wx.setStorageSync('dict_ga_group_join_rule',value.data)
     })
+    //群组人员状态
+		request({
+			url: '/dict/data/type/ga_group_user_status',
+			method: 'GET',
+		}).then(value => {
+			console.log(value.data,'储存群组人员状态')
+			wx.setStorageSync('dict_ga_group_user_status',value.data)
+    })
+    //群组状态
+		request({
+			url: '/dict/data/type/ga_group_status',
+			method: 'GET',
+		}).then(value => {
+			console.log(value.data,'群组状态')
+			wx.setStorageSync('dict_ga_group_status',value.data)
+    })
+
+
     //所有分类
     request({
 			url: '/admins/secondClass/courseClassification/list',
@@ -112,7 +130,7 @@ Page({
 			url: '/secondClass/schoolYear/nowYear',
 			method: 'GET'
 		}).then(value => {
-      console.log(value.data,'储存当前学年')
+      console.log('储存当前学年')
 			wx.setStorageSync('nowYear',Object.keys(value.data)[0])
     })
   },

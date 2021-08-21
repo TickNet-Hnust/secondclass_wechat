@@ -19,8 +19,10 @@
 			</view>
           </view>
           <view class="action">
-            <view class="text-grey text-lg"><text class="cuIcon-like"></text></view>
-            
+            <view class="text-grey text-lg align-start">
+				<text class="cuIcon-likefill" wx:if="{{isCollection}}" bindtap="setCollection" style="color:red"></text>
+				<text class="cuIcon-like" wx:else bindtap="setCollection" ></text>
+			</view>
           </view>
         </view>
 	</view>
@@ -28,7 +30,7 @@
 		<van-tab title="概况" name="a" >
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
-				<view class="boxs solid shadow-warp" style="padding-top:0">
+				<view class="boxs solid " style="padding-top:0">
 					<view style="padding:20rpx 20rpx">
 						<van-row style="line-height: 40rpx;">
 							<van-col class="leftTitle" span="6"><text class="cuIcon-title text-black"></text>分类</van-col>
@@ -47,7 +49,7 @@
 						<text class="cuIcon-unfold "></text>
 					</view> -->
 				</view>
-				<view class="boxs solid shadow-warp">
+				<view class="boxs solid ">
 					
 					<view style="padding:20rpx 20rpx">
 						<van-row style="line-height: 40rpx;">
@@ -88,19 +90,29 @@
 							</view>
 						</van-col>
 						<van-col span="14">
-							<view class="flexMainTitle">加入群组</view>
-							<view class="flexSideTitle">{{showData.enrollStartTime}} 至 <view></view> {{showData.enrollEndTime}}</view>
+							<view class="flexMainTitle">
+								加入群组
+								<view style="vertical-align: text-top;" class="cu-tag round line-green sm" wx:if="{{showData.joinStatus == 1}}">已加入</view>
+								<view style="vertical-align: text-top;" class="cu-tag round line-gray sm" wx:elif="{{showData.joinStatus == 2}}">待审核</view>
+							</view>
+							<view class="flexSideTitle">
+								加入规则: <text class="text-green">gdfsg</text>
+							</view>
 						</van-col>
 						<van-col span="6" >
 							<button 
 								bindtap="joinGroup"
 								class="cu-btn radius bg-green text-sm fr"
-							>申请</button>
+								disabled="{{showData.joinStatus != 0}}"
+							>
+							申请
+							
+							</button>
 						</van-col>
 					</van-row>
 				</view>
 				
-				<view class="flexLines">
+				<view class="flexLines" wx:if="{{showData.flag}}">
 					<van-row>
 						<van-col span="4">
 							<view>
@@ -111,7 +123,96 @@
 							<view class="flexMainTitle">群组管理</view>
 							<view class="flexSideTitle">群组的控制台</view>
 						</van-col>
-						<van-col span="5" ><text style="font-size: 24rpx;color:#bbb" >进入控制台</text></van-col>
+						<van-col span="5" >
+							<button 
+								bindtap="showModal"
+								data-target="DrawerModalL"
+								class="cu-btn radius bg-green text-sm fr"
+							>控制台</button>
+							<!-- <text style="font-size: 24rpx;color:#bbb" ></text> -->
+						</van-col>
+						<view class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}" bindtap="hideModal">
+							<view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
+								<view class="cu-list menu text-left">
+									<view class="cu-item arrow">
+										<view class="content">
+											<view>申请管理员</view>
+										</view>
+									</view>
+									<view class="cu-item arrow" bindtap="jumpGroupCustom">
+										<view class="content">
+											<view>编辑群组信息</view>
+										</view>
+									</view>
+									<view class="cu-item arrow" bindtap="showModal" data-target="Messages">
+										<view class="content">
+											<view>群内消息发布</view>
+										</view>
+									</view>
+									<view class="cu-item arrow" bindtap="disMissGoup">
+										<view class="content">
+											<view>解散群组</view>
+										</view>
+									</view>
+									<view class="cu-item  margin-top">
+										<view class="content">
+											<view>活动统计表</view>
+										</view>
+										<view class="action">
+											<button class="sm cu-btn round bg-green shadow">
+											<text class="cuIcon-down"></text> 下载</button>
+										</view>
+									</view>
+									<view class="cu-item">
+										<view class="content">
+											<view>人员报名表</view>
+										</view>
+										<view class="action">
+											<button class="sm cu-btn round bg-green shadow">
+											<text class="cuIcon-down"></text> 下载</button>
+										</view>
+									</view>
+									<view class="cu-item ">
+										<view class="content">
+											<view>花名册</view>
+										</view>
+										<view class="action">
+											<button class="sm cu-btn round bg-green shadow">
+											<text class="cuIcon-down"></text> 下载</button>
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+						<view class="cu-modal {{modalName=='Messages'?'show':''}}">
+							<view class="cu-dialog">
+								<view class="cu-bar bg-white justify-end">
+								<view class="content">群组消息发布</view>
+								<view class="action" bindtap="hideModal">
+									<text class="cuIcon-close text-red"></text>
+								</view>
+								</view>
+								<view class="">
+									<view class="custom">
+										<form>
+											<view class="cu-form-group">
+											<view class="title">标题</view>
+											<input placeholder="请填写" bindinput="titleChange" value="{{postData.title}}"></input>
+										</view>
+										<view class="cu-form-group align-start">
+											<view class="title">发布内容</view>
+											<textarea value="{{postData.text}}" bindinput="textChange" placeholder="多行文本输入框"></textarea>
+										</view>
+
+										</form>
+										<view class="stickyButton" >
+											<!-- <button class="cu-btn bg-red margin-tb-sm lg">嫣红</button> -->
+											<button class="cu-btn bg-green lg" bindtap="postMsg">发布</button>
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
 					</van-row>
 				</view>
 				</view>
@@ -131,16 +232,21 @@
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.nickName}}</text>
-								<view class="cu-tag round bg-blue sm" wx:for="{{item.identities}}" wx:key="index">{{item}}</view>
-								<view class="cu-tag round bg-green sm">获奖：{{item.prize?item.prize :'无'}}</view>
+								<!-- <view class="cu-tag round bg-blue sm" wx:for="{{item.identities}}" wx:key="index">{{item}}</view> -->
+								<view class="cu-tag round bg-blue sm" wx:if="{{showData.joinStatus==1 && index == 0}}">本人</view>
+								<view class="cu-tag round bg-orange sm">{{dict_ga_group_user_status[item.status].dictLabel}}</view>
+								<view class="cu-tag round bg-green sm" wx:if="{{item.fenzu}}">{{item.fenzu}}</view>
+								<view class="cu-tag round bg-green sm" wx:if="{{item.job}}">{{item.job}}</view>
 							</view>
 							<view class="text-gray text-xs flex">
-							<text class="text-cut">报名时间：{{item.enrollTime}}，签到时间：{{item.registeTime}}</text>
+							<text class="text-cut">{{item.deptName}}-{{item.className}}-{{item.userName}}</text>
 							</view>
 						</view>
 						<view class="action">
-							<view class="cu-tag radius sm">{{item.registeStatus?'未签到':'已签到'}}</view>
-							<view class="cu-tag radius sm">积分：2分</view>
+							<view class=" radius sm">
+								<text class="cuIcon-moreandroid" ></text>
+							</view>
+							<!-- <view class="cu-tag radius sm">积分：2分</view> -->
 						</view>
 					</view>
 				</view>
@@ -148,21 +254,26 @@
 			</scroll-view>
 		</van-tab>
 		<van-tab title="活动" name="c">
-			<view class="activityAbstract">
-				<view  wx:for="{{activityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-						<view>
-							<image src="{{item.image}}"></image>
-						</view>
-						<view >
-							<view class="tabMainText">
-								{{item.name}}
+			<scroll-view scroll-y>
+				<view class="activityAbstract" wx:if="{{activityList.length!=0}}">
+					<view  wx:for="{{activityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+							<view>
+								<image src="{{item.image}}"></image>
+							</view>
+							<view >
+								<view class="tabMainText">
+									{{item.name}}
+								</view>
+							</view>
+							<view>
+								<text class="tabSideText">{{item.activityTag}}</text>
 							</view>
 						</view>
-						<view>
-							<text class="tabSideText">{{item.activityTag}}</text>
-						</view>
-					</view>
-			</view>
+				</view>
+				<view wx:else>
+					<van-empty description="快来发布第一个活动吧" />
+				</view>
+			</scroll-view>
 		</van-tab>
 	</van-tabs>
 </view>

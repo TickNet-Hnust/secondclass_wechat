@@ -1,12 +1,12 @@
 <!--pages/activity-custom/activity-custom.wxml-->
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
-	<view slot="content">自定义群组</view>
+	<view slot="content">{{title}}</view>
 </cu-custom>
 <view class="custom">
 	<form>
 		<view class="cu-form-group">
 		<view class="title">群组名称</view>
-		<input placeholder="请填写" bindinput="nameChange" model="{{postData.deptName}}"></input>
+		<input placeholder="请填写" bindinput="nameChange" value="{{postData.deptName}}"></input>
 	</view>
 	<!-- <view class="cu-bar solid-bottom ">
 		<view class="action">
@@ -30,10 +30,12 @@
 	</van-popup>
 	<view class="cu-form-group margin-top">
 		<view class="title">指导老师</view>
-		{{postData.teacher}}
+		<!-- <view class="action"> -->
+			<input value="{{postData.teacher}}" disabled></input>
 		<button class="cu-btn line-green " data-id="postData.activityReleaserId" data-name="activityReleaserName" bindtap="showSearch" >Choose</button>
+		<!-- </view> -->
 	</view>
-	<view class="cu-form-group margin-top">
+	<view class="cu-form-group margin-top" wx:if="{{title == '自定义群组'}}">
 		<view class="title">分类</view>
 		<view class="action ">
 			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
@@ -51,7 +53,7 @@
 		</picker>
 		</view>
 	</view>
-	<view class="cu-form-group ">
+	<view class="cu-form-group " wx:if="{{title == '自定义群组'}}">
 		<view class="title">指导单位</view>
 		<picker bindchange="deptChange" value="{{fakeData.deptIdno}}" range="{{deptList}}" range-key="deptName">
 			<view class="picker">
@@ -79,7 +81,7 @@
 	</view>
 	<view class="cu-bar bg-white margin-top">
 		<view class="action">
-			图片素材
+			群组头像
 		</view>
 		<view class="action">
 			{{imgList.length}}/1

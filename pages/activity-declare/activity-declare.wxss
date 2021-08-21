@@ -1,0 +1,15 @@
+/* pages/activity-declare/activity-declare.wxss */
+page {
+	padding-bottom: 430rpx;
+}
+.xuanfu {
+	position:fixed;
+	bottom: 0;
+	z-index: 99;
+    position: fixed;
+    bottom: 0;
+    background-color: #fff;
+	width: 100%;
+	text-align: center;
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}

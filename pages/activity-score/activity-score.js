@@ -25,7 +25,11 @@ Page({
     maxLayer:'',
 
   },
-  
+  jumpDeclare() {
+    wx.navigateTo({
+      url: '../activity-declare/activity-declare',
+    })
+  },
   //函数
   tabsOnChange(event){
     // // console.log( `${event.detail.title}` );

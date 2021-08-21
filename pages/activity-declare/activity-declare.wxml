@@ -1,0 +1,145 @@
+<!--pages/activity-declare/activity-declare.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">积分申报</view>
+</cu-custom>
+<view class="xuanfu">
+	<view class="cu-list menu ">
+		<view class="cu-item arrow">
+			<view class="content text-left" bindtap="showModal" data-target="RadioModal">
+				<text class="text-grey">活动级别</text>
+			</view>
+		</view>
+		<view class="cu-item arrow">
+			<view class="content text-left"  bindtap="showModal" data-target="RadioModal">
+				<text class="text-grey">申报理由</text>
+			</view>
+		</view>
+		<view class="cu-item">
+			<view class="content text-left">
+				<text class="text-grey">申请积分</text>
+			</view>
+			<view class="action">
+				1分
+			</view>
+		</view>
+	</view>
+	<button class="cu-btn bg-green margin">提交申请</button>
+</view>
+<van-tabs 
+	id="tabs" 
+	active="{{active}}" 
+	animated  
+	color="#2d7ecd"
+	title-active-color="#2d7ecd" 
+>
+	<van-tab title="根据签到获取积分" name="a">
+		<van-checkbox-group value="{{ result }}" bind:change="onChange">
+			<view class="cu-bar bg-white solid-bottom margin-top">
+				<view class="action">
+					<button class="cu-btn line-green margin-right">全选</button>
+				</view>
+				<view class="action">
+					0/50
+				</view>
+			</view>
+			<view class="cu-list menu">
+				<view class="cu-item ">
+					<view class="content">
+						<van-checkbox name="a">
+							<view style="width: 75vw;" class="text-cut">
+								<van-row>
+								<van-col span="6" class="text-sm text-cut">张慧慧</van-col>
+								<van-col span="8" class="text-sm text-cut">1901050405</van-col>
+								<van-col span="10" class="text-sm text-cut">资源环境于安全工程学院</van-col>
+							</van-row>
+							</view>
+						</van-checkbox>
+					</view>
+				</view>
+				<view class="cu-item " wx:for="{{12}}" wx:key="index">
+					<view class="content">
+						<van-checkbox name="{{index}}">
+							<view style="width: 75vw;" class="text-cut">
+								<van-row>
+								<van-col span="6" class="text-sm text-cut">张慧慧</van-col>
+								<van-col span="8" class="text-sm text-cut">1901050405</van-col>
+								<van-col span="10" class="text-sm text-cut">资源环境于安全工程学院</van-col>
+							</van-row>
+							</view>
+						</van-checkbox>
+					</view>
+				</view>
+			</view>
+		</van-checkbox-group>
+		<!-- 单选弹出框 -->
+		<view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap="hideModal">
+			<view class="cu-dialog" catchtap>
+				<radio-group class="block">
+				<view class="cu-list menu text-left">
+					<view class="cu-item" wx:for="{{5}}" wx:key="index">
+					<label class="flex justify-between align-center flex-sub">
+						<view class="flex-sub">Item {{index +1}}</view>
+						<radio class="round"></radio>
+					</label>
+					</view>
+				</view>
+				</radio-group>
+			</view>
+		</view>
+	</van-tab>
+	<van-tab title="根据申报获取积分" name="b">
+		<van-checkbox-group value="{{ result }}" bind:change="onChange">
+			<view class="cu-bar bg-white solid-bottom margin-top">
+				<view class="action">
+					<button class="cu-btn line-green margin-right">全选</button>
+				</view>
+				<view class="action">
+					0/50
+				</view>
+			</view>
+			<view class="cu-list menu">
+				<view class="cu-item ">
+					<view class="content">
+						<van-checkbox name="a">
+							<view style="width: 75vw;" class="text-cut">
+								<van-row>
+								<van-col span="6" class="text-sm text-cut">张慧慧</van-col>
+								<van-col span="8" class="text-sm text-cut">1901050405</van-col>
+								<van-col span="10" class="text-sm text-cut">资源环境于安全工程学院</van-col>
+							</van-row>
+							</view>
+						</van-checkbox>
+					</view>
+				</view>
+				<view class="cu-item " wx:for="{{12}}" wx:key="index">
+					<view class="content">
+						<van-checkbox name="{{index}}">
+							<view style="width: 75vw;" class="text-cut">
+								<van-row>
+								<van-col span="6" class="text-sm text-cut">张慧慧</van-col>
+								<van-col span="8" class="text-sm text-cut">1901050405</van-col>
+								<van-col span="10" class="text-sm text-cut">资源环境于安全工程学院</van-col>
+							</van-row>
+							</view>
+						</van-checkbox>
+					</view>
+				</view>
+			</view>
+		</van-checkbox-group>
+		<!-- 单选弹出框 -->
+		<view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap="hideModal">
+			<view class="cu-dialog" catchtap>
+				<radio-group class="block">
+				<view class="cu-list menu text-left">
+					<view class="cu-item" wx:for="{{5}}" wx:key>
+					<label class="flex justify-between align-center flex-sub">
+						<view class="flex-sub">Item {{index +1}}</view>
+						<radio class="round"></radio>
+					</label>
+					</view>
+				</view>
+				</radio-group>
+			</view>
+		</view>
+	</van-tab>
+</van-tabs>

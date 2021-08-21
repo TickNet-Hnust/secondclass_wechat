@@ -12,7 +12,8 @@
 		"pages/group/group",
 		"pages/group-search/group-search",
 		"pages/group-custom/group-custom",
-		"pages/group-detail/group-detail"
+		"pages/group-detail/group-detail",
+		"pages/activity-declare/activity-declare"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -52,11 +53,11 @@
 			}
 		]
 	},
-	"permission":{
-		"scope.userLocation":{
-		  "desc":"请点击确定"
+	"permission": {
+		"scope.userLocation": {
+			"desc": "请点击确定"
 		}
-	  },
+	},
 	"usingComponents": {
 		"cu-custom": "/colorui/components/cu-custom",
 		"van-tab": "@vant/weapp/tab/index",
@@ -75,7 +76,9 @@
 		"van-tag": "@vant/weapp/tag/index",
 		"van-empty": "@vant/weapp/empty/index",
 		"van-popup": "@vant/weapp/popup/index",
-		"van-datetime-picker": "@vant/weapp/datetime-picker/index"
+		"van-datetime-picker": "@vant/weapp/datetime-picker/index",
+		"van-checkbox": "@vant/weapp/checkbox/index",
+		"van-checkbox-group": "@vant/weapp/checkbox-group/index"
 	},
 	"sitemapLocation": "sitemap.json"
 }

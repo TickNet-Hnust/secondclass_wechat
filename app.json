@@ -78,7 +78,8 @@
 		"van-popup": "@vant/weapp/popup/index",
 		"van-datetime-picker": "@vant/weapp/datetime-picker/index",
 		"van-checkbox": "@vant/weapp/checkbox/index",
-		"van-checkbox-group": "@vant/weapp/checkbox-group/index"
+		"van-checkbox-group": "@vant/weapp/checkbox-group/index",
+		"van-skeleton": "@vant/weapp/skeleton/index"
 	},
 	"sitemapLocation": "sitemap.json"
 }

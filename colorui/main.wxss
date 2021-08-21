@@ -2439,10 +2439,10 @@ button.icon.lg {
 	margin: auto;
 }
 
-.cu-form-group textarea[disabled],
+/* .cu-form-group textarea[disabled],
 .cu-form-group textarea[disabled] .placeholder {
 	color: transparent;
-}
+} */
 
 /* ==================
          模态窗口

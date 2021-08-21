@@ -8,9 +8,12 @@ Page({
 	 */
 	data: {
 		show:false,
+		loadProgress:0,
 		gid: null,
 		isCollection: false,
 		memberList:[],
+		AllMessageList:[],
+		messageList:[],
 		activityList: [],
 		CustomBar: app.globalData.CustomBar,
 		showData:{
@@ -19,7 +22,8 @@ Page({
 		postData:{
 			title: '',
 			text: '',
-		}
+		},
+		title:'群组消息发布'
 	},
 	titleChange(e) {
 		this.setData({
@@ -38,7 +42,7 @@ Page({
 			data:{
 				title: this.data.postData.title,
 				text: this.data.postData.text,
-				groupId: this.data.postData.gid
+				groupId: this.data.gid
 			}
 		}).then(value => {
 			console.log(value)
@@ -47,6 +51,12 @@ Page({
 				'postData.title': '',
 				'postData.text': '',
 			})
+			if(value.code == 200) {
+				wx.showToast({
+				  title: '发布成功',
+				  duration:2000
+				})
+			}
 		})
 	},
 	//解散群组
@@ -67,7 +77,10 @@ Page({
 	},
 	hideModal(e) {
 		this.setData({
-		  modalName: null
+		  modalName: null,
+		  title:'',
+		  'postData.title':'',
+		  'postData.text':''
 		})
 	},
 	jumpGroupCustom() {
@@ -109,8 +122,8 @@ Page({
 		}).then(value => {
 			console.log(value)
 			this.setData({
-				showData: value.data.groupDetail
-
+				showData: value.data.groupDetail,
+				messageList:value.data.msgList,
 			})
 		})
 	},
@@ -129,6 +142,16 @@ Page({
 				memberList:value.rows
 			})
 			// this.computedState()
+		})
+	},
+	//查看信息详情
+	showForm(e) {
+		console.log(e)
+		this.setData({
+			'postData.title': this.data.AllMessageList[e.currentTarget.dataset.index].title,
+			'postData.text':this.data.AllMessageList[e.currentTarget.dataset.index].text,
+			modalName: 'Messages',
+			title:'群组消息查看'
 		})
 	},
 	switchTab(){},
@@ -164,10 +187,26 @@ Page({
 			})
 		})
 	},
+	
+	loadProgress(){
+		this.setData({
+		  loadProgress: this.data.loadProgress+3
+		})
+		if (this.data.loadProgress<100){
+		  setTimeout(() => {
+			this.loadProgress();
+		  }, 100)
+		}else{
+		  this.setData({
+			loadProgress: 0
+		  })
+		}
+	  },
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
+		this.loadProgress()
 		this.setData({
 			gid:options.gid
 		})
@@ -192,13 +231,31 @@ Page({
 			'dict_ga_group_user_status':wx.getStorageSync('dict_ga_group_user_status')
 		})
 		this.getCollection()
+		request({
+			url: '/group/msg/list',
+			method: 'get',
+			data:{
+				groupId: this.data.gid
+			}
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				AllMessageList: value.rows
+			})
+		})
 	},
 
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		this.selectComponent('#tabs').resize();
+		setTimeout(() => {
+			this.setData({
+				loading: false,
+			});
+			this.selectComponent('#tabs').resize();
+
+		},2000)
 	},
 
 	/**

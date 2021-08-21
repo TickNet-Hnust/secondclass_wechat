@@ -2,11 +2,15 @@
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">群组详情</view>
 </cu-custom>
-<view class="detail">
+<view class='load-progress {{loadProgress!=0?"show":"hide"}}' style="top:{{CustomBar}}px;">
+  <view class='load-progress-bar bg-green' style="transform: translate3d(-{{100-loadProgress}}%, 0px, 0px);"></view>
+  <view class='load-progress-spinner text-green'></view>
+</view>
+<view class="detail"  wx:if="{{!loading}}">
 	<view class="cu-list menu-avatar mainShow">
         <view class="cu-item">
-          <view class="cu-avatar radius lg" style="background-image:url({{showData.avatar}});"></view>
-          <view class="content">
+          	<view class="cu-avatar radius lg" style="background-image:url({{showData.avatar}});"></view>
+          	<view class="content">
             <view class="text-black">{{showData.deptName}}<text class="green cuIcon-favor"></text></view>
             <view class="text-gray text-sm flex">
               <text class="text-cut">
@@ -18,7 +22,7 @@
 				<text class="cuIcon-friend text-sm"></text>成员：{{showData.memberNumber}}，ID：{{showData.deptId}}
 			</view>
           </view>
-          <view class="action">
+          <view class="action" style="height:100%;padding-top:27rpx;padding-right:27rpx;">
             <view class="text-grey text-lg align-start">
 				<text class="cuIcon-likefill" wx:if="{{isCollection}}" bindtap="setCollection" style="color:red"></text>
 				<text class="cuIcon-like" wx:else bindtap="setCollection" ></text>
@@ -45,12 +49,8 @@
 							<van-col class="rightContent" span="18">{{showData.teacher}}</van-col>
 						</van-row>
 					</view>
-					<!-- <view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="Detail">
-						<text class="cuIcon-unfold "></text>
-					</view> -->
 				</view>
 				<view class="boxs solid ">
-					
 					<view style="padding:20rpx 20rpx">
 						<van-row style="line-height: 40rpx;">
 							<van-col class="leftTitle" span="6">
@@ -61,13 +61,27 @@
 							<text class="box-p">{{showData.introduce}}</text>
 						</van-row>
 					</view>
-					<view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="notice">
+					<view class="iconBg padding-top-sm dashed-top" bindtap="showModal" data-target="notice">
 						<text class="cuIcon-unfold "></text>
 					</view>
-					<view class="cu-modal {{modalName=='notice'?'show':''}}">
+					
+				</view>
+				
+				<view class="boxs solid " style="position: relative;">
+					<view class="expand flex align-center"  bindtap="showModal" data-target="AllMessage">
+						<text class="cuIcon-right text-black"></text>
+					</view>
+					<view style="padding:20rpx 20rpx" class="text-sm" wx:if="{{messageList.length != 0}}">
+						<view style="line-height: 40rpx;" wx:for="{{messageList}}" wx:key="index">
+							<text class="cuIcon-title text-black"></text>
+							{{item.title}}
+						</view>
+					</view>
+				</view>
+				<view class="cu-modal {{modalName=='notice'?'show':''}}">
 						<view class="cu-dialog">
 							<view class="cu-bar bg-white justify-end">
-							<view class="content">群组介绍</view>
+							<view class="content">介绍</view>
 							<view class="action" bindtap="hideModal">
 								<text class="cuIcon-close text-red"></text>
 							</view>
@@ -79,9 +93,47 @@
 								</scroll-view>
 							</view>
 						</view>
-					</view>
 				</view>
-				
+				<view class="cu-modal {{modalName=='AllMessage'?'show':''}}">
+						<view class="cu-dialog">
+							<view class="cu-bar bg-white justify-end">
+							<view class="content">群组消息</view>
+							<view class="action" bindtap="hideModal">
+								<text class="cuIcon-close text-red"></text>
+							</view>
+							</view>
+							<view class=" padding-right bg-white solid-top">
+								<scroll-view scroll-y style="max-height: 70vh;">
+									<view class="cu-list menu-avatar">
+										<wxs module="m1">
+											function getTop(date) {
+												return date.slice(8,10)
+											}
+											function getBottom(date) {
+												return date.slice(0,7)
+											}
+											module.exports.getTop = getTop
+											module.exports.getBottom = getBottom
+										</wxs>
+										<view class="cu-item" wx:for="{{AllMessageList}}" wx:key="index" data-index="{{index}}" bindtap="showForm">
+											<view class="circle lg radius">
+												<!-- {{m1.formatTimeitem.createTime}} -->
+												<view class="circleTop">{{m1.getTop(item.createTime)}}</view>
+												<view class="circleBottom">{{m1.getBottom(item.createTime)}}</view>
+											</view>
+											<view class="content text-left mainTitle">
+												{{item.title}}
+											</view>
+											<view class="action">
+												<text class="cuIcon-delete margin-right-xs"></text>
+											</view>
+										</view>
+									</view>
+								</scroll-view>
+							</view>
+						</view>
+				</view>
+
 				<view class="flexLines">
 					<van-row>
 						<van-col span="4">
@@ -187,7 +239,7 @@
 						<view class="cu-modal {{modalName=='Messages'?'show':''}}">
 							<view class="cu-dialog">
 								<view class="cu-bar bg-white justify-end">
-								<view class="content">群组消息发布</view>
+								<view class="content">{{title}}</view>
 								<view class="action" bindtap="hideModal">
 									<text class="cuIcon-close text-red"></text>
 								</view>
@@ -197,15 +249,15 @@
 										<form>
 											<view class="cu-form-group">
 											<view class="title">标题</view>
-											<input placeholder="请填写" bindinput="titleChange" value="{{postData.title}}"></input>
+											<input disabled="{{title=='群组消息查看'}}" placeholder="请填写" bindinput="titleChange" value="{{postData.title}}"></input>
 										</view>
 										<view class="cu-form-group align-start">
 											<view class="title">发布内容</view>
-											<textarea value="{{postData.text}}" bindinput="textChange" placeholder="多行文本输入框"></textarea>
+											<textarea disabled="{{title=='群组消息查看'}}" bindinput="textChange" wx:if="{{modalName=='Messages'}}"   value="{{postData.text}}"></textarea>
 										</view>
 
 										</form>
-										<view class="stickyButton" >
+										<view class="stickyButton" wx:if="{{title=='群组消息发布'}}">
 											<!-- <button class="cu-btn bg-red margin-tb-sm lg">嫣红</button> -->
 											<button class="cu-btn bg-green lg" bindtap="postMsg">发布</button>
 										</view>

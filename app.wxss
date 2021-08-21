@@ -18,14 +18,14 @@
 /** 活动css */
 .activityAbstract {
 	display: flex;
-	padding: 20rpx 2%;
+	padding:  1% 0;
 	/* background-color: #fff; */
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
 .activityAbstract > view {
-	width: 48%;
-	height: 350rpx;
+	width: 49%;
+	height: 340rpx;
 	margin-top: 20rpx;
 	/* background-color: red; */
 	margin: 10rpx 0;
@@ -45,7 +45,7 @@
 	font-size: 25rpx;
 	padding: 0 20rpx;
 	/* font-weight: 700; */
-	padding-top: 20rpx;
+	padding-top: 10rpx;
 	/* padding-bottom: 20rpx; */
 	/* overflow: hidden; */
 	/* text-overflow:ellipsis; */
@@ -79,6 +79,7 @@
 }
 .activityFull {
 	position: relative;
+	box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
 	background-color: #fff;
 	border-radius: 5px;
 }
@@ -89,4 +90,3 @@
 	/* background-color: #fff; */
 	/* box-shadow:  0 0 8rpx #ccc; */
 }
-

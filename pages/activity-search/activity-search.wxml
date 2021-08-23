@@ -1,9 +1,9 @@
 <!--pages/activity-search/activity-search.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">活动查看</view>
 </cu-custom>
 <view class="search">
-	<view class="hotNow" wx:if="{{active == 'b'}}">
+	<view class="hotNow" wx:if="{{active == 1}}">
 		<text class="title">正在进行</text>
 		<van-switch 
 		checked="{{ checked }}"
@@ -23,13 +23,12 @@
 		title-active-color="#2d7ecd"
 		bind:change="activeChange"
 	>
-		<van-tab title="搜索" name="a">
+		<van-tab title="搜索">
 			<van-search 
 				value="{{ value }}" 
 				placeholder="请输入搜索关键词" 
-				bind:search="serchActivity"
+				bind:search="searchActivity"
 				bind:focus="focusSearch"
-				bind:blur="blurSearch"
 				focus
 			/>
 			<view class="searchBody"  wx:if="{{show}}">
@@ -50,11 +49,11 @@
 				</view>
 			</view>
 			<view class="searchResult" wx:if="{{!show}}">
-				<view class="activityAbstract" wx:if="{{serchActivityList.length == 0}}" >
+				<view class="activityAbstract" wx:if="{{searchActivityList.length == 0}}" >
 					<van-empty image="search" description="没有找到匹配的活动" style="margin: 0 auto;"/>
 				</view>
 				<view class="activityAbstract">
-					<view class="activityFull" wx:for="{{serchActivityList}}" wx:key="index">
+					<view class="activityFull" wx:for="{{searchActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}">
 						<view>
 							<image src="{{item.image}}"></image>
 						</view>
@@ -70,12 +69,13 @@
 				</view>
 				
 			</view>
+			<view wx:if="{{searchActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 		</van-tab>
-		<van-tab title="全部" name="b">
+		<van-tab title="全部">
 			<view class="searchAll">
 				
 				<view class="activityAbstract">
-					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<view wx:for="{{allActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}"  class="activityFull {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
 						<image src="{{item.image}}"></image>
 					</view>
@@ -89,12 +89,13 @@
 					</view>
 				</view>
 			</view>
+					<view wx:if="{{allActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 			</view>
 		</van-tab>
-		<van-tab title="热门" name="c">
+		<van-tab title="热门">
 			<view class="searchHot">
 				<view class="activityAbstract">
-				<view wx:for="{{hotActivityList}}" wx:key="index" class="activityFull {{toggleDelay?'animation-slide-right':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view wx:for="{{hotActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}"  class="activityFull {{toggleDelay?'animation-slide-right':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
 						<image src="{{item.image}}"></image>
 					</view>
@@ -109,6 +110,7 @@
 				</view>
 			</view>
 			</view>
+				<view wx:if="{{hotActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 		</van-tab>
 	</van-tabs>
 </view>

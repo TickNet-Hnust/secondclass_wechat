@@ -33,10 +33,22 @@ Page({
 			recommend:'',
 			avatar:'',
 			introduce:''
-		}
-		
+		},
+		IntroduceShow:false
 
 
+	},
+	showNotice(e) {
+		console.log(123)
+		this.setData({
+			IntroduceShow:false
+		})
+	},
+	hideNotice(e) {
+		console.log(456)
+		this.setData({
+			IntroduceShow:true
+		})
 	},
 	onClick() {
 		wx.showLoading({
@@ -150,7 +162,7 @@ Page({
 		wx.chooseImage({
 		  count: 1, //默认9
 		  sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-		  sourceType: ['album'], //从相册选择
+		  sourceType: ['album','camera'], //从相册选择
 		  success: (res) => {
 			  console.log(res)
 			  getImgUrl(res.tempFilePaths[0]).then(value => {

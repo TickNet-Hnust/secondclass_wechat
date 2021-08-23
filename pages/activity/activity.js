@@ -7,13 +7,20 @@ Page({
 	 */
 	data: {
 		toggleDelay:false,
-		active: 1,
+		active:0,
 		value: '',
 		recommendActivityList: [],
+		recommendNum:2,
 		collectionActivityList: [],
+		collectionNum:2,
 		myActivityList: [],
+		myNum:2
 	},
 	activeChange(e) {
+		this.data.active = e.detail.index
+		this.setData({
+			// active: e.detail.index
+		})
 		e!= '自定义' && this.toggleDelay()
 	},
 	toggleDelay() {
@@ -48,12 +55,65 @@ Page({
 		  title: `切换到标签 ${event.detail.name}`,
 		  icon: 'none',
 		});
-	  },
+	},
+	getRecommend(pageNum = 1,pageSize=10) {
+		return request({
+			url:'/secondClass/activity/list',
+			method: 'GET',
+			data:{
+				recommend:1,
+				pageNum:pageNum,
+				pageSize:pageSize,
+			}
+		})
+	},
+	//my
+	getMy(pageNum = 1,pageSize=10) {
+		return request({
+			url: '/secondClass/activity/user',
+			method: 'GET',
+			data:{
+				pageNum:pageNum,
+				pageSize:pageSize,
+			}
+		})
+	},
+	//collection
+	getCollection(pageNum = 1,pageSize=10) {
+		return request({
+			url: '/secondClass/activity/collection/list',
+			method: 'GET',
+			data:{
+				pageNum:pageNum,
+				pageSize:pageSize,
+			}
+		})
+	},
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		
+		this.toggleDelay()
+		this.getRecommend().then(value => {
+			console.log(value)
+			this.setData({
+				recommendActivityList:value.rows
+			})
+		})
+
+		this.getCollection().then(value => {
+			console.log(value)
+			this.setData({
+				collectionActivityList:value.rows
+			})
+		})
+
+		this.getMy().then(value => {
+			console.log(value)
+			this.setData({
+				myActivityList:value.rows
+			})
+		})
 	},
 
 	/**
@@ -67,40 +127,7 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-		this.toggleDelay()
-		request({
-			url:'/secondClass/activity/list',
-			method: 'GET',
-			data:{recommend:1}
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				recommendActivityList:value.rows
-			})
-		})
-
-
-		request({
-			url:'/secondClass/activity/list',
-			method: 'GET',
-			data:{}
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				collectionActivityList:value.rows
-			})
-		})
-
-		request({
-			url:'/secondClass/activity/list',
-			method: 'GET',
-			data:{recommend:1}
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				myActivityList:value.rows
-			})
-		})
+		
 	},
 
 	/**
@@ -121,14 +148,69 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-
+		console.log('onPullDownRefresh')
+		
+		Promise.all([
+			this.getRecommend(),
+			this.getMy(),
+			this.getCollection()
+		]).then(value => {
+			this.setData({
+				recommendActivityList:value[0].rows,
+				myActivityList:value[1].rows,
+				collectionActivityList:value[2].rows,
+				recommendNum:2,
+				collectionNum:2,				
+				myNum:2
+			})
+			wx.stopPullDownRefresh({
+				success: (res) => {},
+			})
+			this.toggleDelay()
+		})
 	},
 
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
 	onReachBottom: function () {
-
+		this.setData({
+			isLoading:true
+		})
+		if(this.data.active == '0') {
+			this.getRecommend(this.data.recommendNum,10).then(value => {
+				console.log(value)
+				this.data.recommendActivityList.push(...value.rows)
+				this.setData({
+					recommendActivityList:this.data.recommendActivityList,
+					recommendNum: this.data.recommendNum + 1,
+					
+					isLoading:false
+				})
+			})
+		}else if(this.data.active == '1') {
+			this.getMy(this.data.myNum,10).then(value => {
+				console.log(value)
+				this.data.myActivityList.push(...value.rows)
+				this.setData({
+					myActivityList:this.data.myActivityList,
+					myNum: this.data.myNum + 1,
+					
+					isLoading:false
+				})
+			})
+		} else {
+			this.getCollection(this.data.collectionNum,10).then(value => {
+				console.log(value)
+				this.data.collectionActivityList.push(...value.rows)
+				this.setData({
+					collectionActivityList:this.data.collectionActivityList,
+					collectionNum: this.data.collectionNum + 1,
+					
+					isLoading:false
+				})
+			})
+		}
 	},
 
 	/**

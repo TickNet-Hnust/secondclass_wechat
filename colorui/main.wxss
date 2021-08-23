@@ -2439,10 +2439,10 @@ button.icon.lg {
 	margin: auto;
 }
 
-/* .cu-form-group textarea[disabled],
+.cu-form-group textarea[disabled],
 .cu-form-group textarea[disabled] .placeholder {
 	color: transparent;
-} */
+}
 
 /* ==================
          模态窗口
@@ -3605,6 +3605,11 @@ scroll-view.cu-steps .cu-item {
 
 .bg-gradual-blue {
 	background-image: var(--gradualBlue);
+	color: var(--white);
+}
+
+.bg-keda-blue {
+	background-color: #00a2e6; /*科大主题色*/
 	color: var(--white);
 }
 

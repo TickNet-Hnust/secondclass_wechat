@@ -26,6 +26,11 @@
     background-color: #fff;
     text-align: center;
 }
+.postButtom {
+	padding: 20rpx 0;
+	display: inline-block !important;
+	height: 80rpx !important;
+}
 .cu-form-group .title {
 	min-width: calc(6em + 30rpx);
   }

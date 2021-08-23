@@ -1,7 +1,15 @@
 // pages/Group-search/Group-search.js
 import {request} from '../../js/http.js'
 Page({
-
+	onPullDownRefresh: function () {
+		console.log('onPullDownRefresh')
+		// this.queryData(id)
+		setTimeout(() => {
+		  wx.stopPullDownRefresh({
+			success: (res) => {},
+		  })
+		},1000)
+	  },
 	/**
 	 * 页面的初始数据
 	 */

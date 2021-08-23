@@ -17,6 +17,12 @@ Page({
       cardCur: e.detail.current
     })
   },
+  jumpSearch() {
+    wx.hideKeyboard()
+    wx.navigateTo({
+      url: '../activity-search/activity-search',
+    })
+  },
   jumpActivity() {
     console.log(123)
     wx.switchTab({
@@ -41,7 +47,10 @@ Page({
 			method: 'GET',
 		}).then(value => {
       console.log('储存部门')
-			wx.setStorageSync('deptList',value.data)
+			wx.setStorage({
+        key:'deptList',
+        data:value.data
+      })
     })
     //活动级别
     request({
@@ -49,7 +58,10 @@ Page({
 			method: 'GET',
 		}).then(value => {
 			console.log('储存部门活动级别')
-			wx.setStorageSync('dict_rank',value.data)
+			wx.setStorage({
+        key:'dict_rank',
+        data:value.data
+      })
     })
     //报名方式
     request({
@@ -57,7 +69,10 @@ Page({
 			method: 'GET',
 		}).then(value => {
 			console.log('储存报名方式')
-			wx.setStorageSync('dict_admissionWay',value.data)
+			wx.setStorage({
+        key:'dict_admissionWay',
+        data:value.data
+      })
     })
     //花絮管理
 		request({
@@ -65,7 +80,10 @@ Page({
 			method: 'GET',
 		}).then(value => {
       console.log('储存花絮管理')
-			wx.setStorageSync('dict_flower',value.data)
+			wx.setStorage({
+        key:'dict_flower',
+        data:value.data
+      })
     })
     //积分管理
 		request({
@@ -73,7 +91,10 @@ Page({
 			method: 'GET',
 		}).then(value => {
 			console.log('储存积分管理')
-			wx.setStorageSync('dict_integral',value.data)
+			wx.setStorage({
+        key:'dict_integral',
+        data:value.data
+      })
     })
     //积分类型
 		request({
@@ -89,7 +110,10 @@ Page({
 			method: 'GET',
 		}).then(value => {
 			console.log('储存评价管理')
-			wx.setStorageSync('dict_evaluate_scheme',value.data)
+			wx.setStorage({
+        key:'dict_evaluate_scheme',
+        data:value.data
+      })
     })
     //群组加入规则 
 		request({
@@ -97,7 +121,10 @@ Page({
 			method: 'GET',
 		}).then(value => {
 			console.log('储存群组加入规则')
-			wx.setStorageSync('dict_ga_group_join_rule',value.data)
+			wx.setStorage({
+        key:'dict_ga_group_join_rule',
+        data:value.data
+      })
     })
     //群组人员状态
 		request({
@@ -105,7 +132,10 @@ Page({
 			method: 'GET',
 		}).then(value => {
 			console.log(value.data,'储存群组人员状态')
-			wx.setStorageSync('dict_ga_group_user_status',value.data)
+			wx.setStorage({
+        key:'dict_ga_group_user_status',
+        data:value.data
+      })
     })
     //群组状态
 		request({
@@ -113,17 +143,42 @@ Page({
 			method: 'GET',
 		}).then(value => {
 			console.log(value.data,'群组状态')
-			wx.setStorageSync('dict_ga_group_status',value.data)
+			wx.setStorage({
+        key:'dict_ga_group_status',
+        data:value.data
+      })
     })
 
 
-    //所有分类
+    //所有积分分类
     request({
-			url: '/admins/secondClass/courseClassification/list',
+			url: '/secondClass/courseClassification/list',
 			method: 'GET'
 		}).then(value => {
 			console.log('储存所有分类')
-			wx.setStorageSync('courseClassificationList',value.data)
+			wx.setStorage({
+        key: 'courseClassificationList',
+        data:value.data
+      })
+    })
+    //所有群组分类
+    request({
+			url: '/group/type/list',
+      method: 'GET',
+      data:{
+        layer:1
+      }
+		}).then(value => {
+      console.log('储存群组分类',value)
+      let groupClassificationMap = {}
+      value.data.forEach(item => {
+        groupClassificationMap[item.id] = item.name
+      })
+      console.log(groupClassificationMap )
+			wx.setStorage({
+        key: 'groupClassificationMap',
+        data: groupClassificationMap 
+      })
     })
     //当期学年
 		request({
@@ -147,6 +202,15 @@ Page({
       }
     })
   },
+  onPullDownRefresh: function () {
+    console.log('onPullDownRefresh')
+    // this.queryData(id)
+    setTimeout(() => {
+      wx.stopPullDownRefresh({
+        success: (res) => {},
+      })
+    },1000)
+  },
   getUserInfo(e) {
     // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
     console.log(e)
@@ -157,5 +221,16 @@ Page({
   },
   onShow() {
     
-  }
+  },
+  onReachBottom: function (obj) {
+    this.setData({
+      isLoading:true
+    })
+    setTimeout(() => {
+      this.setData({
+        isLoading:false
+      })
+    },1000)
+    console.log(this.data.isLoading,123)
+	},
 })

@@ -1,5 +1,5 @@
 <!--pages/activity/activity.wxml-->
-<cu-custom  bgColor="bg-gradual-blue" isBack="{{false}}"><view slot="backText">返回</view>
+<cu-custom  bgColor="bg-keda-blue" isBack="{{false}}"><view slot="backText">返回</view>
 	<view slot="content">群组</view>
 </cu-custom>
 <view class="containerActivity">
@@ -15,18 +15,18 @@
 		<text class="activityText">2</text>
 	</view>
   </view>
-
-  <view>
+  <view>	
 	<van-tabs 
 		id="tabs"
-		active="a"
+		active="{{active}}"
 		animated
 		swipeable
 		color="#07c160"
 		title-active-color="#07c160"
 		bind:change="activeChange"
 	>
-		<van-tab title="推荐" name="a">
+		<van-tab title="推荐">
+			<van-empty description="空空如也" wx:if="{{recommendGroupList.length == 0}}"/>
 			<view class="">
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
@@ -40,7 +40,7 @@
 								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
 							</view>
 							<view class="text-gray text-sm flex">
-							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
+							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
 							</view>
 						</view>
 						<view class="action">
@@ -55,10 +55,12 @@
 							
 						</view>
 					</view>
+					<view wx:if="{{recommendGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</view>
 		</van-tab>
-		<van-tab title="我的" name="b">
+		<van-tab title="我的">
+			<van-empty description="空空如也" wx:if="{{myGroupList.length == 0}}"/>
 			<view class="">				
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
@@ -72,7 +74,7 @@
 								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
 							</view>
 							<view class="text-gray text-sm flex">
-							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
+							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
 							</view>
 						</view>
 						<view class="action">
@@ -86,13 +88,15 @@
 							</view>
 						</view>
 					</view>
+					<view wx:if="{{myGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</view>
 		</van-tab>
-		<van-tab title="收藏" name="c">
+		<van-tab title="收藏">
+			<van-empty description="空空如也" wx:if="{{collectionGroupList.length == 0}}"/>
 			<view class="">
 				<view class="cu-list menu-avatar">
-					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelay?'animation-slide-top':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
+					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
 						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
 							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
 						</view>
@@ -103,7 +107,7 @@
 								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
 							</view>
 							<view class="text-gray text-sm flex">
-							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
+							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
 							</view>
 						</view>
 						<view class="action">
@@ -117,10 +121,10 @@
 							</view>
 						</view>
 					</view>
+					<view wx:if="{{collectionGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</view>
 		</van-tab>
 	</van-tabs>
-	
   </view>
 </view>

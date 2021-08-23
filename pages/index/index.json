@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "精选",
-  "usingComponents": {
-    "cu-custom": "../../colorui/components/cu-custom"
-  },
-  "component":true
+  "backgroundColor": "#00a2e6",
+  "enablePullDownRefresh":true,
+  "onReachBottomDistance":50
 }

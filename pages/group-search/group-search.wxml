@@ -1,5 +1,6 @@
 <!--pages/activity-search/activity-search.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
 	<view slot="content">群组查看</view>
 </cu-custom>
 <view class="search">
@@ -30,7 +31,6 @@
 				placeholder="请输入搜索关键词" 
 				bind:search="searchGroup"
 				bind:focus="focusSearch"
-				bind:blur="blurSearch"
 				focus
 			/>
 			<view class="searchBody"  wx:if="{{show}}">

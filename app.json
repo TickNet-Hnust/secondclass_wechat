@@ -16,11 +16,12 @@
 		"pages/activity-declare/activity-declare"
 	],
 	"window": {
-		"backgroundTextStyle": "light",
+		"backgroundTextStyle": "dark",
 		"navigationBarBackgroundColor": "#fff",
 		"navigationBarTitleText": "Weixin",
 		"navigationBarTextStyle": "black",
-		"navigationStyle": "custom"
+		"navigationStyle": "custom",
+		"backgroundColor": "#00a2e6"
 	},
 	"tabBar": {
 		"color": "#6e6d6b",
@@ -79,7 +80,8 @@
 		"van-datetime-picker": "@vant/weapp/datetime-picker/index",
 		"van-checkbox": "@vant/weapp/checkbox/index",
 		"van-checkbox-group": "@vant/weapp/checkbox-group/index",
-		"van-skeleton": "@vant/weapp/skeleton/index"
+		"van-skeleton": "@vant/weapp/skeleton/index",
+		"van-sticky": "@vant/weapp/sticky/index"
 	},
 	"sitemapLocation": "sitemap.json"
 }

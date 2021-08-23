@@ -1,12 +1,16 @@
 // pages/activity-detail/activity-detail.js
 import {request} from '../../js/http.js'
+const app = getApp()
 Page({
 
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
+		isCollection:false,
+		CustomBar: app.globalData.CustomBar,
 		show:false,
+		loadModal:true,
 		name: 'sfaf',
 		aid: null,
 		memberList:[],
@@ -74,12 +78,38 @@ Page({
 			show: true
 		})
 	},
+	getCollection() {
+		//是否收藏了改群组
+		request({
+			url: `/secondClass/activity/collection/${this.data.aid}`,
+			method: 'get'
+		}).then(value => {
+			console.log('是否收藏了',value)
+			this.setData({
+				isCollection: value.data
+			})
+		})
+	},
+	setCollection() {
+		//改变收藏了改群组
+		request({
+			url: `/secondClass/activity/collection/${this.data.aid}`,
+			method: 'POST'
+		}).then(value => {
+			console.log('收藏了',value)
+			this.getCollection()
+			wx.showToast({
+				title: '操作成功',
+				duration:1000
+			})
+		})
+	},
 	getUserInfo(event) {
 		console.log(event.detail);
 	},
 	computedState() {
 		//本人参加了
-		if(this.data.memberList[0].identities.includes(4)) {
+		if(this.data.memberList[0]?.identities.includes(4)) {
 			//报名了
 			if(this.data.memberList[0].enrollStatus==1) {
 				//签到了
@@ -90,7 +120,8 @@ Page({
 						'enroll.disabled': false,
 						'registe.disabled': false,
 						'leave.disabled': false,
-						'enroll.content': '取消报名',
+						// 'enroll.content': '取消报名',//目前还没有写取消报名
+						'enroll.content': '报名',
 						'registe.content': '签到',
 						'leave.content': '请假',
 					})
@@ -176,6 +207,10 @@ Page({
 			}
 		})
 	},
+	//请假
+	leave() {
+		
+	},
 	computedEnroll() {
 		return '123'
 	},
@@ -219,44 +254,42 @@ Page({
 		this.setData({
 			aid:options.aid
 		})
+		this.getCollection()
 		console.log(options)
 		this.getMember()
-		request({
-			url: `/secondClass/activity/${options.aid}`,
-			method: 'GET'
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				showData: value.data
-			})
-		})
-		//花絮
-		request({
-			url: '/secondClass/activity/flower/list',
-			method: 'GET',
-			data:{
-				activityId:options.aid
-			}
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				flowerList: value.rows
-			})
-		})
-		//评论
-		request({
-			url: '/secondClass/activity/evaluation/list',
-			method: 'GET',
-			data:{
-				activityId:options.aid
-			}
-		}).then(value => {
-			console.log(value,'评论')
-			this.setData({
-				remarkList: value.rows
-			})
-		})
 		
+		Promise.all([
+			request({
+				url: `/secondClass/activity/${options.aid}`,
+				method: 'GET'
+			}),
+			//花絮
+			request({
+				url: '/secondClass/activity/flower/list',
+				method: 'GET',
+				data:{
+					activityId:options.aid
+				}
+			}),
+			//评论
+			request({
+				url: '/secondClass/activity/evaluation/list',
+				method: 'GET',
+				data:{
+					activityId:options.aid
+				}
+			})
+		]).then(value => {
+			console.log(value[0])
+			this.setData({
+				showData: value[0].data,
+				flowerList: value[1].rows,
+				remarkList: value[2].rows
+			})
+			this.setData({
+				loadModal: false,
+			});
+		})
 	},
 
 	/**

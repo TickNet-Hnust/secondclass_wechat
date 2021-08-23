@@ -100,9 +100,10 @@
 			</view>
 		</view>
 	</view>
-	<view class="cu-form-group align-start">
+	<view class="cu-form-group align-start" bindtap="showNotice">
 		<view class="title">报名须知</view>
-		<textarea value="{{postData.introduce}}" bindinput="introduceChange" placeholder="多行文本输入框"></textarea>
+		<view wx:if="{{IntroduceShow}}" class="action"style="width: 100%;margin:32rpx 0 30rpx;padding:0;height: 4.6em;width: 100%;">{{postData.introduce}}</view>
+		<textarea wx:else focues value="{{postData.introduce}}" bindblur="hideNotice" bindinput="introduceChange" ></textarea>
 	</view>
 
 </form>

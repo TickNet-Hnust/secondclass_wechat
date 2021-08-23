@@ -87,7 +87,7 @@ page {
 	/* background-color: #fff; */
 }
 .cu-form-group textarea {
-	height: 40vh;
+	/* height: 40vh; */
 }
 .cu-form-group .title {
 	min-width: calc(4em + 30rpx);
@@ -135,7 +135,4 @@ page {
 	font-size: 23rpx;
     position: absolute;
     bottom: 10rpx;
-}
-textarea:focus {
-	caret-color: transparent;
 }

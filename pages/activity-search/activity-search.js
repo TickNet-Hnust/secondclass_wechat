@@ -8,13 +8,17 @@ Page({
 	data: {
 		toggleDelay: false,
 		checked: false,
-		active: 'a',
+		active: 0,
 		value: '',
 		show: true,
 		tags: [],
 		hotActivityList:[],
+		hotNum:2,
 		allActivityList:[],
-		serchActivityList:[],
+		allNum:2,
+		searchActivityList:[],
+		searchNum:2,
+		searchValue:'',
 	},
 	toggleDelay() {
 		var that = this;
@@ -26,23 +30,34 @@ Page({
 			toggleDelay: false
 		  })
 		}, 1000)
-	  },
+	},
+	jumpDetail(e) {
+		console.log(e)
+		wx.redirectTo({
+		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
+		})
+	},
 	//按钮改变触发
 	onChange({ detail }) {
 		// 需要手动对 checked 状态进行更新
 		this.setData({ checked: detail });
-		this.getActivityList(1,{
-			status: +this.data.checked
+		this.getAll().then(value=> {
+			this.setData({
+				allActivityList:value.rows,
+			})
 		})
 	},
 	//点击标签触发
 	tagSearch(event) {
 		this.setData({
-			value:event.target.dataset.item,
-			show:false
+			value:event.target.dataset.item.trim(), //搜索框
+			show:false  
 		})
-		this.getActivityList(0,{
-			name: event.target.dataset.item
+		this.getSearch(1,10,event.target.dataset.item.trim()).then(value => {
+			this.setData({
+				searchActivityList:value.rows,
+				searchValue: event.target.dataset.item
+			})
 		})
 	},
 	//点击垃圾桶触发
@@ -85,17 +100,24 @@ Page({
 		})
 	},
 	//确认搜索触发
-	serchActivity(event){
-		if(event.detail) {
+	searchActivity(event){
+		if(event.detail.trim()) {
 			let temp = wx.getStorageSync('Atags') || []
 			temp.unshift(event.detail)
 			wx.setStorageSync('Atags',temp)
-
-			this.getActivityList(0,{
-				name: event.detail
+			this.getSearch(1,10,event.detail.trim()).then(value => {
+				this.setData({
+					searchActivityList:value.rows,
+					searchValue: event.detail.trim()
+				})
 			})
 			this.setData({
 				show: false
+			})
+		} else {
+			wx.showToast({
+			  title: '请输入内容再搜索',
+			  icon: 'none'
 			})
 		}
 	
@@ -109,7 +131,7 @@ Page({
 		}).then(value => {
 			if(condition == 0) {
 				this.setData({
-					serchActivityList:value.rows
+					searchActivityList:value.rows
 				})
 			}else {
 				this.setData({
@@ -120,9 +142,44 @@ Page({
 	},
 	activeChange(event) {
 		console.log(event.detail.name)
+		this.data.active = e.detail.index
 		this.toggleDelay()
 		this.setData({
-			active: event.detail.name
+			// active: event.detail.index
+		})
+	},
+	getSearch(pageNum = 1,pageSize=10,name) {
+		return request({
+			url:'/secondClass/activity/list',
+			method: 'GET',
+			data:{
+				name:name,
+				pageNum:pageNum,
+				pageSize:pageSize,
+			}
+		})
+	},
+	//my
+	getAll(pageNum = 1,pageSize=10) {
+		return request({
+			url: '/secondClass/activity/list',
+			method: 'GET',
+			data:{
+				status: +this.data.checked,
+				pageNum:pageNum,
+				pageSize:pageSize,
+			}
+		})
+	},
+	//hot
+	getHot(pageNum = 1,pageSize=10) {
+		return request({
+			url: '/secondClass/activity/hotList',
+			method: 'GET',
+			data:{
+				pageNum:pageNum,
+				pageSize:pageSize,
+			}
 		})
 	},
 	/**
@@ -178,14 +235,65 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-
+		console.log('onPullDownRefresh')
+		Promise.all([
+			this.getAll(),
+			this.getHot()
+		]).then(value => {
+			this.setData({
+				allActivityList:value[0].rows,
+				hotActivityList:value[1].rows,
+				hotNum:2,
+				allNum:2,				
+				searchNum:2
+			})
+			wx.stopPullDownRefresh({
+				success: (res) => {},
+			})
+			this.toggleDelay()
+		})
 	},
 
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
 	onReachBottom: function () {
-
+		this.setData({
+			isLoading:true
+		})
+		if(this.data.active == '0') {
+			console.log('test',this.data.searchNum,10,this.data.searchValue)
+			this.getSearch(this.data.searchNum,10,this.data.searchValue).then(value => {
+				console.log(value)
+				this.data.searchActivityList.push(...value.rows)
+				this.setData({
+					searchActivityList:this.data.searchActivityList,
+					searchNum: this.data.searchNum + 1,
+					
+					isLoading:false
+				})
+			})
+		}else if(this.data.active == '1') {
+			this.getAll(this.data.allNum,10).then(value => {
+				console.log(value)
+				this.data.allActivityList.push(...value.rows)
+				this.setData({
+					allActivityList:this.data.allActivityList,
+					allNum: this.data.allNum + 1,
+					isLoading:false
+				})
+			})
+		} else {
+			this.getHot(this.data.hotNum,10).then(value => {
+				console.log(value)
+				this.data.hotActivityList.push(...value.rows)
+				this.setData({
+					hotActivityList:this.data.hotActivityList,
+					hotNum: this.data.hotNum + 1,
+					isLoading:false
+				})
+			})
+		}
 	},
 
 	/**

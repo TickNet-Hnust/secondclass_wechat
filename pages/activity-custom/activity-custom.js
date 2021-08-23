@@ -125,9 +125,21 @@ Page({
 		state:{
 			name: '',
 			id: '',
-		}
-
-
+		},
+		enrollNoticeShow: true,
+		IntroduceShow:true
+	},
+	showNotice(e) {
+		console.log(123)
+		this.setData({
+			[e.currentTarget.dataset.thing]:false
+		})
+	},
+	hideNotice(e) {
+		console.log(456)
+		this.setData({
+			[e.currentTarget.dataset.thing]:true
+		})
 	},
 	//弹出
 	showModal(e) {
@@ -159,38 +171,12 @@ Page({
 		  current: e.currentTarget.dataset.url
 		});
 	},
-	// ChooseImage() {
-	// 	let that = this
-	// 	wx.chooseMedia({
-	// 	  count: 4, //默认9
-	// 	  sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-	// 	  sourceType: ['album'], //从相册选择
-	// 	  success: (res) => {
-	// 		  console.log(res)
-	// 		  getImgUrl(res.tempFilePaths[0]).then(value => {
-	// 			  console.log(value,147,"sdfg")
-	// 			  that.setData({
-	// 				  'postData.images': value
-	// 			  })
-	// 		  })
-	// 		if (this.data.imgList.length != 0) {
-	// 		  this.setData({
-	// 			imgList: this.data.imgList.concat(res.tempFilePaths)
-	// 		  })
-	// 		} else {
-	// 		  this.setData({
-	// 			imgList: res.tempFilePaths
-	// 		  })
-	// 		}
-	// 	  }
-	// 	});
-	// },
 	ChooseImage() {
 		let that = this
 		wx.chooseImage({
 		  count: 1, //默认9
 		  sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-		  sourceType: ['album'], //从相册选择
+		  sourceType: ['album','camera'], //从相册选择
 		  success: (res) => {
 			  	console.log(res.tempFilePaths,77)
 			  	getImgUrl(res.tempFilePaths[0]).then(value => {

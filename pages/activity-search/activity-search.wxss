@@ -23,7 +23,7 @@
 	background-color: #fff;
 }
 .searchResult,.searchAll,.searchHot {
-	padding: 0 30rpx;
+	padding: 0 2%;
 	
 }
 .history {

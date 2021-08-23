@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "活动",
-  "usingComponents": {}
+  "usingComponents": {},
+  "backgroundColor": "#00a2e6",
+  "enablePullDownRefresh":true,
+  "onReachBottomDistance":50
 }

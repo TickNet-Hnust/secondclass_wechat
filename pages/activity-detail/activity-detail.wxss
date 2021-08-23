@@ -82,3 +82,9 @@
 .peoples .cu-item {
 	height: 150rpx;
 }
+.collectionStar {
+	position: absolute;
+	right: 8%;
+	font-size: 38rpx;
+	top: 11%;
+}

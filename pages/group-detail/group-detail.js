@@ -7,14 +7,18 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		//解决textarebug
+		textShow:true,
 		show:false,
-		loadProgress:0,
+		loadModal:true,
 		gid: null,
 		isCollection: false,
+		dict_ga_group_status:[],
 		memberList:[],
 		AllMessageList:[],
 		messageList:[],
 		activityList: [],
+		groupClassificationMap:{},
 		CustomBar: app.globalData.CustomBar,
 		showData:{
 
@@ -24,6 +28,19 @@ Page({
 			text: '',
 		},
 		title:'群组消息发布'
+	},
+	showNotice(e) {
+		console.log(123)
+		if(this.data.title=='群组消息发布') {
+			this.setData({
+				textShow:false
+			})
+		}
+	},
+	hideNotice(e) {
+		this.setData({
+			textShow:true
+		})
 	},
 	titleChange(e) {
 		this.setData({
@@ -78,7 +95,7 @@ Page({
 	hideModal(e) {
 		this.setData({
 		  modalName: null,
-		  title:'',
+		  title:'群组消息发布',
 		  'postData.title':'',
 		  'postData.text':''
 		})
@@ -116,7 +133,7 @@ Page({
 		})
 	},
 	getDetail() {
-		request({
+		return request({
 			url: `/group/${this.data.gid}/detail`,
 			method: 'GET'
 		}).then(value => {
@@ -128,7 +145,7 @@ Page({
 		})
 	},
 	getMember() {
-		request({
+		return request({
 			url: `/group/member/list`,
 			method: 'GET',
 			data:{
@@ -144,6 +161,34 @@ Page({
 			// this.computedState()
 		})
 	},
+	getActivity() {
+		return request({
+			url: `/secondClass/activity/group/list`,
+			method: 'GET',
+			data:{
+				groupId: this.data.gid
+			}
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				activityList: value.rows
+			})
+		})
+	},
+	getMsg() {
+		return request({
+			url: '/group/msg/list',
+			method: 'get',
+			data:{
+				groupId: this.data.gid
+			}
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				AllMessageList: value.rows
+			})
+		})
+	},
 	//查看信息详情
 	showForm(e) {
 		console.log(e)
@@ -154,13 +199,36 @@ Page({
 			title:'群组消息查看'
 		})
 	},
+	//删除信息
+	deleteMsg(e) {
+		wx.showModal({
+			title: '提示框',
+			content: '确定要删除该条信息吗',
+			success:(res) => {
+				console.log(res)
+				if(!res.cancel) { //确定了
+					request({
+						url: `/group/msg/${e.currentTarget.dataset.id}`,
+						method: 'DELETE'
+					}).then(value => {
+						wx.showToast({
+						  title: '删除成功',
+						  icon:'none',
+						  duration:2000,
+						})
+						this.hideModal()
+					})
+				}
+			}
+		})
+	},
 	switchTab(){},
 	onClose() {
 		this.setData({ show: false });
 	},
 	getCollection() {
 		//是否收藏了改群组
-		request({
+		return request({
 			url: '/group/collection',
 			method: 'get',
 			data:{
@@ -187,75 +255,31 @@ Page({
 			})
 		})
 	},
-	
-	loadProgress(){
-		this.setData({
-		  loadProgress: this.data.loadProgress+3
-		})
-		if (this.data.loadProgress<100){
-		  setTimeout(() => {
-			this.loadProgress();
-		  }, 100)
-		}else{
-		  this.setData({
-			loadProgress: 0
-		  })
-		}
-	  },
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		this.loadProgress()
 		this.setData({
-			gid:options.gid
+			gid:options.gid,
+			dict_ga_group_status: wx.getStorageSync('dict_ga_group_status'),
+			dict_ga_group_user_status:wx.getStorageSync('dict_ga_group_user_status'),
+			groupClassificationMap: wx.getStorageSync('groupClassificationMap')
 		})
 		console.log(options)
 		this.getMember()
 		this.getDetail()
-		request({
-			url: `/secondClass/activity/group/list`,
-			method: 'GET',
-			data:{
-				groupId: options.gid
-			}
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				activityList: value.rows
-			})
-		})
-
-		//人员状态
-		this.setData({
-			'dict_ga_group_user_status':wx.getStorageSync('dict_ga_group_user_status')
-		})
+		this.getActivity()
+		this.getMsg()
 		this.getCollection()
-		request({
-			url: '/group/msg/list',
-			method: 'get',
-			data:{
-				groupId: this.data.gid
-			}
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				AllMessageList: value.rows
-			})
-		})
 	},
-
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function () {
-		setTimeout(() => {
-			this.setData({
-				loading: false,
-			});
-			this.selectComponent('#tabs').resize();
-
-		},2000)
+	onReady: function () {	
+		this.setData({
+			loadModal: false,
+		});
+		this.selectComponent('#tabs').resize();
 	},
 
 	/**
@@ -283,7 +307,17 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-
+		Promise.all([
+			this.getMember(),
+		this.getDetail(),
+		this.getActivity(),
+		this.getMsg(),
+		this.getCollection()
+		]).then(value => {
+			wx.stopPullDownRefresh({
+				success: (res) => {},
+			})
+		})
 	},
 
 	/**

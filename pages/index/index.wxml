@@ -1,6 +1,12 @@
 <!--index.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{false}}"><view slot="backText">返回</view>
-	<view slot="content">主页</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{false}}">
+  <view slot="backText">返回</view>
+	<view slot="search">
+    <view class="search-form round">
+      <text class="cuIcon-search"></text>
+      <input type="text" disabled="{{true}}" placeholder="搜索活动" confirm-type="search" bindtap="jumpSearch"></input>
+    </view>
+  </view>
 </cu-custom>
 <view class="container">
   <view class="chooseTop padding-top-sm">

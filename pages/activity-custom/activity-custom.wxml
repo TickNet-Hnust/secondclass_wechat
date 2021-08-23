@@ -151,9 +151,10 @@
 		<view class="title">最大录取人数</view>
 		<input value="{{postData.maxAdmissionNumber}}" placeholder="请填写" bindinput="numberChanged"></input>
 	</view>
-	<view class="cu-form-group align-start">
+	<view class="cu-form-group align-start"  bindtap="showNotice" data-thing="enrollNoticeShow">
 		<view class="title">报名须知</view>
-		<textarea value="{{postData.enrollNotice}}" bindinput="VALUECHANGED" data-value="postData.enrollNotice"  placeholder="多行文本输入框"></textarea>
+		<view wx:if="{{enrollNoticeShow}}" class="action" style="width: 100%;margin:32rpx 0 30rpx;padding:0;height: 4.6em;width: 100%;">{{postData.enrollNotice}}</view>
+		<textarea wx:else focus value="{{postData.enrollNotice}}" data-thing="enrollNoticeShow" bindblur="hideNotice"  bindinput="VALUECHANGED" data-value="postData.enrollNotice"></textarea>
 	</view>
 
 	<view class="cu-bar solid-bottom ">
@@ -381,13 +382,16 @@
 		</view>
 	</view>
 	
-	<view class="cu-form-group align-start">
+	<view class="cu-form-group align-start" data-thing="IntroduceShow"  bindtap="showNotice" >
 		<view class="title">活动介绍</view>
-		<textarea value="{{postData.activityIntroduce}}" data-value="postData.activityIntroduce" placeholder="多行文本输入框" bindinput="VALUECHANGED"></textarea>
+		<view wx:if="{{IntroduceShow}}" class="action"style="width: 100%;margin:32rpx 0 30rpx;padding:0;height: 4.6em;width: 100%;">{{postData.activityIntroduce}}</view>
+		<textarea wx:else focus value="{{postData.activityIntroduce}}" data-thing="IntroduceShow" bindblur="hideNotice" data-value="postData.activityIntroduce" bindinput="VALUECHANGED"></textarea>
 	</view>
 </form>
-	<view class="stickyButton" >
+	<view  class="stickyButton">
+		<!-- <cover-view > -->
 		<!-- <button class="cu-btn bg-red margin-tb-sm lg">嫣红</button> -->
 		<button class="cu-btn bg-green lg" bindtap="postActivity">提交活动</button>
+	<!-- </cover-view> -->
 	</view>
 </view>

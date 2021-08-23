@@ -2,6 +2,11 @@
 <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">活动详情</view>
 </cu-custom>
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <!-- <view class='cuIcon-emojifill text-orange'></view> -->
+  <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+  <view class='gray-text'>加载中...</view>
+</view>
 <view class="detail">
 	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
 		<van-tab title="概况" name="a" >
@@ -14,7 +19,12 @@
 						<!-- </swiper-item> -->
 						<!-- <swiper-item> -->
 							<image mode="widthFix" class="adImg" src="../../images/choose/ad2.png" alt="" srcset=""></image>
-							<view class="actTitle">{{showData.name}}</view>
+							<view class="actTitle">
+								{{showData.name}}
+								<text class="cuIcon-favorfill text-yellow" wx:if="{{isCollection}}" bindtap="setCollection"></text>
+								<text class="cuIcon-favor text-yellow" wx:else bindtap="setCollection" ></text>
+							</view>
+							
 						<!-- </swiper-item> -->
 						<!-- <swiper-item> -->
 							<!-- <image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image> -->
@@ -37,7 +47,7 @@
 					<view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="Detail">
 						<text class="cuIcon-unfold "></text>
 					</view>
-					<view class="cu-modal {{modalName=='Detail'?'show':''}}">
+					<view catchtouchmove="return" class="cu-modal {{modalName=='Detail'?'show':''}}">
 						<view class="cu-dialog">
 							<view class="cu-bar bg-white justify-end">
 							<view class="content">活动详情</view>
@@ -193,10 +203,10 @@
 					<view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="notice">
 						<text class="cuIcon-unfold "></text>
 					</view>
-					<view class="cu-modal {{modalName=='notice'?'show':''}}">
+					<view catchtouchmove="return" class="cu-modal {{modalName=='notice'?'show':''}}">
 						<view class="cu-dialog">
 							<view class="cu-bar bg-white justify-end">
-							<view class="content">活动详情</view>
+							<view class="content">报名须知</view>
 							<view class="action" bindtap="hideModal">
 								<text class="cuIcon-close text-red"></text>
 							</view>
@@ -299,13 +309,28 @@
 						<van-col span="6" >
 							<button 
 								class="cu-btn line-green text-sm fr" 
-								bindtap="leave"
+								bindtap="showModal"
+								data-target="leaveModal"
 								disabled="{{leave.disabled}}"
 							>{{leave.content}}
 							</button>
 							<!-- <button disabled class="cu-btn line-green fr text-sm">默认</button> -->
 							<!-- <van-button plain type="primary" size="small">请假</van-button> -->
 						</van-col>
+						<!-- 请假弹窗 -->
+						<view class="cu-modal {{modalName=='leaveModal'?'show':''}}">
+							<view class="cu-dialog">
+								<view class="cu-bar bg-white justify-end">
+								<view class="content">请假事由</view>
+								<view class="action" bindtap="hideModal">
+									<text class="cuIcon-close text-red"></text>
+								</view>
+								</view>
+								<view class="padding-xl">
+									证明材料
+								</view>
+							</view>
+						</view>
 					</van-row>
 				</view>
 				<view class="flexLines">
@@ -339,7 +364,95 @@
 							<view class="flexMainTitle">活动管理</view>
 							<view class="flexSideTitle">本次活动的控制台</view>
 						</van-col>
-						<van-col span="5" ><text style="font-size: 24rpx;color:#bbb" >进入控制台</text></van-col>
+						<van-col span="5" >
+							<button 
+								class="cu-btn line-green text-sm fr" 
+								bindtap="showModal"
+								data-target="DrawerModalL"
+							>控制台
+							</button>
+						</van-col>
+						
+						<view catchtouchmove="return" class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}" bindtap="hideModal">
+							<view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
+								<view class="cu-list menu text-left">
+									<view class="cu-item">
+										<view class="content">
+											<text class="cuIcon-hot text-red"></text>
+        									<text class="">报名中...</text>
+										</view>
+										<view class="action">
+											
+										</view>
+									</view>
+									<view class="cu-item arrow margin-top">
+										<view class="content">
+											<view>结束报名</view>
+										</view>
+									</view>
+									<view class="cu-item arrow">
+										<view class="content">
+											<view>启动报名</view>
+										</view>
+									</view>
+									<view class="cu-item arrow">
+										<view class="content">
+											<view>暂停报名</view>
+										</view>
+									</view>
+									<view class="cu-item arrow">
+										<view class="content">
+											<view>撤回</view>
+										</view>
+									</view>
+									<view class="cu-item  margin-top">
+										<view class="content">
+											<view>活动统计表</view>
+										</view>
+										<view class="action">
+											<button class="sm cu-btn round bg-green shadow">
+											<text class="cuIcon-down"></text> 下载</button>
+										</view>
+									</view>
+									<view class="cu-item">
+										<view class="content">
+											<view>报名表</view>
+										</view>
+										<view class="action">
+											<button class="sm cu-btn round bg-green shadow">
+											<text class="cuIcon-down"></text> 下载</button>
+										</view>
+									</view>
+									<view class="cu-item ">
+										<view class="content">
+											<view>签到表</view>
+										</view>
+										<view class="action">
+											<button class="sm cu-btn round bg-green shadow">
+											<text class="cuIcon-down"></text> 下载</button>
+										</view>
+									</view>
+									<view class="cu-item ">
+										<view class="content">
+											<view>请假表</view>
+										</view>
+										<view class="action">
+											<button class="sm cu-btn round bg-green shadow">
+											<text class="cuIcon-down"></text> 下载</button>
+										</view>
+									</view>
+									<view class="cu-item ">
+										<view class="content">
+											<view>积分表</view>
+										</view>
+										<view class="action">
+											<button class="sm cu-btn round bg-green shadow">
+											<text class="cuIcon-down"></text> 下载</button>
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
 					</van-row>
 				</view>
 				</view>
@@ -349,17 +462,20 @@
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="cu-list menu-avatar">
+						<wxs module="m2">
+							function format(number) {
+								var arr = ['发布者','参与者','负责人','组织者','本人']
+								return arr[number]
+							}
+							module.exports.format = format
+						</wxs>
 					<view class="cu-item solid-top" wx:for="{{memberList}}" wx:key="index">
 						<view class="cu-avatar round lg" style="background-image:url({{item.avatar}})">
-							<!-- <view class="cu-tag badge">
-								{{item.identities}}
-							</view> -->
-							<!-- <view class="cu-tag badge" wx:if="item.identities[1]==undefined">{{item.identities[1]!=undefined?'负责人'}}</view> -->
 						</view>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.nickName}}</text>
-								<view class="cu-tag round bg-blue sm" wx:for="{{item.identities}}" wx:key="index">{{item}}</view>
+								<view class="cu-tag round bg-blue sm" wx:for="{{item.identities}}" wx:key="index">{{m2.format(item)}}</view>
 								<view class="cu-tag round bg-green sm">获奖：{{item.prize?item.prize :'无'}}</view>
 							</view>
 							<view class="text-gray text-xs flex">

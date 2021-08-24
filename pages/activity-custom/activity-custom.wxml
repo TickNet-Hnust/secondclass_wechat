@@ -5,7 +5,7 @@
 <view class="custom">
 	<form>
 		<view class="cu-form-group">
-		<view class="title">标题</view>
+		<view class="title">活动名称</view>
 		<input placeholder="请填写" bindinput="nameChanged" value="{{postData.name}}"></input>
 	</view>
 	<view class="cu-bar solid-bottom ">
@@ -149,7 +149,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">最大录取人数</view>
-		<input value="{{postData.maxAdmissionNumber}}" placeholder="请填写" bindinput="numberChanged"></input>
+		<input value="{{postData.maxAdmissionNumber}}" placeholder="例如：150" bindinput="numberChanged"></input>
 	</view>
 	<view class="cu-form-group align-start"  bindtap="showNotice" data-thing="enrollNoticeShow">
 		<view class="title">报名须知</view>
@@ -173,7 +173,7 @@
 
 	<view class="cu-form-group">
 		<view class="title">活动标签</view>
-		<input placeholder="多个用分号隔开" value="{{postData.activityTag}}" data-value="{{'postData.activityTag'}}" bindinput="VALUECHANGED"></input>
+		<input placeholder="例：辩论赛" value="{{postData.activityTag}}" data-value="{{'postData.activityTag'}}" bindinput="VALUECHANGED"></input>
 	</view>
 
 	<view class="cu-form-group">
@@ -348,7 +348,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">签到距离</view>
-		<input placeholder="请填写" value="{{postData.activityRegisteDistance}}" bindinput="VALUECHANGED" data-value="postData.activityRegisteDistance"></input>
+		<input placeholder="例：200" value="{{postData.activityRegisteDistance}}" bindinput="VALUECHANGED" data-value="postData.activityRegisteDistance"></input>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动负责人</view>

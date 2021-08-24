@@ -559,7 +559,7 @@ Page({
 		})
 		console.log(this.data.postData)
 		let msg = nullToast(this.data.postData,'activity')
-
+		
 		if(msg == 'ok') {
 			request({
 				url: '/secondClass/activity',

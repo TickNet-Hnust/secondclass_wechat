@@ -323,7 +323,7 @@ Page({
 	 */
 	onReady: function () {
 		request({
-			url: '/admins/group/type/list',
+			url: '/group/type/list',
 			method: 'GET'
 		}).then(value => {
 			console.log(value)
@@ -352,20 +352,6 @@ Page({
 		this.setData({
 			dict_ga_group_join_rule: wx.getStorageSync('dict_ga_group_join_rule')
 		})
-		// request({
-		// 	url: '/secondClass/schoolYear/nowYear',
-		// 	method: 'GET'
-		// }).then(value => {
-		// 	this.setData({
-		// 		nowYear: Object.keys(value.data)[0]
-		// 	})
-		// })
-		// request({
-		// 	url: '/admins/group/type/list',
-		// 	method: 'GET',
-		// }).then(value => {
-		// 	console.log(value, '分类列表')
-		// })
 		
 	},
 

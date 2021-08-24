@@ -1,28 +1,22 @@
 // pages/Group-search/Group-search.js
 import {request} from '../../js/http.js'
 Page({
-	onPullDownRefresh: function () {
-		console.log('onPullDownRefresh')
-		// this.queryData(id)
-		setTimeout(() => {
-		  wx.stopPullDownRefresh({
-			success: (res) => {},
-		  })
-		},1000)
-	  },
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
 		toggleDelay: false,
 		checked: false,
-		active: 'a',
+		active: 0,
 		value: '',
 		show: true,
 		tags: [],
 		hotGroupList:[],
 		allGroupList:[],
 		searchGroupList:[],
+		hotNum:2,
+		allNum:2,				
+		searchNum:2
 	},
 	toggleDelay() {
 		var that = this;
@@ -36,21 +30,23 @@ Page({
 		}, 1000)
 	  },
 	//按钮改变触发
-	onChange({ detail }) {
-		// 需要手动对 checked 状态进行更新
-		this.setData({ checked: detail });
-		this.getGroupList(1,{
-			status: this.data.checked?0:''
-		})
-	},
+	// onChange({ detail }) {
+	// 	// 需要手动对 checked 状态进行更新
+	// 	this.setData({ checked: detail });
+	// 	this.getGroupList(1,{
+	// 		status: this.data.checked?0:''
+	// 	})
+	// },
 	//点击标签触发
 	tagSearch(event) {
 		this.setData({
 			value:event.target.dataset.item,
 			show:false
 		})
-		this.getGroupList(0,{
-			deptName: event.target.dataset.item
+		this.getSearch(event.target.dataset.item).then(value => {
+			this.setData({
+				searchGroupList: value.rows
+			})
 		})
 	},
 	//点击垃圾桶触发
@@ -94,27 +90,21 @@ Page({
 	},
 	//确认搜索触发
 	searchGroup(event){
-		if(event.detail) {
+		if(event.detail.trim()) {
 			let temp = wx.getStorageSync('Gtags') || []
-			temp.unshift(event.detail)
+			temp.unshift(event.detail.trim())
 			wx.setStorageSync('Gtags',temp)
-
-			this.getGroupList(0,{
-				deptName: event.detail
-			})
-			this.setData({
-				show: false
+			this.getSearch(event.detail.trim()).then(value => {
+				this.setData({
+					searchGroupList: value.rows,
+					show: false
+				})
 			})
 		}
-	
 	},
 	//api请求数据
 	getGroupList(condition,option) {
-		request({
-			url: '/group/list',
-			method: 'GET',
-			data: option
-		}).then(value => {
+		then(value => {
 			if(condition == 0) {
 				this.setData({
 					searchGroupList:value.rows
@@ -127,28 +117,63 @@ Page({
 		})
 	},
 	activeChange(event) {
-		console.log(event.detail.name)
 		this.toggleDelay()
 		this.setData({
-			active: event.detail.name
+			active: event.detail.index
+		})
+	},
+	getHot(pageNum=1,pageSize=10) {
+		return request({
+			url: '/group/hotList',
+			method: 'GET',
+			data:{
+				pageNum,
+				pageSize
+			}
+		})
+	},
+	getAll(pageNum=1,pageSize=10) {
+		return request({
+			url: '/group/list',
+			method: 'GET',
+			data: {
+				status:0, //正常的群组
+				pageNum,
+				pageSize
+			}
+		})
+	},
+	getSearch(name,pageNum=1,pageSize=10) {
+		return request({
+			url: '/group/list',
+			method: 'GET',
+			data: {
+				status:0,
+				deptName:name,
+				pageNum,
+				pageSize
+			}
 		})
 	},
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		request({
-			url: '/group/hotList',
-			method: 'GET'
-		}).then(value => {
-			console.log(value)
+
+		Promise.all([
+			this.getAll(),
+			this.getHot()
+		]).then(value => {
 			this.setData({
-				hotGroupList:value.rows
+				allGroupList:value[0].rows,
+				hotGroupList:value[1].rows
 			})
+			this.toggleDelay()
 		})
-		this.getGroupList(1)
 		this.setData({
-			tags: wx.getStorageSync('Gtags')
+			tags: wx.getStorageSync('Gtags'),
+			groupClassificationMap: wx.getStorageSync('groupClassificationMap'),
+			dict_ga_group_status: wx.getStorageSync('dict_ga_group_status')
 		})
 	},
 
@@ -186,14 +211,65 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-
+		console.log('onPullDownRefresh')
+		Promise.all([
+			this.getAll(),
+			this.getHot()
+		]).then(value => {
+			this.setData({
+				allGroupList:value[0].rows,
+				hotGroupList:value[1].rows,
+				hotNum:2,
+				allNum:2,				
+				searchNum:2
+			})
+			wx.stopPullDownRefresh({
+				success: (res) => {},
+			})
+			this.toggleDelay()
+		})
 	},
 
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
 	onReachBottom: function () {
-
+		this.setData({
+			isLoading:true
+		})
+		if(this.data.active == '0') {
+			console.log('test',this.data.searchNum,10,this.data.searchValue)
+			this.getSearch(this.data.searchNum,10,this.data.searchValue).then(value => {
+				console.log(value)
+				this.data.searchActivityList.push(...value.rows)
+				this.setData({
+					searchActivityList:this.data.searchActivityList,
+					searchNum: this.data.searchNum + 1,
+					
+					isLoading:false
+				})
+			})
+		}else if(this.data.active == '1') {
+			this.getAll(this.data.allNum,10).then(value => {
+				console.log(value)
+				this.data.allGroupList.push(...value.rows)
+				this.setData({
+					allGroupList:this.data.allGroupList,
+					allNum: this.data.allNum + 1,
+					isLoading:false
+				})
+			})
+		} else {
+			this.getHot(this.data.hotNum,10).then(value => {
+				console.log(value)
+				this.data.hotGroupList.push(...value.rows)
+				this.setData({
+					hotGroupList:this.data.hotGroupList,
+					hotNum: this.data.hotNum + 1,
+					isLoading:false
+				})
+			})
+		}
 	},
 
 	/**

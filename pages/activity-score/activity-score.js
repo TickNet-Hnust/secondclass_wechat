@@ -69,7 +69,7 @@ courseClassificationName : value.data.courseClassificationName,
           //获取活动积分规则 
           //放在概况请求里面是因为要先通过上面请求拿到courseClassificationId再发请求
           request({
-            url:'/admins/secondClass/courseClassification/list',
+            url:'/secondClass/courseClassification/list',
             method:'GET',
           }).then(value=>{
             console.log(value,'课程分类列表')

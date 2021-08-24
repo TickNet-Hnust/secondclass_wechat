@@ -55,5 +55,5 @@
 	height: 170rpx !important;
 }
 .cu-list {
-	background-color: #fff;
+	/* background-color: #fff; */
 }

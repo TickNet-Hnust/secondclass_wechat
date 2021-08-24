@@ -1,4 +1,7 @@
 <!--pages/activity-template/activity-template.wxml-->
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">模版发布</view>
+</cu-custom>
 <view class="template">
 	<view class="templateTitle">
 		<h3>班级会议</h3>

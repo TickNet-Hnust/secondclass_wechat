@@ -4,7 +4,7 @@
 	<view slot="content">群组查看</view>
 </cu-custom>
 <view class="search">
-	<view class="hotNow" wx:if="{{active == 'b'}}">
+	<!-- <view class="hotNow" wx:if="{{active == 1}}">
 		<text class="title">正在进行</text>
 		<van-switch 
 		checked="{{ checked }}"
@@ -14,7 +14,7 @@
 		inactive-color="#c0c0c0"
 		custom-class="switch"
 	/>
-	</view>
+	</view> -->
 	<van-tabs 
 		id="tabs"
 		active="{{active}}"
@@ -24,8 +24,9 @@
 		bind:change="activeChange"
 		title-active-color="#07c160"
 	>
-		<van-tab title="搜索" name="a">
-			<view style="min-height: 100vh;background-color: #fff;">
+		<van-tab title="搜索">
+			<scroll-view scroll-y>
+			<view >
 			<van-search 
 				value="{{ value }}" 
 				placeholder="请输入搜索关键词" 
@@ -57,16 +58,17 @@
 				<view class="">
 					<view class="cu-list menu-avatar">
 						<view wx:for="{{searchGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
-							<view class="cu-tag badge">{{item.activityNumber}}</view>
+							<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
+							
 						</view>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
-								<view class="cu-tag round bg-blue sm">{{item.status}}</view>
+								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
+								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
 							</view>
 							<view class="text-gray text-sm flex">
-							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
+							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
 							</view>
 						</view>
 						<view class="action">
@@ -84,21 +86,25 @@
 				</view>
 			</view>
 		</view>
+		<view wx:if="{{searchGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+		</scroll-view>
 		</van-tab>
-		<van-tab title="全部" name="b">
-			<view style="min-height: 100vh;background-color: #fff;">
+		<van-tab title="全部">
+		<scroll-view scroll-y>
+			<view>
 					<view class="cu-list menu-avatar">
 						<view wx:for="{{allGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
-							<view class="cu-tag badge">{{item.activityNumber}}</view>
+							<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
+							
 						</view>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
-								<view class="cu-tag round bg-blue sm">{{item.status}}</view>
+								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
+								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
 							</view>
 							<view class="text-gray text-sm flex">
-							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
+							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
 							</view>
 						</view>
 						<view class="action">
@@ -114,22 +120,25 @@
 						</view>
 					</view>
 				</view>
-
+				<view wx:if="{{allGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+			</scroll-view>
 		</van-tab>
-		<van-tab title="热门" name="c">
-				<view style="min-height: 100vh;background-color: #fff;">
+		<van-tab title="热门">
+<scroll-view scroll-y>
+				<view >
 					<view class="cu-list menu-avatar">
 						<view wx:for="{{hotGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
-							<view class="cu-tag badge">{{item.activityNumber}}</view>
+							<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
+							
 						</view>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
-								<view class="cu-tag round bg-blue sm">{{item.status}}</view>
+								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
+								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
 							</view>
 							<view class="text-gray text-sm flex">
-							<text class="text-cut">{{item.type}}-{{item.parentName}}</text>
+							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
 							</view>
 						</view>
 						<view class="action">
@@ -145,6 +154,8 @@
 						</view>
 					</view>			
 				</view>
+				<view wx:if="{{hotGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+			</scroll-view>	
 		</van-tab>
 	</van-tabs>
 </view>

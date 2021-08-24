@@ -140,8 +140,7 @@ Page({
 			}
 		})
 	},
-	activeChange(event) {
-		console.log(event.detail.name)
+	activeChange(e) {
 		this.data.active = e.detail.index
 		this.toggleDelay()
 		this.setData({

@@ -496,7 +496,7 @@ Page({
 			'postData.deptId' : this.data.deptList[e.detail.value].deptId
 		})
 		request({
-			url: '/admins/group/list',
+			url: '/group/list',
 			method: 'get',
 			data:{
 				parentId: this.data.deptList[e.detail.value].deptId
@@ -562,7 +562,7 @@ Page({
 
 		if(msg == 'ok') {
 			request({
-				url: '/admins/secondClass/activity',
+				url: '/secondClass/activity',
 				method: 'POST',
 				data:this.data.postData
 			}).then(value => {

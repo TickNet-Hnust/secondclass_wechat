@@ -2441,7 +2441,7 @@ button.icon.lg {
 
 .cu-form-group textarea[disabled],
 .cu-form-group textarea[disabled] .placeholder {
-	color: transparent;
+	/* color: transparent; */
 }
 
 /* ==================

@@ -13,18 +13,18 @@
 	>
 		<van-tab title="常用" name="a" >
 			<view class="activityTemplate">
-				<view wx:for="{{use}}" wx:key="index"  bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-					<text class="itemMainText">{{item.title}}</text>
-					<text class="itemSideText">{{item.side}}</text>
+				<view wx:for="{{templateList}}" wx:key="index" data-id="{{item.id}}"  bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<text class="itemMainText">{{item.name}}</text>
+					<text class="itemSideText">{{item.activityIntroduce}}</text>
 				</view>
 
 			</view>
 		</van-tab>
 		<van-tab title="模版库" name="b">
 			<view class="activityTemplate">
-				<view wx:for="{{list}}" wx:key="index"  bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
-					<text class="itemMainText">{{item.title}}</text>
-					<text class="itemSideText">{{item.side}}</text>
+				<view wx:for="{{templateList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<text class="itemMainText">{{item.name}}</text>
+					<text class="itemSideText">{{item.activityIntroduce}}</text>
 				</view>
 				
 

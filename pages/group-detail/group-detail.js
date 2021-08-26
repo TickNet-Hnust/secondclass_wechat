@@ -52,6 +52,12 @@ Page({
 			'postData.text':e.detail.value
 		})
 	},
+	ViewImage() {
+		wx.previewImage({
+			urls: [this.data.showData.avatar.split(';')[0]],
+			current:this.data.showData.avatar.split(';')[0]
+		});
+	},
 	postMsg() {
 		request({
 			url: '/group/msg',

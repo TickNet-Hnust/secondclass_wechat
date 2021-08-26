@@ -8,10 +8,22 @@
   <image src='/images/logo.png' class='png' mode='aspectFit'></image>
   <view class='gray-text'>加载中...</view>
 </view>
+<wxs module="m3">
+	function format(str) {
+		console.log(str.split(';'))
+		return	str.split(';')[1]
+	}
+	module.exports.format = format
+  </wxs>
 <view class="detail">
 	<view class="cu-list menu-avatar mainShow">
         <view class="cu-item">
-          	<view class="cu-avatar radius lg" style="background-image:url({{showData.avatar}});"></view>
+          	<!-- <view class="cu-avatar radius lg" style="background-image:url({{showData.avatar}});">
+			  
+			</view> -->
+			<image bindtap="ViewImage" mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(showData.avatar)}}">
+				
+			</image>
           	<view class="content">
             <view class="text-black">{{showData.deptName}}</view>
             <view class="text-gray text-sm flex">

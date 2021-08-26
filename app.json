@@ -60,6 +60,7 @@
 		}
 	},
 	"usingComponents": {
+		"mp-html": "mp-html",
 		"cu-custom": "/colorui/components/cu-custom",
 		"van-tab": "@vant/weapp/tab/index",
 		"van-tabs": "@vant/weapp/tabs/index",

@@ -1,17 +1,27 @@
 // pages/activity-template/activity-template.js
+import {request} from '../../js/http.js'
 Page({
 
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
-		
+		postData:{}
 	},
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-
+		console.log(options)
+		request({
+			url: `/secondClass/activity/template/${options.tid}`,
+			method: 'GET'
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				postData: value.data
+			})
+		})
 	},
 
 	/**

@@ -57,6 +57,14 @@ Page({
 			disabled: false,
 			content: ''
 		},
+		//花絮
+		dict_flower:[],
+		//评价
+		dict_evaluate_scheme:[],
+		//级别
+		dict_rank:[],
+		//录取方式
+		dict_admissionWay:[]
 	},
 	showModal(e) {
 		this.setData({
@@ -289,6 +297,12 @@ Page({
 			this.setData({
 				loadModal: false,
 			});
+		})
+		this.setData({
+			dict_admissionWay:wx.getStorageSync('dict_admissionWay'),
+			dict_rank:wx.getStorageSync('dict_rank'),
+			dict_evaluate_scheme:wx.getStorageSync('dict_evaluate_scheme'),
+			dict_flower:wx.getStorageSync('dict_flower')
 		})
 	},
 

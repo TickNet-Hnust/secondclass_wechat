@@ -30,13 +30,15 @@ export function nullToast(data,state) {
 				(data.activityIntroduce == '' && '活动介绍') || 'ok'
 				)
 				if(str == 'ok') {
+					console.log(+data.maxAdmissionNumber,'zuidalusldfjrehu')
 					str = (
-						(data.deptName.length > 20 && '群组名称长度不能大于20') ||
-						(typeof data.name.maxAdmissionNumber != 'Number' && '最大录取人数必须是数字') ||
+						(data.name.length > 20 && '活动名称长度不能大于20') ||
+						(typeof +data.maxAdmissionNumber != 'number' && '最大录取人数必须是数字') ||
 						(data.activityTag.length > 10 && '活动标签长度不能大于10') ||
 						(data.activityPlaceName.length > 10 && '地点详细描述长度不能大于10') ||
-						(typeof data.activityRegisteDistance != 'Number' && '签到距离必须是数字') || 'ok'
+						(typeof +data.activityRegisteDistance != 'number' && '签到距离必须是数字') || 'ok'
 					)
+					return str
 				}
 			}
 		else {
@@ -52,9 +54,9 @@ export function nullToast(data,state) {
 			if(str == 'ok') {
 				
 				str = (
-					(data.name.length > 20 && '活动名称长度不能大于20')
+					(data.deptName.length > 20 && '活动名称长度不能大于20') || 'ok'
 				)
-			
+				return str
 			}
 		}	
 		return str == 'ok'? str: str + '不能为空'

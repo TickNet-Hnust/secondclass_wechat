@@ -24,7 +24,7 @@
 	flex-wrap: wrap;
 }
 .activityAbstract > view {
-	width: 49%;
+	width: 47vw; 
 	height: 340rpx;
 	margin-top: 20rpx;
 	/* background-color: red; */
@@ -33,7 +33,7 @@
 .activityAbstract image {
 	/* border-radius: 20rpx; */
 	width: 100%;
-	height: 200rpx;
+	height: 28vw;
 }
 .van-empty image {
 	height: 100%;

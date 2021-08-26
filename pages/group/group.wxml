@@ -16,6 +16,13 @@
 	</view>
   </view>
   <view>	
+  <wxs module="m3">
+	function format(str) {
+		console.log(str.split(';'))
+		return	str.split(';')[1]
+	}
+	module.exports.format = format
+  </wxs>
 	<van-tabs 
 		id="tabs"
 		active="{{active}}"
@@ -30,9 +37,9 @@
 			<view class="">
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
+						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
 							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
-						</view>
+						</image>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
@@ -64,9 +71,9 @@
 			<view class="">				
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
-						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
-							
-						</view>
+						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
+						</image>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
@@ -97,9 +104,9 @@
 			<view class="">
 				<view class="cu-list menu-avatar">
 					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
+						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
 							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
-						</view>
+						</image>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>

@@ -1,4 +1,5 @@
 // pages/activity-release/activity-release.js
+import {request} from '../../js/http.js'
 Page({
 
 	/**
@@ -6,6 +7,7 @@ Page({
 	 */
 	data: {
 		active: 'a',
+		templateList:[],
 		toggleDelay:false,
 		use: [
 			{
@@ -59,9 +61,9 @@ Page({
 		  })
 		}, 1000)
 	  },
-	jumpTemplate(e) {
+	jumpTemplate(event) {
 		wx.navigateTo({
-		  url: '../activity-template/activity-template',
+		  url: `../activity-template/activity-template?tid=${event.currentTarget.dataset.id}`,
 		})
 	},
 	switchTab(e) {
@@ -76,7 +78,14 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-
+		request({
+			url: '/secondClass/activity/template/list',
+			method: 'GET'
+		}).then(value => {
+			this.setData({
+				templateList:value.rows
+			})
+		})
 	},
 
 	/**

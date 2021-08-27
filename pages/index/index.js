@@ -63,6 +63,17 @@ Page({
         data:value.data
       })
     })
+    //积分认定状态
+    request({
+			url: '/dict/data/type/sc_activity_integral',
+			method: 'GET',
+		}).then(value => {
+			console.log('积分认定状态')
+			wx.setStorage({
+        key:'dict_sc_activity_integral',
+        data:value.data
+      })
+    })
     //报名方式
     request({
 			url: '/dict/data/type/sc_activity_admission_way',

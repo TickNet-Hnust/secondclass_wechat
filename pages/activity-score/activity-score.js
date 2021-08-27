@@ -23,6 +23,7 @@ Page({
     currentCourseClassification:[],
     filterCourseClassificationList:[],
     maxLayer:'',
+    declareList:[],
 
   },
   
@@ -43,7 +44,25 @@ Page({
     //   icon: 'none',
     // });
   },
-
+  getDeclareList(data){
+    request({
+      url:'/secondClass/activity/integral/list',
+      method:'GET',
+      data
+    }).then(value=>{
+      console.log(value,'已申报列表');
+      this.setData({
+        declareList:value.rows,
+      })
+    })
+  },
+  statusChange(e){
+    console.log(e,'积分认定状态点击事件');
+    this.getDeclareList({
+      activityId:this.data.aid,
+      status:e.detail.value,
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -52,7 +71,14 @@ Page({
     console.log(options.aid,'传来的活动id')
     this.setData({
       aid:options.aid,
+      dict_sc_activity_integral:wx.getStorageSync('dict_sc_activity_integral')
     })
+
+    console.log(this.data.dict_sc_activity_integral,'积分认定状态字典');
+
+    this.getDeclareList({
+      activityId:this.data.aid,
+    });
 
     //活动积分概况请求
     request({
@@ -71,12 +97,9 @@ courseClassificationName : value.data.courseClassificationName,
       })
           //获取活动积分规则 
           //放在概况请求里面是因为要先通过上面请求拿到courseClassificationId再发请求
-          request({
-            url:'/secondClass/courseClassification/list',
-            method:'GET',
-          }).then(value=>{
-            console.log(value,'课程分类列表')
-            value.data.forEach((item)=>{
+            let courseClassificationList = wx.getStorageSync('courseClassificationList')
+            console.log(courseClassificationList,'课程分类列表')
+            courseClassificationList.forEach((item)=>{
               if(item.id===this.data.courseClassificationId)
               {
                   this.setData({
@@ -88,7 +111,7 @@ courseClassificationName : value.data.courseClassificationName,
                   console.log(this.data.currentCourseClassification,'当前查找到的课程分类id')
                   
                   this.setData({
-                     filterCourseClassificationList:filterCourseClassificationList2(value.data,this.data.currentCourseClassification,this.data.courseClassificationId),
+                     filterCourseClassificationList:filterCourseClassificationList2(courseClassificationList,this.data.currentCourseClassification,this.data.courseClassificationId),
                   })
                   
                   console.log(this.data.filterCourseClassificationList,'过滤后的数组');
@@ -133,7 +156,7 @@ courseClassificationName : value.data.courseClassificationName,
           
 
           })
-    })
+
      
     //活动级别
     this.setData({

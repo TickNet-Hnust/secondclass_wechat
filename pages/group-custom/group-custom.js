@@ -197,6 +197,7 @@ Page({
 						  that.setData({
 							  'postData.avatar': `${this.data.postData.avatar};${value}` //压缩图
 							})
+							console.info(this.data.postData.avatar.length)
 						})
 					}
 				})

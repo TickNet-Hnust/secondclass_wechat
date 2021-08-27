@@ -25,9 +25,12 @@ Page({
     maxLayer:'',
 
   },
+  
   jumpDeclare() {
+    let filterCourseClassificationListString = JSON.stringify(this.data.filterCourseClassificationList); 
     wx.navigateTo({
-      url: '../activity-declare/activity-declare',
+      //传多个参数时要用&隔开
+      url: `../activity-declare/activity-declare?filterCourseClassificationListString=${filterCourseClassificationListString}&aid=${JSON.stringify(this.data.aid)}&maxLayer=${JSON.stringify(this.data.maxLayer)}`,
     })
   },
   //函数
@@ -61,8 +64,8 @@ Page({
       this.setData({
             activityName : value.data.activityName,
             activityRank : value.data.activityRank,
-  // courseClassificationId : value.data.courseClassificationId,
-  courseClassificationId : 87,
+  courseClassificationId : value.data.courseClassificationId,
+  // courseClassificationId : 87,
 courseClassificationName : value.data.courseClassificationName,
           integralScheme : value.data.integralScheme,
       })

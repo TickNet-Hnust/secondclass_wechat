@@ -143,7 +143,7 @@
 
              </van-row>	 
              <van-row style="width:100%;text-align: center;">
-              <van-button type="primary"bindtap="jumpDeclare">现在申报</van-button>
+              <van-button type="primary" bindtap="jumpDeclare">现在申报</van-button>
              </van-row>
           </view>
       </van-tab>
@@ -152,68 +152,56 @@
       <van-tab title="已申报">
         <view class="cu-bar bg-white margin-top-sm">
           <view class="action ">
-            <radio-group bindchange="SetBorderSize">
+
+            <radio-group bind:change="statusChange">
                   <label class="margin-left-sm">
                     <radio class="blue sm radio" value="" checked></radio>
                     <text class="text-sm">全部</text>
                   </label>
-                  <label class="margin-left-sm">
-                    <radio class="blue sm radio" value="s"></radio>
-                    <text class="text-sm">认定通过</text>
+                  <label class="margin-left-sm" wx:for="{{dict_sc_activity_integral}}">
+                    <radio class="blue sm radio" value="{{item.dictValue}}"></radio>
+                    <text class="text-sm">{{item.dictLabel}}</text>
                   </label>
-                  <label class="margin-left-sm">
-                    <radio class="blue sm radio" value="s"></radio>
-                    <text class="text-sm">认定不通过</text>
-                  </label>
-                  <label class="margin-left-sm">
-                    <radio class="blue sm radio" value="s"></radio>
-                    <text class="text-sm">待认定</text>
-                  </label>
-                </radio-group>
+                  
+              </radio-group>
           </view>
         </view>
 
+        <wxs module="ident">
+          function it(item){
+            if(item==0) return '发布者'
+            if(item==1) return '参与者'
+            if(item==2) return '负责人'
+            if(item==3) return '组织者'
+            if(item==4) return '本人'
+          }
+          module.exports.it=it 
+        </wxs>
+
         <view class="cu-list menu">
-          <view class="cu-item  margin-top-sm">
+          <view class="cu-item  margin-top-sm" wx:for="{{declareList}}" wx:key="index">
             <view class="content padding-tb-sm">
               <view>
-                <text class="text-sm">张慧慧 • 1903040523</text>
-                <view class="cu-tag round bg-green sm">本人</view>
-                <view class="cu-tag round bg-blue sm">负责人</view>
-                <view class="cu-tag round bg-gray sm">待认定</view>
+                <text class="text-sm">{{item.nickName}} • {{item.userName}}</text>
+                
+                <view class="cu-tag round bg-green sm" wx:for="{{item.identities}}" wx:key="index">
+                   {{ident.it(item)}}
+                </view>
+                <view class="cu-tag round bg-gray sm">{{dict_sc_activity_integral[item.status].dictLabel}}</view>
               </view>
               <view class="text-gray text-sm">
-                商学院 2019级
+                {{item.className}} 2019级
               </view>
               <view class="text-gray text-sm">
-                申报理由: 成功参与
+                申报理由: {{item.reason}}
               </view>
             </view>
             <view class="action" style="position: absolute; right:0">
-              <view class="cu-tag line-gray sm fr margin-right-sm">认定：1分</view>
-              <view class="cu-tag line-gray sm fr margin-right-sm">申请：1分</view>
+              <view class="cu-tag line-gray sm fr margin-right-sm">认定：{{item.confirmIntegral}}</view>
+              <view class="cu-tag line-gray sm fr margin-right-sm">申请：{{item.applyIntegral}}</view>
             </view>
           </view>
-          <view class="cu-item  margin-top-sm">
-            <view class="content padding-tb-sm">
-              <view>
-                <text class="text-sm">张慧慧 • 1903040523</text>
-                <view class="cu-tag round bg-green sm">本人</view>
-                <view class="cu-tag round bg-blue sm">负责人</view>
-                <view class="cu-tag round bg-gray sm">待认定</view>
-              </view>
-              <view class="text-gray text-sm">
-                商学院 2019级
-              </view>
-              <view class="text-gray text-sm">
-                申报理由: 成功参与
-              </view>
-            </view>
-            <view class="action" style="position: absolute; right:0">
-              <view class="cu-tag line-gray sm fr margin-right-sm">认定：1分</view>
-              <view class="cu-tag line-gray sm fr margin-right-sm">申请：1分</view>
-            </view>
-          </view>
+          
         </view>
       </van-tab>
   </van-tabs>

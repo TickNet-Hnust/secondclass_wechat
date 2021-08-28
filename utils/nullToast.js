@@ -30,13 +30,13 @@ export function nullToast(data,state) {
 				(data.activityIntroduce == '' && '活动介绍') || 'ok'
 				)
 				if(str == 'ok') {
-					console.log(+data.maxAdmissionNumber,'zuidalusldfjrehu')
+					console.log(+data.activityRegisteDistance,'zuidalusldfjrehu')
 					str = (
 						(data.name.length > 20 && '活动名称长度不能大于20') ||
-						(typeof +data.maxAdmissionNumber != 'number' && '最大录取人数必须是数字') ||
+						(Number.isNaN(+data.maxAdmissionNumber) && '最大录取人数必须是数字') ||
 						(data.activityTag.length > 10 && '活动标签长度不能大于10') ||
 						(data.activityPlaceName.length > 10 && '地点详细描述长度不能大于10') ||
-						(typeof +data.activityRegisteDistance != 'number' && '签到距离必须是数字') || 'ok'
+						(Number.isNaN(+data.activityRegisteDistance) && '签到距离必须是数字') || 'ok'
 					)
 					return str
 				}

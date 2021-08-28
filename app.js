@@ -47,7 +47,7 @@ App({
   onShow(e) {
     wx.qy.login({
 			success: function(res) {
-				console.log(res)
+				console.log(res,44)
 				if (res.code) {
 				  //发起网络请求
 				  wx.request({

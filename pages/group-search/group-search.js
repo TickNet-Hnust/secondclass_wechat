@@ -29,14 +29,12 @@ Page({
 		  })
 		}, 1000)
 	  },
-	//按钮改变触发
-	// onChange({ detail }) {
-	// 	// 需要手动对 checked 状态进行更新
-	// 	this.setData({ checked: detail });
-	// 	this.getGroupList(1,{
-	// 		status: this.data.checked?0:''
-	// 	})
-	// },
+	  jumpDetail(e) {
+		  console.log(e)
+		  wx.navigateTo({
+			url: `../group-detail/group-detail?gid=${e.currentTarget.dataset.id}`,
+		  })
+	  },
 	//点击标签触发
 	tagSearch(event) {
 		this.setData({

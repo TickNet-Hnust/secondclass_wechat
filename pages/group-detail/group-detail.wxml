@@ -162,7 +162,7 @@
 								<view style="vertical-align: text-top;" class="cu-tag round line-gray sm" wx:elif="{{showData.joinStatus == 2}}">待审核</view>
 							</view>
 							<view class="flexSideTitle">
-								加入规则: <text class="text-green">gdfsg</text>
+								加入规则: <text class="text-green">{{dict_ga_group_join_rule[showData.joinRule].dictLabel}}</text>
 							</view>
 						</van-col>
 						<van-col span="6" >
@@ -280,9 +280,9 @@
 				</view>
 			</scroll-view>
 		</van-tab>
-		<van-tab title="成员" name="b" class="peoples">
+		<van-tab title="成员" name="b">
 			<scroll-view scroll-y>
-				<view class="activityTemplate">
+				<view class="activityTemplate peoples">
 				<view class="cu-list menu-avatar">
 					<view class="cu-item solid-top" wx:for="{{memberList}}" wx:key="index">
 						<view class="cu-avatar round lg" style="background-image:url({{item.avatar}})">
@@ -304,9 +304,9 @@
 							<text class="text-cut">{{item.deptName}}-{{item.className}}-{{item.userName}}</text>
 							</view>
 						</view>
-						<view class="action">
-							<view class=" radius sm">
-								<text class="cuIcon-moreandroid" ></text>
+						<view class="action" wx:if="{{showData.joinStatus==1 && memberList[0].status == 1 && index!=0}}">
+							<view class=" radius sm text-xl">
+								<text class=" cuIcon-moreandroid" bindtap="showModal" data-target="controlModal" data-index="{{index}}"></text>
 							</view>
 							<!-- <view class="cu-tag radius sm">积分：2分</view> -->
 						</view>
@@ -314,6 +314,48 @@
 				</view>
 				</view>
 			</scroll-view>
+			<view class="cu-modal bottom-modal {{modalName=='controlModal'?'show':''}}" bindtap="hideModal">
+				<view class="cu-dialog" >
+					<!-- <view class="cu-bar bg-white"> -->
+					<!-- <view class="action text-green" >确定</view> -->
+					<!-- <view class="action text-blue" >取消</view> -->
+					<!-- </view> -->
+					<view class="">
+						<view class="cu-list menu text-left">
+							<view wx:if="{{memberList[targetUserIndex].status == 2}}" class="cu-item" bindtap="statusChange" data-state="1">
+								<view class="content">
+									<text class="cuIcon-circlefill text-grey"></text>
+									<text class="text-grey">转让负责人</text>
+								</view>
+							</view>
+							<view wx:if="{{memberList[targetUserIndex].status == 3}}" class="cu-item" bindtap="statusChange" data-state="2">
+								<view class="content">
+									<text class="cuIcon-circlefill text-grey"></text>
+									<text class="text-grey">设为管理员</text>
+								</view>
+							</view>
+							<view wx:if="{{memberList[targetUserIndex].status == 2}}" class="cu-item" bindtap="statusChange" data-state="3">
+								<view class="content">
+									<text class="cuIcon-circlefill text-grey"></text>
+									<text class="text-grey">去除管理员身份</text>
+								</view>
+							</view>
+							<view wx:if="{{memberList[targetUserIndex].status == 0 || memberList[targetUserIndex].status == 5}}" class="cu-item" bindtap="statusChange" data-state="3">
+								<view class="content">
+									<text class="cuIcon-circlefill text-grey"></text>
+									<text class="text-grey">入群审核</text>
+								</view>
+							</view>
+							<view wx:if="{{memberList[targetUserIndex].status == 3}}" class="cu-item" bindtap="statusChange" data-state="5">
+								<view class="content">
+									<text class="cuIcon-circlefill text-grey"></text>
+									<text class="text-grey">清退成员</text>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
 		</van-tab>
 		<van-tab title="活动" name="c">
 			<scroll-view scroll-y>

@@ -7,6 +7,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		targetUserIndex:null,
 		//解决textarebug
 		textShow:true,
 		show:false,
@@ -52,6 +53,29 @@ Page({
 			'postData.text':e.detail.value
 		})
 	},
+	statusChange(e) {
+		console.log(e)
+		let copy = {...this.data.memberList[this.data.targetUserIndex]}
+		copy.status = +e.currentTarget.dataset.state
+		if(e.currentTarget.dataset.state == '1') {
+			console.log(7777777777777,copy, this.data.gid)
+			request({
+				url: `/group/member/transfer?userId=${copy.userId}&groupId=${this.data.gid}`,
+				method: 'PUT'
+			}).then(value => {
+				console.log(value)
+			})
+		}else {
+			request({
+				url: '/group/member',
+				method: 'PUT',
+				data: copy
+			}).then(value => {
+				console.log(value,copy)
+			})
+		}
+		
+	},
 	ViewImage() {
 		wx.previewImage({
 			urls: [this.data.showData.avatar.split(';')[0]],
@@ -94,6 +118,11 @@ Page({
 		})
 	},
 	showModal(e) {
+		if(e.currentTarget.dataset.target == 'controlModal') {
+			this.setData({
+				targetUserIndex : e.currentTarget.dataset.index
+			})
+		}
 		this.setData({
 		  modalName: e.currentTarget.dataset.target
 		})
@@ -269,6 +298,7 @@ Page({
 			gid:options.gid,
 			dict_ga_group_status: wx.getStorageSync('dict_ga_group_status'),
 			dict_ga_group_user_status:wx.getStorageSync('dict_ga_group_user_status'),
+			dict_ga_group_join_rule: wx.getStorageSync('dict_ga_group_join_rule'),
 			groupClassificationMap: wx.getStorageSync('groupClassificationMap')
 		})
 		console.log(options)

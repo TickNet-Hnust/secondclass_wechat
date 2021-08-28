@@ -143,7 +143,21 @@ Page({
 	},
 	//弹出
 	showModal(e) {
-		this.setData({
+		let flag = true
+		if(e.currentTarget.dataset.target == 'bottomModal') {
+			wx.getSystemInfo({
+				success: e => {
+					if(e.locationEnabled == false) {
+						wx.showModal({
+							showCancel:false,
+							content: '确保定位准确，请手动打开GPS'
+						})
+						flag = false
+					}
+				}
+			})
+		}
+		flag && this.setData({
 		  modalName: e.currentTarget.dataset.target
 		})
 	},
@@ -312,7 +326,7 @@ Page({
 		console.log(e.detail.value[0])
 		this.setData({
 			'postData.courseClassificationId': this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id,
-			'postData.courseClassificationIdPath': this.data.courseClassificationList[e.detail.value[0]].id + ',' +this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id
+			'postData.courseClassificationPath': this.data.courseClassificationList[e.detail.value[0]].id + ',' +this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id
 		})
 		request({
 			url: '/secondClass/course/list',
@@ -364,7 +378,7 @@ Page({
 			  console.log(res.longitude)
 			  console.log(res.latitude)
 			  this.setData({
-				'postData.activityPlace': res.longitude + ';' + res.latitude
+				'postData.activityPlace': res.longitude + ',' + res.latitude
 			})
 			}
 		})

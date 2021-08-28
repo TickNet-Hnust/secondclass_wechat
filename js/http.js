@@ -37,7 +37,7 @@ export const request = (opt) => {
 						wx.showToast({
 							title: '无权限操作',
 							icon: "loading",
-							duration:2000
+							duration:1000
 						})
 						reject(res)
 						// wx.qy.login({
@@ -65,7 +65,7 @@ export const request = (opt) => {
 							title: '不允许频繁操作，请稍后再试',
 							icon:'none',
 							mask: true,
-							duration:2000
+							duration:1000
 						})
 					} else {
 						resolve(res.data)

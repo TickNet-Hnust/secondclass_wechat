@@ -269,7 +269,10 @@
 							</view>
 						</van-col>
 						<van-col span="14">
-							<view class="flexMainTitle">报名时间</view>
+							<view class="flexMainTitle">
+								报名时间
+								<view style="vertical-align: text-top;" class="cu-tag round bg-blue sm">{{enroll.hint}}</view>
+							</view>
 							<view class="flexSideTitle">{{showData.enrollStartTime}} 至 <view></view> {{showData.enrollEndTime}}</view>
 						</van-col>
 						<van-col span="6" >
@@ -289,7 +292,10 @@
 							</view>
 						</van-col>
 						<van-col span="14">
-							<view class="flexMainTitle">签到时间</view>
+							<view class="flexMainTitle">
+								签到时间
+								<view style="vertical-align: text-top;" class="cu-tag round bg-blue sm">{{registe.hint}}</view>
+							</view>
 							<view class="flexSideTitle" wx:if="{{!showData.registeStartTime}}">无限制</view>
 							<view class="flexSideTitle" wx:else>{{showData.registeStartTime}} 至<view></view> {{showData.registeEndTime}}</view>
 						</van-col>
@@ -315,7 +321,10 @@
 							</view>
 						</van-col>
 						<van-col span="14">
-							<view class="flexMainTitle">请假</view>
+							<view class="flexMainTitle">
+								请假
+								<view style="vertical-align: text-top;" class="cu-tag round bg-blue sm">{{leave.hint}}</view>
+							</view>
 							<view class="flexSideTitle">无限制</view>
 							<!-- <view class="flexSideTitle" wx:else>{{showData.registeStartTime}} 至<view></view> {{showData.registeEndTime}}</view> -->
 						</van-col>
@@ -339,8 +348,36 @@
 									<text class="cuIcon-close text-red"></text>
 								</view>
 								</view>
-								<view class="padding-xl">
-									证明材料
+								<view class="text-left">
+									<view class="cu-form-group ">
+										<view class="title">原因</view>
+										<input placeholder="请假原因" value="{{reason}}" bindinput="reasonInput"></input>
+									</view>
+									<view class="cu-bar bg-white">
+										<view class="action">
+											证明材料
+										</view>
+										<view class="action">
+											{{imgList.length}}/1
+										</view>
+									</view>
+									<view class="cu-form-group">
+										<view class="grid col-4 grid-square flex-sub" >
+											<view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">
+												<image src='{{imgList[index]}}' mode='aspectFill'></image>
+												<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+													<text class="cuIcon-close"></text>
+												</view>
+											</view>
+											<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<1}}">
+												<text class="cuIcon-cameraadd"></text>
+											</view>
+										</view>
+									</view>
+									<view class="cu-form-group ">
+										<button class="cu-btn bg-green padding" bindtap="putLeave">提交</button>
+									</view>
+									
 								</view>
 							</view>
 						</view>

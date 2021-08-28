@@ -117,11 +117,13 @@
 			<view class="action text-green" bindtap="hideModal">确定</view>
 			</view>
 			<view class="grid col-3 padding-sm">
-			<view wx:for="{{deptList}}" class="padding-xs" wx:key="index">
+			<scroll-view scroll-y style="max-height:60vh">
+				<view wx:for="{{deptList}}" class="padding-xs" wx:key="index">
 				<button class="cu-btn orange lg block {{item.checked?'bg-green':'line-green'}}" bindtap="ChooseDeptCheckbox" data-value="{{index}}"> 
 					{{item.deptName}}
 				</button>
 			</view>
+			</scroll-view>
 			</view>
 		</view>
 	</view>

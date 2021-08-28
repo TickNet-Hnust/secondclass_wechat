@@ -79,6 +79,9 @@
 	width: 150rpx !important;
 	text-align: right !important;
 }
+.cu-form-group .title {
+	min-width: calc(4em + 30rpx);
+}
 .peoples .cu-item {
 	height: 150rpx;
 }

@@ -1,5 +1,6 @@
 // pages/activity-detail/activity-detail.js
 import {request} from '../../js/http.js'
+import getImgUrl from '../../utils/upload.js'
 const app = getApp()
 Page({
 
@@ -47,15 +48,18 @@ Page({
 		},
 		enroll:{
 			disabled: false,
-			content: ''
+			content: '报名',
+			hint:'未报名'
 		},
 		registe:{
 			disabled: false,
-			content: ''
+			content: '签到',
+			hint:'未签到'
 		},
 		leave:{
 			disabled: false,
-			content: ''
+			content: '请假',
+			hint:'未请假'
 		},
 		//花絮
 		dict_flower:[],
@@ -64,7 +68,10 @@ Page({
 		//级别
 		dict_rank:[],
 		//录取方式
-		dict_admissionWay:[]
+		dict_admissionWay:[],
+		imgList:[],
+		leaveReason:'',
+		material:''
 	},
 	showModal(e) {
 		this.setData({
@@ -112,38 +119,138 @@ Page({
 			})
 		})
 	},
+	reasonInput(e) {
+		this.setData({
+			reason: e.detail.value
+		})
+	},
+	putLeave() {
+		console.log(this.data.aid,
+			 this.data.reason,
+			 this.data.material)
+		request({
+			url: '/secondClass/activity/leave',
+			method: 'POST',
+			data:{
+				activityId: this.data.aid,
+				reason: this.data.reason,
+				material: this.data.material
+			}
+		}).then(value => {
+			console.log(value)
+			wx.showToast({
+			  title: '提交成功',
+			  icon: 'none',
+			  duration:2000
+			})
+		})
+	},
 	getUserInfo(event) {
 		console.log(event.detail);
 	},
+	ViewImage(e) {
+		wx.previewImage({
+		  urls: this.data.imgList,
+		  current: e.currentTarget.dataset.url
+		});
+	},
+	ChooseImage() {
+		let that =  this
+		wx.chooseImage({
+		  count: 1, //默认9
+		  sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+		  sourceType: ['album','camera'], //从相册选择
+		  success: (res) => {
+			console.log(res,77,)
+			if(!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
+				wx.showToast({
+				  title: '图片只支持jpg格式',
+				  icon: 'none',
+				  duration:2000
+				})
+				return ;
+			}
+			if(res.tempFiles[0].size > 1024*1024*2) {
+				wx.showToast({
+				  title: '图片大小不能超过2M',
+				  icon: 'none',
+				  duration:2000
+				})
+				return ;
+			}
+			that.setData({
+				imgList: res.tempFilePaths
+			})
+			console.log(res.tempFilePaths[0],'历经啊')
+				wx.compressImage({
+					src: res.tempFilePaths[0], // 图片路径
+					quality: 10, // 压缩质量
+					success:(val) => {
+						getImgUrl(val.tempFilePath).then(value => {
+						  that.setData({
+							  'material': value
+							})
+						})
+					}
+				})
+		  }
+		});
+	},
+	DelImg(e) {
+		wx.showModal({
+		  title: '提示框',
+		  content: '确定要移除这张图片吗？',
+		  cancelText: '取消',
+		  confirmText: '确定',
+		  success: res => {
+			if (res.confirm) {
+			  this.data.imgList.splice(e.currentTarget.dataset.index, 1);
+			  this.setData({
+				imgList: this.data.imgList
+			  })
+			}
+		  }
+		})
+	},
 	computedState() {
+		console.log('computedState',this.data.memberList[0])
 		//本人参加了
-		if(this.data.memberList[0]?.identities.includes(4)) {
+		if(this.data?.memberList[0]?.identities.includes(4)) {
 			//报名了
-			if(this.data.memberList[0].enrollStatus==1) {
+			if(this.data?.memberList[0].enrollStatus==1) {
+				this.setData({
+					'enroll.disabled':true,
+					'enroll.hint':'已报名',
+				})
 				//签到了
-				if(this.data.memberList[0].registeStatus==1) {
-					
+				if(this.data?.memberList[0].registeStatus==1) {
+					this.setData({
+						'registe.disabled': true,
+						'registe.hint': '已签到',
+					})
 				} else {//没签到
 					this.setData({
-						'enroll.disabled': false,
 						'registe.disabled': false,
-						'leave.disabled': false,
 						// 'enroll.content': '取消报名',//目前还没有写取消报名
-						'enroll.content': '报名',
 						'registe.content': '签到',
-						'leave.content': '请假',
 					})
 				}
 			} else { //取消报名了
 
 			}
 			//请假申请中
-			if(this.data.memberList[0].identities.leaveStatus==0) {
-
+			if(this.data?.memberList[0].leaveStatus==0) {
+				this.setData({
+					'leave.disabled': true,
+					'leave.hint':'请假中'
+				})
 			}
 			//
-			if(this.data.memberList[0].identities.leaveStatus==1) {
-
+			if(this.data?.memberList[0].leaveStatus==1) {
+				this.setData({
+					'leave.disabled': true,
+					'leave.hint':'请假成功'
+				})
 			}
 		} else { //本人没参加
 			this.setData({
@@ -183,7 +290,20 @@ Page({
 		})
 	},
 	registe(e) {
-		let pos = wx.getLocation({
+		let flag = true
+		wx.getSystemInfo({
+			success: e => {
+				console.log(e,666)
+				if(e.locationEnabled == false) {
+					wx.showModal({
+						showCancel:false,
+						content: '确保定位准确，请手动打开GPS'
+					})
+					flag = false
+				}
+			}
+		})
+		flag && wx.getLocation({
 			isHighAccuracy:true,
 			success:(res) => {
 				console.log(res)

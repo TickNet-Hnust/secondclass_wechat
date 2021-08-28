@@ -23,13 +23,27 @@
       </swiper>
     
       <van-grid column-num="4">
-        <van-grid-item icon="photo-o" link-type="switchTab" url="/pages/activity/activity" text="活动" />
-        <van-grid-item icon="photo-o" link-type="switchTab" url="/pages/group/group" text="群组" />
-        <van-grid-item icon="photo-o" text="场地" />
-        <van-grid-item icon="photo-o" text="认证" />
-        <van-grid-item icon="photo-o" text="报名" />
-        <van-grid-item icon="photo-o" text="投票" />
-        <van-grid-item icon="photo-o" text="证书" />
+        <van-grid-item link-type="switchTab" url="/pages/activity/activity" text="活动">
+          <text slot="icon" class="iconfont icon-huodong" style="font-size:60rpx"></text>
+        </van-grid-item>
+        <van-grid-item link-type="switchTab" url="/pages/group/group" text="群组" >
+          <text slot="icon" class="iconfont icon-qunzu" style="font-size:60rpx"></text>
+        </van-grid-item> 
+        <van-grid-item  text="场地" >
+          <text slot="icon" class="iconfont icon-changdi" style="font-size:60rpx"></text>
+        </van-grid-item>
+        <van-grid-item  text="认证" >
+          <text slot="icon" class="iconfont icon-renzheng" style="font-size:60rpx"></text>
+        </van-grid-item>
+        <van-grid-item text="报名" >
+          <text slot="icon" class="iconfont icon-xueshengbaoming" style="font-size:60rpx"></text>
+        </van-grid-item>
+        <van-grid-item  text="投票" >
+          <text slot="icon" class="iconfont icon-toupiao" style="font-size:60rpx"></text>
+        </van-grid-item>
+        <van-grid-item  text="证书" >
+          <text slot="icon" class="iconfont icon-zhengshuguanli-" style="font-size:60rpx"></text>
+        </van-grid-item>
       </van-grid>
     <!-- <ul class="navs">
       <li bindtap="jumpActivity">

@@ -74,6 +74,17 @@ Page({
         data:value.data
       })
     })
+    //活动状态
+    request({
+			url: '/dict/data/type/sc_activity_status',
+			method: 'GET',
+		}).then(value => {
+			console.log('储存活动状态')
+			wx.setStorage({
+        key:'dict_sc_activity_status',
+        data:value.data
+      })
+    })
     //报名方式
     request({
 			url: '/dict/data/type/sc_activity_admission_way',

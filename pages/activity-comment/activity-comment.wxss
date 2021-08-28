@@ -1,0 +1,7 @@
+/* pages/activity-comment/activity-comment.wxss */
+.release {
+	width: 100%;
+	padding: 20rpx;
+	font-size: 35rpx;
+	background-color: #ffffff;
+}

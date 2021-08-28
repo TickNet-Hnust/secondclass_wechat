@@ -9,7 +9,7 @@
 </view>
 <view class="detail">
 	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
-		<van-tab title="概况" name="a">
+		<van-tab title="概况">
 			<scroll-view scroll-y >
 				<view class="activityTemplate">
 				<view class="boxs solid shadow-warp" style="padding-top:0">
@@ -426,33 +426,18 @@
 						<view catchtouchmove="return" class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}" bindtap="hideModal">
 							<view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
 								<view class="cu-list menu text-left">
-									<view class="cu-item">
+									<view class="cu-item margin-bottom">
 										<view class="content">
 											<text class="cuIcon-hot text-red"></text>
-        									<text class="">报名中...</text>
+        									<text class="">{{dict_sc_activity_status[showData.activityStatusId].dictLabel}}...</text>
 										</view>
 										<view class="action">
 											
 										</view>
 									</view>
-									<view class="cu-item arrow margin-top">
+									<view wx:for="{{operation[showData.activityStatusId]}}" class="cu-item arrow" wx:key="index" data-status="{{item.status}}" bindtap="changeState">
 										<view class="content">
-											<view>结束报名</view>
-										</view>
-									</view>
-									<view class="cu-item arrow">
-										<view class="content">
-											<view>启动报名</view>
-										</view>
-									</view>
-									<view class="cu-item arrow">
-										<view class="content">
-											<view>暂停报名</view>
-										</view>
-									</view>
-									<view class="cu-item arrow">
-										<view class="content">
-											<view>撤回</view>
+											<view>{{item.title}}</view>
 										</view>
 									</view>
 									<view class="cu-item  margin-top">
@@ -501,6 +486,7 @@
 										</view>
 									</view>
 								</view>
+								
 							</view>
 						</view>
 					</van-row>
@@ -508,7 +494,7 @@
 				</view>
 			</scroll-view>
 		</van-tab>
-		<van-tab title="参与人" name="b" class="peoples">
+		<van-tab title="参与人" class="peoples">
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="cu-list menu-avatar">
@@ -526,22 +512,22 @@
 							<view class="text-grey">
 								<text class="text-cut">{{item.nickName}}</text>
 								<view class="cu-tag round bg-blue sm" wx:for="{{item.identities}}" wx:key="index">{{m2.format(item)}}</view>
-								<view class="cu-tag round bg-green sm">获奖：{{item.prize?item.prize :'无'}}</view>
+								<view class="cu-tag round bg-green sm" wx:if="{{item.prize}}">获奖：{{item.prize?item.prize :'无'}}</view>
 							</view>
 							<view class="text-gray text-xs flex">
 							<text class="text-cut">报名时间：{{item.enrollTime}}，签到时间：{{item.registeTime}}</text>
 							</view>
 						</view>
 						<view class="action">
-							<view class="cu-tag radius sm">{{item.registeStatus?'未签到':'已签到'}}</view>
-							<view class="cu-tag radius sm">积分：2分</view>
+							<view class="cu-tag radius sm">{{item.registeStatus?'已签到':'未签到'}}</view>
+							<view class="cu-tag radius sm">积分：{{item.integral==null?0:item.integral}}分</view>
 						</view>
 					</view>
 				</view>
 				</view>
 			</scroll-view>
 		</van-tab>
-		<van-tab title="花絮" name="c">
+		<van-tab title="花絮" >
 			<view class="activityTemplate">
 				<view class="cu-card dynamic no-card">
 					<view class="cu-item shadow" wx:for="{{flowerList}}" wx:key="index">
@@ -551,23 +537,66 @@
 							<view class="content flex-sub">
 							<view>{{item.nickName}}</view>
 							<view class="text-gray text-sm flex justify-between">
-								2019年12月3日
+								{{item.createTime}}
 							</view>
 							</view>
 						</view>
 						</view>
 						<view class="text-content">
-						{{item.content}}
+							{{item.content}}
 						</view>
-						<view class="grid flex-sub padding-lr col-3 grid-square">
-						<view class="bg-img " style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);" wx:for="{{9}}" wx:key="index">
+						<view 
+							class="flex justify-between flex-wrap flex-sub padding-bottom padding-lr col-3 grid-square" 
+							data-all="{{flower.clear(item.picture)}}"
+							bindtap="ViewFlower"
+						>
+							<wxs module="flower">
+								function blur(src) {
+									console.log(src,'src')
+									if(src) {
+										var arr =  src.split('_').reduce(
+											function(pre,cur) {
+												pre.push(cur.split(';')[0]);
+												return pre
+											},[])
+										console.log(arr)
+										return arr
+									}
+								}
+								function clear(src) {
+									console.log(src,'src')
+									if(src) {
+										var arr =  src.split('_').reduce(
+											function(pre,cur) {
+												pre.push(cur.split(';')[1]);
+												return pre
+											},[])
+										console.log(arr)
+										return arr
+									}
+								}
+								module.exports.clear = clear
+								module.exports.blur = blur
+							</wxs>
+							<block 
+								wx:for="{{flower.blur(item.picture)}}" 
+								wx:key="index"
+							>
+								<image
+									data-index="{{index}}"
+									mode="aspectFill" 
+									class="flowerImage radius" 
+									src="{{item}}"
+									
+								>
+								</image>
+							</block>
 						</view>
-						</view>
-						<view class="text-gray text-sm text-right padding">
+						<!-- <view class="text-gray text-sm text-right padding">
 						<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
 						<text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
 						<text class="cuIcon-messagefill margin-lr-xs"></text> 30
-						</view>
+						</view> -->
 						<view class="cu-list menu-avatar comment solids-top">
 						
 						</view>
@@ -575,7 +604,7 @@
 					</view>
 			</view>
 		</van-tab>
-		<van-tab title="评论" name="d">
+		<van-tab title="评论">
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="cu-list menu-avatar comment ">
@@ -594,10 +623,10 @@
 					</view> -->
 					<view class="margin-top-sm flex justify-between">
 						<view class="text-gray text-df">{{item.createTime}}</view>
-						<view>
+						<!-- <view>
 						<text class="cuIcon-appreciatefill text-red"></text>
 						<text class="cuIcon-messagefill text-gray margin-left-sm"></text>
-						</view>
+						</view> -->
 					</view>
 					</view>
 				</view>
@@ -607,3 +636,6 @@
 		</van-tab>
 	</van-tabs>
 </view>
+
+<view class="addBtn" wx:if="{{active == 2}}" bindtap="jumpSideLight">+</view>
+<view class="addBtn" wx:if="{{active == 3}}" bindtap="jumpComment">+</view>

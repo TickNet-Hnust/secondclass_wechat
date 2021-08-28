@@ -70,7 +70,7 @@ Page({
 			deptIdno:null,
 			groupIdno:null,
 			enrollRange: null,
-			rankIdno: null,
+			rankIdno: 0,
 			admissionWay:null,
 			flowerStatus:null,
 			integralStatus: null,//积分状态
@@ -96,7 +96,7 @@ Page({
 			maxAdmissionNumber: '', //最大录取人数
 			enrollNotice: '', //报名须知
 
-			rankId: '', //活动级别
+			rankId: 0, //活动级别
 			activityTag: '', //活动标签
 			courseId:'',
 			courseClassificationId: '', //课程分类
@@ -306,24 +306,24 @@ Page({
 	//name改变
 	nameChanged(e) {
 		this.setData({
-			'postData.name':e.detail.value
+			'postData.name':e.detail.value.trim()
 		})
 	},
 	VALUECHANGED(e) {
 		console.log(e)
 		this.setData({
-			[e.currentTarget.dataset.value]:e.detail.value
+			[e.currentTarget.dataset.value]:e.detail.value.trim()
 		})
 	},
 	//最大录取人数改变
 	numberChanged(e) {
 		this.setData({
-			'postData.maxAdmissionNumber': e.detail.value
+			'postData.maxAdmissionNumber': e.detail.value.trim()
 		})
 	},
 	//确定分类
 	MultiChange(e) {
-		console.log(e.detail.value[0])
+		console.log(e.detail.value)
 		this.setData({
 			'postData.courseClassificationId': this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id,
 			'postData.courseClassificationPath': this.data.courseClassificationList[e.detail.value[0]].id + ',' +this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id
@@ -691,7 +691,10 @@ Page({
 			multiArray: temp,
 			multiCourseIndex:0
 		})
+		setTimeout(() => {
 
+			this.MultiChange({detail:{value:[0,0]}})
+		})
 		this.setData({
 			nowYear: wx.getStorageSync('nowYear')
 		})

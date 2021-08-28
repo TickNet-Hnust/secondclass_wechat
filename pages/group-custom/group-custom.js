@@ -234,18 +234,18 @@ Page({
 	//群组名改变
 	nameChange(e) {
 		this.setData({
-			'postData.deptName':e.detail.value
+			'postData.deptName':e.detail.value.trim()
 		})
 	},
 	//介绍改变
 	introduceChange(e) {
 		console.log(e)
 		this.setData({
-			'postData.introduce':e.detail.value
+			'postData.introduce':e.detail.value.trim()
 		})
 	},
 	postGroup() {
-		this.data.postData.recommend = 1
+		this.data.postData.recommend = 0  //不推荐
 		this.data.postData.orderNum = 0
         this.data.postData.ancestors = 0 + ',' + this.data.postData.parentId
         this.data.postData.status = 2 //待审核

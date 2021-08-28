@@ -1,0 +1,22 @@
+<!--pages/activity-comment/activity-comment.wxml-->
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">发布评论</view>
+</cu-custom>
+<view>
+	<textarea class="release" focus value="{{postData.content}}" bindinput="contentChange"></textarea>
+	<view class="bg-white padding">
+		<text>评分：</text>
+		<van-rate
+		value="{{ postData.score }}"
+		allow-half
+		size="25"
+		void-icon="star"
+		void-color="#eee"
+		bind:change="onChange"
+	/>
+	</view>
+	<view class="bg-white padding text-center">
+		<button class="bg-blue" bindtap="sure">确认发布</button>
+	</view>
+</view>
+

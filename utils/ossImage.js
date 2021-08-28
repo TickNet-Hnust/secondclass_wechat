@@ -42,7 +42,7 @@ export function getOssFileUrl(ossData, file) {
     const randName = getUUID() + photoName.substring(photoName.lastIndexOf('.')) // sdfsdfssadfe.jpg
     // console.log(randName,'randname')
     const key = catalogue + '/' + randName // 存储到oss的图片名称 自己定，必须确保唯一性，不然会覆盖oss中原有的文件
-    console.log(host + `/${key}`)
+    
     return host + `/${key}`
 }
 /*
@@ -73,15 +73,6 @@ export function upload(ossData, file, ossFileUrl) {
     //     //     })
     //     // }).then(res => {
     // param.append('file', file)
-    console.log('formdata',{
-        'name':`${photoName}`,
-        'key': `${key}`,
-        'policy': `${policy}`,
-        'OSSAccessKeyId': `${OSSAccessKeyId}`,
-        'success_action_status': 200,
-        'signature': `${signature}`,
-        // 'file':file
-    })
     wx.uploadFile({
         url: host, //仅为示例，非真实的接口地址
         filePath: file,
@@ -99,7 +90,6 @@ export function upload(ossData, file, ossFileUrl) {
         var data = res.data
         
         //do something
-        console.log(res,'yes')
         }
     })
 		// return request({

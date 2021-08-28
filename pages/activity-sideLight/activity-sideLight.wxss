@@ -1,0 +1,10 @@
+/* pages/activity-sideLight/activity-sideLight.wxss */
+.release {
+	width: 100%;
+	padding: 20rpx;
+	font-size: 35rpx;
+	background-color: #fff;
+}
+.sideLight {
+	min-height: 100vh;
+}

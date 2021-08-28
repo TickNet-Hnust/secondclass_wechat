@@ -11,7 +11,6 @@ export default async function getImgUrl(file) {
 	let ossFileUrl
 	await getPolicy() // 获取签名
 	.then(res => {
-			console.log(res,'获取签名的结果')
 			if (res.code === 200) {
 				return Promise.resolve(res.data)
 			} else if (res.code === 10012) {
@@ -23,8 +22,8 @@ export default async function getImgUrl(file) {
 			// 上传
 			ossFileUrl = getOssFileUrl(ossData, file)
 			console.log(ossFileUrl, 777)
-			// fileObj.status = 'uploading' // 设置为上传中
 			return upload(ossData, file, ossFileUrl)
+			// fileObj.status = 'uploading' // 设置为上传中
 		})
 		.then(res => {
 			// if (res.status === 200) {
@@ -38,7 +37,6 @@ export default async function getImgUrl(file) {
 				// console.log(this.imgUrls,555)
 			// }
 		})
-		console.log(ossFileUrl,'ossfukeyrk')
 	return Promise.resolve(ossFileUrl)
 }
     

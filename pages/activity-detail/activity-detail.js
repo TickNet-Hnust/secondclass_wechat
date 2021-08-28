@@ -8,6 +8,106 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		operation: [
+			[
+				{ title: '修改', status: 0 },
+				{
+					title: '申请发布',
+					status: 1
+				},
+				{
+					title: '管理员发布',
+					status: 2
+				},
+				{
+					title: '取消',
+					status: 4
+				}
+			],
+			[
+				{ title: '审批', status: 2 },
+				{
+					title: '撤回',
+					status: 0
+				}
+			],
+			[
+				{
+					title: '启动报名',
+					status: 5
+				},
+				{
+					title: '撤回',
+					status: 0
+				},
+				{
+					title: '取消',
+					status: 4
+				}
+			],
+			[
+				{ title: '修改', status: 0 },
+				{
+					title: '取消',
+					status: 4
+				}
+			],
+			[
+				{
+					title: '恢复',
+					status: 0
+				}
+			],
+			[
+				{
+					title: '结束报名',
+					status: 6
+				},
+				{
+					title: '启动活动',
+					status: 7
+				},
+				{
+					title: '暂停报名',
+					status: 2
+				},
+				{
+					title: '撤回',
+					status: 0
+				}
+			],
+			[
+				{
+					title: '启动活动',
+					status: 7
+				},
+				{
+					title: '恢复报名',
+					status: 5
+				}
+			],
+			[
+				{
+					title: '结束活动',
+					status: 8
+				},
+				{
+					title: '暂停活动',
+					status: 6
+				}
+			],
+			[
+				{
+					title: '取消',
+					status: 4
+				},
+				{
+					title: '恢复活动',
+					status: 7
+				}
+			]
+		],
+		active:0,
 		isCollection:false,
 		CustomBar: app.globalData.CustomBar,
 		show:false,
@@ -45,6 +145,7 @@ Page({
 			activityManagerName:'',
 			activityOrganizerName:'',
 			activityIntroduce:'',
+			activityStatusId:''
 		},
 		enroll:{
 			disabled: false,
@@ -88,6 +189,16 @@ Page({
 			url: `../activity-score/activity-score?aid=${this.data.aid}`,
 		})
 	},
+	jumpSideLight() {
+		wx.navigateTo({
+			url: `../activity-sideLight/activity-sideLight?aid=${this.data.aid}`,
+		})
+	},
+	jumpComment() {
+		wx.navigateTo({
+			url: `../activity-comment/activity-comment?aid=${this.data.aid}`,
+		})
+	},
 	showDialog() {
 		this.setData({
 			show: true
@@ -116,6 +227,19 @@ Page({
 			wx.showToast({
 				title: '操作成功',
 				duration:1000
+			})
+		})
+	},
+	//改变活动状态
+	changeState(e) {
+		request({
+			url: `/secondClass/activity/${this.data.aid}/${e.currentTarget.dataset.status}`,
+			method: 'PUT',
+		}).then(value => {
+			wx.showToast({
+			  title: value.msg,
+			  icon: 'none',
+			  duration:2000
 			})
 		})
 	},
@@ -152,6 +276,14 @@ Page({
 		wx.previewImage({
 		  urls: this.data.imgList,
 		  current: e.currentTarget.dataset.url
+		});
+	},
+	
+	ViewFlower(e) {
+		console.log(e)
+		wx.previewImage({
+		  urls: e.currentTarget.dataset.all,
+		  current: e.currentTarget.dataset.all[e.target.dataset.index]
 		});
 	},
 	ChooseImage() {
@@ -250,6 +382,12 @@ Page({
 				this.setData({
 					'leave.disabled': true,
 					'leave.hint':'请假成功'
+				})
+			}
+			if(this.data?.memberList[0].leaveStatus==2) {
+				this.setData({
+					'leave.disabled': false,
+					'leave.hint':'请假'
 				})
 			}
 		} else { //本人没参加
@@ -351,27 +489,18 @@ Page({
 				pageSize:10
 			}
 		}).then(value => {
-			console.log(value.rows)
-			// value.rows.forEach(item => {
-			// 	let tempArr = []
-			// 	if(item.identities.includes(0)) {
-			// 		tempArr.push('发布者')
-			// 	}if(item.identities.includes(2)) {
-			// 		tempArr.push('负责人')
-			// 	}  if(item.identities.includes(3)) {
-			// 		tempArr.push('组织者')
-			// 	} if(item.identities.includes(1)){
-			// 		tempArr.push('参与者')
-			// 	}
-			// 	item.identities = tempArr
-			// })
+			console.log(value,'getmember')
 			this.setData({
 				memberList:value.rows
 			})
 			this.computedState()
 		})
 	},
-	switchTab(){},
+	switchTab(e){
+		this.setData({
+			active: e.detail.index
+		})
+	},
 	onClose() {
 		this.setData({ show: false });
 	},
@@ -408,12 +537,13 @@ Page({
 				}
 			})
 		]).then(value => {
-			console.log(value[0])
+			console.log(value,'value')
 			this.setData({
 				showData: value[0].data,
 				flowerList: value[1].rows,
 				remarkList: value[2].rows
 			})
+			
 			this.setData({
 				loadModal: false,
 			});
@@ -422,7 +552,8 @@ Page({
 			dict_admissionWay:wx.getStorageSync('dict_admissionWay'),
 			dict_rank:wx.getStorageSync('dict_rank'),
 			dict_evaluate_scheme:wx.getStorageSync('dict_evaluate_scheme'),
-			dict_flower:wx.getStorageSync('dict_flower')
+			dict_flower:wx.getStorageSync('dict_flower'),
+			dict_sc_activity_status:wx.getStorageSync('dict_sc_activity_status')
 		})
 	},
 

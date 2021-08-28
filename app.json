@@ -13,7 +13,9 @@
 		"pages/group-search/group-search",
 		"pages/group-custom/group-custom",
 		"pages/group-detail/group-detail",
-		"pages/activity-declare/activity-declare"
+		"pages/activity-declare/activity-declare",
+		"pages/activity-sideLight/activity-sideLight",
+		"pages/activity-comment/activity-comment"
 	],
 	"window": {
 		"backgroundTextStyle": "dark",
@@ -82,7 +84,8 @@
 		"van-checkbox": "@vant/weapp/checkbox/index",
 		"van-checkbox-group": "@vant/weapp/checkbox-group/index",
 		"van-skeleton": "@vant/weapp/skeleton/index",
-		"van-sticky": "@vant/weapp/sticky/index"
+		"van-sticky": "@vant/weapp/sticky/index",
+		"van-rate": "@vant/weapp/rate/index"
 	},
 	"sitemapLocation": "sitemap.json"
 }

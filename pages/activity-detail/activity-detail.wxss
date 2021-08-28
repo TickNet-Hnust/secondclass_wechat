@@ -91,3 +91,22 @@
 	font-size: 38rpx;
 	top: 11%;
 }
+.addBtn {
+	position: fixed;
+	width: 100rpx;
+	border-radius: 50rpx;
+	height: 100rpx;
+	text-align: center;
+	line-height: 100rpx;
+	font-size: 60rpx;
+	background-color: #09bb07;
+	color: #fff;
+	bottom: 40rpx;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.flowerImage {
+	width: 27vw;
+	height: 27vw;
+	margin: 1vw 1vw;
+}

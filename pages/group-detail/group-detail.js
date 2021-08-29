@@ -167,6 +167,12 @@ Page({
 			this.getDetail()
 		})
 	},
+	jumpDetail(e) {
+		console.log(e)
+		wx.navigateTo({
+		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
+		})
+	},
 	getDetail() {
 		return request({
 			url: `/group/${this.data.gid}/detail`,
@@ -345,10 +351,10 @@ Page({
 	onPullDownRefresh: function () {
 		Promise.all([
 			this.getMember(),
-		this.getDetail(),
-		this.getActivity(),
-		this.getMsg(),
-		this.getCollection()
+			this.getDetail(),
+			this.getActivity(),
+			this.getMsg(),
+			this.getCollection()
 		]).then(value => {
 			wx.stopPullDownRefresh({
 				success: (res) => {},

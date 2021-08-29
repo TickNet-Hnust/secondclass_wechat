@@ -27,6 +27,7 @@
 		bind:change="activeChange"
 	>
 		<van-tab title="推荐">
+			<van-empty description="空空如也" wx:if="{{recommendActivityList.length == 0}}"/>
 			<view class="activityAbstract">
 				<view wx:for="{{recommendActivityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>

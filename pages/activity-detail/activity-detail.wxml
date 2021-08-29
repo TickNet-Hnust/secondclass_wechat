@@ -495,6 +495,7 @@
 			</scroll-view>
 		</van-tab>
 		<van-tab title="参与人" class="peoples">
+			<van-empty description="空空如也" wx:if="{{memberList.length == 0}}"/>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="cu-list menu-avatar">
@@ -528,6 +529,7 @@
 			</scroll-view>
 		</van-tab>
 		<van-tab title="花絮" >
+			<van-empty description="空空如也" wx:if="{{flowerList.length == 0}}"/>
 			<view class="activityTemplate">
 				<view class="cu-card dynamic no-card">
 					<view class="cu-item shadow" wx:for="{{flowerList}}" wx:key="index">
@@ -605,6 +607,7 @@
 			</view>
 		</van-tab>
 		<van-tab title="评论">
+			<van-empty description="空空如也" wx:if="{{remarkList.length == 0}}"/>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="cu-list menu-avatar comment ">

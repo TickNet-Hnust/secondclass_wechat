@@ -41,6 +41,12 @@ Page({
 		groupList:[],
 		//报名范围
 		range: [{
+			name: '2018',
+			checked:false
+		},{
+			name: '2019',
+			checked:false
+		},{
 			name: '2020',
 			checked:false
 		},{

@@ -28,7 +28,7 @@ Page({
 		postData1:{
 			activityId:'',
 			//申请积分
-			userIds:[],
+			userId:'',
 			applyIntegral:'',
 			//申报理由
 			reason:'',
@@ -38,53 +38,61 @@ Page({
 		postData2:{
 			activityId:'',
 			//申请积分
-			userIds:[],
+			userId:'',
 			applyIntegral:'',
 			//申报理由
 			reason:'',
 			status:'0',
 			applyWay:'0',
-			image:'',
+			material:'',
 		},
-		restore:true
-
+		restore1:true,
+		restore2:true,
 	},
 	changeTabs(e){
 			console.log(e,'tabs事件')
-			this.setData({
-				restore:false
-			})
-			setTimeout(() => {
-				this.setData({
-					restore:true
-				})
-			})
-			this.data.postData1 = {
-				activityId:this.data.aid,
-				//申请积分
-				userIds:[],
-				applyIntegral:'',
-				//申报理由
-				reason:'',
-				status:'0',
-				applyWay:'0',
-			},
-			this.data.postData2={
-				activityId:this.data.aid,
-				//申请积分
-				userIds:[],
-				applyIntegral:'',
-				//申报理由
-				reason:'',
-				status:'0',
-				applyWay:'0',
-				image:'',
-			}
+			this.reset();
       this.setData({
 				active:e.detail.name,
-				postData1:this.data.postData1,
-				postData2:this.data.postData2,
 			})
+	},
+	//重置页面数据
+	reset(){
+    this.setData({
+			restore1:false,
+			restore2:false
+		})
+		setTimeout(() => {
+			this.setData({
+				restore1:true,
+				restore2:true
+			})
+		})
+		this.data.postData1 = {
+			activityId:this.data.aid,
+			//申请积分
+			userId:'',
+			applyIntegral:'',
+			//申报理由
+			reason:'',
+			status:0,
+			applyWay:0,
+		},
+		this.data.postData2={
+			activityId:this.data.aid,
+			//申请积分
+			userId:'',
+			applyIntegral:'',
+			//申报理由
+			reason:'',
+			status:0,
+			applyWay:0,
+			material:'',
+		}
+		this.setData({
+			postData1:this.data.postData1,
+			postData2:this.data.postData2,
+		})
 	},
 	//签到人列表选择改变事件
 	onChange1(event) {
@@ -108,8 +116,15 @@ Page({
 		let index = event.detail.value;
 		this.setData({
 			reasonList:this.data.rankList[index].children,
+			restore2:false,
 		})
-		console.log(this.data.reasonList,'级别绑定的申报理由')
+		setTimeout(() => {
+			this.setData({
+				restore2:true,
+				'postData1.applyIntegral':'',
+			  'postData2.applyIntegral':'',
+			})	
+		})
 	},
 	 //申报理由单选事件
 	 radioReasonChange(event){
@@ -185,17 +200,47 @@ Page({
 	submit(){
 		if(this.data.active == 'a')
 		{
-			this.setData({
-			 'postData1.userIds' : this.data.result1,
-		  })
-		  console.log(this.data.postData1,'要发送请求的数据postData1');
+			let postDataR = [];
+			console.log(this.data.result1,'申报人userid数组')
+			this.data.result1.forEach((item)=>{
+			let postData1Back = JSON.parse(JSON.stringify(this.data.postData1));
+				 
+				 postData1Back.userId = item;
+
+         postDataR.push(postData1Back);
+			})
+			console.log(postDataR,'签到要发送请求的数据postData');
+			request({
+				url:'/secondClass/activity/integral',
+				method:'GET',
+				data:postDataR
+			}).then(value=>{
+				console.log(value,'签到提交申报积分接口返回值');
+				this.reset();
+			})
 		}
+
 		if(this.data.active == 'b')
 		{
-			this.setData({
-			 'postData2.userIds' : this.data.result2,
-		  })
-		  console.log(this.data.postData2,'要发送请求的数据postData2');
+			let postDataD = [];
+			console.log(this.data.result2,'申报人userid数组')
+			this.data.result2.forEach((item)=>{
+				let postData2Back = JSON.parse(JSON.stringify(this.data.postData2));
+				 
+				 postData2Back.userId = item;
+
+         postDataD.push(postData2Back);
+			})
+			console.log(postDataD,'申报要发送请求的数据postData');
+			//method要搞清，要发POST而不是GET
+			request({
+				url:'/secondClass/activity/integral',
+				method:'POST',
+				data:postDataD
+			}).then(value=>{
+				console.log(value,'提交申报积分接口返回值');
+				this.reset();
+			})
 		}
      
 	},
@@ -212,7 +257,6 @@ Page({
 		  sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 		  sourceType: ['album','camera'], //从相册选择
 		  success: (res) => {
-				console.log(res,77,res.tempFiles[0].size)
 				
 				if(!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
 					wx.showToast({
@@ -243,7 +287,7 @@ Page({
 						getImgUrl(res.tempFilePath).then(value => {
 							console.log(value,'图片的地址')
 						  that.setData({
-							  'postData2.image': value
+							  'postData2.material': value
 							})
 						})
 					}

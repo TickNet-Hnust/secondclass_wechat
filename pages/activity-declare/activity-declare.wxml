@@ -26,7 +26,7 @@
 	<button class="cu-btn bg-green margin" bindtap="submit">提交申请</button>
 
 	<!-- 单选弹出框1 -->
-	<view wx:if="{{restore}}" class="cu-modal {{modalName=='RadioModal1'?'show':''}}" bindtap="hideModal">
+	<view wx:if="{{restore1}}" class="cu-modal {{modalName=='RadioModal1'?'show':''}}" bindtap="hideModal">
 			<view class="cu-dialog" catchtap>
 				<radio-group class="block" bind:change="radioRankChange">
 				<view class="cu-list menu text-left">
@@ -44,7 +44,7 @@
 		</view>
 
 		<!-- 单选弹出框2 -->
-		<view wx:if="{{restore}}" class="cu-modal {{modalName=='RadioModal2'?'show':''}}" bindtap="hideModal">
+		<view wx:if="{{restore2}}" class="cu-modal {{modalName=='RadioModal2'?'show':''}}" bindtap="hideModal">
 			<view class="cu-dialog" catchtap>
 
 				<radio-group class="block"  bind:change="radioReasonChange">

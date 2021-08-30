@@ -92,6 +92,8 @@ Page({
 		this.setData({
 			postData1:this.data.postData1,
 			postData2:this.data.postData2,
+			result1:[],
+			result2:[],
 		})
 	},
 	//签到人列表选择改变事件
@@ -210,14 +212,29 @@ Page({
          postDataR.push(postData1Back);
 			})
 			console.log(postDataR,'签到要发送请求的数据postData');
-			request({
+			if(postDataR.length==0||(postDataR[0].applyIntegral==null||postDataR[0].reason==null))
+			{
+				wx.showToast({
+					title: '请填写完全',
+					icon: 'error',
+					duration: 1000
+				})
+				
+			}else{
+				request({
 				url:'/secondClass/activity/integral',
-				method:'GET',
+				method:'POST',
 				data:postDataR
 			}).then(value=>{
 				console.log(value,'签到提交申报积分接口返回值');
+				wx.showToast({
+					title: '提交成功',
+					icon: 'success',
+					duration: 1000
+				})
 				this.reset();
 			})
+			}
 		}
 
 		if(this.data.active == 'b')
@@ -233,14 +250,29 @@ Page({
 			})
 			console.log(postDataD,'申报要发送请求的数据postData');
 			//method要搞清，要发POST而不是GET
-			request({
+			if(postDataD.length==0||(postDataD[0].applyIntegral==null||postDataD[0].reason==null||postDataD[0].material==null))
+			{
+				wx.showToast({
+					title: '请填写完全',
+					icon: 'error',
+					duration: 1000
+				})
+				
+			}else{
+				request({
 				url:'/secondClass/activity/integral',
 				method:'POST',
 				data:postDataD
 			}).then(value=>{
-				console.log(value,'提交申报积分接口返回值');
+				console.log(value,'申报提交申报积分接口返回值');
+				wx.showToast({
+					title: '提交成功',
+					icon: 'success',
+					duration: 1000
+				})
 				this.reset();
 			})
+			}
 		}
      
 	},

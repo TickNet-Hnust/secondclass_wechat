@@ -34,7 +34,7 @@
 }
 
 .activityClassify1{
-    color: #5698c3;
+    color: green;
 }
 /* .activityClassify2{
     background-color:#f07c82;

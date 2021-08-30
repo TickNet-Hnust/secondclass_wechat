@@ -119,13 +119,13 @@ Page({
 		remarkList:[],
 		showData:{
 			name: '',
-			groupId: '林舒恒',
-			activityReleaserName: '林书豪',
-			guideTeacherName: '指导老师林',
-			deptName: '计算机学院',
+			groupId: '',
+			activityReleaserName: '',
+			guideTeacherName: '',
+			deptName: '',
 			enrollStartTime: '',
 			enrollEndTime: '',
-			admissionWay: '报名方式', //
+			admissionWay: '', //
 			enrollRange: '',
 			enrollGrade:'',
 			maxAdmissionNumber:'',
@@ -401,6 +401,17 @@ Page({
 			})
 		}
 	},
+	throttle(){
+		   let valid = true
+       if(!valid){
+           return false 
+       }
+        valid = false
+        setTimeout(() => {
+            this.enroll()
+            valid = true;
+        }, 1000)
+  },
 	enroll() {
 		request({
 			url: '/secondClass/activity/enroll',

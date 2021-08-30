@@ -277,7 +277,7 @@
 						</van-col>
 						<van-col span="6" >
 							<button 
-								bindtap="enroll"
+								bindtap="throttle"
 								class="cu-btn line-green text-sm fr"
 								disabled="{{enroll.disabled}}"
 							>{{enroll.content}}</button>

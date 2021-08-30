@@ -28,7 +28,7 @@
 							<van-col class="leftTitle"  span="6">• 活动分类</van-col>
 
                      <van-col class="rightContent" span="18">
-                              <view class="activityClassify1">
+                              <view class="activityClassify1" >
                               {{courseClassificationName}}
                               </view>              
                      </van-col>
@@ -182,7 +182,7 @@
           <view class="cu-item  margin-top-sm" wx:for="{{declareList}}" wx:key="index">
             <view class="content padding-tb-sm">
               <view>
-                <text class="text-sm">{{item.nickName}} • {{item.userName}}</text>
+                <text class="text-sm">{{item.nickName}}•{{item.userName}}</text>
                 
                 <view class="cu-tag round bg-green sm" wx:for="{{item.identities}}" wx:key="index">
                    {{ident.it(item)}}

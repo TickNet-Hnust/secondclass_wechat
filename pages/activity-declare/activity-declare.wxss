@@ -1,6 +1,7 @@
 /* pages/activity-declare/activity-declare.wxss */
 page {
 	padding-bottom: 430rpx;
+	background-color: #f8f9fb;
 }
 .xuanfu {
 	position:fixed;

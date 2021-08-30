@@ -17,7 +17,78 @@
   </view>
 
   <view>
-	<van-tabs 
+	<scroll-view scroll-x class="bg-white nav text-center">
+		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+			推荐
+		</view>
+		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+			我的
+		</view>
+		<view class="cu-item {{2==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{2}}">
+			收藏
+		</view>
+	</scroll-view>
+	<!-- 推荐 -->
+	<view  hidden="{{0!=TabCur}}" class="">
+		<van-empty description="空空如也" wx:if="{{recommendActivityList.length == 0}}"/>
+			<view class="activityAbstract">
+				<view wx:for="{{recommendActivityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelayOne?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<view>
+						<image mode="aspectFill"  lazy-load mode="aspectFill" src="{{item.image}}"></image>
+					</view>
+					<view >
+						<view class="tabMainText">
+							{{item.name}}
+						</view>
+					</view>
+					<view class="tabSideText">
+						<text>{{item.activityTag}}</text>
+					</view>
+				</view>
+			</view>
+			<view wx:if="{{recommendActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+	</view>
+	<!-- 我的 -->
+	<view hidden="{{1!=TabCur}}" class="">
+		<van-empty description="空空如也" wx:if="{{myActivityList.length == 0}}"/>
+			<view class="activityAbstract">
+				<view wx:for="{{myActivityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<view>
+						<image mode="aspectFill"  lazy-load src="{{item.image}}"></image>
+					</view>
+					<view >
+						<view class="tabMainText">
+							{{item.name}}
+						</view>
+					</view>
+					<view class="tabSideText">
+						<text>{{item.activityTag}}</text>
+					</view>
+				</view>
+			</view>
+			<view wx:if="{{myActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+	</view>
+	<!-- 收藏 -->
+	<view  hidden="{{2!=TabCur}}" class="">
+		<van-empty description="空空如也" wx:if="{{collectionActivityList.length == 0}}"/>
+			<view class="activityAbstract">				
+				<view wx:for="{{collectionActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}" class="activityFull {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<view>
+						<image mode="aspectFill" lazy-load src="{{item.image}}"></image>
+					</view>
+					<view >
+						<view class="tabMainText">
+							{{item.name}}
+						</view>
+					</view>
+					<view class="tabSideText">
+						<text>{{item.activityTag}}</text>
+					</view>
+				</view>
+			</view>
+			<view wx:if="{{collectionActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+	</view>
+	<!-- <van-tabs 
 		id="tabs"
 		active="{{active}}"
 		animated
@@ -27,6 +98,7 @@
 		bind:change="activeChange"
 	>
 		<van-tab title="推荐">
+			<van-empty description="空空如也" wx:if="{{recommendActivityList.length == 0}}"/>
 			<view class="activityAbstract">
 				<view wx:for="{{recommendActivityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
@@ -83,7 +155,7 @@
 			<view wx:if="{{collectionActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 		</van-tab>
 		
-	</van-tabs>
+	</van-tabs> -->
 	
   </view>
 </view>

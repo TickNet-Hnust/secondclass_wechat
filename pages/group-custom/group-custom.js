@@ -66,6 +66,12 @@ Page({
 				'farSearch' :value.data
 			})
 			wx.hideLoading()
+			if(value.data.length == 0) {
+				wx.showToast({
+				  title: '没有找到匹配的人',
+				  icon:'none'
+				})
+			}
 		})
 		console.log(this.data.searchValue)
 	},

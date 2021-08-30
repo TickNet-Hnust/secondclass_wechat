@@ -14,7 +14,7 @@ export function nullToast(data,state) {
 				(data.enrollGrade == '' && '报名年级') ||
 				(data.maxAdmissionNumber == '' && '最大录取人数') ||
 				(data.enrollNotice == '' && '报名须知') ||
-				(data.rankId == '' && '活动级别') ||
+				// (data.rankId == '' && '活动级别') ||
 				(data.activityTag == '' && '活动标签') ||
 				(data.courseClassificationId == '' && '关联分类') ||
 				(data.courseId == '' && '关联课程') ||

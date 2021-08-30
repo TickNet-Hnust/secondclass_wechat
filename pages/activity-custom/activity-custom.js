@@ -41,6 +41,12 @@ Page({
 		groupList:[],
 		//报名范围
 		range: [{
+			name: '2018',
+			checked:false
+		},{
+			name: '2019',
+			checked:false
+		},{
 			name: '2020',
 			checked:false
 		},{
@@ -264,6 +270,12 @@ Page({
 				'farSearch' :value.data
 			})
 			wx.hideLoading()
+			if(value.data.length == 0) {
+				wx.showToast({
+				  title: '没有找到匹配的人',
+				  icon:'none'
+				})
+			}
 		})
 		console.log(this.data.searchValue)
 	},

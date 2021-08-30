@@ -3,7 +3,7 @@
 	<view slot="content">发布花絮</view>
 </cu-custom>
 <view class="sideLight">
-	<textarea class="release" focus value="{{postData.content}}" bindinput="contentChange"></textarea>
+	<textarea placeholder="在此处输入..." class="release" focus value="{{postData.content}}" bindinput="contentChange"></textarea>
 	<view class="cu-form-group">
 		<view class="grid col-4 grid-square flex-sub" >
 			<view class="bg-img" wx:for="{{imgList}}" wx:key="index" bindtap="ViewImage" data-url="{{imgList[index]}}">

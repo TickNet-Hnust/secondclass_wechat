@@ -16,25 +16,40 @@ Page({
 		searchGroupList:[],
 		hotNum:2,
 		allNum:2,				
-		searchNum:2
+		searchNum:2,
+		TabCur:''
+	},
+	tabSelect(e) {
+		this.setData({
+			TabCur: e.currentTarget.dataset.id,
+		})
+		// setTimeout(() => {
+			this.toggleDelay()
+		// },200)
 	},
 	toggleDelay() {
 		var that = this;
+		let temp
+		if(this.data.TabCur == 1) {
+			temp = 'toggleDelayTwo'
+		}else {
+			temp = 'toggleDelayThree'
+		}
 		that.setData({
-		  toggleDelay: true
+		  [temp]: true
 		})
 		setTimeout(function() {
 		  that.setData({
-			toggleDelay: false
+			[temp]: false
 		  })
-		}, 1000)
+		}, 1500)
 	  },
-	  jumpDetail(e) {
-		  console.log(e)
-		  wx.navigateTo({
+	jumpDetail(e) {
+		console.log(e)
+		wx.navigateTo({
 			url: `../group-detail/group-detail?gid=${e.currentTarget.dataset.id}`,
-		  })
-	  },
+		})
+	},
 	//点击标签触发
 	tagSearch(event) {
 		this.setData({
@@ -68,7 +83,7 @@ Page({
 				console.log('用户点击取消')
 				wx.showToast({
 					title: '用户取消',
-					icon: 'success',
+					icon: 'none',
 					duration: 1000
 				  })
 				  
@@ -82,19 +97,32 @@ Page({
 		this.setData({
 			show: true
 		})
-		this.setData({
-			tags: wx.getStorageSync('Gtags')
-		})
+		// this.setData({
+		// 	tags: wx.getStorageSync('Gtags')
+		// })
 	},
 	//确认搜索触发
 	searchGroup(event){
-		if(event.detail.trim()) {
-			let temp = wx.getStorageSync('Gtags') || []
-			temp.unshift(event.detail.trim())
+		event.detail = event.detail.trim()
+		if(event.detail) {
+			let temp =  this.data.tags
+			//判断重复
+			const index = temp.indexOf(event.detail)
+			console.log(index,'index')
+			if(index != -1) {
+				temp.unshift(...temp.splice(index,1))
+			} else {
+				//判断数量
+				if(temp.length >= 8) {
+					temp.pop()
+				}
+				temp.unshift(event.detail)
+			}
 			wx.setStorageSync('Gtags',temp)
-			this.getSearch(event.detail.trim()).then(value => {
+			this.getSearch(event.detail).then(value => {
 				this.setData({
 					searchGroupList: value.rows,
+					tags: temp,
 					show: false
 				})
 			})
@@ -179,7 +207,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		this.selectComponent('#tabs').resize();
+		// this.selectComponent('#tabs').resize();
 	},
 
 	/**
@@ -235,7 +263,7 @@ Page({
 		this.setData({
 			isLoading:true
 		})
-		if(this.data.active == '0') {
+		if(this.data.TabCur == '0') {
 			console.log('test',this.data.searchNum,10,this.data.searchValue)
 			this.getSearch(this.data.searchNum,10,this.data.searchValue).then(value => {
 				console.log(value)
@@ -247,9 +275,9 @@ Page({
 					isLoading:false
 				})
 			})
-		}else if(this.data.active == '1') {
+		}else if(this.data.TabCur == '1') {
 			this.getAll(this.data.allNum,10).then(value => {
-				console.log(value)
+				console.log(value,'allgroup')
 				this.data.allGroupList.push(...value.rows)
 				this.setData({
 					allGroupList:this.data.allGroupList,

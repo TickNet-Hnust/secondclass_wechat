@@ -20,7 +20,20 @@ Page({
 		})
 	},
 	sure() {
-		
+		if(this.data.postData.content=='') {
+			wx.showToast({
+			  title: '文字内容不能为空',
+			  icon: 'none'
+			})
+			return
+		}
+		if(this.data.postData.picture=='') {
+			wx.showToast({
+				title: '请至少要上传一张图片',
+				icon: 'none'
+			})
+			return
+		}
 		request({
 			url: '/secondClass/activity/flower',
 			method: 'POST',
@@ -30,6 +43,7 @@ Page({
 			value.code == 200 && wx.showToast({
 			  title: '发布成功'
 			})
+			wx.navigateBack()
 		})
 	},
 	ViewImage(e) {

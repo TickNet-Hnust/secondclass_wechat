@@ -7,30 +7,46 @@ Page({
 	 */
 	data: {
 		toggleDelay:false,
-		active:0,
+		// active:0,
 		value: '',
 		recommendActivityList: [],
 		recommendNum:2,
 		collectionActivityList: [],
 		collectionNum:2,
 		myActivityList: [],
-		myNum:2
+		myNum:2,
+
+		TabCur: 0,
 	},
-	activeChange(e) {
-		this.data.active = e.detail.index
+	tabSelect(e) {
 		this.setData({
-			// active: e.detail.index
+		  TabCur: e.currentTarget.dataset.id,
 		})
-		e!= '自定义' && this.toggleDelay()
-	},
+		this.toggleDelay()
+	  },
+	// activeChange(e) {
+	// 	this.data.active = e.detail.index
+	// 	this.setData({
+	// 		// active: e.detail.index
+	// 	})
+	// 	e!= '自定义' && this.toggleDelay()
+	// },
 	toggleDelay() {
 		var that = this;
+		let temp
+		if(this.data.TabCur == 0) {
+			temp = 'toggleDelayOne'
+		}else if(this.data.TabCur == 1) {
+			temp = 'toggleDelayTwo'
+		}else {
+			temp = 'toggleDelayThree'
+		}
 		that.setData({
-		  toggleDelay: true
+		  [temp]: true
 		})
 		setTimeout(function() {
 		  that.setData({
-			toggleDelay: false
+			[temp]: false
 		  })
 		}, 1000)
 	  },
@@ -93,7 +109,6 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		this.toggleDelay()
 		this.getRecommend().then(value => {
 			console.log(value)
 			this.setData({
@@ -114,13 +129,17 @@ Page({
 				myActivityList:value.rows
 			})
 		})
+		setTimeout(() => {
+
+			this.toggleDelay()
+		},200)
 	},
 
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		this.selectComponent('#tabs').resize();
+		// this.selectComponent('#tabs').resize();
 	},
 
 	/**
@@ -177,7 +196,7 @@ Page({
 		this.setData({
 			isLoading:true
 		})
-		if(this.data.active == '0') {
+		if(this.data.TabCur == '0') {
 			this.getRecommend(this.data.recommendNum,10).then(value => {
 				console.log(value)
 				this.data.recommendActivityList.push(...value.rows)
@@ -188,7 +207,7 @@ Page({
 					isLoading:false
 				})
 			})
-		}else if(this.data.active == '1') {
+		}else if(this.data.TabCur == '1') {
 			this.getMy(this.data.myNum,10).then(value => {
 				console.log(value)
 				this.data.myActivityList.push(...value.rows)

@@ -28,7 +28,14 @@ Page({
 			title: '',
 			text: '',
 		},
-		title:'群组消息发布'
+		title:'群组消息发布',
+		TabCur:'', //决定是哪个tab
+	},
+	tabSelect(e) {
+		this.setData({
+		  TabCur: e.currentTarget.dataset.id,
+		})
+		this.toggleDelay()
 	},
 	showNotice(e) {
 		console.log(123)
@@ -165,6 +172,12 @@ Page({
 			// })
 			this.getMember()
 			this.getDetail()
+		})
+	},
+	jumpDetail(e) {
+		console.log(e)
+		wx.navigateTo({
+		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
 		})
 	},
 	getDetail() {
@@ -345,10 +358,10 @@ Page({
 	onPullDownRefresh: function () {
 		Promise.all([
 			this.getMember(),
-		this.getDetail(),
-		this.getActivity(),
-		this.getMsg(),
-		this.getCollection()
+			this.getDetail(),
+			this.getActivity(),
+			this.getMsg(),
+			this.getCollection()
 		]).then(value => {
 			wx.stopPullDownRefresh({
 				success: (res) => {},

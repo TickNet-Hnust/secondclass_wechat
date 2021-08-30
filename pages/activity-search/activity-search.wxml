@@ -14,21 +14,25 @@
 		custom-class="switch"
 	/>
 	</view>
-	<van-tabs 
-		id="tabs"
-		active="{{active}}"
-		animated
-		swipeable
-		color="#2d7ecd"
-		title-active-color="#2d7ecd"
-		bind:change="activeChange"
-	>
-		<van-tab title="搜索">
-			<van-search 
+	<scroll-view scroll-x class="bg-white nav text-left">
+		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+			搜索
+		</view>
+		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+			全部
+		</view>
+		<view class="cu-item {{2==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{2}}">
+			热门
+		</view>
+	</scroll-view>
+	<!-- 搜索 -->
+	<view  hidden="{{0!=TabCur}}" class="">
+		<van-search 
 				value="{{ value }}" 
-				placeholder="请输入搜索关键词" 
+				placeholder="请输入活动关键词" 
 				bind:search="searchActivity"
 				bind:focus="focusSearch"
+				maxlength="{{}}"
 				focus
 			/>
 			<view class="searchBody"  wx:if="{{show}}">
@@ -43,6 +47,109 @@
 						type="success" 
 						size="large" 
 						custom-class="tag"
+						data-index="{{index}}"
+						data-item="{{item}}"
+						bindtap="tagSearch"
+					>{{item}}</van-tag>
+				</view>
+			</view>
+			<view class="searchResult" wx:if="{{!show}}">
+				<view class="activityAbstract" wx:if="{{searchActivityList.length == 0}}" >
+					<van-empty image="search" description="没有找到匹配的活动" style="margin: 0 auto;"/>
+				</view>
+				<view class="activityAbstract">
+					<view class="activityFull" wx:for="{{searchActivityList}}" wx:key="index" data-id="{{item.id}}" bindtap="jumpDetail">
+						<view>
+							<image mode="aspectFill" lazy-load src="{{item.image}}"></image>
+						</view>
+						<view >
+							<view class="tabMainText">
+								{{item.name}}
+							</view>
+						</view>
+						<view class="tabSideText">
+							<text>{{item.activityTag}}</text>
+						</view>
+					</view>
+				</view>
+				
+			</view>
+			<view wx:if="{{searchActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+	</view>
+	<!-- 全部 -->
+	<view  hidden="{{1!=TabCur}}" class="">
+		<view class="searchAll">
+				
+				<view class="activityAbstract">
+					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.id}}" bindtap="jumpDetail" >
+					<view>
+						<image mode="aspectFill" lazy-load src="{{item.image}}"></image>
+					</view>
+					<view >
+						<view class="tabMainText">
+							{{item.name}}
+						</view>
+					</view>
+					<view class="tabSideText">
+						<text>{{item.activityTag}}</text>
+					</view>
+				</view>
+			</view>
+					<view wx:if="{{allActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+			</view>
+	</view>
+	<!-- 热门 -->
+	<view  hidden="{{2!=TabCur}}" class="">
+		<view class="searchHot">
+				<view class="activityAbstract">
+				<view wx:for="{{hotActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}"  class="activityFull {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<view>
+						<image mode="aspectFill" lazy-load src="{{item.image}}"></image>
+					</view>
+					<view >
+						<view class="tabMainText">
+							{{item.name}}
+						</view>
+					</view>
+					<view class="tabSideText">
+						<text>{{item.activityTag}}</text>
+					</view>
+				</view>
+			</view>
+			</view>
+				<view wx:if="{{hotActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+	</view>
+	<!-- <van-tabs 
+		id="tabs"
+		active="{{active}}"
+		animated
+		swipeable
+		color="#2d7ecd"
+		title-active-color="#2d7ecd"
+		bind:change="activeChange"
+	>
+		<van-tab title="搜索">
+			<van-search 
+				value="{{ value }}" 
+				placeholder="请输入活动关键词" 
+				bind:search="searchActivity"
+				bind:focus="focusSearch"
+				maxlength="{{}}"
+				focus
+			/>
+			<view class="searchBody"  wx:if="{{show}}">
+				<view class="history">
+					<text>搜索历史</text>
+					<van-icon name="delete-o" bindtap="clearTags"/>
+				</view>
+				<view class="historyText">
+					<van-tag 
+						wx:for="{{tags}}"
+						wx:key="index"
+						type="success" 
+						size="large" 
+						custom-class="tag"
+						data-index="{{index}}"
 						data-item="{{item}}"
 						bindtap="tagSearch"
 					>{{item}}</van-tag>
@@ -112,5 +219,5 @@
 			</view>
 				<view wx:if="{{hotActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 		</van-tab>
-	</van-tabs>
+	</van-tabs> -->
 </view>

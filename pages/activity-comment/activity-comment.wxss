@@ -2,6 +2,6 @@
 .release {
 	width: 100%;
 	padding: 20rpx;
-	font-size: 35rpx;
+	font-size: 30rpx;
 	background-color: #ffffff;
 }

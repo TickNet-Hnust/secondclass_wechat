@@ -1,11 +1,19 @@
 <!--pages/activity-score/activity-score.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">{{activityName}}</view>
 </cu-custom>
 <view class="score">
-  <van-tabs id="tabs" active="{{ tabsActive }}" animated  color="#07c160" title-active-color="#07c160" bind:change="tabsOnChange">
-      <van-tab title="概况">
-        <view class="activitySocreInfor margin-top-sm">
+  <scroll-view scroll-x class="bg-white nav text-center">
+		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+			概况
+		</view>
+		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+			已申报
+		</view>
+	</scroll-view>
+	<!-- 概况 -->
+	<view  wx:if="{{0==TabCur}}" class="">
+    <view class="activitySocreInfor margin-top-sm">
 						<van-row style="line-height: 40rpx;">
 							<van-col class="leftTitle" span="6" >• 活动名称</van-col>
 							<van-col class="rightContent" span="18" style="color: gray;">{{activityName}}</van-col>
@@ -34,177 +42,175 @@
                      </van-col>
                      
                   </van-row>
-			</view>
+		</view>
+    <view class="activityScoreRule">
+        <van-row >
+          <van-col class="ruleText" span="6">• 积分规则</van-col>
+        </van-row>
+    
+        <van-row>
+          <!-- 积分在三层的情况 -->
+          <!-- 循环第二层，用wxs计算每个grid要显示的数据 -->
+        <van-grid column-num="2" gutter="8" wx:if="{{maxLayer==3}}">
+          <van-grid-item use-slot wx:for="{{ integrationRule }}" wx:key="index">
+              <view style="text-align:left;width:100%;margin-bottom: 10rpx">
+                <wxs module="it">
+                  function getName(item) {
+                      var nameArray = [];
+                      var scoreArray =[];
+                      var nameStr;
+                      var scoreStr;
+                        //微信小程序不能用箭头函数 直接用function
+                        item.children && item.children.forEach(function(item){
+                        nameArray.push(item.name);
+                        scoreArray.push(item.integrationRange)
+                      })
 
-          <view class="activityScoreRule">
-             <van-row >
-                <van-col class="ruleText" span="6">• 积分规则</van-col>
-             </van-row>
-				 
-             <van-row>
-               <!-- 积分在三层的情况 -->
-               <!-- 循环第二层，用wxs计算每个grid要显示的数据 -->
-              <van-grid column-num="2" gutter="8" wx:if="{{maxLayer==3}}">
-                <van-grid-item use-slot wx:for="{{ integrationRule }}" wx:key="index">
-                   <view style="text-align:left;width:100%;margin-bottom: 10rpx">
-                     <wxs module="it">
-                        function getName(item) {
-                           var nameArray = [];
-                           var scoreArray =[];
-                           var nameStr;
-                           var scoreStr;
-                              //微信小程序不能用箭头函数 直接用function
-                              item.children && item.children.forEach(function(item){
-                              nameArray.push(item.name);
-                              scoreArray.push(item.integrationRange)
-                           })
+                      nameStr = nameArray.join('/')
+                      socreStr = scoreArray.join('/');
 
-                           nameStr = nameArray.join('/')
-                           socreStr = scoreArray.join('/');
+                      if(item.type==2)
+                        return [item.name];    
+                      else
+                        return [item.name+'('+nameStr+')',socreStr]
+                  }
+                  module.exports.getName = getName
+                </wxs>
+              <text>{{it.getName(item)[0]}}</text>
+              </view>
 
-                           if(item.type==2)
-                              return [item.name];    
-                           else
-                              return [item.name+'('+nameStr+')',socreStr]
-                        }
-                        module.exports.getName = getName
-                     </wxs>
-                    <text>{{it.getName(item)[0]}}</text>
-                   </view>
+              <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
+                <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{it.getName(item)[1]}}</text>
+                <text>分</text>
+              </view>  
 
-                   <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
-                     <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{it.getName(item)[1]}}</text>
-                     <text>分</text>
-                   </view>  
+              <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
+                <text style="font-weight:bold;">备注项</text>
+              </view>
+          </van-grid-item>
+        </van-grid>
 
-                   <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
-                     <text style="font-weight:bold;">备注项</text>
-                   </view>
-                </van-grid-item>
-              </van-grid>
-
-              <!-- 积分在第一层的情况 -->
-              <van-grid column-num="2" gutter="8"  wx:elif="{{maxLayer==1||(maxLayer==2&&integrationRule.children[0].type==2)}}">
+        <!-- 积分在第一层的情况 -->
+        <van-grid column-num="2" gutter="8"  wx:elif="{{maxLayer==1||(maxLayer==2&&integrationRule.children[0].type==2)}}">
+        
+        <!-- 先输出本身 -->
+          <van-grid-item use-slot>
               
-              <!-- 先输出本身 -->
-               <van-grid-item use-slot>
-                    
-                   <view style="text-align:left;width:100%;margin-bottom: 10rpx">
-                    <text>{{integrationRule.name}}</text>
-                   </view>
+              <view style="text-align:left;width:100%;margin-bottom: 10rpx">
+              <text>{{integrationRule.name}}</text>
+              </view>
 
-                   <view style="text-align:right;width:100%;" wx:if="{{integrationRule.type!=2}}">
-                     <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{integrationRule.integrationRange}}</text>
-                     <text>分</text>
-                   </view>  
+              <view style="text-align:right;width:100%;" wx:if="{{integrationRule.type!=2}}">
+                <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{integrationRule.integrationRange}}</text>
+                <text>分</text>
+              </view>  
 
-                   <view style="text-align:right;width:100%;" wx:if="{{integrationRule.type==2}}">
-                     <text style="font-weight:bold;">备注项</text>
-                   </view>
-                </van-grid-item>
+              <view style="text-align:right;width:100%;" wx:if="{{integrationRule.type==2}}">
+                <text style="font-weight:bold;">备注项</text>
+              </view>
+          </van-grid-item>
 
-                <!-- 再循环本身的孩子 -->
-                <van-grid-item use-slot wx:for="{{ integrationRule.children }}" wx:key="index">
-                   <view style="text-align:left;width:100%;margin-bottom: 10rpx">
-                    <text>{{item.name}}</text>
-                   </view>
+          <!-- 再循环本身的孩子 -->
+          <van-grid-item use-slot wx:for="{{ integrationRule.children }}" wx:key="index">
+              <view style="text-align:left;width:100%;margin-bottom: 10rpx">
+              <text>{{item.name}}</text>
+              </view>
 
-                   <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
-                     <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{item.integrationRange}}</text>
-                     <text>分</text>
-                   </view>  
+              <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
+                <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{item.integrationRange}}</text>
+                <text>分</text>
+              </view>  
 
-                   <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
-                     <text style="font-weight:bold;">备注项</text>
-                   </view>
-                </van-grid-item>
-              </van-grid>
+              <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
+                <text style="font-weight:bold;">备注项</text>
+              </view>
+          </van-grid-item>
+        </van-grid>
 
-              <!-- 积分在第二层的情况 -->
-              <van-grid column-num="2" gutter="8"  wx:else>
-                <van-grid-item use-slot wx:for="{{ integrationRule.children }}" wx:key="index">
+        <!-- 积分在第二层的情况 -->
+        <van-grid column-num="2" gutter="8"  wx:else>
+          <van-grid-item use-slot wx:for="{{ integrationRule.children }}" wx:key="index">
 
-                   <view style="text-align:left;width:100%;margin-bottom: 10rpx">
-                    <text>{{item.name}}</text>
-                   </view>
+              <view style="text-align:left;width:100%;margin-bottom: 10rpx">
+              <text>{{item.name}}</text>
+              </view>
 
-                   <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
-                     <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{item.integrationRange}}</text>
-                     <text>分</text>
-                   </view>  
+              <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
+                <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{item.integrationRange}}</text>
+                <text>分</text>
+              </view>  
 
-                   <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
-                     <text style="font-weight:bold;">备注项</text>
-                   </view>
-                </van-grid-item>
-              </van-grid>
+              <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
+                <text style="font-weight:bold;">备注项</text>
+              </view>
+          </van-grid-item>
+        </van-grid>
 
 
 
-             </van-row>	 
-             <van-row style="width:100%;text-align: center;">
-              <van-button type="primary" bindtap="jumpDeclare">现在申报</van-button>
-             </van-row>
+        </van-row>	 
+        <van-row style="width:100%;text-align: center;">
+        <van-button type="primary" bindtap="jumpDeclare">现在申报</van-button>
+        </van-row>
+    </view>
+  </view>
+  <!-- 已申报 -->
+  <view  wx:if="{{1==TabCur}}" class="">
+    <view class="cu-bar bg-white margin-top-sm">
+      <view class="action ">
+
+        <radio-group bind:change="statusChange">
+              <label class="margin-left-sm">
+                <radio class="blue sm radio" value="" checked></radio>
+                <text class="text-sm">全部</text>
+              </label>
+              <label class="margin-left-sm" wx:for="{{dict_sc_activity_integral}}">
+                <radio class="blue sm radio" value="{{item.dictValue}}"></radio>
+                <text class="text-sm">{{item.dictLabel}}</text>
+              </label>
+              
+          </radio-group>
+      </view>
+    </view>
+
+    <wxs module="ident">
+      function it(item){
+        if(item==0) return '发布者'
+        if(item==1) return '参与者'
+        if(item==2) return '负责人'
+        if(item==3) return '组织者'
+        if(item==4) return '本人'
+      }
+      module.exports.it=it 
+    </wxs>
+
+    <view class="cu-list menu">
+      <view class="cu-item  margin-top-sm" wx:for="{{declareList}}" wx:key="index">
+        <view class="content padding-tb-sm">
+          <view>
+            <text class="text-sm">{{item.nickName}} • {{item.userName}}</text>
+            
+            <view class="cu-tag round bg-green sm" wx:for="{{item.identities}}" wx:key="index">
+                {{ident.it(item)}}
+            </view>
+            <view class="cu-tag round bg-gray sm">{{dict_sc_activity_integral[item.status].dictLabel}}</view>
           </view>
-      </van-tab>
-
-
-      <van-tab title="已申报">
-        <view class="cu-bar bg-white margin-top-sm">
-          <view class="action ">
-
-            <radio-group bind:change="statusChange">
-                  <label class="margin-left-sm">
-                    <radio class="blue sm radio" value="" checked></radio>
-                    <text class="text-sm">全部</text>
-                  </label>
-                  <label class="margin-left-sm" wx:for="{{dict_sc_activity_integral}}">
-                    <radio class="blue sm radio" value="{{item.dictValue}}"></radio>
-                    <text class="text-sm">{{item.dictLabel}}</text>
-                  </label>
-                  
-              </radio-group>
+          <view class="text-gray text-sm">
+            {{item.className}} 2019级
+          </view>
+          <view class="text-gray text-sm">
+            申报理由: {{item.reason}}
           </view>
         </view>
-
-        <wxs module="ident">
-          function it(item){
-            if(item==0) return '发布者'
-            if(item==1) return '参与者'
-            if(item==2) return '负责人'
-            if(item==3) return '组织者'
-            if(item==4) return '本人'
-          }
-          module.exports.it=it 
-        </wxs>
-
-        <view class="cu-list menu">
-          <view class="cu-item  margin-top-sm" wx:for="{{declareList}}" wx:key="index">
-            <view class="content padding-tb-sm">
-              <view>
-                <text class="text-sm">{{item.nickName}}•{{item.userName}}</text>
-                
-                <view class="cu-tag round bg-green sm" wx:for="{{item.identities}}" wx:key="index">
-                   {{ident.it(item)}}
-                </view>
-                <view class="cu-tag round bg-gray sm">{{dict_sc_activity_integral[item.status].dictLabel}}</view>
-              </view>
-              <view class="text-gray text-sm">
-                {{item.className}} 2019级
-              </view>
-              <view class="text-gray text-sm">
-                申报理由: {{item.reason}}
-              </view>
-            </view>
-            <view class="action" style="position: absolute; right:0">
-              <view class="cu-tag line-gray sm fr margin-right-sm">认定：{{item.confirmIntegral}}</view>
-              <view class="cu-tag line-gray sm fr margin-right-sm">申请：{{item.applyIntegral}}</view>
-            </view>
-          </view>
-          
+        <view class="action" style="position: absolute; right:0">
+          <view class="cu-tag line-gray sm fr margin-right-sm">认定：{{item.confirmIntegral}}</view>
+          <view class="cu-tag line-gray sm fr margin-right-sm">申请：{{item.applyIntegral}}</view>
         </view>
-      </van-tab>
-  </van-tabs>
+      </view>
+      
+    </view>
+  </view>
+  
 </view>
 
 

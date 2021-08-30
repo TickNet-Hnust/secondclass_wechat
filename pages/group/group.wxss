@@ -52,7 +52,7 @@
 .action {
 	width: 135rpx !important;
 }
-.cu-item {
+.cu-list .cu-item {
 	height: 170rpx !important;
 }
 

@@ -8,9 +8,23 @@
   <view class='gray-text'>加载中...</view>
 </view>
 <view class="detail">
-	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
-		<van-tab title="概况">
-			<scroll-view scroll-y >
+	<scroll-view scroll-x class="bg-white nav text-center">
+		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+			概况
+		</view>
+		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+			参与人
+		</view>
+		<view class="cu-item {{2==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{2}}">
+			花絮
+		</view>
+		<view class="cu-item {{3==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{3}}">
+			评论
+		</view>
+	</scroll-view>
+	<!-- 概况 -->
+	<view  wx:if="{{0==TabCur}}" class="">
+		<scroll-view scroll-y >
 				<view class="activityTemplate">
 				<view class="boxs solid shadow-warp" style="padding-top:0">
 					<!-- <swiper autoplay interval="5000" duration="500" style="height: 230rpx;"> -->
@@ -47,16 +61,16 @@
 					<view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="Detail">
 						<text class="cuIcon-unfold "></text>
 					</view>
-					<view catchtouchmove="return" class="cu-modal {{modalName=='Detail'?'show':''}}">
-						<view class="cu-dialog">
+					<view catchtouchmove="return" class="cu-modal {{modalName=='Detail'?'show':''}}" style="top:{{CustomBar}}px">
+						<view class="cu-dialog" >
 							<view class="cu-bar bg-white justify-end">
 							<view class="content">活动详情</view>
 							<view class="action" bindtap="hideModal">
 								<text class="cuIcon-close text-red"></text>
 							</view>
 							</view>
-							<view class="">
-								<scroll-view scroll-y style="height: 70vh;">
+							<view >
+								<scroll-view catchtouchmove="return" scroll-y style="height:calc(70vh - {{CustomBar}}px)">
 									<form>
 										<view class="cu-form-group ">
 											<view class="title">标题</view>
@@ -202,8 +216,8 @@
 					<view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="notice">
 						<text class="cuIcon-unfold "></text>
 					</view> -->
-					<view catchtouchmove="return" class="cu-modal {{modalName=='introduce'?'show':''}}">
-						<view class="cu-dialog">
+					<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='introduce'?'show':''}}">
+						<view class="cu-dialog" style="max-height:calc(80vh - {{CustomBar}}px)">
 							<view class="cu-bar bg-white justify-end">
 							<view class="content">活动介绍</view>
 							<view class="action" bindtap="hideModal">
@@ -217,8 +231,8 @@
 							</view>
 						</view>
 					</view>
-					<view catchtouchmove="return" class="cu-modal {{modalName=='notice'?'show':''}}">
-						<view class="cu-dialog">
+					<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='notice'?'show':''}}">
+						<view class="cu-dialog" style="max-height:calc(80vh - {{CustomBar}}px)">
 							<view class="cu-bar bg-white justify-end">
 							<view class="content">报名须知</view>
 							<view class="action" bindtap="hideModal">
@@ -340,8 +354,8 @@
 							<!-- <van-button plain type="primary" size="small">请假</van-button> -->
 						</van-col>
 						<!-- 请假弹窗 -->
-						<view class="cu-modal {{modalName=='leaveModal'?'show':''}}">
-							<view class="cu-dialog">
+						<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='leaveModal'?'show':''}}">
+							<view class="cu-dialog" style="max-height:calc(80vh - {{CustomBar}}px)">
 								<view class="cu-bar bg-white justify-end">
 								<view class="content">请假事由</view>
 								<view class="action" bindtap="hideModal">
@@ -424,7 +438,7 @@
 						</van-col>
 						
 						<view catchtouchmove="return" class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}" bindtap="hideModal">
-							<view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
+							<view class="cu-dialog basis-lg" catchtap="return" style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
 								<view class="cu-list menu text-left">
 									<view class="cu-item margin-bottom">
 										<view class="content">
@@ -493,8 +507,10 @@
 				</view>
 				</view>
 			</scroll-view>
-		</van-tab>
-		<van-tab title="参与人" class="peoples">
+	</view>
+	<!-- 参与人 -->
+	<view  wx:if="{{1==TabCur}}" class="">
+		<van-empty description="空空如也" wx:if="{{memberList.length == 0}}"/>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="cu-list menu-avatar">
@@ -526,8 +542,10 @@
 				</view>
 				</view>
 			</scroll-view>
-		</van-tab>
-		<van-tab title="花絮" >
+	</view>
+	<!-- 花絮 -->
+	<view  wx:if="{{2==TabCur}}" class="">
+		<van-empty description="空空如也" wx:if="{{flowerList.length == 0}}"/>
 			<view class="activityTemplate">
 				<view class="cu-card dynamic no-card">
 					<view class="cu-item shadow" wx:for="{{flowerList}}" wx:key="index">
@@ -603,8 +621,10 @@
 					</view>
 					</view>
 			</view>
-		</van-tab>
-		<van-tab title="评论">
+	</view>
+	<!-- 评论 -->
+	<view  wx:if="{{3==TabCur}}" class="">
+		<van-empty description="空空如也" wx:if="{{remarkList.length == 0}}"/>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="cu-list menu-avatar comment ">
@@ -633,9 +653,8 @@
 				</view>
 				</view>
 			</scroll-view>
-		</van-tab>
-	</van-tabs>
+	</view>
 </view>
 
-<view class="addBtn" wx:if="{{active == 2}}" bindtap="jumpSideLight">+</view>
-<view class="addBtn" wx:if="{{active == 3}}" bindtap="jumpComment">+</view>
+<view class="addBtn" hidden="{{TabCur != 2}}" bindtap="jumpSideLight">+</view>
+<view class="addBtn" hidden="{{TabCur != 3}}" bindtap="jumpComment">+</view>

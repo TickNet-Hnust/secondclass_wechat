@@ -20,7 +20,9 @@
 		custom-style="padding-top:{{CustomBar}}px;"
 		bind:close="hideSearch"
 	>
-	<van-search id="searchName" value="{{ searchValue }}" bind:change="onChange" bind:search="onClick" placeholder="请输入搜索关键词" focus/>
+	<van-search id="searchName" use-action-slot value="{{ searchValue }}" bind:change="onChange" bind:search="onClick" placeholder="请输入完整姓名" focus>
+		<view slot="action" bind:tap="onClick">搜索</view>
+	</van-search>
 		<view class="cu-list menu">
 			<view class="cu-item " wx:for="{{farSearch}}" wx:key="index">
 			<view class="content" data-id="{{item.userId}}" data-name="{{item.userName}}-{{item.nickName}}" bindtap="sureHuman">

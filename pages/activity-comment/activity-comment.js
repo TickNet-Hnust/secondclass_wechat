@@ -9,7 +9,7 @@ Page({
 		postData:{
 			activityId: '',
 			content:'',
-			score: null
+			score: ''
 		}
 	},
 	onChange(e) {
@@ -24,7 +24,20 @@ Page({
 		})
 	},
 	sure() {
-		console.log(this.data.postData)
+		if(this.data.postData.content=='') {
+			wx.showToast({
+				title: '文字内容不能为空',
+				icon: 'none'
+			})
+			return
+		}
+		if(this.data.postData.score=='') {
+			wx.showToast({
+				title: '请先评分再提交',
+				icon: 'none'
+			})
+			return
+		}
 		request({
 			url: '/secondClass/activity/evaluation',
 			method: 'POST',
@@ -34,6 +47,7 @@ Page({
 			value.code == 200 && wx.showToast({
 			  title: '发布成功'
 			})
+			wx.navigateBack()
 		})
 	},
 	/**

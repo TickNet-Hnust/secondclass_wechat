@@ -8,6 +8,8 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		//决定是否显示哪一个tab
+		TabCur:0,
 		operation: [
 			[
 				{ title: '修改', status: 0 },
@@ -173,6 +175,13 @@ Page({
 		imgList:[],
 		leaveReason:'',
 		material:''
+	},
+	//tab切换
+	tabSelect(e) {
+		this.setData({
+		  TabCur: e.currentTarget.dataset.id,
+		})
+		// this.toggleDelay()
 	},
 	showModal(e) {
 		this.setData({
@@ -507,6 +516,46 @@ Page({
 			this.computedState()
 		})
 	},
+	getFlower() {
+		request({
+			url: '/secondClass/activity/flower/list',
+			method: 'GET',
+			data:{
+				activityId:this.data.aid
+			}
+		}).then(value => {
+			this.setData({
+				flowerList: value.rows
+			})
+		})
+	},
+	getEvaluation() {
+		request({
+			url: '/secondClass/activity/evaluation/list',
+			method: 'GET',
+			data:{
+				activityId:this.data.aid
+			}
+		}).then(value => {
+			this.setData({
+				remarkList: value.rows
+			})
+		})
+	},
+	getDetail() {
+		request({
+			url: `/secondClass/activity/${this.data.aid}`,
+			method: 'GET',
+			data:{
+				activityId:this.data.aid
+			}
+		}).then(value => {
+			console.log(value)
+			this.setData({
+				showData: value.data
+			})
+		})
+	},
 	switchTab(e){
 		this.setData({
 			active: e.detail.index
@@ -522,39 +571,13 @@ Page({
 		this.setData({
 			aid:options.aid
 		})
-		this.getCollection()
-		console.log(options)
-		this.getMember()
-		
 		Promise.all([
-			request({
-				url: `/secondClass/activity/${options.aid}`,
-				method: 'GET'
-			}),
-			//花絮
-			request({
-				url: '/secondClass/activity/flower/list',
-				method: 'GET',
-				data:{
-					activityId:options.aid
-				}
-			}),
-			//评论
-			request({
-				url: '/secondClass/activity/evaluation/list',
-				method: 'GET',
-				data:{
-					activityId:options.aid
-				}
-			})
+			this.getDetail(),
+			this.getCollection(),
+			this.getMember(),
+			this.getFlower(),
+			this.getEvaluation()
 		]).then(value => {
-			console.log(value,'value')
-			this.setData({
-				showData: value[0].data,
-				flowerList: value[1].rows,
-				remarkList: value[2].rows
-			})
-			
 			this.setData({
 				loadModal: false,
 			});
@@ -572,7 +595,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		this.selectComponent('#tabs').resize();
+		// this.selectComponent('#tabs').resize();
 	},
 
 	/**
@@ -600,7 +623,21 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-
+		console.log('onPullDownRefresh')
+		if(this.data.active == 0) {
+			this.getDetail()
+			this.getCollection()
+			this.getMember()
+		} else if(this.data.active ==1) {
+			this.getMember()
+		}else if(this.data.active ==2) {
+			this.getFlower()
+		}else {
+			this.getEvaluation()
+		}
+		wx.stopPullDownRefresh({
+			success: (res) => {},
+		})
 	},
 
 	/**

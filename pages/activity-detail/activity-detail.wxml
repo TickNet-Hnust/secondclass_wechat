@@ -656,5 +656,5 @@
 	</view>
 </view>
 
-<view class="addBtn" wx:if="{{active == 2}}" bindtap="jumpSideLight">+</view>
-<view class="addBtn" wx:if="{{active == 3}}" bindtap="jumpComment">+</view>
+<view class="addBtn" hidden="{{TabCur != 2}}" bindtap="jumpSideLight">+</view>
+<view class="addBtn" hidden="{{TabCur != 3}}" bindtap="jumpComment">+</view>

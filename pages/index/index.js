@@ -171,18 +171,26 @@ Page({
       })
     })
 
-
-    //所有积分分类
     request({
-			url: '/secondClass/courseClassification/list',
-			method: 'GET'
-		}).then(value => {
-			console.log('储存所有分类')
-			wx.setStorage({
-        key: 'courseClassificationList',
-        data:value.data
-      })
+      url: '/utils/getCourseClassificationUpdateTime',
+      method: 'GET',
+    }).then(value => {
+        if(value.data != wx.getStorageSync('classificationLastTime')) { //时间戳不同
+          wx.setStorageSync('classificationLastTime', value.data)
+          //所有积分分类
+          request({
+            url: '/secondClass/courseClassification/list',
+            method: 'GET'
+          }).then(value => {
+            console.log('储存所有分类',value)
+            wx.setStorage({
+              key: 'courseClassificationList',
+              data:value.data
+            })
+          })
+        }
     })
+
     //所有群组分类
     request({
 			url: '/group/type/list',

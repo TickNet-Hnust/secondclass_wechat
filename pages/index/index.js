@@ -12,6 +12,12 @@ Page({
     canIUseGetUserProfile: false,
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName') // 如需尝试获取用户信息可改为false
   },
+  kaifa() {
+    wx.showModal({
+      title: '提示',
+      content:'该功能还在开发中，敬请期待...'
+    })
+  },
   cardSwiper(e) {
     this.setData({
       cardCur: e.detail.current

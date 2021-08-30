@@ -1,9 +1,11 @@
 /* pages/activity-score/activity-score.wxss */
-
+page {
+  background-color: #f8f9fb;
+}
 .score{
 	padding: 0 30rpx;
 	overflow: hidden;
-	background-color: rgb(246 244 241 / 0.26);
+  background-color: #f8f9fb;
 }
 .score .van-tabs__wrap {
 	width: 65%;

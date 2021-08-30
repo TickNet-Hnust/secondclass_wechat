@@ -28,7 +28,14 @@ Page({
 			title: '',
 			text: '',
 		},
-		title:'群组消息发布'
+		title:'群组消息发布',
+		TabCur:'', //决定是哪个tab
+	},
+	tabSelect(e) {
+		this.setData({
+		  TabCur: e.currentTarget.dataset.id,
+		})
+		// this.toggleDelay()
 	},
 	showNotice(e) {
 		console.log(123)

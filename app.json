@@ -71,7 +71,6 @@
 		"van-switch": "@vant/weapp/switch/index",
 		"van-field": "@vant/weapp/field/index",
 		"van-button": "@vant/weapp/button/index",
-		"van-dialog": "@vant/weapp/dialog/index",
 		"van-row": "@vant/weapp/row/index",
 		"van-col": "@vant/weapp/col/index",
 		"van-divider": "@vant/weapp/divider/index",

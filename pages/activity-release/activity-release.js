@@ -6,7 +6,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		active: 'a',
+		TabCur: '',
 		templateList:[],
 		toggleDelay:false,
 		use: [
@@ -50,6 +50,16 @@ Page({
 			}
 		]
 	},
+	tabSelect(e) {
+		this.setData({
+		  TabCur: e.currentTarget.dataset.id,
+		})
+		this.toggleDelay()
+		if(this.data.TabCur == 2)
+		wx.navigateTo({
+		  url: '../activity-custom/activity-custom',
+		})
+	  },
 	toggleDelay() {
 		var that = this;
 		that.setData({
@@ -64,14 +74,6 @@ Page({
 	jumpTemplate(event) {
 		wx.navigateTo({
 		  url: `../activity-template/activity-template?tid=${event.currentTarget.dataset.id}`,
-		})
-	},
-	switchTab(e) {
-		console.log(e.detail.title)
-		this.toggleDelay()
-		if(e.detail.title == '自定义')
-		wx.navigateTo({
-		  url: '../activity-custom/activity-custom',
 		})
 	},
 	/**
@@ -92,7 +94,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		this.selectComponent('#tabs').resize();
+		// this.selectComponent('#tabs').resize();
 	},
 
 	/**
@@ -101,7 +103,7 @@ Page({
 	onShow: function () {
 		this.toggleDelay()
 		this.setData({     //解决bug做出的奇怪行为1
-			active : 'a'     
+			TabCur : 0     
 		})
 	},	
 
@@ -109,10 +111,8 @@ Page({
 	 * 生命周期函数--监听页面隐藏
 	 */
 	onHide: function () {
-		this.setData({     //解决bug做出的奇怪行为2
-			active : 'c'
-		})
-		this.selectComponent('#tabs').resize();
+		
+		// this.selectComponent('#tabs').resize();
 
 	},
 

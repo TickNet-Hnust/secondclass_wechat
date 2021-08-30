@@ -8,6 +8,8 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		//决定是否显示哪一个tab
+		TabCur:0,
 		operation: [
 			[
 				{ title: '修改', status: 0 },
@@ -173,6 +175,13 @@ Page({
 		imgList:[],
 		leaveReason:'',
 		material:''
+	},
+	//tab切换
+	tabSelect(e) {
+		this.setData({
+		  TabCur: e.currentTarget.dataset.id,
+		})
+		// this.toggleDelay()
 	},
 	showModal(e) {
 		this.setData({
@@ -575,7 +584,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		this.selectComponent('#tabs').resize();
+		// this.selectComponent('#tabs').resize();
 	},
 
 	/**

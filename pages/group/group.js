@@ -16,25 +16,33 @@ Page({
 		myGroupList:[],
 		myPageNum:2,
 		collectionGroupList:[],
-		collectionNum:2
-
+		collectionNum:2,
+		TabCur:''
 	},
-	activeChange(e) {
-		console.log(e)
-		this.data.active = e.detail.index
+	tabSelect(e) {
 		this.setData({
-			// active: e.detail.index
+		  TabCur: e.currentTarget.dataset.id,
 		})
 		this.toggleDelay()
-	},
+	  },
+	// activeChange(e) {
+	// 	console.log(e)
+	// 	this.data.active = e.detail.index
+	// 	this.setData({
+	// 		// active: e.detail.index
+	// 	})
+	// 	this.toggleDelay()
+	// },
 	toggleDelay() {
 		var that = this;
+		let temp = this.data.TabCur == 0 ? 'toggleDelayOne' :
+		(this.data.TabCur == 1 ? 'toggleDelayTwo':'toggleDelayThree')
 		that.setData({
-		  toggleDelay: true
+		  [temp]: true
 		})
 		setTimeout(function() {
 		  that.setData({
-			toggleDelay: false
+			[temp]: false
 		  })
 		}, 1000)
 	  },
@@ -134,7 +142,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		this.selectComponent('#tabs').resize();
+		// this.selectComponent('#tabs').resize();
 	},
 
 	/**
@@ -191,7 +199,7 @@ Page({
 		this.setData({
 			isLoading:true
 		})
-		if(this.data.active == '0') {
+		if(this.data.TabCur == '0') {
 			this.getRecommend(this.data.recommendNum,10).then(value => {
 				console.log(value)
 				this.data.recommendGroupList.push(...value.rows)
@@ -202,7 +210,7 @@ Page({
 					isLoading:false
 				})
 			})
-		}else if(this.data.active == '1') {
+		}else if(this.data.TabCur == '1') {
 			this.getMyGroup(this.data.myPageNum,10).then(value => {
 				console.log(value)
 				this.data.myGroupList.push(...value.rows)

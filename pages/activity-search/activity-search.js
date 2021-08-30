@@ -19,15 +19,23 @@ Page({
 		searchActivityList:[],
 		searchNum:2,
 		searchValue:'',
+		TabCur:''
 	},
+	tabSelect(e) {
+		this.setData({
+		  TabCur: e.currentTarget.dataset.id,
+		})
+		this.toggleDelay()
+	  },
 	toggleDelay() {
 		var that = this;
+		let temp = this.data.TabCur == 1 ? 'toggleDelayTwo': 'toggleDelayThree'
 		that.setData({
-		  toggleDelay: true
+		  [temp]: true
 		})
 		setTimeout(function() {
 		  that.setData({
-			toggleDelay: false
+			[temp]: false
 		  })
 		}, 1000)
 	},
@@ -50,9 +58,14 @@ Page({
 	//点击标签触发
 	tagSearch(event) {
 		this.setData({
-			value:event.target.dataset.item.trim(), //搜索框
+			value:event.target.dataset.item, //搜索框
 			show:false  
 		})
+		this.data.tags.unshift(...this.data.tags.splice(event.target.dataset.index,1))
+		this.setData({
+			tags:this.data.tags
+		})
+		wx.setStorageSync('Atags', this.data.tags)
 		this.getSearch(1,10,event.target.dataset.item.trim()).then(value => {
 			this.setData({
 				searchActivityList:value.rows,
@@ -64,7 +77,7 @@ Page({
 	clearTags() {
 		wx.showModal({
 			title: '提示',
-			content: '确定删除所有搜素记录吗',
+			content: '确定删除所有搜索记录吗',
 			success:(res) => {
 			  if (res.confirm) {
 				console.log('用户点击确定')
@@ -76,12 +89,12 @@ Page({
 					title: '清除成功',
 					icon: 'success',
 					duration: 1000
-				  })
+				})
 			  } else if (res.cancel) {
 				console.log('用户点击取消')
 				wx.showToast({
 					title: '用户取消',
-					icon: 'success',
+					icon: 'none',
 					duration: 1000
 				  })
 				  
@@ -95,20 +108,21 @@ Page({
 		this.setData({
 			show: true
 		})
-		this.setData({
-			tags: wx.getStorageSync('Atags')
-		})
 	},
 	//确认搜索触发
 	searchActivity(event){
-		if(event.detail.trim()) {
+		event.detail = event.detail.trim()
+		if(event.detail) {
 			let temp = wx.getStorageSync('Atags') || []
+			temp.length >= 8 && temp.pop()
 			temp.unshift(event.detail)
+			let index = temp.indexOf(event.detail)
 			wx.setStorageSync('Atags',temp)
-			this.getSearch(1,10,event.detail.trim()).then(value => {
+
+			this.getSearch(1,10,event.detail).then(value => {
 				this.setData({
 					searchActivityList:value.rows,
-					searchValue: event.detail.trim()
+					searchValue: event.detail
 				})
 			})
 			this.setData({
@@ -204,7 +218,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		this.selectComponent('#tabs').resize();
+		// this.selectComponent('#tabs').resize();
 	},
 
 	/**

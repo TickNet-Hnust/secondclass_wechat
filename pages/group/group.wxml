@@ -15,7 +15,123 @@
 		<text class="activityText">2</text>
 	</view>
   </view>
-  <view>	
+  <view>
+	<scroll-view scroll-x class="bg-white nav text-center">
+		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+			推荐
+		</view>
+		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+			我的
+		</view>
+		<view class="cu-item {{2==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{2}}">
+			推荐
+		</view>
+	</scroll-view>
+	<!-- 推荐 -->
+	<view  wx:if="{{0==TabCur}}" class="">
+		<van-empty description="空空如也" wx:if="{{recommendGroupList.length == 0}}"/>
+			<view class="">
+				<view class="cu-list menu-avatar">
+					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayOne?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
+						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
+						</image>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">{{item.deptName}}</text>
+								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
+								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
+							</view>
+							<view class="text-gray text-sm flex">
+							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-capsule round">
+								<view class="cu-tag bg-blue sm">
+									<text class="cuIcon-peoplelist"></text>
+								</view>
+								<view class="cu-tag line-blue sm">
+									{{item.memberNumber}}
+								</view>
+							</view>
+							
+						</view>
+					</view>
+					<view wx:if="{{recommendGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+				</view>
+			</view>
+	</view>
+	<!-- 我的 -->
+	<view  wx:if="{{1==TabCur}}" class="">
+		<van-empty description="空空如也" wx:if="{{myGroupList.length == 0}}"/>
+			<view class="">				
+				<view class="cu-list menu-avatar">
+					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayTwo?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
+						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
+						</image>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">{{item.deptName}}</text>
+								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
+								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
+							</view>
+							<view class="text-gray text-sm flex">
+							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-capsule round">
+								<view class="cu-tag bg-blue sm">
+									<text class="cuIcon-peoplelist"></text>
+								</view>
+								<view class="cu-tag line-blue sm">
+									{{item.memberNumber}}
+								</view>
+							</view>
+						</view>
+					</view>
+					<view wx:if="{{myGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+				</view>
+			</view>
+	</view>
+	<!-- 推荐 -->
+	<view  wx:if="{{2==TabCur}}" class="">
+		<van-empty description="空空如也" wx:if="{{collectionGroupList.length == 0}}"/>
+			<view class="">
+				<view class="cu-list menu-avatar">
+					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelayThree?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
+						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
+						</image>
+						<view class="content">
+							<view class="text-grey">
+								<text class="text-cut">{{item.deptName}}</text>
+								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
+								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
+							</view>
+							<view class="text-gray text-sm flex">
+							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
+							</view>
+						</view>
+						<view class="action">
+							<view class="cu-capsule round">
+								<view class="cu-tag bg-blue sm">
+									<text class="cuIcon-peoplelist"></text>
+								</view>
+								<view class="cu-tag line-blue sm">
+									{{item.memberNumber}}
+								</view>
+							</view>
+						</view>
+					</view>
+					<view wx:if="{{collectionGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+				</view>
+			</view>
+	</view>
+
+
   <wxs module="m3">
 	function format(str) {
 		console.log(str.split(';'))
@@ -23,13 +139,13 @@
 	}
 	module.exports.format = format
   </wxs>
-	<van-tabs 
+	<!-- <van-tabs 
 		id="tabs"
 		active="{{active}}"
 		animated
 		swipeable
-		color="#07c160"
-		title-active-color="#07c160"
+		color="#2d7ecd"
+		title-active-color="#2d7ecd"
 		bind:change="activeChange"
 	>
 		<van-tab title="推荐">
@@ -38,7 +154,7 @@
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
 						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
-							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
+							
 						</image>
 						<view class="content">
 							<view class="text-grey">
@@ -72,7 +188,7 @@
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
 						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
-							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
+							
 						</image>
 						<view class="content">
 							<view class="text-grey">
@@ -105,7 +221,7 @@
 				<view class="cu-list menu-avatar">
 					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
 						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
-							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
+							
 						</image>
 						<view class="content">
 							<view class="text-grey">
@@ -132,6 +248,6 @@
 				</view>
 			</view>
 		</van-tab>
-	</van-tabs>
+	</van-tabs> -->
   </view>
 </view>

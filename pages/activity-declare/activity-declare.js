@@ -48,6 +48,13 @@ Page({
 		},
 		restore1:true,
 		restore2:true,
+		TabCur:'' //决定是哪个弹出框
+	},
+	tabSelect(e) {
+		this.setData({
+		  TabCur: e.currentTarget.dataset.id,
+		})
+		// this.toggleDelay()
 	},
 	changeTabs(e){
 			console.log(e,'tabs事件')

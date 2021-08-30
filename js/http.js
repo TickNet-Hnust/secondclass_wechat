@@ -34,6 +34,7 @@ export const request = (opt) => {
 			success: function (res) {
 				if (res && res.statusCode == 200 && res.data) {
 					if (res.data.code == 403) {
+						wx.hideLoading()
 						wx.showToast({
 							title: '无权限操作',
 							icon: "loading",
@@ -61,6 +62,7 @@ export const request = (opt) => {
 						// 	}
 						// 	})
 					} else if(res.data.msg == '不允许重复提交，请稍后再试') {
+						wx.hideLoading()
 						wx.showToast({
 							title: '不允许频繁操作，请稍后再试',
 							icon:'none',
@@ -68,6 +70,7 @@ export const request = (opt) => {
 							duration:1000
 						})
 					} else {
+						wx.hideLoading()
 						resolve(res.data)
 					}
  

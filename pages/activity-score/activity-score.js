@@ -24,9 +24,14 @@ Page({
     filterCourseClassificationList:[],
     maxLayer:'',
     declareList:[],
-
+    TabCur:'' //控制当前是哪个tab
   },
-  
+  tabSelect(e) {
+		this.setData({
+		  TabCur: e.currentTarget.dataset.id,
+		})
+		// this.toggleDelay()
+	},
   jumpDeclare() {
     let filterCourseClassificationListString = JSON.stringify(this.data.filterCourseClassificationList); 
     wx.navigateTo({

@@ -44,9 +44,21 @@
           </view>
         </view>
 	</view>
-	<van-tabs id="tabs" active="{{active}}" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
-		<van-tab title="概况" name="a" >
-			<scroll-view scroll-y>
+
+	<scroll-view scroll-x class="bg-white nav text-center">
+		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+			概况
+		</view>
+		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+			成员
+		</view>
+		<view class="cu-item {{2==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{2}}">
+			活动
+		</view>
+	</scroll-view>
+	<!-- 推荐 -->
+	<view  wx:if="{{0==TabCur}}" class="">
+		<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="boxs solid " style="padding-top:0">
 					<view style="padding:20rpx 20rpx">
@@ -279,9 +291,10 @@
 				</view>
 				</view>
 			</scroll-view>
-		</van-tab>
-		<van-tab title="成员" name="b">
-			<scroll-view scroll-y>
+	</view>
+	<!-- 成员 -->
+	<view  wx:if="{{1==TabCur}}" class="">
+		<scroll-view scroll-y>
 				<view class="activityTemplate peoples">
 				<view class="cu-list menu-avatar">
 					<view class="cu-item solid-top" wx:for="{{memberList}}" wx:key="index">
@@ -356,9 +369,10 @@
 					</view>
 				</view>
 			</view>
-		</van-tab>
-		<van-tab title="活动" name="c">
-			<scroll-view scroll-y>
+	</view>
+	<!-- 活动 -->
+	<view  wx:if="{{2==TabCur}}" class="">
+		<scroll-view scroll-y>
 				<view class="activityAbstract" wx:if="{{activityList.length!=0}}">
 					<view  wx:for="{{activityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 							<view>
@@ -378,6 +392,7 @@
 					<van-empty description="快来发布第一个活动吧" />
 				</view>
 			</scroll-view>
-		</van-tab>
-	</van-tabs>
+	</view>
+
+	
 </view>

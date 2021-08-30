@@ -36,7 +36,7 @@
 							<van-col class="leftTitle"  span="6">• 活动分类</van-col>
 
                      <van-col class="rightContent" span="18">
-                              <view class="activityClassify1">
+                              <view class="activityClassify1" >
                               {{courseClassificationName}}
                               </view>              
                      </van-col>

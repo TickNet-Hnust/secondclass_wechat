@@ -1,11 +1,78 @@
-Component({
+Page({
   options: {
     addGlobalClass: true,
   },
   data: {
+    isLogin:false,
+    nickName: '',
+    avatarUrl:'',
     starCount: 0,
     forksCount: 0,
     visitTotal: 0,
+  },
+  login() {
+    wx.getUserProfile({
+      desc: '获取的信息用于展示',
+      success:(res) => {
+        console.log(res)
+        this.setData({
+          isLogin:true,
+          nickName: res.userInfo.nickName,
+          avatarUrl: res.userInfo.avatarUrl
+        })
+        wx.setStorage({
+          key:'isLogin',
+          data:true
+        })
+        wx.setStorage({
+          key:'nickName', 
+          data:res.userInfo.nickName
+        })
+        wx.setStorage({
+          key:'avatarUrl', 
+          data:res.userInfo.avatarUrl
+        })
+        wx.showToast({
+          title: '登录成功',
+        })
+      }
+    })
+  },
+  logout() {
+    if(this.data.isLogin == false) {
+      wx.showToast({
+        title: '您还未登录',
+        icon:'none'
+      })
+      return
+    }
+    wx.showModal({
+      title: '提示',
+      content: '确定退出登录吗',
+      success:(res) => {
+        if (res.confirm) {
+          this.setData({
+            isLogin:false,
+            nickName: '',
+            avatarUrl: ''
+          })
+          wx.setStorageSync('isLogin', false)
+          wx.setStorageSync('nickName', '')
+          wx.setStorageSync('avatarUrl', '')
+          wx.showToast({
+            title: '退出登录'
+          })
+        }
+      }
+    })
+    
+  },
+  onLoad() {
+    this.setData({
+      isLogin: wx.getStorageSync('isLogin'),
+      nickName:wx.getStorageSync('nickName'),
+      avatarUrl:wx.getStorageSync('avatarUrl')
+    })
   },
   attached() {
     console.log("success")
@@ -37,7 +104,7 @@ Component({
     }
     wx.hideLoading()
   },
-  methods: {
+  
     coutNum(e) {
       if (e > 1000 && e < 10000) {
         e = (e / 1000).toFixed(1) + 'k'
@@ -68,11 +135,18 @@ Component({
         modalName: null
       })
     },
+    //切换主题色
+    switchColor() {
+      wx.showModal({
+        title: '提示',
+        content:'该功能还在开发中，敬请期待...'
+      })
+    },
     showQrcode() {
       wx.previewImage({
         urls: ['https://image.weilanwl.com/color2.0/zanCode.jpg'],
         current: 'https://image.weilanwl.com/color2.0/zanCode.jpg' // 当前显示图片的http链接      
       })
     },
-  }
+  
 })

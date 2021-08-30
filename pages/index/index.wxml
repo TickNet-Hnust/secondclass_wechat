@@ -29,19 +29,19 @@
         <van-grid-item link-type="switchTab" url="/pages/group/group" text="群组" >
           <text slot="icon" class="iconfont icon-qunzu" style="font-size:60rpx"></text>
         </van-grid-item> 
-        <van-grid-item  text="场地" >
+        <van-grid-item  text="场地" bindtap="kaifa">
           <text slot="icon" class="iconfont icon-changdi" style="font-size:60rpx"></text>
         </van-grid-item>
-        <van-grid-item  text="认证" >
+        <van-grid-item  text="认证" bindtap="kaifa">
           <text slot="icon" class="iconfont icon-renzheng" style="font-size:60rpx"></text>
         </van-grid-item>
-        <van-grid-item text="报名" >
+        <van-grid-item text="报名" bindtap="kaifa">
           <text slot="icon" class="iconfont icon-xueshengbaoming" style="font-size:60rpx"></text>
         </van-grid-item>
-        <van-grid-item  text="投票" >
+        <van-grid-item  text="投票" bindtap="kaifa">
           <text slot="icon" class="iconfont icon-toupiao" style="font-size:60rpx"></text>
         </van-grid-item>
-        <van-grid-item  text="证书" >
+        <van-grid-item  text="证书" bindtap="kaifa">
           <text slot="icon" class="iconfont icon-zhengshuguanli-" style="font-size:60rpx"></text>
         </van-grid-item>
       </van-grid>
@@ -90,7 +90,7 @@
       </li>
     </ul> -->
   </view>
-  <view class="chooseMiddle">
+  <view class="chooseMiddle" bindtap="kaifa">
     <view class="cu-list menu">
       <view class="cu-item arrow">
         <view class="content text-cut">
@@ -123,7 +123,7 @@
       <text class="text-xl text-bold">新闻中心</text>
     </view>
   </view>
-  <view class="cu-card article no-card">
+  <view class="cu-card article no-card" bindtap="kaifa">
     <view class="cu-item shadow solid-bottom margin-bottom" >
       <view class="content">
         <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="aspectFill"></image>

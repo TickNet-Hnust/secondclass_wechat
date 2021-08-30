@@ -23,25 +23,33 @@ Page({
 		this.setData({
 			TabCur: e.currentTarget.dataset.id,
 		})
-		this.toggleDelay()
+		// setTimeout(() => {
+			this.toggleDelay()
+		// },200)
 	},
 	toggleDelay() {
 		var that = this;
+		let temp
+		if(this.data.TabCur == 1) {
+			temp = 'toggleDelayTwo'
+		}else {
+			temp = 'toggleDelayThree'
+		}
 		that.setData({
-		  toggleDelay: true
+		  [temp]: true
 		})
 		setTimeout(function() {
 		  that.setData({
-			toggleDelay: false
+			[temp]: false
 		  })
-		}, 1000)
+		}, 1500)
 	  },
-	  jumpDetail(e) {
-		  console.log(e)
-		  wx.navigateTo({
+	jumpDetail(e) {
+		console.log(e)
+		wx.navigateTo({
 			url: `../group-detail/group-detail?gid=${e.currentTarget.dataset.id}`,
-		  })
-	  },
+		})
+	},
 	//点击标签触发
 	tagSearch(event) {
 		this.setData({

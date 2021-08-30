@@ -26,7 +26,7 @@
 		</view>
 	</scroll-view>
 	<!-- 搜索 -->
-	<view  wx:if="{{0==TabCur}}" class="">
+	<view  hidden="{{0!=TabCur}}" class="">
 		<van-search 
 				value="{{ value }}" 
 				placeholder="请输入活动关键词" 
@@ -58,7 +58,7 @@
 					<van-empty image="search" description="没有找到匹配的活动" style="margin: 0 auto;"/>
 				</view>
 				<view class="activityAbstract">
-					<view class="activityFull" wx:for="{{searchActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}">
+					<view class="activityFull" wx:for="{{searchActivityList}}" wx:key="index" data-id="{{item.id}}" bindtap="jumpDetail">
 						<view>
 							<image mode="aspectFill" lazy-load src="{{item.image}}"></image>
 						</view>
@@ -77,11 +77,11 @@
 			<view wx:if="{{searchActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 	</view>
 	<!-- 全部 -->
-	<view  wx:if="{{1==TabCur}}" class="">
+	<view  hidden="{{1!=TabCur}}" class="">
 		<view class="searchAll">
 				
 				<view class="activityAbstract">
-					<view wx:for="{{allActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}"  class="activityFull {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.id}}" bindtap="jumpDetail" >
 					<view>
 						<image mode="aspectFill" lazy-load src="{{item.image}}"></image>
 					</view>
@@ -99,7 +99,7 @@
 			</view>
 	</view>
 	<!-- 热门 -->
-	<view  wx:if="{{2==TabCur}}" class="">
+	<view  hidden="{{2!=TabCur}}" class="">
 		<view class="searchHot">
 				<view class="activityAbstract">
 				<view wx:for="{{hotActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}"  class="activityFull {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">

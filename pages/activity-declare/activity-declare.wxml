@@ -1,5 +1,5 @@
 <!--pages/activity-declare/activity-declare.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">积分申报</view>
 </cu-custom>
 <view class="xuanfu">
@@ -74,7 +74,7 @@
 </scroll-view>
 
 <!-- 概况 -->
-<view  wx:if="{{0==TabCur}}" class="">
+<view  hidden="{{0!=TabCur}}" class="">
 	<van-checkbox-group value="{{ result1 }}" bind:change="onChange1">
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">
@@ -104,7 +104,7 @@
 		</view>
 	</van-checkbox-group>
 </view>
-<view  wx:if="{{1==TabCur}}" class="">
+<view  hidden="{{1!=TabCur}}" class="">
 	<van-checkbox-group value="{{ result2 }}" bind:change="onChange2">
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">

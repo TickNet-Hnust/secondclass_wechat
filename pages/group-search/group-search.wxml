@@ -16,7 +16,7 @@
 		</view>
 	</scroll-view>
 	<!-- 搜索 -->
-	<view  wx:if="{{0==TabCur}}" class="">
+	<view  hidden="{{0!=TabCur}}" class="">
 		<scroll-view scroll-y>
 			<view >
 			<van-search 
@@ -51,7 +51,7 @@
 				</view>
 				<view class="">
 					<view class="cu-list menu-avatar">
-						<view wx:for="{{searchGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
+						<view wx:for="{{searchGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
 							<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
 							
 						</view>
@@ -84,11 +84,11 @@
 		</scroll-view>
 	</view>
 	<!-- 全部 -->
-	<view  wx:if="{{1==TabCur}}" class="">
+	<view  hidden="{{1!=TabCur}}" class="">
 		<scroll-view scroll-y>
 			<view>
 					<view class="cu-list menu-avatar">
-						<view wx:for="{{allGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
+						<view wx:for="{{allGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
 							<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
 							
 						</view>
@@ -119,11 +119,11 @@
 			</scroll-view>
 	</view>
 	<!-- 热门 -->
-	<view  wx:if="{{2==TabCur}}" class="">
+	<view  hidden="{{2!=TabCur}}" class="">
 		<scroll-view scroll-y>
 				<view >
 					<view class="cu-list menu-avatar">
-						<view wx:for="{{hotGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
+						<view wx:for="{{hotGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
 							<view class="cu-avatar radius lg" style="background-image:url({{item.avatar}});">
 							
 						</view>

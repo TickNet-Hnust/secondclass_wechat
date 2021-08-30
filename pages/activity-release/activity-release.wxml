@@ -15,7 +15,7 @@
 		</view>
 	</scroll-view>
 	<!-- 常用 -->
-	<view  wx:if="{{0==TabCur}}" class="">
+	<view  hidden="{{0!=TabCur}}" class="">
 		<view class="activityTemplate">
 				<view wx:for="{{templateList}}" wx:key="index" data-id="{{item.id}}"  bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<text class="itemMainText">{{item.name}}</text>
@@ -25,7 +25,7 @@
 			</view>
 	</view>
 	<!-- 模版库 -->
-	<view  wx:if="{{1==TabCur}}" class="">
+	<view  hidden="{{1!=TabCur}}" class="">
 		<view class="activityTemplate">
 				<view wx:for="{{templateList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<text class="itemMainText">{{item.name}}</text>
@@ -34,7 +34,7 @@
 			</view>
 	</view>
 	<!-- 自定义 -->
-	<view  wx:if="{{2==TabCur}}" class="">
+	<view  hidden="{{2!=TabCur}}" class="">
 		
 	</view>
 	<!-- <van-tabs 

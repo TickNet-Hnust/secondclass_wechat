@@ -56,8 +56,8 @@
 			活动
 		</view>
 	</scroll-view>
-	<!-- 推荐 -->
-	<view  wx:if="{{0==TabCur}}" class="">
+	<!-- 概况 -->
+	<view  hidden="{{0!=TabCur}}" class="">
 		<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="boxs solid " style="padding-top:0">
@@ -76,7 +76,7 @@
 						</van-row>
 					</view>
 				</view>
-				<view class="boxs solid ">
+				<view class="boxs solid " >
 					<view style="padding:20rpx 20rpx">
 						<van-row style="line-height: 40rpx;">
 							<van-col class="leftTitle" span="6">
@@ -104,7 +104,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="cu-modal {{modalName=='notice'?'show':''}}">
+				<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='notice'?'show':''}}">
 						<view class="cu-dialog">
 							<view class="cu-bar bg-white justify-end">
 							<view class="content">介绍</view>
@@ -257,7 +257,7 @@
 								</view>
 							</view>
 						</view>
-						<view catchtouchmove="return" class="cu-modal {{modalName=='Messages'?'show':''}}">
+						<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='Messages'?'show':''}}">
 							<view class="cu-dialog">
 								<view class="cu-bar bg-white justify-end">
 								<view class="content">{{title}}</view>
@@ -293,7 +293,7 @@
 			</scroll-view>
 	</view>
 	<!-- 成员 -->
-	<view  wx:if="{{1==TabCur}}" class="">
+	<view  hidden="{{1!=TabCur}}" class="">
 		<scroll-view scroll-y>
 				<view class="activityTemplate peoples">
 				<view class="cu-list menu-avatar">
@@ -371,7 +371,7 @@
 			</view>
 	</view>
 	<!-- 活动 -->
-	<view  wx:if="{{2==TabCur}}" class="">
+	<view  hidden="{{2!=TabCur}}" class="">
 		<scroll-view scroll-y>
 				<view class="activityAbstract" wx:if="{{activityList.length!=0}}">
 					<view  wx:for="{{activityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelay?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">

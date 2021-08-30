@@ -24,11 +24,11 @@
 			我的
 		</view>
 		<view class="cu-item {{2==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{2}}">
-			推荐
+			收藏
 		</view>
 	</scroll-view>
 	<!-- 推荐 -->
-	<view  wx:if="{{0==TabCur}}" class="">
+	<view  hidden="{{0!=TabCur}}" class="">
 		<van-empty description="空空如也" wx:if="{{recommendGroupList.length == 0}}"/>
 			<view class="">
 				<view class="cu-list menu-avatar">
@@ -63,7 +63,7 @@
 			</view>
 	</view>
 	<!-- 我的 -->
-	<view  wx:if="{{1==TabCur}}" class="">
+	<view  hidden="{{1!=TabCur}}" class="">
 		<van-empty description="空空如也" wx:if="{{myGroupList.length == 0}}"/>
 			<view class="">				
 				<view class="cu-list menu-avatar">
@@ -97,7 +97,7 @@
 			</view>
 	</view>
 	<!-- 推荐 -->
-	<view  wx:if="{{2==TabCur}}" class="">
+	<view  hidden="{{2!=TabCur}}" class="">
 		<van-empty description="空空如也" wx:if="{{collectionGroupList.length == 0}}"/>
 			<view class="">
 				<view class="cu-list menu-avatar">

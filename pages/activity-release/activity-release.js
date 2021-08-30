@@ -51,14 +51,19 @@ Page({
 		]
 	},
 	tabSelect(e) {
-		this.setData({
-		  TabCur: e.currentTarget.dataset.id,
-		})
-		this.toggleDelay()
-		if(this.data.TabCur == 2)
-		wx.navigateTo({
-		  url: '../activity-custom/activity-custom',
-		})
+		// setTimeout(() => {
+			// },300)
+			// this.data.TabCur == e.currentTarget.dataset.id
+			if(e.currentTarget.dataset.id == 2) {
+				wx.navigateTo({
+					url: '../activity-custom/activity-custom',
+				})
+				return
+			}
+			this.setData({
+				TabCur: e.currentTarget.dataset.id,
+			})
+			this.toggleDelay()
 	  },
 	toggleDelay() {
 		var that = this;
@@ -101,7 +106,6 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-		this.toggleDelay()
 		this.setData({     //解决bug做出的奇怪行为1
 			TabCur : 0     
 		})

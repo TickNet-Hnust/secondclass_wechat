@@ -33,12 +33,20 @@ Page({
 	// },
 	toggleDelay() {
 		var that = this;
+		let temp
+		if(this.data.TabCur == 0) {
+			temp = 'toggleDelayOne'
+		}else if(this.data.TabCur == 1) {
+			temp = 'toggleDelayTwo'
+		}else {
+			temp = 'toggleDelayThree'
+		}
 		that.setData({
-		  toggleDelay: true
+		  [temp]: true
 		})
 		setTimeout(function() {
 		  that.setData({
-			toggleDelay: false
+			[temp]: false
 		  })
 		}, 1000)
 	  },
@@ -101,7 +109,6 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		this.toggleDelay()
 		this.getRecommend().then(value => {
 			console.log(value)
 			this.setData({
@@ -122,6 +129,10 @@ Page({
 				myActivityList:value.rows
 			})
 		})
+		setTimeout(() => {
+
+			this.toggleDelay()
+		},200)
 	},
 
 	/**

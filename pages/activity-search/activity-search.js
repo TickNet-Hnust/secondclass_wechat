@@ -25,7 +25,9 @@ Page({
 		this.setData({
 		  TabCur: e.currentTarget.dataset.id,
 		})
-		this.toggleDelay()
+		// setTimeout(() => {
+			this.toggleDelay()
+		// })
 	  },
 	toggleDelay() {
 		var that = this;
@@ -41,7 +43,7 @@ Page({
 	},
 	jumpDetail(e) {
 		console.log(e)
-		wx.redirectTo({
+		wx.navigateTo({
 		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
 		})
 	},
@@ -225,16 +227,13 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-
+		console.log(getCurrentPages())
 	},
 
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
 	onHide: function () {
-		wx.reLaunch({
-			url: '../activity-search/activity-search'
-		  })
 	},
 
 	/**

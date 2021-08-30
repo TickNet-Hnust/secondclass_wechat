@@ -1,5 +1,5 @@
 <!--pages/activity-score/activity-score.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">{{activityName}}</view>
 </cu-custom>
 <view class="score">

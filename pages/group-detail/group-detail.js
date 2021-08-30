@@ -35,7 +35,7 @@ Page({
 		this.setData({
 		  TabCur: e.currentTarget.dataset.id,
 		})
-		// this.toggleDelay()
+		this.toggleDelay()
 	},
 	showNotice(e) {
 		console.log(123)

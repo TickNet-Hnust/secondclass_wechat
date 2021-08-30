@@ -34,6 +34,7 @@ Page({
 	// 	this.toggleDelay()
 	// },
 	toggleDelay() {
+		
 		var that = this;
 		let temp = this.data.TabCur == 0 ? 'toggleDelayOne' :
 		(this.data.TabCur == 1 ? 'toggleDelayTwo':'toggleDelayThree')

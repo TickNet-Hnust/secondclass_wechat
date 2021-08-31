@@ -10,6 +10,9 @@ Page({
 	data: {
 		//决定是否显示哪一个tab
 		TabCur:0,
+		//节流判断变量
+		valid:true,
+		count:0,
 		operation: [
 			[
 				{ title: '修改', status: 0 },
@@ -410,17 +413,51 @@ Page({
 			})
 		}
 	},
-	throttle(){
-		   let valid = true
-       if(!valid){
-           return false 
-       }
-        valid = false
-        setTimeout(() => {
-            this.enroll()
-            valid = true;
-        }, 1000)
-  },
+	throttle(e){
+		//拿到点击时传来的方法名
+		// let funcName = e.currentTarget.dataset.methods
+		// console.log(funcName,'传来的方法名')
+		// 	if(!this.data.valid){
+		// 		return false 
+		//  }
+		//  this.setData({
+		// 	 valid:false,
+		//  })
+		//  console.log(this.data.count,'执行次数')
+		//  if(this.data.count==0)
+		//  {
+		// 	this[funcName]();
+		// 	this.setData({
+		// 		valid:true,
+		// 		count:this.data.count+1,
+		// 	})
+
+		//  }else{
+		// 	  setTimeout(() => {
+		// 	 //通过方法名运行该函数
+		// 	  this[funcName]();
+		// 		this.setData({
+		// 			valid:true,
+		// 			count:this.data.count+1,
+		// 		})
+		//   }, 2000)
+		//  }
+		let funcName = e.currentTarget.dataset.methods
+		console.log(funcName,'传进来的方法名')
+		console.log(this.data.valid,'进来时的状态')
+		 if(this.data.valid)
+		 {
+			console.log('执行函数');
+			this[funcName]();
+			this.setData({
+				valid:false,
+			})
+			
+		 }else{
+			  console.log('return false');
+			  return false;
+		 }
+	},
 	enroll() {
 		request({
 			url: '/secondClass/activity/enroll',

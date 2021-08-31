@@ -23,7 +23,6 @@ page {
   padding: 30rpx;
   background-color: white;
   font-size: 25rpx;
-  height: 340rpx;
 }
 
 .leftTitle{

@@ -10,7 +10,6 @@ Page({
 	data: {
 		aid:'',
 		CustomBar: app.globalData.CustomBar,
-		active:'a',
 		result1:[],
 		result2:[],
 		//过滤后的课程分类
@@ -48,7 +47,8 @@ Page({
 		},
 		restore1:true,
 		restore2:true,
-		TabCur:'' //决定是哪个弹出框
+		TabCur:'',//决定是哪个弹出框
+		rankName:''
 	},
 	tabSelect(e) {
 		this.setData({
@@ -56,13 +56,7 @@ Page({
 		})
 		// this.toggleDelay()
 	},
-	changeTabs(e){
-			console.log(e,'tabs事件')
-			this.reset();
-      this.setData({
-				active:e.detail.name,
-			})
-	},
+
 	//重置页面数据
 	reset(){
     this.setData({
@@ -125,6 +119,7 @@ Page({
 		let index = event.detail.value;
 		this.setData({
 			reasonList:this.data.rankList[index].children,
+			rankName:this.data.rankList[index].name,
 			restore2:false,
 		})
 		setTimeout(() => {
@@ -137,14 +132,14 @@ Page({
 	},
 	 //申报理由单选事件
 	 radioReasonChange(event){
-		 if(this.data.active == 'a')
+		 if(this.data.TabCur== 0)
 		 {
 			 this.setData({
 			'postData1.applyIntegral':event.detail.value.split(',')[0],
 			'postData1.reason':event.detail.value.split(',')[1],
 		  })
 		 }
-		 if(this.data.active == 'b')
+		 if(this.data.TabCur== 1)
 		 {
 			 this.setData({
 			'postData2.applyIntegral':event.detail.value.split(',')[0],
@@ -207,7 +202,7 @@ Page({
 		})
 	},
 	submit(){
-		if(this.data.active == 'a')
+		if(this.data.TabCur== 0)
 		{
 			let postDataR = [];
 			console.log(this.data.result1,'申报人userid数组')
@@ -244,7 +239,7 @@ Page({
 			}
 		}
 
-		if(this.data.active == 'b')
+		if(this.data.TabCur== 1)
 		{
 			let postDataD = [];
 			console.log(this.data.result2,'申报人userid数组')

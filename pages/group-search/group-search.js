@@ -17,20 +17,22 @@ Page({
 		hotNum:2,
 		allNum:2,				
 		searchNum:2,
-		TabCur:''
+		TabCur:0
 	},
 	tabSelect(e) {
 		this.setData({
 			TabCur: e.currentTarget.dataset.id,
 		})
 		// setTimeout(() => {
-			this.toggleDelay()
+			// this.toggleDelay()
 		// },200)
 	},
 	toggleDelay() {
 		var that = this;
 		let temp
-		if(this.data.TabCur == 1) {
+		if(this.data.TabCur == 0) {
+			temp = 'toggleDelayOne'
+		}else if(this.data.TabCur == 1) {
 			temp = 'toggleDelayTwo'
 		}else {
 			temp = 'toggleDelayThree'
@@ -42,7 +44,7 @@ Page({
 		  that.setData({
 			[temp]: false
 		  })
-		}, 1500)
+		}, 2000)
 	  },
 	jumpDetail(e) {
 		console.log(e)
@@ -56,17 +58,23 @@ Page({
 			value:event.target.dataset.item,
 			show:false
 		})
+		this.data.tags.unshift(...this.data.tags.splice(event.target.dataset.index,1))
+		this.setData({
+			tags:this.data.tags
+		})
+		wx.setStorageSync('Gtags', this.data.tags)
 		this.getSearch(event.target.dataset.item).then(value => {
 			this.setData({
 				searchGroupList: value.rows
 			})
 		})
+		this.toggleDelay()
 	},
 	//点击垃圾桶触发
 	clearTags() {
 		wx.showModal({
 			title: '提示',
-			content: '确定删除所有搜素记录吗',
+			content: '确定删除所有搜索记录吗',
 			success:(res) => {
 			  if (res.confirm) {
 				console.log('用户点击确定')
@@ -197,7 +205,7 @@ Page({
 			this.toggleDelay()
 		})
 		this.setData({
-			tags: wx.getStorageSync('Gtags'),
+			tags: wx.getStorageSync('Gtags') || [],
 			groupClassificationMap: wx.getStorageSync('groupClassificationMap'),
 			dict_ga_group_status: wx.getStorageSync('dict_ga_group_status')
 		})
@@ -264,8 +272,7 @@ Page({
 			isLoading:true
 		})
 		if(this.data.TabCur == '0') {
-			console.log('test',this.data.searchNum,10,this.data.searchValue)
-			this.getSearch(this.data.searchNum,10,this.data.searchValue).then(value => {
+			this.getSearch(this.data.searchNum,10,this.data.value).then(value => {
 				console.log(value)
 				this.data.searchActivityList.push(...value.rows)
 				this.setData({

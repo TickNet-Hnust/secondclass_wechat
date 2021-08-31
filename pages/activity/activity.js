@@ -22,7 +22,7 @@ Page({
 		this.setData({
 		  TabCur: e.currentTarget.dataset.id,
 		})
-		this.toggleDelay()
+		// this.toggleDelay()
 	  },
 	// activeChange(e) {
 	// 	this.data.active = e.detail.index
@@ -42,13 +42,13 @@ Page({
 			temp = 'toggleDelayThree'
 		}
 		that.setData({
-		  [temp]: true
+		  	[temp]: true
 		})
 		setTimeout(function() {
 		  that.setData({
 			[temp]: false
 		  })
-		}, 1000)
+		}, 1500)
 	  },
 	jumpDetail(e) {
 		console.log(e)
@@ -129,10 +129,10 @@ Page({
 				myActivityList:value.rows
 			})
 		})
-		setTimeout(() => {
+		// setTimeout(() => {
 
 			this.toggleDelay()
-		},200)
+		// },200)
 	},
 
 	/**

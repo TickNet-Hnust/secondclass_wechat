@@ -32,7 +32,7 @@
 				placeholder="请输入活动关键词" 
 				bind:search="searchActivity"
 				bind:focus="focusSearch"
-				maxlength="{{}}"
+				maxlength="{{20}}"
 				focus
 			/>
 			<view class="searchBody"  wx:if="{{show}}">
@@ -58,9 +58,9 @@
 					<van-empty image="search" description="没有找到匹配的活动" style="margin: 0 auto;"/>
 				</view>
 				<view class="activityAbstract">
-					<view class="activityFull" wx:for="{{searchActivityList}}" wx:key="index" data-id="{{item.id}}" bindtap="jumpDetail">
+					<view  wx:for="{{searchActivityList}}" wx:key="index" data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelayOne?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 						<view>
-							<image mode="aspectFill" lazy-load src="{{item.image}}"></image>
+							<ab-easy-image src="{{item.image}}"></ab-easy-image>
 						</view>
 						<view >
 							<view class="tabMainText">
@@ -81,9 +81,9 @@
 		<view class="searchAll">
 				
 				<view class="activityAbstract">
-					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.id}}" bindtap="jumpDetail" >
+					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.id}}" bindtap="jumpDetail" >
 					<view>
-						<image mode="aspectFill" lazy-load src="{{item.image}}"></image>
+						<ab-easy-image src="{{item.image}}"></ab-easy-image>
 					</view>
 					<view >
 						<view class="tabMainText">
@@ -102,9 +102,9 @@
 	<view  hidden="{{2!=TabCur}}" class="">
 		<view class="searchHot">
 				<view class="activityAbstract">
-				<view wx:for="{{hotActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}"  class="activityFull {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view wx:for="{{hotActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}"  class="activityFull {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
-						<image mode="aspectFill" lazy-load src="{{item.image}}"></image>
+						<ab-easy-image src="{{item.image}}"></ab-easy-image>
 					</view>
 					<view >
 						<view class="tabMainText">

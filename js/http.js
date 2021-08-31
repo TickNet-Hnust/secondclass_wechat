@@ -23,6 +23,7 @@ export const request = (opt) => {
 	let _url = baseUrl + url
 	wx.showLoading({
 		title: '数据加载...',
+		mask:true
 	})
 	return new Promise((resolve, reject) => {
 		wx.request({

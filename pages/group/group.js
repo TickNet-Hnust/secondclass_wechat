@@ -21,9 +21,9 @@ Page({
 	},
 	tabSelect(e) {
 		this.setData({
-		  TabCur: e.currentTarget.dataset.id,
+			TabCur: e.currentTarget.dataset.id,
 		})
-		this.toggleDelay()
+		// this.toggleDelay()
 	  },
 	// activeChange(e) {
 	// 	console.log(e)
@@ -34,18 +34,22 @@ Page({
 	// 	this.toggleDelay()
 	// },
 	toggleDelay() {
-		
-		var that = this;
-		let temp = this.data.TabCur == 0 ? 'toggleDelayOne' :
-		(this.data.TabCur == 1 ? 'toggleDelayTwo':'toggleDelayThree')
-		that.setData({
-		  [temp]: true
+		let temp 
+		if(this.data.TabCur == 0) {
+			temp = 'toggleDelayOne'
+		}else if(this.data.TabCur == 1) {
+			temp = 'toggleDelayTwo'
+		}else {
+			temp = 'toggleDelayThree'
+		}
+		this.setData({
+			[temp]: true
 		})
-		setTimeout(function() {
-		  that.setData({
-			[temp]: false
-		  })
-		}, 1000)
+		setTimeout(()=> {
+			this.setData({
+				[temp]: false
+			})
+		}, 1500)
 	  },
 	jumpDetail(e) {
 		console.log(e)

@@ -1,5 +1,5 @@
 <!--pages/activity-custom/activity-custom.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">自定义活动</view>
 </cu-custom>
 <view class="custom">
@@ -289,10 +289,10 @@
       <view class="action text-green" bindtap="surePosition">确定</view>
       <view class="action text-blue" bindtap="hideModal">取消</view>
     </view>
-    <view >
-		<map 
-			id="myMap" 
-			show-location 
+    <view>
+		<map
+			id="myMap"
+			show-location
 		>
 			<!-- <view class="maker">&#xe664;</view> -->
 			<image  class="maker" src="../../images/my_marker.png"></image>

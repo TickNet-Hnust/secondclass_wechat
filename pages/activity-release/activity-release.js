@@ -6,7 +6,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		TabCur: '',
+		TabCur: 0,
 		templateList:[],
 		toggleDelay:false,
 		use: [
@@ -63,18 +63,23 @@ Page({
 			this.setData({
 				TabCur: e.currentTarget.dataset.id,
 			})
-			this.toggleDelay()
 	  },
 	toggleDelay() {
 		var that = this;
+		let temp
+		if(this.data.TabCur == 0) {
+			temp = 'toggleDelayOne'
+		}else {
+			temp = 'toggleDelayTwo'
+		}
 		that.setData({
-		  toggleDelay: true
+		  [temp]: true
 		})
 		setTimeout(function() {
 		  that.setData({
-			toggleDelay: false
+			[temp]: false
 		  })
-		}, 1000)
+		}, 1500)
 	  },
 	jumpTemplate(event) {
 		wx.navigateTo({
@@ -106,9 +111,7 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-		this.setData({     //解决bug做出的奇怪行为1
-			TabCur : 0     
-		})
+		
 	},	
 
 	/**
@@ -131,7 +134,7 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-
+		this.toggleDelay()
 	},
 
 	/**

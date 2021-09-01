@@ -6,7 +6,6 @@
 <wxs module="m3">
 	function format(str) {
 		if(str == null) return 'http://' //让其加载失败
-		console.log(str.split(';'))
 		return	str.split(';')[1]
 	}
 	module.exports.format = format

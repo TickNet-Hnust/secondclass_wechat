@@ -47,7 +47,6 @@ Page({
 		}, 2000)
 	  },
 	jumpDetail(e) {
-		console.log(e)
 		wx.navigateTo({
 			url: `../group-detail/group-detail?gid=${e.currentTarget.dataset.id}`,
 		})
@@ -77,7 +76,6 @@ Page({
 			content: '确定删除所有搜索记录吗',
 			success:(res) => {
 			  if (res.confirm) {
-				console.log('用户点击确定')
 				this.setData({
 					tags:[]
 				})
@@ -88,7 +86,6 @@ Page({
 					duration: 1000
 				  })
 			  } else if (res.cancel) {
-				console.log('用户点击取消')
 				wx.showToast({
 					title: '用户取消',
 					icon: 'none',
@@ -198,6 +195,7 @@ Page({
 			this.getAll(),
 			this.getHot()
 		]).then(value => {
+			console.log(123)
 			this.setData({
 				allGroupList:value[0].rows,
 				hotGroupList:value[1].rows
@@ -272,11 +270,10 @@ Page({
 			isLoading:true
 		})
 		if(this.data.TabCur == '0') {
-			this.getSearch(this.data.searchNum,10,this.data.value).then(value => {
-				console.log(value)
-				this.data.searchActivityList.push(...value.rows)
+			this.getSearch(this.data.value,this.data.searchNum).then(value => {
+				this.data.searchGroupList.push(...value.rows)
 				this.setData({
-					searchActivityList:this.data.searchActivityList,
+					searchGroupList:this.data.searchGroupList,
 					searchNum: this.data.searchNum + 1,
 					
 					isLoading:false
@@ -284,7 +281,6 @@ Page({
 			})
 		}else if(this.data.TabCur == '1') {
 			this.getAll(this.data.allNum,10).then(value => {
-				console.log(value,'allgroup')
 				this.data.allGroupList.push(...value.rows)
 				this.setData({
 					allGroupList:this.data.allGroupList,
@@ -294,7 +290,6 @@ Page({
 			})
 		} else {
 			this.getHot(this.data.hotNum,10).then(value => {
-				console.log(value)
 				this.data.hotGroupList.push(...value.rows)
 				this.setData({
 					hotGroupList:this.data.hotGroupList,

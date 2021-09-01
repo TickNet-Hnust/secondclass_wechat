@@ -290,7 +290,6 @@ Page({
 				this.setData({
 					searchActivityList:this.data.searchActivityList,
 					searchNum: this.data.searchNum + 1,
-					
 					isLoading:false
 				})
 			})

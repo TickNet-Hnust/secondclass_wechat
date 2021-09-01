@@ -39,7 +39,6 @@ Component({
 		 * 加载成功
 		 */
 		_loadSuccess: function(e) {
-			console.log('加载成功')
 			this.setData({
 				loadFinish: true
 			});
@@ -49,7 +48,6 @@ Component({
 		 * 加载失败
 		 */
 		_loadFail: function(e) {
-			console.log('加载失败')
 			this.setData({
 				loadFinish: true,
 				src: this.data.error

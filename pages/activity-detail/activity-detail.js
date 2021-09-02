@@ -415,48 +415,48 @@ Page({
 	},
 	throttle(e){
 		//拿到点击时传来的方法名
-		// let funcName = e.currentTarget.dataset.methods
-		// console.log(funcName,'传来的方法名')
-		// 	if(!this.data.valid){
-		// 		return false 
-		//  }
-		//  this.setData({
-		// 	 valid:false,
-		//  })
-		//  console.log(this.data.count,'执行次数')
-		//  if(this.data.count==0)
-		//  {
-		// 	this[funcName]();
-		// 	this.setData({
-		// 		valid:true,
-		// 		count:this.data.count+1,
-		// 	})
-
-		//  }else{
-		// 	  setTimeout(() => {
-		// 	 //通过方法名运行该函数
-		// 	  this[funcName]();
-		// 		this.setData({
-		// 			valid:true,
-		// 			count:this.data.count+1,
-		// 		})
-		//   }, 2000)
-		//  }
 		let funcName = e.currentTarget.dataset.methods
-		console.log(funcName,'传进来的方法名')
-		console.log(this.data.valid,'进来时的状态')
-		 if(this.data.valid)
+		console.log(funcName,'传来的方法名')
+			if(!this.data.valid){
+				return false 
+		 }
+		 this.setData({
+			 valid:false,
+		 })
+		 if(this.data.count==0)
 		 {
-			console.log('执行函数');
+			console.log('直接运行')
 			this[funcName]();
 			this.setData({
-				valid:false,
+				valid:true,
+				count:this.data.count+1,
 			})
-			
 		 }else{
-			  console.log('return false');
-			  return false;
+			  setTimeout(() => {
+			 //通过方法名运行该函数
+			  this[funcName]();
+				this.setData({
+					valid:true,
+					count:this.data.count+1,
+				})
+				console.log('两秒之后运行')
+		  }, 2000)
 		 }
+		// let funcName = e.currentTarget.dataset.methods
+		// console.log(funcName,'传进来的方法名')
+		// console.log(this.data.valid,'进来时的状态')
+		//  if(this.data.valid)
+		//  {
+		// 	console.log('执行函数');
+		// 	this[funcName]();
+		// 	this.setData({
+		// 		valid:false,
+		// 	})
+			
+		//  }else{
+		// 	  console.log('return false');
+		// 	  return false;
+		//  }
 	},
 	enroll() {
 		request({

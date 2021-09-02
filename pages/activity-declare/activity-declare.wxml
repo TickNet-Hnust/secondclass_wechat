@@ -4,22 +4,25 @@
 </cu-custom>
 <view class="xuanfu">
 	<view class="cu-list menu ">
-		<view class="cu-item arrow" wx:if="{{maxLayer==3}}">
-			<view class="content text-left" bindtap="showModal" data-target="RadioModal1">
+
+		<view class="cu-item arrow" wx:if="{{maxLayer==3}}" bindtap="showModal" data-target="RadioModal1">
+			<view class="content text-left">
 				<text class="text-grey">活动级别</text>
 			</view>
 			<view class="action">
 				{{rankName}}
 			</view>
 		</view>
-		<view class="cu-item arrow">
-			<view class="content text-left"  bindtap="showModal" data-target="RadioModal2">
+
+		<view class="cu-item arrow" bindtap="showModal" data-target="RadioModal2">
+			<view class="content text-left">
 				<text class="text-grey">申报理由</text> 
 			</view>
 			<view class="action">
 				{{TabCur==0 ?postData1.reason:postData2.reason}}
 			</view>
 		</view>
+
 		<view class="cu-item">
 			<view class="content text-left">
 				<text class="text-grey">申请积分</text>

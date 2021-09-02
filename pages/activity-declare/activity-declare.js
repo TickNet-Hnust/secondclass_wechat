@@ -213,8 +213,8 @@ Page({
 
          postDataR.push(postData1Back);
 			})
-			console.log(postDataR,'签到要发送请求的数据postData');
-			if(postDataR.length==0||(postDataR[0].applyIntegral==null||postDataR[0].reason==null))
+			console.log(postDataR,'签到要发送请求的数据postDataR');
+			if(postDataR.length==0||(postDataR[0].applyIntegral==''||postDataR[0].reason==''))
 			{
 				wx.showToast({
 					title: '请填写完全',
@@ -250,9 +250,9 @@ Page({
 
          postDataD.push(postData2Back);
 			})
-			console.log(postDataD,'申报要发送请求的数据postData');
+			console.log(postDataD,'申报要发送请求的数据postDataD');
 			//method要搞清，要发POST而不是GET
-			if(postDataD.length==0||(postDataD[0].applyIntegral==null||postDataD[0].reason==null||postDataD[0].material==null))
+			if(postDataD.length==0||(postDataD[0].applyIntegral==''||postDataD[0].reason==''||postDataD[0].material==''))
 			{
 				wx.showToast({
 					title: '请填写完全',

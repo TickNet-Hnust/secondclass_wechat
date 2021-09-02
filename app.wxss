@@ -30,9 +30,12 @@
 	/* background-color: red; */
 	margin: 10rpx 0;
 }
+.activityAbstract > view > view:first-child {
+	height:28vw
+}
 .activityAbstract image {
 	/* border-radius: 20rpx; */
-	width: 100%;
+	width: 47vw;
 	height: 28vw;
 }
 .van-empty image {

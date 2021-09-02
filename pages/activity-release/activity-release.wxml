@@ -1,5 +1,5 @@
 <!--pages/activity-release/activity-release.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">活动发布</view>
 </cu-custom>
 <view class="release">
@@ -17,7 +17,7 @@
 	<!-- 常用 -->
 	<view  hidden="{{0!=TabCur}}" class="">
 		<view class="activityTemplate">
-				<view wx:for="{{templateList}}" wx:key="index" data-id="{{item.id}}"  bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view wx:for="{{templateList}}" wx:key="index" data-id="{{item.id}}"  bindtap="jumpTemplate" class="templateItem {{toggleDelayOne?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<text class="itemMainText">{{item.name}}</text>
 					<text class="itemSideText">{{item.activityIntroduce}}</text>
 				</view>
@@ -27,7 +27,7 @@
 	<!-- 模版库 -->
 	<view  hidden="{{1!=TabCur}}" class="">
 		<view class="activityTemplate">
-				<view wx:for="{{templateList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpTemplate" class="templateItem {{toggleDelay?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view wx:for="{{templateList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpTemplate" class="templateItem {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<text class="itemMainText">{{item.name}}</text>
 					<text class="itemSideText">{{item.activityIntroduce}}</text>
 				</view>

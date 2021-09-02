@@ -63,6 +63,7 @@
 	},
 	"usingComponents": {
 		"mp-html": "mp-html",
+		"ab-easy-image": "/components/ab-easy-image/ab-easy-image",
 		"cu-custom": "/colorui/components/cu-custom",
 		"van-tab": "@vant/weapp/tab/index",
 		"van-tabs": "@vant/weapp/tabs/index",

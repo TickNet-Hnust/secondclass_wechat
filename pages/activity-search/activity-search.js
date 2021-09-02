@@ -18,28 +18,31 @@ Page({
 		allNum:2,
 		searchActivityList:[],
 		searchNum:2,
-		searchValue:'',
-		TabCur:''
+		TabCur:0
 	},
 	tabSelect(e) {
 		this.setData({
 		  TabCur: e.currentTarget.dataset.id,
 		})
-		// setTimeout(() => {
-			this.toggleDelay()
-		// })
 	  },
 	toggleDelay() {
 		var that = this;
-		let temp = this.data.TabCur == 1 ? 'toggleDelayTwo': 'toggleDelayThree'
+		let temp 
+		if(this.data.TabCur == 0) {
+			temp = 'toggleDelayOne'
+		}else if(this.data.TabCur == 1) {
+			temp = 'toggleDelayTwo'
+		}else {
+			temp = 'toggleDelayThree'
+		}
 		that.setData({
-		  [temp]: true
-		})
+			[temp]: true
+		  })
 		setTimeout(function() {
 		  that.setData({
 			[temp]: false
 		  })
-		}, 1000)
+		}, 1500)
 	},
 	jumpDetail(e) {
 		console.log(e)
@@ -68,12 +71,12 @@ Page({
 			tags:this.data.tags
 		})
 		wx.setStorageSync('Atags', this.data.tags)
-		this.getSearch(1,10,event.target.dataset.item.trim()).then(value => {
+		this.getSearch(1,10,event.target.dataset.item).then(value => {
 			this.setData({
 				searchActivityList:value.rows,
-				searchValue: event.target.dataset.item
 			})
 		})
+		this.toggleDelay()
 	},
 	//点击垃圾桶触发
 	clearTags() {
@@ -115,21 +118,28 @@ Page({
 	searchActivity(event){
 		event.detail = event.detail.trim()
 		if(event.detail) {
-			let temp = wx.getStorageSync('Atags') || []
-			temp.length >= 8 && temp.pop()
-			temp.unshift(event.detail)
-			let index = temp.indexOf(event.detail)
+			let temp =  this.data.tags
+			//判断重复
+			const index = temp.indexOf(event.detail)
+			console.log(index,'index')
+			if(index != -1) {
+				temp.unshift(...temp.splice(index,1))
+			} else {
+				//判断数量
+				if(temp.length >= 8) {
+					temp.pop()
+				}
+				temp.unshift(event.detail)
+			}
 			wx.setStorageSync('Atags',temp)
-
 			this.getSearch(1,10,event.detail).then(value => {
 				this.setData({
 					searchActivityList:value.rows,
-					searchValue: event.detail
+					tags: temp,
+					show: false
 				})
 			})
-			this.setData({
-				show: false
-			})
+			this.toggleDelay()
 		} else {
 			wx.showToast({
 			  title: '请输入内容再搜索',
@@ -212,7 +222,7 @@ Page({
 		})
 		this.getActivityList(1)
 		this.setData({
-			tags: wx.getStorageSync('Atags')
+			tags: wx.getStorageSync('Atags') || []
 		})
 	},
 
@@ -274,14 +284,12 @@ Page({
 			isLoading:true
 		})
 		if(this.data.active == '0') {
-			console.log('test',this.data.searchNum,10,this.data.searchValue)
-			this.getSearch(this.data.searchNum,10,this.data.searchValue).then(value => {
+			this.getSearch(this.data.searchNum,10,this.data.value).then(value => {
 				console.log(value)
 				this.data.searchActivityList.push(...value.rows)
 				this.setData({
 					searchActivityList:this.data.searchActivityList,
 					searchNum: this.data.searchNum + 1,
-					
 					isLoading:false
 				})
 			})

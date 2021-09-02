@@ -328,7 +328,7 @@ Page({
 		this.setData({
 			loadModal: false,
 		});
-		this.selectComponent('#tabs').resize();
+		// this.selectComponent('#tabs').resize();
 	},
 
 	/**

@@ -32,10 +32,10 @@
 		<van-empty description="空空如也" wx:if="{{recommendGroupList.length == 0}}"/>
 			<view class="">
 				<view class="cu-list menu-avatar">
-					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayOne?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
-							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
-						</image>
+					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayOne?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
+						<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+							
+						</ab-easy-image>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
@@ -67,10 +67,10 @@
 		<van-empty description="空空如也" wx:if="{{myGroupList.length == 0}}"/>
 			<view class="">				
 				<view class="cu-list menu-avatar">
-					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayTwo?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
-						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
-							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
-						</image>
+					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
+						<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+							
+						</ab-easy-image>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
@@ -101,10 +101,10 @@
 		<van-empty description="空空如也" wx:if="{{collectionGroupList.length == 0}}"/>
 			<view class="">
 				<view class="cu-list menu-avatar">
-					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelayThree?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
-							<!-- <view class="cu-tag badge">{{item.activityNumber}}</view> -->
-						</image>
+					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
+						<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+							
+						</ab-easy-image>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
@@ -134,6 +134,7 @@
 
   <wxs module="m3">
 	function format(str) {
+		if(str == null) return 'http://' //让其加载失败
 		console.log(str.split(';'))
 		return	str.split(';')[1]
 	}

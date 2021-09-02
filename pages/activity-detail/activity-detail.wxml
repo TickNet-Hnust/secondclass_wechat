@@ -419,7 +419,13 @@
 						</van-col>
 					</van-row>
 				</view>
-				<view class="flexLines">
+				<wxs module="vip">
+					function sure(state,list) {
+						return showData.enroll == 1 && (list[0].identities.includes(1) || list[0].identities.includes(2) || list[0].identities.includes(3))
+					}
+					module.exports.sure = sure
+				</wxs>
+				<view class="flexLines" wx:if="{{vip.sure(showData.enrollStatus,memberList)}}">
 					<van-row>
 						<van-col span="4">
 							<view>
@@ -445,13 +451,13 @@
 									<view class="cu-item margin-bottom">
 										<view class="content">
 											<text class="cuIcon-hot text-red"></text>
-        									<text class="">{{dict_sc_activity_status[showData.activityStatusId].dictLabel}}...</text>
+        									<text class="">{{dict_sc_activity_status[showData.status].dictLabel}}...</text>
 										</view>
 										<view class="action">
 											
 										</view>
 									</view>
-									<view wx:for="{{operation[showData.activityStatusId]}}" class="cu-item arrow" wx:key="index" data-status="{{item.status}}" bindtap="changeState">
+									<view wx:for="{{operation[showData.status]}}" class="cu-item arrow" wx:key="index" data-status="{{item.status}}" bindtap="changeState">
 										<view class="content">
 											<view>{{item.title}}</view>
 										</view>

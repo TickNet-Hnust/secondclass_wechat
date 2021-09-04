@@ -1,0 +1,8 @@
+<!--components/delayButton/delay-button.wxml-->
+<button
+	disabled="{{disabled}}"
+	class="{{className}}"
+	bindtap="onTap"
+>
+	<slot></slot> 
+</button>

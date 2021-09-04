@@ -10,7 +10,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		title: '自定义群组',
+		title: '创建群组',
 		imgList:[],
 		searchShow:false,
 		multiArray:[],

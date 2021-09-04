@@ -2458,8 +2458,8 @@ button.icon.lg {
 	opacity: 0;
 	outline: 0;
 	text-align: center;
-	-ms-transform: scale(1.185);
-	transform: scale(1.185);
+	/* -ms-transform: scale(1.185); */
+	/* transform: scale(1.185); */
 	backface-visibility: hidden;
 	perspective: 2000rpx;
 	background: rgba(0, 0, 0, 0.6);
@@ -2476,11 +2476,11 @@ button.icon.lg {
 
 .cu-modal.show {
 	opacity: 1;
-	transition-duration: 0.3s;
-	-ms-transform: scale(1);
-	transform: scale(1);
-	overflow-x: hidden;
-	overflow-y: auto;
+	/* transition-duration: 0.3s; */
+	/* -ms-transform: scale(1); */
+	/* transform: scale(1); */
+	/* overflow-x: hidden; */
+	/* overflow-y: auto; */
 	pointer-events: auto;
 }
 

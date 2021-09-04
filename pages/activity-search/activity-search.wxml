@@ -50,6 +50,8 @@
 						data-index="{{index}}"
 						data-item="{{item}}"
 						bindtap="tagSearch"
+						class="{{toggleDelayOne?'animation-slide-right':''}}"
+						style="animation-delay: {{(index+1)*0.1}}s;"
 					>{{item}}</van-tag>
 				</view>
 			</view>
@@ -57,12 +59,12 @@
 				<view class="activityAbstract" wx:if="{{searchActivityList.length == 0}}" >
 					<van-empty image="search" description="没有找到匹配的活动" style="margin: 0 auto;"/>
 				</view>
-				<view class="activityAbstract">
-					<view  wx:for="{{searchActivityList}}" wx:key="index" data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelayOne?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view class="activityAbstract"  bindtap="jumpDetail">
+					<view  wx:for="{{searchActivityList}}" wx:key="index" data-id="{{item.id}}" class="activityFull {{toggleDelayOne?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 						<view>
-							<ab-easy-image src="{{item.image}}"></ab-easy-image>
+							<ab-easy-image src="{{item.image}}" data-id="{{item.id}}"></ab-easy-image>
 						</view>
-						<view >
+						<view>
 							<view class="tabMainText">
 								{{item.name}}
 							</view>
@@ -80,10 +82,10 @@
 	<view  hidden="{{1!=TabCur}}" class="">
 		<view class="searchAll">
 				
-				<view class="activityAbstract">
-					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.id}}" bindtap="jumpDetail" >
+				<view class="activityAbstract" bindtap="jumpDetail">
+					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.id}}">
 					<view>
-						<ab-easy-image src="{{item.image}}"></ab-easy-image>
+						<ab-easy-image src="{{item.image}}" data-id="{{item.id}}"></ab-easy-image>
 					</view>
 					<view >
 						<view class="tabMainText">
@@ -101,10 +103,10 @@
 	<!-- 热门 -->
 	<view  hidden="{{2!=TabCur}}" class="">
 		<view class="searchHot">
-				<view class="activityAbstract">
-				<view wx:for="{{hotActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}"  class="activityFull {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view class="activityAbstract" bindtap="jumpDetail">
+				<view wx:for="{{hotActivityList}}" wx:key="index" data-id="{{item.id}}"  class="activityFull {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
-						<ab-easy-image src="{{item.image}}"></ab-easy-image>
+						<ab-easy-image src="{{item.image}}" data-id="{{item.id}}"></ab-easy-image>
 					</view>
 					<view >
 						<view class="tabMainText">

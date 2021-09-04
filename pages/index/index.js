@@ -12,6 +12,9 @@ Page({
     canIUseGetUserProfile: false,
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName') // 如需尝试获取用户信息可改为false
   },
+  enroll() {
+    console.log(123)
+  },
   kaifa() {
     wx.showModal({
       title: '提示',
@@ -245,6 +248,7 @@ Page({
       wx.stopPullDownRefresh({
         success: (res) => {},
       })
+      app.showSuccess()
     },1000)
   },
   getUserInfo(e) {
@@ -256,7 +260,6 @@ Page({
     })
   },
   onShow() {
-    
   },
   onReachBottom: function (obj) {
     this.setData({

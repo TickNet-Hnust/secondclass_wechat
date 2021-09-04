@@ -1,6 +1,6 @@
 <!--pages/activity-score/activity-score.wxml-->
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
-	<view slot="content">{{activityName}}</view>
+	<view slot="content">活动积分</view>
 </cu-custom>
 <view class="score">
   <scroll-view scroll-x class="bg-white nav text-center">

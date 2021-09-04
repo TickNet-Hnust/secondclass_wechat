@@ -33,6 +33,7 @@ App({
     
 		wx.getSystemInfo({
 			success: e => {
+        console.log(e)
 			  this.globalData.StatusBar = e.statusBarHeight;
 			  let capsule = wx.getMenuButtonBoundingClientRect();
 			  if (capsule) {
@@ -65,6 +66,13 @@ App({
 				  console.log('登录失败！' + res.errMsg)
 				}	
 			}
+    })
+  },
+  
+  showSuccess() {
+    wx.showToast({
+      title: '加载成功',
+      duration:1000
     })
   },
   globalData: {

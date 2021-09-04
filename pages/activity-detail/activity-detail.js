@@ -20,35 +20,35 @@ Page({
 					title: '申请发布',
 					status: 1
 				},
-				{
-					title: '管理员发布',
-					status: 2
-				},
+				// {
+				// 	title: '管理员发布',
+				// 	status: 2
+				// },
 				{
 					title: '取消',
 					status: 4
 				}
 			],
 			[
-				{ title: '审批', status: 2 },
-				{
-					title: '撤回',
-					status: 0
-				}
+				// { title: '审批', status: 2 },
+				// {
+				// 	title: '撤回',
+				// 	status: 0
+				// }
 			],
 			[
 				{
 					title: '启动报名',
 					status: 5
 				},
-				{
-					title: '撤回',
-					status: 0
-				},
-				{
-					title: '取消',
-					status: 4
-				}
+				// {
+				// 	title: '撤回',
+				// 	status: 0
+				// },
+				// {
+				// 	title: '取消',
+				// 	status: 4
+				// }
 			],
 			[
 				{ title: '修改', status: 0 },
@@ -76,10 +76,10 @@ Page({
 					title: '暂停报名',
 					status: 2
 				},
-				{
-					title: '撤回',
-					status: 0
-				}
+				// {
+				// 	title: '撤回',
+				// 	status: 0
+				// }
 			],
 			[
 				{
@@ -102,10 +102,10 @@ Page({
 				}
 			],
 			[
-				{
-					title: '取消',
-					status: 4
-				},
+				// {
+				// 	title: '取消',
+				// 	status: 4
+				// },
 				{
 					title: '恢复活动',
 					status: 7
@@ -195,17 +195,37 @@ Page({
 		this.setData({
 		  modalName: null
 		})
+	},
+	kaifa() {
+		wx.showModal({
+		  title: '提示',
+		  content:'该功能还在开发中，敬请期待...'
+		})
 	  },
 	jumpActivityScore() {
 		wx.navigateTo({
 			url: `../activity-score/activity-score?aid=${this.data.aid}`,
 		})
 	},
+	//进入发布花絮页面
 	jumpSideLight() {
 		wx.navigateTo({
 			url: `../activity-sideLight/activity-sideLight?aid=${this.data.aid}`,
 		})
 	},
+	canSendF() {
+		wx.showToast({
+			title: '该活动暂不允许发布花絮',
+			icon: 'none'
+		})
+	},
+	canSendP() {
+		wx.showToast({
+			title: '该活动暂不允许发布评论',
+			icon: 'none'
+		})
+	},
+	//进入发布评论页面
 	jumpComment() {
 		wx.navigateTo({
 			url: `../activity-comment/activity-comment?aid=${this.data.aid}`,
@@ -218,7 +238,7 @@ Page({
 	},
 	getCollection() {
 		//是否收藏了改群组
-		request({
+		return request({
 			url: `/secondClass/activity/collection/${this.data.aid}`,
 			method: 'get'
 		}).then(value => {
@@ -253,6 +273,16 @@ Page({
 			  icon: 'none',
 			  duration:2000
 			})
+			if(value.code == 200) {
+				this.setData({
+					'showData.status': e.currentTarget.dataset.status
+				})
+				wx.showToast({
+				  title: '修改活动状态成功',
+				  icon: 'none'
+				})
+			}
+			
 		})
 	},
 	reasonInput(e) {
@@ -357,7 +387,7 @@ Page({
 		})
 	},
 	computedState() {
-		console.log('computedState',this.data.memberList[0])
+		
 		//本人参加了
 		if(this.data?.memberList[0]?.identities.includes(4)) {
 			//报名了
@@ -414,34 +444,35 @@ Page({
 		}
 	},
 	throttle(e){
+		
 		//拿到点击时传来的方法名
-		let funcName = e.currentTarget.dataset.methods
-		console.log(funcName,'传来的方法名')
-			if(!this.data.valid){
-				return false 
-		 }
-		 this.setData({
-			 valid:false,
-		 })
-		 console.log(this.data.count,'执行次数')
-		 if(this.data.count==0)
-		 {
-			this[funcName]();
-			this.setData({
-				valid:true,
-				count:this.data.count+1,
-			})
+		// let funcName = e.currentTarget.dataset.methods
+		// console.log(funcName,'传来的方法名')
+		// 	if(!this.data.valid){
+		// 		return false 
+		//  }
+		//  this.setData({
+		// 	 valid:false,
+		//  })
+		//  console.log(this.data.count,'执行次数')
+		//  if(this.data.count==0)
+		//  {
+		// 	this[funcName]();
+		// 	this.setData({
+		// 		valid:true,
+		// 		count:this.data.count+1,
+		// 	})
 
-		 }else{
-			  setTimeout(() => {
-			 //通过方法名运行该函数
-			  this[funcName]();
-				this.setData({
-					valid:true,
-					count:this.data.count+1,
-				})
-		  }, 2000)
-		 }
+		//  }else{
+		// 	  setTimeout(() => {
+		// 	 //通过方法名运行该函数
+		// 	  this[funcName]();
+		// 		this.setData({
+		// 			valid:true,
+		// 			count:this.data.count+1,
+		// 		})
+		//   }, 2000)
+		//  }
 		// let funcName = e.currentTarget.dataset.methods
 		// console.log(funcName,'传进来的方法名')
 		// console.log(this.data.valid,'进来时的状态')
@@ -538,7 +569,7 @@ Page({
 		return '123'
 	},
 	getMember() {
-		request({
+		return request({
 			url: `/secondClass/activity/${this.data.aid}/participants`,
 			method: 'GET',
 			data:{
@@ -554,7 +585,7 @@ Page({
 		})
 	},
 	getFlower() {
-		request({
+		return request({
 			url: '/secondClass/activity/flower/list',
 			method: 'GET',
 			data:{
@@ -567,27 +598,28 @@ Page({
 		})
 	},
 	getEvaluation() {
-		request({
+		return request({
 			url: '/secondClass/activity/evaluation/list',
 			method: 'GET',
 			data:{
 				activityId:this.data.aid
 			}
 		}).then(value => {
+			console.log(value,'评论')
 			this.setData({
 				remarkList: value.rows
 			})
 		})
 	},
 	getDetail() {
-		request({
+		return request({
 			url: `/secondClass/activity/${this.data.aid}`,
 			method: 'GET',
 			data:{
 				activityId:this.data.aid
 			}
 		}).then(value => {
-			console.log(value)
+			console.log(value,'showdaata')
 			this.setData({
 				showData: value.data
 			})
@@ -605,6 +637,7 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
+		console.log('aid',options.aid)
 		this.setData({
 			aid:options.aid
 		})
@@ -661,20 +694,33 @@ Page({
 	 */
 	onPullDownRefresh: function () {
 		console.log('onPullDownRefresh')
-		if(this.data.active == 0) {
-			this.getDetail()
-			this.getCollection()
-			this.getMember()
-		} else if(this.data.active ==1) {
-			this.getMember()
-		}else if(this.data.active ==2) {
-			this.getFlower()
+		let arr = []
+		if(this.data.TabCur == 0) {
+			arr = [
+				this.getDetail(),
+				this.getCollection(),
+				this.getMember()
+			]
+		} else if(this.data.TabCur ==1) {
+			arr = [
+				this.getMember()
+			]
+		}else if(this.data.TabCur ==2) {
+			arr = [
+				this.getFlower()
+			]
 		}else {
-			this.getEvaluation()
+			arr = [
+				this.getEvaluation()
+			]
 		}
-		wx.stopPullDownRefresh({
-			success: (res) => {},
+		Promise.all(arr).then(() => {
+			wx.stopPullDownRefresh({
+				success: (res) => {},
+			})
+			app.showSuccess()
 		})
+		
 	},
 
 	/**

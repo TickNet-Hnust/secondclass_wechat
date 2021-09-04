@@ -1,11 +1,13 @@
 // pages/activity/activity.js
 import {request} from '../../js/http.js'
+const app = getApp()
 Page({
 
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
+		isNeedToRefresh: false, //switch切换的时候，页面不刷新数据
 		toggleDelay:false,
 		// active:0,
 		value: '',
@@ -51,17 +53,19 @@ Page({
 		}, 1500)
 	  },
 	jumpDetail(e) {
-		console.log(e)
+		this.data.isNeedToRefresh = true
 		wx.navigateTo({
-		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
+			url: `../activity-detail/activity-detail?aid=${e.target.dataset.id}`,
 		})
 	},
 	jumpSearch() {
+		this.data.isNeedToRefresh = true
 		wx.navigateTo({
 		  url: '../activity-search/activity-search',
 		})
 	},
 	jumpRelease() {
+		this.data.isNeedToRefresh = true
 		wx.navigateTo({
 			url: '../activity-release/activity-release',
 		  })
@@ -129,10 +133,6 @@ Page({
 				myActivityList:value.rows
 			})
 		})
-		// setTimeout(() => {
-
-			this.toggleDelay()
-		// },200)
 	},
 
 	/**
@@ -145,8 +145,30 @@ Page({
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
-	onShow: function () {
-		
+	onShow: function (e) {
+		if(this.data.isNeedToRefresh) {
+			this.getRecommend().then(value => {
+				console.log(value)
+				this.setData({
+					recommendActivityList:value.rows
+				})
+			})
+	
+			this.getCollection().then(value => {
+				console.log(value)
+				this.setData({
+					collectionActivityList:value.rows
+				})
+			})
+	
+			this.getMy().then(value => {
+				console.log(value)
+				this.setData({
+					myActivityList:value.rows
+				})
+			})
+		}
+		this.data.isNeedToRefresh = false
 	},
 
 	/**
@@ -186,9 +208,9 @@ Page({
 				success: (res) => {},
 			})
 			this.toggleDelay()
+			app.showSuccess()
 		})
 	},
-
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
@@ -203,9 +225,9 @@ Page({
 				this.setData({
 					recommendActivityList:this.data.recommendActivityList,
 					recommendNum: this.data.recommendNum + 1,
-					
 					isLoading:false
 				})
+				// app.showSuccess()
 			})
 		}else if(this.data.TabCur == '1') {
 			this.getMy(this.data.myNum,10).then(value => {
@@ -217,6 +239,7 @@ Page({
 					
 					isLoading:false
 				})
+				// app.showSuccess()
 			})
 		} else {
 			this.getCollection(this.data.collectionNum,10).then(value => {
@@ -225,9 +248,9 @@ Page({
 				this.setData({
 					collectionActivityList:this.data.collectionActivityList,
 					collectionNum: this.data.collectionNum + 1,
-					
 					isLoading:false
 				})
+				// app.showSuccess()
 			})
 		}
 	},

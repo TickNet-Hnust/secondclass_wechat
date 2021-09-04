@@ -7,13 +7,13 @@
 	<view class="bg-white padding">
 		<text>请评分：</text>
 		<van-rate
-		value="{{ postData.score }}"
-		allow-half
-		size="25"
-		void-icon="star"
-		void-color="#eee"
-		bind:change="onChange"
-	/>
+			value="{{ postData.score }}"
+			allow-half
+			size="25"
+			void-icon="star"
+			void-color="#eee"
+			bind:change="onChange"
+		/>
 	</view>
 	<view class="bg-white padding text-center">
 		<button class="bg-blue" bindtap="sure">确认发布</button>

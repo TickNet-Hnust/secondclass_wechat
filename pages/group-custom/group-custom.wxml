@@ -37,7 +37,7 @@
 		<button class="cu-btn line-green " data-id="postData.activityReleaserId" data-name="activityReleaserName" bindtap="showSearch" >Choose</button>
 		<!-- </view> -->
 	</view>
-	<view class="cu-form-group margin-top" wx:if="{{title == '自定义群组'}}">
+	<view class="cu-form-group margin-top" wx:if="{{title == '创建群组'}}">
 		<view class="title">分类</view>
 		<view class="action ">
 			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
@@ -55,7 +55,7 @@
 		</picker>
 		</view>
 	</view>
-	<view class="cu-form-group " wx:if="{{title == '自定义群组'}}">
+	<view class="cu-form-group " wx:if="{{title == '创建群组'}}">
 		<view class="title">指导单位</view>
 		<picker bindchange="deptChange" value="{{fakeData.deptIdno}}" range="{{deptList}}" range-key="deptName">
 			<view class="picker">

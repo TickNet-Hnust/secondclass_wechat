@@ -1,6 +1,6 @@
 <scroll-view scroll-y class="scrollPage">
   <view class="UCenter-bg">
-    <image src="/images/logo.png" class="png" mode="widthFix"></image>
+    <image src="../../images/logo.png" class="png" mode="widthFix"></image>
     <!-- <view class="text-xl">第二课堂成绩单
       <text class="text-df">v2.0</text>
     </view>
@@ -15,9 +15,12 @@
       <text wx:if="{{!isLogin}}" catchtap="login">请点击登录</text>
       <text wx:else>{{nickName}}</text>
     </view>
-    <image mode="aspectFill" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/88fa6475-d5eb-4178-bbf9-0bf656762779.gif" mode="scaleToFill" class="gif-wave"></image>
+    <view class="girfather">
+      <image style="transform: rotate({{angle}}deg);transition: all {{multiple/1000}}s;" class="gifImg gif-wave" mode="aspectFill" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/88fa6475-d5eb-4178-bbf9-0bf656762779.gif" mode="scaleToFill"></image>
+      <view style="transform: rotate({{angle}}deg);transition: all {{multiple/1000}}s;" class="bg-white gif-buttom"></view>
+    </view>
   </view>
-  <view class="padding flex text-center text-grey bg-white shadow-warp">
+  <view class="padding flex text-center bg-white text-grey" style="z-index: 20;position: relative;">
     <view class="flex flex-sub flex-direction solid-right" bindtap="switchColor">
       <view class="text-xxl text-orange">12</view>
       <view class="margin-top-sm">

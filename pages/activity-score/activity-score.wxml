@@ -164,7 +164,7 @@
                 <radio class="blue sm radio" value="" checked></radio>
                 <text class="text-sm">全部</text>
               </label>
-              <label class="margin-left-sm" wx:for="{{dict_sc_activity_integral}}">
+              <label class="margin-left-sm" wx:for="{{dict_sc_activity_integral}}" wx:key="index"> 
                 <radio class="blue sm radio" value="{{item.dictValue}}"></radio>
                 <text class="text-sm">{{item.dictLabel}}</text>
               </label>
@@ -188,7 +188,7 @@
       <view class="cu-item  margin-top-sm" wx:for="{{declareList}}" wx:key="index">
         <view class="content padding-tb-sm">
           <view>
-            <text class="text-sm">{{item.nickName}} • {{item.userName}}</text>
+            <text class="text-sm">{{item.nickName}}•{{item.userName}}</text>
             
             <view class="cu-tag round bg-green sm" wx:for="{{item.identities}}" wx:key="index">
                 {{ident.it(item)}}

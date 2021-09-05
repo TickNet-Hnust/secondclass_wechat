@@ -104,7 +104,7 @@
 						</view>
 					</view>
 				</view>
-				<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='notice'?'show':''}}">
+				<view catchtouchmove="return" class="cu-modal {{modalName=='notice'?'show':''}}">
 						<view class="cu-dialog">
 							<view class="cu-bar bg-white justify-end">
 							<view class="content">介绍</view>
@@ -209,7 +209,7 @@
 							>控制台</button>
 							<!-- <text style="font-size: 24rpx;color:#bbb" ></text> -->
 						</van-col>
-						<view catchtouchmove="return" class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}" bindtap="hideModal">
+						<view catchtouchmove="return" class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}">
 							<view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
 								<view class="cu-list menu text-left">
 									<view class="cu-item arrow" bindtap="jumpGroupCustom">
@@ -257,7 +257,7 @@
 								</view>
 							</view>
 						</view>
-						<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='Messages'?'show':''}}">
+						<view catchtouchmove="return" class="cu-modal {{modalName=='Messages'?'show':''}}">
 							<view class="cu-dialog">
 								<view class="cu-bar bg-white justify-end">
 								<view class="content">{{title}}</view>
@@ -314,7 +314,7 @@
 								<view class="cu-tag round bg-green sm" wx:if="{{item.job}}">{{item.job}}</view>
 							</view>
 							<view class="text-gray text-xs flex">
-							<text class="text-cut">{{item.deptName}}-{{item.className}}-{{item.userName}}</text>
+							<text class="text-cut">{{item.deptName}}-{{item.userName}}</text>
 							</view>
 						</view>
 						<view class="action" wx:if="{{showData.joinStatus==1 && memberList[0].status == 1 && index!=0}}">
@@ -328,7 +328,7 @@
 				<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</scroll-view>
-			<view class="cu-modal bottom-modal {{modalName=='controlModal'?'show':''}}" bindtap="hideModal">
+			<view class="cu-modal bottom-modal {{modalName=='controlModal'?'show':''}}">
 				<view class="cu-dialog" >
 					<!-- <view class="cu-bar bg-white"> -->
 					<!-- <view class="action text-green" >确定</view> -->

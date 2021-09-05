@@ -19,7 +19,8 @@ Page({
 		allNum:2,
 		searchActivityList:[],
 		searchNum:2,
-		TabCur:0
+		TabCur:0,
+		isNeed: true,//第一次进入需要聚焦
 	},
 	tabSelect(e) {
 		this.setData({
@@ -245,6 +246,9 @@ Page({
 	 * 生命周期函数--监听页面隐藏
 	 */
 	onHide: function () {
+		this.setData({
+			isNeed: false
+		})
 	},
 
 	/**

@@ -18,7 +18,8 @@ Page({
 		hotNum:2,
 		allNum:2,				
 		searchNum:2,
-		TabCur:0
+		TabCur:0,
+		isNeed: true,//是否需要聚焦
 	},
 	tabSelect(e) {
 		this.setData({
@@ -202,7 +203,6 @@ Page({
 				allGroupList:value[0].rows,
 				hotGroupList:value[1].rows
 			})
-			this.toggleDelay()
 			app.showSuccess()
 		})
 		this.setData({
@@ -223,13 +223,16 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+
 	},
 
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
 	onHide: function () {
-		
+		this.setData({
+			isNeed: false
+		})
 	},
 
 	/**

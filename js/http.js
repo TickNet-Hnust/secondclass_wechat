@@ -4,7 +4,7 @@ var _baseUrl = '';
 if (flag) {
 	_baseUrl = 'http://127.0.0.1:8080';
 } else {
-	_baseUrl = 'http://127.0.0.1:8080';
+	_baseUrl = 'http://192.168.124.8:8080';
 }
 var baseUrl = _baseUrl;
 var commonParams = {
@@ -80,6 +80,7 @@ export const request = (opt) => {
 				}
 			},
 			fail: function (err) {
+				console.log(err,123)
 				wx.hideLoading()
 				wx.showToast({
 					title: '请求超时',

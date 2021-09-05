@@ -399,6 +399,7 @@ Page({
 			wx.stopPullDownRefresh({
 				success: (res) => {},
 			})
+			app.showSuccess()
 		})
 	},
 

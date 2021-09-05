@@ -32,7 +32,7 @@
 				bind:search="searchGroup"
 				bind:focus="focusSearch"
 				maxlength="{{10}}"
-				focus
+				focus="{{isNeed}}"
 			/>
 			<view class="searchBody"  wx:if="{{show}}">
 				<view class="history">

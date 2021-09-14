@@ -36,7 +36,7 @@
 							
 						<!-- </swiper-item> -->
 						<!-- <swiper-item> -->
-							<!-- <image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image> -->
+							<!-- <image mode="widthFix" class="adImg" src="../../images/选择/ad.png" alt="" srcset=""></image> -->
 						<!-- </swiper-item> -->
 					<!-- </swiper> -->
 					<view style="padding:20rpx 20rpx">
@@ -282,12 +282,12 @@
 							<view class="flexMainTitle">第三教学楼302室</view>
 							<view class="flexSideTitle">活动地点</view>
 						</van-col>
-						<van-col span="6" >
+						<!-- <van-col span="6" >
 							<button
 								bindtap="kaifa"
 								class="cu-btn line-green text-sm fr"
 							>查看地图</button>
-						</van-col>
+						</van-col> -->
 					</van-row>
 				</view>
 				<view class="flexLines">
@@ -325,7 +325,7 @@
 								签到时间
 								<view style="vertical-align: text-top;" class="cu-tag round bg-blue sm">{{registe.hint}}</view>
 							</view>
-							<view class="flexSideTitle" wx:if="{{!showData.registeStartTime}}">时间无限制</view>
+							<view class="flexSideTitle" wx:if="{{!showData.registeStartTime}}">签到时间无限制</view>
 							<view class="flexSideTitle" wx:else>{{showData.registeStartTime}} 至<view></view> {{showData.registeEndTime}}</view>
 						</van-col>
 						<van-col span="6" >
@@ -351,7 +351,7 @@
 									{{leave.hint}}
 								</view>
 							</view>
-							<view class="flexSideTitle">时间无限制</view>
+							<view class="flexSideTitle">请假时间无限制</view>
 							<!-- <view class="flexSideTitle" wx:else>{{showData.registeStartTime}} 至<view></view> {{showData.registeEndTime}}</view> -->
 						</van-col>
 						<van-col span="6" >
@@ -593,6 +593,7 @@
 							<view class="cu-tag radius sm">积分：{{item.integral==null?0:item.integral}}分</view>
 						</view>
 					</view>
+				<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 				</view>
 			</scroll-view>
@@ -636,14 +637,12 @@
 									}
 								}
 								function clear(src) {
-									console.log(src,'src')
 									if(src) { //先渲染模糊的图片
 										var arr =  src.split('_').reduce(
 											function(pre,cur) {
 												pre.push(cur.split(';')[1]);
 												return pre
 											},[])
-										console.log(arr)
 										return arr
 									}
 								}
@@ -654,22 +653,15 @@
 								wx:for="{{flower.blur(item.picture)}}" 
 								wx:key="index"
 							>
-								<image
+								<ab-easy-image
 									data-index="{{index}}"
 									class="flowerImage radius" 
 									src="{{item}}"
-								></image>
+								></ab-easy-image>
 							</block>
 						</view>
-						<!-- <view class="text-gray text-sm text-right padding">
-						<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
-						<text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
-						<text class="cuIcon-messagefill margin-lr-xs"></text> 30
-						</view> -->
-						<view class="cu-list menu-avatar comment solids-top">
-						
-						</view>
 					</view>
+					<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 					</view>
 			</view>
 	</view>
@@ -678,39 +670,30 @@
 		<van-empty description="空空如也" wx:if="{{remarkList.length == 0}}"/>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
-				<view class="cu-list menu-avatar comment ">
-				<view class="cu-item solids-top" wx:for="{{remarkList}}" wx:key="index">
-					<view class="cu-avatar round" style="background-image:url({{item.avatar}})"></view>
-					<view class="content">
-					<view class="text-grey">{{item.nickName}}</view>
-					<view class="text-gray text-content text-df">
-						{{item.content}}
-					</view>
-					<van-rate
-						value="{{ item.score }}"
-						allow-half
-						readonly 
-						size="12"
-						void-icon="star"
-						void-color="#eee"
-						bind:change="onChange"
-					/>
-					<!-- <view class="bg-grey padding-sm radius margin-top-sm  text-sm">
-						<view class="flex">
-						<view>凯尔：</view>
-						<view class="flex-sub">妹妹，你在帮他们给黑暗找借口吗?</view>
+					<view class="cu-list menu-avatar comment ">
+					<view class="cu-item solids-top" wx:for="{{remarkList}}" wx:key="index">
+						<view class="cu-avatar round" style="background-image:url({{item.avatar}})"></view>
+							<view class="content">
+								<view class="text-grey">{{item.nickName}}</view>
+								<view class="text-gray text-content text-df">
+									{{item.content}}
+								</view>
+								<van-rate
+									value="{{ item.score }}"
+									allow-half
+									readonly 
+									size="12"
+									void-icon="star"
+									void-color="#eee"
+									bind:change="onChange"
+								/>
+								<view class="margin-top-sm flex justify-between">
+								<view class="text-gray text-df">{{item.createTime}}</view>
+								</view>
+							</view>
 						</view>
-					</view> -->
-					<view class="margin-top-sm flex justify-between">
-						<view class="text-gray text-df">{{item.createTime}}</view>
-						<!-- <view>
-						<text class="cuIcon-appreciatefill text-red"></text>
-						<text class="cuIcon-messagefill text-gray margin-left-sm"></text>
-						</view> -->
 					</view>
-					</view>
-				</view>
-				</view>
+					<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</scroll-view>
 	</view>

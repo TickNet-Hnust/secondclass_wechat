@@ -94,12 +94,11 @@ Page({
         that.data.TimeOut = setInterval(() => {
           console.log(Math.random())
           that.setData({
-            angle:(Math.random()-0.5)*15 //最大旋转15deg
+            angle:(Math.random()-0.5)*10 //最大旋转10deg
           })
         },this.data.multiple)
       }
     })
-    
   },
   onHide() {
     

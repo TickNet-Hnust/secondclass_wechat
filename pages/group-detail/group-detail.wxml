@@ -120,7 +120,7 @@
 							</view>
 						</view>
 				</view>
-				<view catchtouchmove="return" class="cu-modal {{modalName=='AllMessage'?'show':''}}">
+				<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='AllMessage'?'show':''}}">
 						<view class="cu-dialog">
 							<view class="cu-bar bg-white justify-end">
 							<view class="content">群组消息</view>
@@ -209,7 +209,7 @@
 							>控制台</button>
 							<!-- <text style="font-size: 24rpx;color:#bbb" ></text> -->
 						</van-col>
-						<view catchtouchmove="return" class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}">
+						<view catchtouchmove="return" bindtap="hideModal" class="cu-modal drawer-modal justify-start {{modalName=='DrawerModalL'?'show':''}}">
 							<view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
 								<view class="cu-list menu text-left">
 									<view class="cu-item arrow" bindtap="jumpGroupCustom">
@@ -328,7 +328,7 @@
 				<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</scroll-view>
-			<view class="cu-modal bottom-modal {{modalName=='controlModal'?'show':''}}">
+			<view bindtap="hideModal" class="cu-modal bottom-modal  {{modalName=='controlModal'?'show':''}}">
 				<view class="cu-dialog" >
 					<!-- <view class="cu-bar bg-white"> -->
 					<!-- <view class="action text-green" >确定</view> -->
@@ -392,6 +392,7 @@
 				<view wx:else>
 					<van-empty description="快来发布第一个活动吧" />
 				</view>
+				<view wx:if="{{activityList.length!=0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 			</scroll-view>
 	</view>
 

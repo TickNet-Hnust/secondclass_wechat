@@ -104,6 +104,7 @@ Page({
 			this.setData({
 				templateList:value.rows
 			})
+			console.log(value.rows)
 		})
 	},
 

@@ -8,6 +8,7 @@
     </view>
   </view>
 </cu-custom>
+<!-- <video id="video" bindtap="fd" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/07/f7d4810c-a8ab-41a1-9ded-93a46ac30892.mp4"></video> -->
 <view class="container">
   <view class="chooseTop padding-top-sm">
     <swiper autoplay interval="5000" duration="500" style="height: 230rpx;">
@@ -111,10 +112,6 @@
         </view>
       </view>
     </view>
-      <!-- <view class="chooseMsg">• 关于开展向“心与馨”志愿支教服务队学习的倡议</view>
-      <view class="chooseMsg">• 撒旦士大夫撒旦 关于湖南科技大学第十九届学生会主席团候选人资格审查.</view>
-      <view class="chooseMsg">• 关于开展湖南科技大学第十九届学生会主席团候选人报名</view>
-      <view class="Middlearrow">></view> -->
   </view>
   <view class="chooseBottom" bindtap="kaifa">
     <view class="cu-bar bg-white">
@@ -126,7 +123,7 @@
   <view class="cu-card article no-card" bindtap="kaifa">
     <view class="cu-item shadow solid-bottom margin-bottom" >
       <view class="content">
-        <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="aspectFill"></image>
+        <image src="http://file.chinacourt.org/f.php?id=1410225&class=imageid" mode="aspectFill"></image>
         <view class="desc">
           <view class="text-content text-pink">  习近平:决胜全面建成小康社会决战脱贫攻坚继续建设经济繁荣民族团结环境优美</view>
           <view>
@@ -138,7 +135,7 @@
     </view>
     <view class="cu-item shadow padding-top">
     <view class="content">
-      <!-- <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="aspectFill"></image> -->
+      
       <view class="desc">
         <view class="text-content text-pink">  习近平:决胜全面建成小康社会决战脱贫攻坚继续建设经济繁荣民族团结环境优美</view>
         <view>
@@ -149,39 +146,5 @@
     </view>
   </view>
 </view>
-    <!-- <view class="chooseButtomTitle">
-      <view>新闻中心</view>
-      <view>></view>
-    </view>
-    <view>
-      <view class="newViews">
-        <text>
-          习近平:决胜全面建成小康社会决战脱贫攻坚继续建设经济繁荣民族团结环境优美
-        </text>
-        <view>
-          <text class="topping">置顶</text>
-          <text class="chooseFootText">人民网</text>
-        </view>
-      </view>
-      <view class="newViews">
-        <text>
-          二○—九年中国共产党党内统计公报
-        </text>
-        <view>
-          <text class="topping">置顶</text>
-          <text class="chooseFootText">人民网</text>
-          <text class="chooseFootText">2020年07月07日</text>
-        </view>
-      </view>
-      <view class="newViews">
-        <text>
-          《求是》杂志发表习近平总书记重要文章在“不忘初心、牢记使命”主题教育总结大会上的讲话
-        </text>
-        <view>
-          <text class="topping">置顶</text>
-          <text class="chooseFootText">人民网</text>
-        </view>
-      </view>
-    </view> -->
   </view>
 </view>

@@ -176,8 +176,11 @@ Page({
 		//录取方式
 		dict_admissionWay:[],
 		imgList:[],
-		leaveReason:'',
-		material:''
+		leaveReason:'', //请假原因
+		material:'', //请假材料
+		memberNum: 2,
+		flowerNum: 2,
+		evaluateNum: 2,
 	},
 	//tab切换
 	tabSelect(e) {
@@ -523,43 +526,53 @@ Page({
 				if(e.locationEnabled == false) {
 					wx.showModal({
 						showCancel:false,
-						content: '确保定位准确，请手动打开GPS'
+						content: '为确保定位准确，请先手动打开GPS'
 					})
 					flag = false
 				}
 			}
 		})
-		flag && wx.getLocation({
-			isHighAccuracy:true,
-			success:(res) => {
-				console.log(res)
-				request({
-					url: '/secondClass/activity/registe',
-					method: 'post',
-					data:{
-						activityId: this.data.aid,
-						location:`${res.longitude},${res.latitude}`
-					}
-				}).then(value => {
-					console.log(value)
-					if(value.code == 200) {
-						wx.showToast({
-							title: '签到成功',
-							icon: 'none',
-							duration:2000
-						})
-						this.getMember()
-					} else {
-						wx.showToast({
-							title: value.msg,
-							icon: 'none',
-							duration:2000
-						})
-					}
-					
-				})
-			}
-		})
+		if(flag) {
+			wx.showLoading({
+			  title: '签到中',
+			  mask:true
+			})
+			wx.getLocation({
+				isHighAccuracy:true,
+				success:(res) => {
+					console.log(res)
+					request({
+						url: '/secondClass/activity/registe',
+						method: 'post',
+						data:{
+							activityId: this.data.aid,
+							location:`${res.longitude},${res.latitude}`
+						}
+					}).then(value => {
+						console.log(value)
+						wx.hideLoading()
+						if(value.code == 200) {
+							setTimeout(() => {
+								wx.showToast({
+									title: '签到成功',
+									icon: 'none',
+									mask:true,
+									duration:2000
+								})
+							},500)
+							this.getMember()
+						} else {
+							wx.showToast({
+								title: value.msg,
+								icon: 'none',
+								mask:true,
+								duration:2000
+							})
+						}
+					})
+				}
+			})
+		}
 	},
 	//请假
 	leave() {
@@ -568,13 +581,13 @@ Page({
 	computedEnroll() {
 		return '123'
 	},
-	getMember() {
+	getMember(pageNum = 1,pageSize = 10) {
 		return request({
 			url: `/secondClass/activity/${this.data.aid}/participants`,
 			method: 'GET',
 			data:{
-				pageNum:1,
-				pageSize:10
+				pageNum,
+				pageSize
 			}
 		}).then(value => {
 			console.log(value,'getmember')
@@ -584,12 +597,14 @@ Page({
 			this.computedState()
 		})
 	},
-	getFlower() {
+	getFlower(pageNum = 1,pageSize = 10) {
 		return request({
 			url: '/secondClass/activity/flower/list',
 			method: 'GET',
 			data:{
-				activityId:this.data.aid
+				activityId:this.data.aid,
+				pageNum,
+				pageSize
 			}
 		}).then(value => {
 			this.setData({
@@ -597,12 +612,14 @@ Page({
 			})
 		})
 	},
-	getEvaluation() {
+	getEvaluation(pageNum = 1,pageSize = 10) {
 		return request({
 			url: '/secondClass/activity/evaluation/list',
 			method: 'GET',
 			data:{
-				activityId:this.data.aid
+				activityId:this.data.aid,
+				pageNum,
+				pageSize
 			}
 		}).then(value => {
 			console.log(value,'评论')
@@ -727,7 +744,63 @@ Page({
 	 * 页面上拉触底事件的处理函数
 	 */
 	onReachBottom: function () {
-
+		this.setData({
+			isLoading:true
+		})
+		if(this.data.TabCur == 1) {
+			request({
+				url: `/secondClass/activity/${this.data.aid}/participants`,
+				method: 'GET',
+				data:{
+					pageNum:this.data.memberNum,
+					pageSize:10
+				}
+			}).then(value => {
+				this.data.memberList.push(...value.rows)
+				this.data.memberNum++
+				this.setData({
+					memberList: this.data.memberList,
+					memberNum: this.data.memberNum,
+					isLoading:false
+				})
+			})
+		} else if(this.data.TabCur == 2) {
+			request({
+				url: '/secondClass/activity/flower/list',
+				method: 'GET',
+				data:{
+					activityId:this.data.aid,
+					pageNum:this.data.flowerNum,
+					pageSize:10
+				}
+			}).then(value => {
+				this.data.flowerList.push(...value.rows)
+				this.data.flowerNum++
+				this.setData({
+					flowerList: this.data.flowerList,
+					flowerNum: this.data.flowerNum,
+					isLoading:false
+				})
+			})
+		} else if(this.data.TabCur == 3) {
+			request({
+				url: '/secondClass/activity/evaluation/list',
+				method: 'GET',
+				data:{
+					activityId:this.data.aid,
+					pageNum:this.data.evaluateNum,
+					pageSize:10
+				}
+			}).then(value => {
+				this.data.remarkList.push(...value.rows)
+				this.data.evaluateNum++
+				this.setData({
+					remarkList: this.data.remarkList,
+					evaluateNum: this.data.evaluateNum,
+					isLoading:false
+				})
+			})
+		}
 	},
 
 	/**

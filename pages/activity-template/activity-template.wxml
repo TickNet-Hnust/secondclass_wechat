@@ -1,95 +1,239 @@
 <!--pages/activity-template/activity-template.wxml-->
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
-	<view slot="content">模版发布</view>
+	<view slot="content">活动发布</view>
 </cu-custom>
 <view class="template">
-	<view class="templateTitle">
-		<h3>班级会议</h3>
-	</view>
+	<!-- <view class="templateTitle">
+		<h3>{{postData.name}}</h3>
+	</view> -->
 	<view>
-		<van-tabs id="tabs" active="a" animated  color="#07c160" title-active-color="#07c160" bind:click="switchTab">
-			<van-tab title="必填" name="a" >
-				<view class="activityTemplate">
-					<view class="customTitle">
-						<h5>概要</h5>
+
+		<scroll-view scroll-x class="bg-white nav text-center">
+			<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+				必填
+			</view>
+			<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+				选填
+			</view>
+		</scroll-view>
+	
+		<view  hidden="{{0!=TabCur}}" class="">
+			<view class="activityTemplate">
+				<form>
+					<view class="cu-form-group margin-top">
+						<view class="title">活动名称</view>
+						<input placeholder="请填写" bindinput="nameChanged" value="{{postData.name}}"></input>
 					</view>
-					<van-cell-group>
-						<van-field
-							label="名称"
-							title-width="5em"
-						/>
-						<van-field
-							label="时间"
-							title-width="5em"
-						/>
-						<van-field
-							label="地点"
-							title-width="5em"
-						/>
-					</van-cell-group>
-					<view class="stickyButton" >
-						<van-button type="primary">提交请求</van-button>
+					<view class="cu-bar solid-bottom ">
+						<view class="action">
+							<text class="cuIcon-title text-blue"></text>活动时间
+						</view>
+					</view>
+					<view class="cu-form-group ">
+						<view class="title">活动开始日期</view>
+						<picker mode="date" value="{{fakeData.activityStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.activityStartTimeFront">
+							<view class="picker">
+								{{fakeData.activityStartTimeFront}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">活动开始时间</view>
+						<picker mode="time" value="{{fakeData.activityStartTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.activityStartTimeEnd">
+							<view class="picker">
+								{{fakeData.activityStartTimeEnd}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">活动结束日期</view>
+						<picker mode="date" value="{{fakeData.activityEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.activityEndTimeFront">
+							<view class="picker">
+								{{fakeData.activityEndTimeFront}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">活动结束时间</view>
+						<picker mode="time" value="{{fakeData.activityEndTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.activityEndTimeEnd">
+							<view class="picker">
+								{{fakeData.activityEndTimeEnd}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-bar solid-bottom ">
+						<view class="action">
+							<text class="cuIcon-title text-blue"></text>报名时间
+						</view>
+					</view>
+					<view class="cu-form-group ">
+						<view class="title">报名开始日期</view>
+						<picker mode="date" value="{{fakeData.enrollStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.enrollStartTimeFront">
+							<view class="picker">
+								{{fakeData.enrollStartTimeFront}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">报名开始时间</view>
+						<picker mode="time" value="{{fakeData.enrollStartTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.enrollStartTimeEnd">
+							<view class="picker">
+								{{fakeData.enrollStartTimeEnd}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">报名结束日期</view>
+						<picker mode="date" value="{{fakeData.enrollEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.enrollEndTimeFront">
+							<view class="picker">
+								{{fakeData.enrollEndTimeFront}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">报名结束时间</view>
+						<picker mode="time" value="{{fakeData.enrollEndTimeEnd}}" start="00:00" end="24:00" bindchange="enrollEndTimeEndChange">
+							<view class="picker">
+								{{fakeData.enrollEndTimeEnd}}
+							</view>
+						</picker>
+					</view>
+
+					<view class="cu-bar solid-bottom ">
+						<view class="action">
+							<text class="cuIcon-title text-blue"></text>地点
+						</view>
+					</view>
+
+					<view class="cu-form-group">
+						<view class="title">活动地点</view>
+						<button class="cu-btn line-green" bindtap="showModal" data-target="bottomModal">选择</button>
+					</view>
+					<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
+						<view class="cu-dialog">
+							<view class="cu-bar bg-white">
+								<view class="action text-green" bindtap="surePosition">确定</view>
+								<view class="action text-blue" bindtap="hideModal">取消</view>
+							</view>
+							<view>
+								<map
+									id="myMap"
+									show-location
+								>
+									<!-- <view class="maker">&#xe664;</view> -->
+									<image  class="maker" src="../../images/my_marker.png"></image>
+
+								</map>
+								<!-- <button class="cu-btn bg-green margin-right margin-tb-sm lg" bindtap="getCenterLocation">获取位置</button> -->
+								<button class="cu-btn bg-green margin-tb-sm lg" bindtap="moveToLocation">移动到当前位置</button>
+								<!-- <button type="primary" bindtap="getCenterLocation">获取位置</button> -->
+								<!-- <button type="primary" bindtap="moveToLocation">移动位置</button> -->
+							</view>
+						</view>
+					</view>
+					
+					<view class="cu-form-group">
+						<view class="title">地点详细描述</view>
+						<input placeholder="例：逸夫楼308" data-value="postData.activityPlaceName" value="{{postData.activityPlaceName}}" bindinput="VALUECHANGED"></input>
+					</view>
+				</form>
+			</view>
+		</view>
+		<view  hidden="{{1!=TabCur}}" class="">
+			<view class="activityTemplate">
+				<form>
+
+					
+
+					<view class="cu-bar solid-bottom ">
+						<view class="action">
+							<text class="cuIcon-title text-blue"></text>报名信息
+						</view>
+					</view>
+					
+
+					<view class="cu-form-group align-start"  bindtap="showNotice" data-thing="enrollNoticeShow">
+						<view class="title">报名须知</view>
+						<view wx:if="{{enrollNoticeShow}}" class="action" style="width: 100%;margin:32rpx 0 30rpx;padding:0;height: 4.6em;width: 100%;">{{postData.enrollNotice}}</view>
+						<textarea wx:else focus value="{{postData.enrollNotice}}" data-thing="enrollNoticeShow" bindblur="hideNotice"  bindinput="VALUECHANGED" data-value="postData.enrollNotice"></textarea>
+					</view>
+
+					<view class="cu-bar solid-bottom ">
+						<view class="action">
+							<text class="cuIcon-title text-blue"></text>活动信息
+						</view>
+					</view>
+
+					<view class="cu-modal bottom-modal {{modalName=='classification'?'show':''}}">
+					<view class="cu-dialog">
+					<view class="cu-bar bg-white">
+					<view class="action text-green">确定</view>
+					<view class="action text-blue" bindtap="hideModal">取消</view>
+					</view>
+					<view class="padding-xl">
+						
 					</view>
 				</view>
-			</van-tab>
-			<van-tab title="选填" name="b">
-				<view class="activityTemplate">
-					<view class="customTitle">
-						<h5>概要</h5>
-					</view>
-					<van-cell-group>
-						<van-field
-							label="主办方"
-							title-width="7em"
-						/>
-						<van-field
-							label="发布人"
-							title-width="7em"
-						/>
-						<van-field
-							label="指导单位"
-							title-width="7em"
-						/>
-						<van-field
-							label="指导老师"
-							title-width="7em"
-						/>
-					</van-cell-group>
-					<view class="customTitle">
-						<h5>报名信息</h5>
-					</view>
-					<van-cell-group>
-						<van-field
-							label="报名时间"
-							title-width="7em"
-						/>
-						<van-field
-							label="录取方式"
-							title-width="7em"
-						/>
-						<van-field
-							label="报名范围"
-							title-width="7em"
-						/>
-						<van-field
-							label="报名年级"
-							title-width="7em"
-						/>
-						<van-field
-							label="最大录取人数"
-							title-width="7em"
-						/>
-						<van-field
-							label="报名须知"
-							title-width="7em"
-							type="textarea"
-							maxlength="200"
-							autosize
-							show-word-limit
-						/>
-					</van-cell-group>
 				</view>
-			</van-tab>
-		</van-tabs>
+<!-- 暂时没有积分方案 -->
+					<view class="cu-form-group">
+						<view class="title">允许请假</view>
+						<switch checked bindchange="vacateChange"></switch>
+					</view>
+					<view class="cu-form-group">
+						<view class="title">签到时间</view>
+						<view class="action">
+						<text class="margin-right" wx:if="{{fakeData.registerStatus}}">不限</text>
+						<text class="margin-right" wx:if="{{!fakeData.registerStatus}}">限制</text>
+						<switch checked bindchange="registerChange"></switch>
+						</view>
+					</view>
+					<view class="cu-form-group " wx:if="{{!fakeData.registerStatus}}">
+						<view class="title">签到开始日期</view>
+						<picker mode="date" value="{{fakeData.registerStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.registerStartTimeFront">
+							<view class="picker">
+								{{fakeData.registerStartTimeFront}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-form-group" wx:if="{{!fakeData.registerStatus}}">
+						<view class="title">签到开始时间</view>
+						<picker mode="time" value="{{fakeData.registerStartTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.registerStartTimeEnd">
+							<view class="picker">
+								{{fakeData.registerStartTimeEnd}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-form-group" wx:if="{{!fakeData.registerStatus}}">
+						<view class="title">签到结束日期</view>
+						<picker mode="date" value="{{fakeData.registerEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.registerEndTimeFront">
+							<view class="picker">
+								{{fakeData.registerEndTimeFront}}
+							</view>
+						</picker>
+					</view>
+					<view class="cu-form-group" wx:if="{{!fakeData.registerStatus}}">
+						<view class="title">签到结束时间</view>
+						<picker mode="time" value="{{fakeData.registerEndTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.registerEndTimeEnd">
+							<view class="picker">
+								{{fakeData.registerEndTimeEnd}}
+							</view>
+						</picker>
+					</view>
+					
+					<view class="cu-form-group align-start" data-thing="IntroduceShow"  bindtap="showNotice" >
+						<view class="title">活动介绍</view>
+						<view wx:if="{{IntroduceShow}}" class="action"style="width: 100%;margin:32rpx 0 30rpx;padding:0;height: 4.6em;width: 100%;">{{postData.activityIntroduce}}</view>
+						<textarea wx:else focus value="{{postData.activityIntroduce}}" data-thing="IntroduceShow" bindblur="hideNotice" data-value="postData.activityIntroduce" bindinput="VALUECHANGED"></textarea>
+					</view>
+				</form>
+			</view>
+		</view>
 	</view>
 </view>
+<view  class="stickyButton">
+		<!-- <cover-view > -->
+		<!-- <button class="cu-btn bg-red margin-tb-sm lg">嫣红</button> -->
+		<delay-button className="cu-btn bg-green lg" bind:click="postActivity">提交活动</delay-button>
+	<!-- </cover-view> -->
+	</view>

@@ -30,6 +30,7 @@ Page({
 			text: '',
 		},
 		memberNum: 2,//记录成员的页数
+		activityNum: 2,//记录活动的页数
 		title:'群组消息发布',
 		TabCur:'', //决定是哪个tab
 	},
@@ -62,11 +63,9 @@ Page({
 		})
 	},
 	statusChange(e) {
-		console.log(e)
 		let copy = {...this.data.memberList[this.data.targetUserIndex]}
 		copy.status = +e.currentTarget.dataset.state
 		if(e.currentTarget.dataset.state == '1') {
-			console.log(7777777777777,copy, this.data.gid)
 			request({
 				url: `/group/member/transfer?userId=${copy.userId}&groupId=${this.data.gid}`,
 				method: 'PUT'
@@ -80,6 +79,12 @@ Page({
 				data: copy
 			}).then(value => {
 				console.log(value,copy)
+				this.getMember().then(value => {
+					console.log(value.rows)
+					this.setData({
+						memberList:value.rows
+					})
+				})
 			})
 		}
 		
@@ -232,18 +237,15 @@ Page({
 			}
 		})
 	},
-	getActivity() {
+	getActivity(pageNum=1, pageSize=10) {
 		return request({
 			url: `/secondClass/activity/group/list`,
 			method: 'GET',
 			data:{
-				groupId: this.data.gid
+				groupId: this.data.gid,
+				pageNum,
+				pageSize
 			}
-		}).then(value => {
-			console.log(value)
-			this.setData({
-				activityList: value.rows
-			})
 		})
 	},
 	getMsg() {
@@ -345,8 +347,13 @@ Page({
 				memberList:value.rows
 			})
 		})
+		this.getActivity().then(value => {
+			console.log(value)
+			this.setData({
+				activityList: value.rows
+			})
+		})
 		this.getDetail()
-		this.getActivity()
 		this.getMsg()
 		this.getCollection()
 	},
@@ -395,7 +402,9 @@ Page({
 				this.setData({
 					memberList:value[0].rows
 				})
-			
+				this.setData({
+					activityList: value[2].rows
+				})
 			wx.stopPullDownRefresh({
 				success: (res) => {},
 			})
@@ -408,7 +417,7 @@ Page({
 	 */
 	onReachBottom: function () {
 		this.setData({
-			loading: true
+			isLoading: true
 		})
 		if(this.data.TabCur == 1) {
 			this.getMember(this.data.memberNum).then(value => {
@@ -419,7 +428,19 @@ Page({
 					memberNum: this.data.memberNum
 				})
 				this.setData({
-					loading: false
+					isLoading: false
+				})
+			})
+		} else if(this.data.TabCur == 2) {
+			this.getActivity(this.data.activityNum).then(value => {
+				this.data.activityList.push(...value.rows)
+				this.data.activityNum++
+				this.setData({
+					activityList: this.data.activityList,
+					activityNum: this.data.activityNum
+				})
+				this.setData({
+					isLoading: false
 				})
 			})
 		}

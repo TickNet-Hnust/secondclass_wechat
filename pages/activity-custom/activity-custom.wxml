@@ -34,13 +34,13 @@
 	<view class="cu-form-group">
 		<view class="title">发布人</view>
 		{{activityReleaserName}}
-		<button class="cu-btn line-green " data-id="postData.activityReleaserId" data-name="activityReleaserName" bindtap="showSearch" >Choose</button>
+		<button class="cu-btn line-green " data-id="postData.activityReleaserId" data-name="activityReleaserName" bindtap="showSearch" >选择</button>
 	</view>
 	
 	<view class="cu-form-group">
 		<view class="title">指导老师</view>
 		{{guideTeacherName}}
-		<button class="cu-btn line-green " data-id="postData.guideTeacherId" data-name="guideTeacherName" bindtap="showSearch" >Choose</button>
+		<button class="cu-btn line-green " data-id="postData.guideTeacherId" data-name="guideTeacherName" bindtap="showSearch" >选择</button>
 	</view>
 
 	<view class="cu-form-group">
@@ -109,7 +109,7 @@
 	<view class="cu-form-group">
 		<view class="title">报名范围</view>
 		<view class="action">
-			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green " bindtap="showModal" data-target="deptModal">Choose</button>
+			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green " bindtap="showModal" data-target="deptModal">选择</button>
 		</view>
 	</view>
 	<view class="cu-modal bottom-modal {{modalName=='deptModal'?'show':''}}" bindtap="hideModal">
@@ -133,7 +133,7 @@
 	<view class="cu-form-group">
 		<view class="title">报名年级</view>
 		<view class="action">
-			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green " bindtap="showModal" data-target="rangeModal">Choose</button>
+			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green " bindtap="showModal" data-target="rangeModal">选择</button>
 		</view>
 	</view>
 	<view class="cu-modal bottom-modal {{modalName=='rangeModal'?'show':''}}" bindtap="hideModal">
@@ -183,8 +183,8 @@
 	<view class="cu-form-group">
 		<view class="title">关联分类</view>
 		<view class="action ">
-			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
-			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">Choose</button> -->
+			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">选择</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
+			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">选择</button> -->
 		<picker
 			mode="multiSelector"
 			range="{{multiArray}}"
@@ -281,7 +281,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动地点</view>
-		<button class="cu-btn line-green" bindtap="showModal" data-target="bottomModal">Choose</button>
+		<button class="cu-btn line-green" bindtap="showModal" data-target="bottomModal">选择</button>
 	</view>
 	<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
   <view class="cu-dialog">
@@ -357,12 +357,12 @@
 	<view class="cu-form-group">
 		<view class="title">活动负责人</view>
 		{{activityManagerName}}
-		<button class="cu-btn line-green " data-id="postData.activityManagerId" data-name="activityManagerName" bindtap="showSearch" >Choose</button>
+		<button class="cu-btn line-green " data-id="postData.activityManagerId" data-name="activityManagerName" bindtap="showSearch" >选择</button>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动组织者</view>
 		{{activityOrganizerName}}
-		<button class="cu-btn line-green " data-id="postData.activityOrganizerId" data-name="activityOrganizerName" bindtap="showSearch" >Choose</button>
+		<button class="cu-btn line-green " data-id="postData.activityOrganizerId" data-name="activityOrganizerName" bindtap="showSearch" >选择</button>
 	</view>
 	<view class="cu-bar bg-white margin-top">
 		<view class="action">
@@ -395,7 +395,7 @@
 	<view  class="stickyButton">
 		<!-- <cover-view > -->
 		<!-- <button class="cu-btn bg-red margin-tb-sm lg">嫣红</button> -->
-		<button class="cu-btn bg-green lg" bindtap="postActivity">提交活动</button>
+		<delay-button className="cu-btn bg-green lg" bind:click="postActivity">提交活动</delay-button>
 	<!-- </cover-view> -->
 	</view>
 </view>

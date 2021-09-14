@@ -45,7 +45,7 @@
 	color:#fff;
 	font-size: 40rpx;
 	opacity: 0.9;
-	left: 7%;
+	padding: 0 60rpx
 }
 .box-p {
 	font-size: 24rpx;

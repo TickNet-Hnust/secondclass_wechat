@@ -187,7 +187,7 @@ Page({
 		})
 	},
 	//my
-	getAll(pageNum = 1,pageSize=10) {
+	getAll(pageNum = 1,pageSize = 10) {
 		return request({
 			url: '/secondClass/activity/list',
 			method: 'GET',
@@ -199,7 +199,7 @@ Page({
 		})
 	},
 	//hot
-	getHot(pageNum = 1,pageSize=10) {
+	getHot(pageNum = 1,pageSize = 10) {
 		return request({
 			url: '/secondClass/activity/hotList',
 			method: 'GET',
@@ -213,16 +213,17 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		request({
-			url: '/secondClass/activity/hotList',
-			method: 'GET'
-		}).then(value => {
+		this.getHot().then(value => {
 			console.log(value)
 			this.setData({
 				hotActivityList:value.rows
 			})
 		})
-		this.getActivityList(1)
+		this.getAll().then(value => {
+			this.setData({
+				allActivityList:value.rows
+			})
+		})
 		this.setData({
 			tags: wx.getStorageSync('Atags') || []
 		})

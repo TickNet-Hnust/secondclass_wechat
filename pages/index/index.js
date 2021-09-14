@@ -259,7 +259,14 @@ Page({
       hasUserInfo: true
     })
   },
-  onShow() {
+  onShow(option) {
+    console.log(wx.getLaunchOptionsSync().scene,'option')
+    // wx.showModal({
+    //   content: wx.getLaunchOptionsSync().scene +''
+    // })
+  },
+  fd() {
+    // this.data.video.requestFullScreen()
   },
   onReachBottom: function (obj) {
     this.setData({

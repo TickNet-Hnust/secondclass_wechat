@@ -156,7 +156,7 @@ Page({
 					if(e.locationEnabled == false) {
 						wx.showModal({
 							showCancel:false,
-							content: '确保定位准确，请手动打开GPS'
+							content: '为确保定位准确，请先手动打开GPS'
 						})
 						flag = false
 					}
@@ -649,16 +649,6 @@ Page({
 	 */
 	onLoad: function (options) {
 		this.mapCtx = wx.createMapContext('myMap')
-	},
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {
-		setTimeout(() => {
-			this.mapCtx.moveToLocation()
-		},1000)  
-
 		let tempDept =  wx.getStorageSync('deptList')
 		this.setData({
 			deptList: tempDept.map(item => ({...item,checked:false})),
@@ -679,21 +669,17 @@ Page({
 		// })
 
 		this.setData({
-			dict_flower: wx.getStorageSync('dict_flower').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
 		})
 		
-
+		
 		this.setData({
-			dict_integral: wx.getStorageSync('dict_integral').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
 		})
 		
-
-		this.setData({
-			dict_evaluate_scheme: wx.getStorageSync('dict_evaluate_scheme').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
-		})
 		
-
 		this.setData({
+			dict_flower: wx.getStorageSync('dict_flower').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})),
+			dict_integral: wx.getStorageSync('dict_integral').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})),
+			dict_evaluate_scheme: wx.getStorageSync('dict_evaluate_scheme').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})),
 			courseClassificationList: filterTwoLayer(wx.getStorageSync('courseClassificationList'))
 		})
 		let temp = []
@@ -710,6 +696,17 @@ Page({
 		this.setData({
 			nowYear: wx.getStorageSync('nowYear')
 		})
+	},
+
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady: function () {
+		setTimeout(() => {
+			this.mapCtx.moveToLocation()
+		},1000)  
+
+		
 	},
 
 	/**

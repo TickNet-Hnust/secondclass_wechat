@@ -1,5 +1,5 @@
 <!--pages/activity-custom/activity-custom.wxml-->
-<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">{{title}}</view>
 </cu-custom>
 <view class="custom">
@@ -34,14 +34,14 @@
 		<view class="title">指导老师</view>
 		<!-- <view class="action"> -->
 			<input value="{{postData.teacher}}" disabled></input>
-		<button class="cu-btn line-green " data-id="postData.activityReleaserId" data-name="activityReleaserName" bindtap="showSearch" >Choose</button>
+		<button class="cu-btn line-green " data-id="postData.activityReleaserId" data-name="activityReleaserName" bindtap="showSearch" >选择</button>
 		<!-- </view> -->
 	</view>
 	<view class="cu-form-group margin-top" wx:if="{{title == '创建群组'}}">
 		<view class="title">分类</view>
 		<view class="action ">
-			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
-			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">Choose</button> -->
+			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">选择</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
+			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">选择</button> -->
 			<picker
 			mode="multiSelector"
 			range="{{multiArray}}"
@@ -67,8 +67,8 @@
 	<view class="cu-form-group ">
 		<view class="title">加入规则</view>
 		<view class="action ">
-			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">Choose</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
-			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">Choose</button> -->
+			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">选择</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
+			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">选择</button> -->
 			<picker
 			range="{{dict_ga_group_join_rule}}"
 			range-key="dictLabel"
@@ -111,6 +111,6 @@
 </form>
 	<view class="stickyButton" >
 		<!-- <button class="cu-btn bg-red margin-tb-sm lg">嫣红</button> -->
-		<button class="cu-btn bg-green lg" bindtap="postGroup">提交活动</button>
+		<delay-button className="cu-btn bg-green lg" bind:click="postGroup">提交活动</delay-button>
 	</view>
 </view>

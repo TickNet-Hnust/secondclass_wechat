@@ -126,7 +126,7 @@
   <view class="cu-card article no-card" bindtap="kaifa">
     <view class="cu-item shadow solid-bottom margin-bottom" >
       <view class="content">
-        <image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="aspectFill"></image>
+        <image src="http://www.xinhuanet.com/2017-10/27/1121867529_15091197571821n.jpg" mode="aspectFill"></image>
         <view class="desc">
           <view class="text-content text-pink">  习近平:决胜全面建成小康社会决战脱贫攻坚继续建设经济繁荣民族团结环境优美</view>
           <view>

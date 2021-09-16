@@ -228,7 +228,9 @@ Page({
 			tags: wx.getStorageSync('Atags') || []
 		})
 	},
-
+	goTop() {
+		app.goTop()
+	},
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
@@ -268,6 +270,7 @@ Page({
 			this.getAll(),
 			this.getHot()
 		]).then(value => {
+			console.log(value)
 			this.setData({
 				allActivityList:value[0].rows,
 				hotActivityList:value[1].rows,

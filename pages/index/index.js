@@ -4,6 +4,7 @@ const app = getApp()
 import {request} from '../../js/http.js'
 Page({
   data: {
+    recommendList:[],
     cardCur: 0,
     motto: 'Hello World',
     userInfo: {},
@@ -226,6 +227,27 @@ Page({
 		}).then(value => {
       console.log('储存当前学年')
 			wx.setStorageSync('nowYear',Object.keys(value.data)[0])
+    })
+    //推荐活动
+    request({
+      url: '/secondClass/activity/list',
+      method: 'get',
+      data:{
+        status: 1,
+        recommend: 1,
+        pageNum: 1,
+        pageSize: 5
+      }
+    }).then(value => {
+      console.error(value)
+      this.setData({
+        recommendList: value.rows
+      })
+    })
+  },
+  jumpActivity(e) {
+    wx.navigateTo({
+      url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
     })
   },
   getUserProfile(e) {

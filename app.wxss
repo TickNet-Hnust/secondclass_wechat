@@ -93,3 +93,17 @@
 	/* background-color: #fff; */
 	/* box-shadow:  0 0 8rpx #ccc; */
 }
+.backTop {
+	position: fixed;
+	right: 5vw;
+	bottom: 5vw;
+	width: 100rpx;
+	height: 100rpx;
+	line-height: 100rpx;
+	text-align: center;
+	font-size: 23px;
+	color: #f1f1f1;
+	border-radius: 50rpx;
+	z-index: 9999;
+	background-color: rgba(0,0,0,0.3);
+}

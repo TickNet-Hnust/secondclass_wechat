@@ -189,6 +189,9 @@ Page({
 			}
 		})
 	},
+	goTop() {
+		app.goTop()
+	},
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
@@ -198,7 +201,7 @@ Page({
 			this.getAll(),
 			this.getHot()
 		]).then(value => {
-			console.log(123)
+			console.log(123,value)
 			this.setData({
 				allGroupList:value[0].rows,
 				hotGroupList:value[1].rows

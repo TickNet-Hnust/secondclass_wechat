@@ -50,7 +50,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayOne?'animation-slide-bottom':''}}" style="animation-delay: {{(recommendActivityList.length)*0.1}}s;"></view>
+			<view hidden="{{recommendActivityList.length == 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayOne?'animation-slide-bottom':''}}" style="animation-delay: {{(recommendActivityList.length)*0.1}}s;"></view>
 	</view>
 	<!-- 我的 -->
 	<view hidden="{{1!=TabCur}}" class="" bindtap="jumpDetail">
@@ -70,7 +70,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(myActivityList.length)*0.1}}s;"></view>
+			<view hidden="{{myActivityList.length == 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(myActivityList.length)*0.1}}s;"></view>
 	</view>
 	<!-- 收藏 -->
 	<view  hidden="{{2!=TabCur}}" class="" bindtap="jumpDetail">
@@ -90,7 +90,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(collectionActivityList.length)*0.1}}s;"></view>
+			<view hidden="{{collectionActivityList.length == 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(collectionActivityList.length)*0.1}}s;"></view>
 	</view>
 	<!-- <van-tabs 
 		id="tabs"

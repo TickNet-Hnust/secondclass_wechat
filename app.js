@@ -68,7 +68,17 @@ App({
 			}
     })
   },
-  
+  goTop() {
+		wx.pageScrollTo({
+			scrollTop: 0,
+			success:(res) => {
+				wx.showToast({
+					title: '回到顶部',
+				  })
+			}
+		})
+		
+	},
   showSuccess() {
     wx.showToast({
       title: '加载成功',

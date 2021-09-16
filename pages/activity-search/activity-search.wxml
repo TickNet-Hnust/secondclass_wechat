@@ -2,6 +2,9 @@
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">活动查看</view>
 </cu-custom>
+<view class="backTop" bindtap="goTop">
+	<text class="cuIcon-top"></text>
+</view>
 <view class="search">
 	<view class="hotNow" wx:if="{{active == 1}}">
 		<text class="title">正在进行</text>

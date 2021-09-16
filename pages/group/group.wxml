@@ -62,7 +62,7 @@
 							
 						</view>
 					</view>
-					<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayOne?'animation-fade':''}}" style="animation-delay: {{(recommendGroupList.length)*0.1}}s;"></view>
+					<view hidden="{{recommendGroupList.length == 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayOne?'animation-fade':''}}" style="animation-delay: {{(recommendGroupList.length)*0.1}}s;"></view>
 				</view>
 			</view>
 	</view>
@@ -96,7 +96,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(myGroupList.length)*0.1}}s;"></view>
+					<view hidden="{{myGroupList.length == 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(myGroupList.length)*0.1}}s;"></view>
 				</view>
 			</view>
 	</view>
@@ -130,7 +130,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(collectionGroupList.length)*0.1}}s;"></view>
+					<view hidden="{{collectionGroupList.length == 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(collectionGroupList.length)*0.1}}s;"></view>
 				</view>
 			</view>
 	</view>

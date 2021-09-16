@@ -3,6 +3,9 @@
 	<view slot="backText">返回</view>
 	<view slot="content">群组查看</view>
 </cu-custom>
+<view class="backTop" bindtap="goTop">
+	<text class="cuIcon-top"></text>
+</view>
 <wxs module="m3">
 	function format(str) {
 		if(str == null) return undefined //防止报错

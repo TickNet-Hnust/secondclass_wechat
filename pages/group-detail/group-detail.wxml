@@ -21,7 +21,7 @@
           	<!-- <view class="cu-avatar radius lg" style="background-image:url({{showData.avatar}});">
 			  
 			</view> -->
-			<ab-easy-image bindtap="ViewImage" mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(showData.avatar)}}">
+			<ab-easy-image bindtap="ViewImage" mode="aspectFill" class="cu-avatar radius lg" src="{{showData.avatar}}">
 				
 			</ab-easy-image>
           	<view class="content">

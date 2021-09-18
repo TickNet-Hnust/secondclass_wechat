@@ -37,7 +37,7 @@
 			<view class="">
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayOne?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<ab-easy-image  class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+						<ab-easy-image  class="cu-avatar radius lg" src="{{item.avatar}}">
 							
 						</ab-easy-image>
 						<view class="content">
@@ -72,7 +72,7 @@
 			<view class="">				
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
-						<ab-easy-image class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+						<ab-easy-image class="cu-avatar radius lg" src="{{item.avatar}}">
 							
 						</ab-easy-image>
 						<view class="content">
@@ -106,7 +106,7 @@
 			<view class="">
 				<view class="cu-list menu-avatar">
 					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<ab-easy-image class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+						<ab-easy-image class="cu-avatar radius lg" src="{{item.avatar}}">
 							
 						</ab-easy-image>
 						<view class="content">
@@ -136,122 +136,12 @@
 	</view>
 
 
-  <wxs module="m3">
+  <!-- <wxs module="m3">
 	function format(str) {
 		if(str == null) return undefined //防止报错
 		return	str.split(';')[1]  //否则，返回模糊图片的路径
 	}
 	module.exports.format = format
-  </wxs>
-	<!-- <van-tabs 
-		id="tabs"
-		active="{{active}}"
-		animated
-		swipeable
-		color="#2d7ecd"
-		title-active-color="#2d7ecd"
-		bind:change="activeChange"
-	>
-		<van-tab title="推荐">
-			<van-empty description="空空如也" wx:if="{{recommendGroupList.length == 0}}"/>
-			<view class="">
-				<view class="cu-list menu-avatar">
-					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
-							
-						</image>
-						<view class="content">
-							<view class="text-grey">
-								<text class="text-cut">{{item.deptName}}</text>
-								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
-								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
-							</view>
-							<view class="text-gray text-sm flex">
-							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
-							</view>
-						</view>
-						<view class="action">
-							<view class="cu-capsule round">
-								<view class="cu-tag bg-blue sm">
-									<text class="cuIcon-peoplelist"></text>
-								</view>
-								<view class="cu-tag line-blue sm">
-									{{item.memberNumber}}
-								</view>
-							</view>
-							
-						</view>
-					</view>
-					<view wx:if="{{recommendGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
-				</view>
-			</view>
-		</van-tab>
-		<van-tab title="我的">
-			<van-empty description="空空如也" wx:if="{{myGroupList.length == 0}}"/>
-			<view class="">				
-				<view class="cu-list menu-avatar">
-					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
-						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
-							
-						</image>
-						<view class="content">
-							<view class="text-grey">
-								<text class="text-cut">{{item.deptName}}</text>
-								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
-								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
-							</view>
-							<view class="text-gray text-sm flex">
-							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
-							</view>
-						</view>
-						<view class="action">
-							<view class="cu-capsule round">
-								<view class="cu-tag bg-blue sm">
-									<text class="cuIcon-peoplelist"></text>
-								</view>
-								<view class="cu-tag line-blue sm">
-									{{item.memberNumber}}
-								</view>
-							</view>
-						</view>
-					</view>
-					<view wx:if="{{myGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
-				</view>
-			</view>
-		</van-tab>
-		<van-tab title="收藏">
-			<van-empty description="空空如也" wx:if="{{collectionGroupList.length == 0}}"/>
-			<view class="">
-				<view class="cu-list menu-avatar">
-					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelay?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<image mode="aspectFill" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
-							
-						</image>
-						<view class="content">
-							<view class="text-grey">
-								<text class="text-cut">{{item.deptName}}</text>
-								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
-								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
-							</view>
-							<view class="text-gray text-sm flex">
-							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
-							</view>
-						</view>
-						<view class="action">
-							<view class="cu-capsule round">
-								<view class="cu-tag bg-blue sm">
-									<text class="cuIcon-peoplelist"></text>
-								</view>
-								<view class="cu-tag line-blue sm">
-									{{item.memberNumber}}
-								</view>
-							</view>
-						</view>
-					</view>
-					<view wx:if="{{collectionGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
-				</view>
-			</view>
-		</van-tab>
-	</van-tabs> -->
+  </wxs> -->
   </view>
 </view>

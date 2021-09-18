@@ -302,6 +302,7 @@ Page({
 			})
 		} else {
 			this.getHot(this.data.hotNum,10).then(value => {
+				console.error(value,'hot')
 				this.data.hotGroupList.push(...value.rows)
 				this.setData({
 					hotGroupList:this.data.hotGroupList,

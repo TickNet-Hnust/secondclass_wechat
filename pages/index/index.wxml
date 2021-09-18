@@ -18,6 +18,12 @@
 						  {{item.name}}
             </view>
           </swiper-item>
+          <swiper-item wx:if="{{recommendList.length == 0}}" data-id="{{item.id}}" wx:key="index" catchtap="jumpActivity">
+            <image mode="widthFix" class="adImg" src="../../images/choose/ad2.png" alt="" srcset=""></image>
+            <view class="actTitle">
+						  暂无推荐活动
+            </view>
+          </swiper-item>
       </swiper>
     
       <van-grid column-num="4">

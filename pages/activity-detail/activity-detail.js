@@ -1,6 +1,7 @@
 // pages/activity-detail/activity-detail.js
 import {request} from '../../js/http.js'
 import getImgUrl from '../../utils/upload.js'
+import Toast from '@vant/weapp/toast/toast';
 const app = getApp()
 Page({
 
@@ -297,6 +298,13 @@ Page({
 		console.log(this.data.aid,
 			 this.data.reason,
 			 this.data.material)
+			 if(!this.data.reason) {
+				Toast({
+					zIndex:9999,
+					message: '请填写请假原因'
+				})
+				return
+			 }
 		request({
 			url: '/secondClass/activity/leave',
 			method: 'POST',
@@ -307,11 +315,20 @@ Page({
 			}
 		}).then(value => {
 			console.log(value)
-			wx.showToast({
-			  title: '提交成功',
-			  icon: 'none',
-			  duration:2000
-			})
+			if(value.code == 200) {
+				this.hideModal()
+				Toast({
+					zIndex:9999,
+					message: '提交成功'
+				})
+				this.getMember()
+			} else {
+				wx.showToast({
+					title: value.msg,
+					icon: 'none',
+					duration:2000
+				})
+			}
 		})
 	},
 	getUserInfo(event) {
@@ -502,11 +519,7 @@ Page({
 		}).then(value => {
 			console.log(value)
 			if(value.code == 200) {
-				wx.showToast({
-					title: '报名成功',
-					icon: 'none',
-					duration:2000
-				})
+				Toast('报名成功');
 				this.getMember()
 			} else {
 				wx.showToast({
@@ -534,7 +547,7 @@ Page({
 		})
 		if(flag) {
 			wx.showLoading({
-			  title: '签到中',
+			  title: '获取定位中',
 			  mask:true
 			})
 			wx.getLocation({
@@ -552,14 +565,8 @@ Page({
 						console.log(value)
 						wx.hideLoading()
 						if(value.code == 200) {
-							setTimeout(() => {
-								wx.showToast({
-									title: '签到成功',
-									icon: 'none',
-									mask:true,
-									duration:2000
-								})
-							},500)
+							Toast('签到成功');
+							this.enroll.disabled = true //防止用户狂点触发第二次
 							this.getMember()
 						} else {
 							wx.showToast({
@@ -569,6 +576,8 @@ Page({
 								duration:2000
 							})
 						}
+					}).catch(() => {
+						wx.hideLoading()
 					})
 				}
 			})
@@ -593,6 +602,9 @@ Page({
 			console.log(value,'getmember')
 			this.setData({
 				memberList:value.rows
+			})
+			wx.nextTick(() => {
+				
 			})
 			this.computedState()
 		})
@@ -711,6 +723,7 @@ Page({
 	 */
 	onPullDownRefresh: function () {
 		console.log('onPullDownRefresh')
+		this.computedState()
 		let arr = []
 		if(this.data.TabCur == 0) {
 			arr = [
@@ -761,7 +774,6 @@ Page({
 				this.setData({
 					memberList: this.data.memberList,
 					memberNum: this.data.memberNum,
-					isLoading:false
 				})
 			})
 		} else if(this.data.TabCur == 2) {
@@ -770,16 +782,14 @@ Page({
 				method: 'GET',
 				data:{
 					activityId:this.data.aid,
-					pageNum:this.data.flowerNum,
-					pageSize:10
+					pageNum:this.data.flowerNum
 				}
 			}).then(value => {
 				this.data.flowerList.push(...value.rows)
 				this.data.flowerNum++
 				this.setData({
 					flowerList: this.data.flowerList,
-					flowerNum: this.data.flowerNum,
-					isLoading:false
+					flowerNum: this.data.flowerNum
 				})
 			})
 		} else if(this.data.TabCur == 3) {
@@ -796,11 +806,13 @@ Page({
 				this.data.evaluateNum++
 				this.setData({
 					remarkList: this.data.remarkList,
-					evaluateNum: this.data.evaluateNum,
-					isLoading:false
+					evaluateNum: this.data.evaluateNum
 				})
 			})
 		}
+		this.setData({
+			isLoading:false
+		})
 	},
 
 	/**

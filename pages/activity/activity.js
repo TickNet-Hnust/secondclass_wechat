@@ -53,9 +53,10 @@ Page({
 		}, 1500)
 	  },
 	jumpDetail(e) {
+		console.log(e)
 		this.data.isNeedToRefresh = true
 		wx.navigateTo({
-			url: `../activity-detail/activity-detail?aid=${e.target.dataset.id}`,
+			url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
 		})
 	},
 	jumpSearch() {

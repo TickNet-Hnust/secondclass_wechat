@@ -25,9 +25,6 @@ Page({
 		this.setData({
 			TabCur: e.currentTarget.dataset.id,
 		})
-		// setTimeout(() => {
-			// this.toggleDelay()
-		// },200)
 	},
 	toggleDelay() {
 		var that = this;

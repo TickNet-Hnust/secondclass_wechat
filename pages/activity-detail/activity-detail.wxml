@@ -2,9 +2,10 @@
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">活动详情</view>
 </cu-custom>
+<van-toast id="van-toast" />
 <view class='cu-load load-modal' wx:if="{{loadModal}}">
   <!-- <view class='cuIcon-emojifill text-orange'></view> -->
-  <image src='../../images/logo.png' class='png' mode='aspectFit'></image>
+  <!-- <image src='../../images/log' class='png' mode='aspectFit'></image> -->
   <view class='gray-text'>加载中...</view>
 </view>
 <view class="detail">
@@ -29,11 +30,10 @@
 				<view class="boxs solid shadow-warp">
 					<image mode="aspectFill" class="adImg" src="../../images/choose/ad2.png" alt="" srcset=""></image>
 					<view class="actTitle">
-						{{showData.name}}
+							{{showData.name}}
 						<text class="cuIcon-favorfill text-yellow" wx:if="{{isCollection}}" bindtap="setCollection"></text>
 						<text class="cuIcon-favor text-yellow" wx:else bindtap="setCollection" ></text>
 					</view>
-							
 						<!-- </swiper-item> -->
 						<!-- <swiper-item> -->
 							<!-- <image mode="widthFix" class="adImg" src="../../images/选择/ad.png" alt="" srcset=""></image> -->
@@ -65,7 +65,7 @@
 							</view>
 							</view>
 							<view >
-								<scroll-view catchtouchmove="return" scroll-y style="height:calc(70vh - {{CustomBar}}px)">
+								<scroll-view scroll-y style="height:calc(70vh - {{CustomBar}}px)">
 									<form>
 										<view class="cu-form-group" style="padding: 1rpx 30rpx;">
 											<view class="title">活动名称</view>
@@ -113,11 +113,9 @@
 										<view class="cu-form-group">
 											<wxs module="hh">
 												module.exports = function (str) {
-													console.log(str,'报名范围')
 													if(str) {
 														str = str.split('，').join('\n')
 													}
-													console.log(str)
 													return str
 												}
 											</wxs>
@@ -307,7 +305,7 @@
 						<van-col span="6" >
 							<delay-button
 								className="cu-btn line-green md text-sm fr"
-								bind:tap="enroll"
+								bind:click="enroll"
 								disabled="{{enroll.disabled}}"
 							>{{enroll.content}}</delay-button>
 						</van-col>
@@ -366,7 +364,7 @@
 							<!-- <van-button plain type="primary" size="small">请假</van-button> -->
 						</van-col>
 						<!-- 请假弹窗 -->
-						<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='leaveModal'?'show':''}}">
+						<view catchtouchmove="return" class="cu-modal {{modalName=='leaveModal'?'show':''}}">
 							<view class="cu-dialog" style="max-height:calc(80vh - {{CustomBar}}px)">
 								<view class="cu-bar bg-white justify-end">
 								<view class="content">请假事由</view>
@@ -558,7 +556,7 @@
 			</scroll-view>
 	</view>
 	<!-- 参与人 -->
-	<view  hidden="{{1!=TabCur}}" class="">
+	<view  hidden="{{1!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
 		<van-empty description="空空如也" wx:if="{{memberList.length == 0}}"/>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
@@ -599,8 +597,14 @@
 			</scroll-view>
 	</view>
 	<!-- 花絮 -->
-	<view  hidden="{{2!=TabCur}}" class="">
-		<van-empty description="空空如也" wx:if="{{flowerList.length == 0}}"/>
+	<view  hidden="{{2!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
+		<view wx:if="{{flowerList.length == 0}}">
+			<view style="height:calc(100vw / 2);width:100%;background-size:100%;background-image:url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/18/9e1d20ff-96de-47c2-874d-066a187e55a0.png);background-repeat: no-repeat;"></view>
+			<van-empty
+				image=""
+				description="暂时还没有人发布花絮"
+			/>
+		</view>
 			<view class="activityTemplate">
 				<view class="cu-card dynamic no-card">
 					<view class="cu-item shadow" wx:for="{{flowerList}}" wx:key="index">
@@ -625,14 +629,12 @@
 						>
 							<wxs module="flower">
 								function blur(src) {
-									console.log(src,'src')
 									if(src) {
 										var arr =  src.split('_').reduce(
 											function(pre,cur) {
 												pre.push(cur.split(';')[0]);
 												return pre
 											},[])
-										console.log(arr)
 										return arr
 									}
 								}
@@ -661,13 +663,20 @@
 							</block>
 						</view>
 					</view>
-					<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+					<view wx:if="{{flowerList.length != 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 					</view>
 			</view>
 	</view>
 	<!-- 评论 -->
-	<view  hidden="{{3!=TabCur}}" class="">
-		<van-empty description="空空如也" wx:if="{{remarkList.length == 0}}"/>
+	<view  hidden="{{3!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
+		
+		<view wx:if="{{remarkList.length == 0}}">
+			<view style="height:69vw;width:100%;background-size:100%;background-image:url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/18/ad7ba15c-6a4f-48ca-8e59-761fefd3e638.png);background-repeat: no-repeat;"></view>
+			<van-empty
+				image=""
+				description="暂时还没有人发布评论"
+			/>
+		</view>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
 					<view class="cu-list menu-avatar comment ">
@@ -693,7 +702,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+					<view wx:if="{{remarkList.length != 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</scroll-view>
 	</view>

@@ -15,13 +15,13 @@
   </wxs>
 <view class="search">
 	<scroll-view scroll-x class="bg-white nav text-left">
-		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+		<view bindtap="tabSelect" class="cu-item {{0==TabCur?'text-blue cur':'abcf'}}" data-id="{{0}}">
 			搜索
 		</view>
-		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+		<view bindtap="tabSelect" class="cu-item {{1==TabCur?'text-blue cur':'abcf'}}" data-id="{{1}}">
 			全部
 		</view>
-		<view class="cu-item {{2==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{2}}">
+		<view bindtap="tabSelect" class="cu-item {{2==TabCur?'text-blue cur':'abcf'}}" data-id="{{2}}">
 			热门
 		</view>
 	</scroll-view>
@@ -96,7 +96,7 @@
 	</view>
 	<!-- 全部 -->
 	<view  hidden="{{1!=TabCur}}" class="">
-		<scroll-view scroll-y>
+		<scroll-view scroll-y class="">
 			<view>
 					<view class="cu-list menu-avatar">
 						<view wx:for="{{allGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">

@@ -100,8 +100,8 @@
 					</view>
 				</view>
 			</view>
-					<view wx:if="{{allActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
-			</view>
+		<view wx:if="{{allActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+		</view>
 	</view>
 	<!-- 热门 -->
 	<view  hidden="{{2!=TabCur}}" class="">
@@ -122,7 +122,7 @@
 				</view>
 			</view>
 			</view>
-				<view wx:if="{{hotActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+		<view wx:if="{{hotActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 	</view>
 	<!-- <van-tabs 
 		id="tabs"

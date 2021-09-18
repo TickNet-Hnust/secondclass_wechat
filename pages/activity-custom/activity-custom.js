@@ -351,7 +351,7 @@ Page({
 				rank: this.data.postData.rankId
 			}
 		}).then(value => {
-			console.log(value)
+			console.log(value,'课程')
 			this.setData({
 				multiCourse:value.data
 			})

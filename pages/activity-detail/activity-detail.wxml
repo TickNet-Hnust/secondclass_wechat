@@ -9,17 +9,17 @@
   <view class='gray-text'>加载中...</view>
 </view>
 <view class="detail">
-	<scroll-view scroll-x class="bg-white nav text-center">
-		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+	<scroll-view scroll-x class="bg-white nav text-center" style="height:90rpx">
+		<view class="cu-item transition {{0==TabCur?'text-blue cur text-xl':''}}"  bindtap="tabSelect" data-id="{{0}}">
 			概况
 		</view>
-		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+		<view class="cu-item transition {{1==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{1}}">
 			参与人
 		</view>
-		<view class="cu-item {{2==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{2}}">
+		<view class="cu-item transition {{2==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{2}}">
 			花絮
 		</view>
-		<view class="cu-item {{3==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{3}}">
+		<view class="cu-item transition {{3==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{3}}">
 			评论
 		</view>
 	</scroll-view>
@@ -206,19 +206,6 @@
 						<van-grid-item icon="notes-o" text="活动介绍" bindtap="showModal" data-target="introduce"/>
 						<van-grid-item icon="orders-o" text="报名须知" bindtap="showModal" data-target="notice"/>
 					</van-grid>
-					<!-- <view style="padding:20rpx 20rpx">
-						<van-row style="line-height: 40rpx;">
-							<van-col class="leftTitle" span="6">
-								<text class="cuIcon-title text-black"></text>报名须知
-							</van-col>
-						</van-row>
-						<van-row style="line-height: 40rpx;">
-							<text class="box-p">{{showData.activityIntroduce}}</text>
-						</van-row>
-					</view>
-					<view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="notice">
-						<text class="cuIcon-unfold "></text>
-					</view> -->
 					<view catchtouchmove="return" class="cu-modal {{modalName=='introduce'?'show':''}}">
 						<view class="cu-dialog" style="max-height:calc(80vh - {{CustomBar}}px)">
 							<view class="cu-bar bg-white justify-end">
@@ -428,13 +415,13 @@
 					</van-row>
 				</view>
 				<wxs module="vip">
-					function sure(state,list) {
+					function sure(state) {
 						
 						return state.flag == 1 
 					}
 					module.exports.sure = sure
 				</wxs>
-				<view class="flexLines" wx:if="{{vip.sure(showData,memberList)}}">
+				<view class="flexLines" wx:if="{{vip.sure(showData)}}">
 					<van-row>
 						<van-col span="4">
 							<view>
@@ -494,6 +481,11 @@
 										</view>
 										<view class="action">
 											
+										</view>
+									</view>
+									<view class="cu-item arrow" bindtap="updateActivity">
+										<view class="content">
+											<view>修改</view>
 										</view>
 									</view>
 									<view wx:for="{{operation[showData.status]}}" class="cu-item arrow" wx:key="index" data-status="{{item.status}}" bindtap="changeState">

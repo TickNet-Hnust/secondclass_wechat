@@ -1,6 +1,6 @@
 <!--pages/activity-custom/activity-custom.wxml-->
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
-	<view slot="content">自定义活动</view>
+	<view slot="content">{{title}}</view>
 </cu-custom>
 <view class="custom">
 	<form>
@@ -43,7 +43,7 @@
 		<button class="cu-btn line-green " data-id="postData.guideTeacherId" data-name="guideTeacherName" bindtap="showSearch" >选择</button>
 	</view>
 
-	<view class="cu-form-group">
+	<view class="cu-form-group" wx:if="{{title == '自定义活动'}}">
 		<view class="title">指导单位</view>
 		<picker bindchange="deptChange" value="{{fakeData.deptIdno}}" range="{{deptList}}" range-key="deptName">
 			<view class="picker">
@@ -51,7 +51,7 @@
 			</view>
 		</picker>
 	</view>
-	<view class="cu-form-group">
+	<view class="cu-form-group" wx:if="{{title == '自定义活动'}}">
 		<view class="title">主办方</view>
 		<picker bindchange="groupChange" value="{{fakeData.groupIdno}}" range="{{groupList}}" range-key="deptName">
 			<view class="picker">
@@ -101,7 +101,7 @@
 		<view class="title">录取方式</view>
 		<picker bindchange="admissionWayChange" value="{{fakeData.admissionWay}}" range="{{dict_admissionWay}}" range-key="dictLabel">
 			<view class="picker">
-				{{fakeData.admissionWay?dict_admissionWay[fakeData.admissionWay].dictLabel:'录取方式'}}
+				{{fakeData.admissionWay!=null?dict_admissionWay[fakeData.admissionWay].dictLabel:'录取方式'}}
 			</view>
 		</picker>
 	</view>
@@ -109,7 +109,8 @@
 	<view class="cu-form-group">
 		<view class="title">报名范围</view>
 		<view class="action">
-			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green " bindtap="showModal" data-target="deptModal">选择</button>
+			{{postData.enrollRange.length != 0?'已选择':'未选择'}}
+			<button class="cu-btn line-green margin-left" bindtap="showModal" data-target="deptModal" style="min-width: 117rpx;">选择</button>
 		</view>
 	</view>
 	<view class="cu-modal bottom-modal {{modalName=='deptModal'?'show':''}}" bindtap="hideModal">
@@ -132,8 +133,10 @@
 
 	<view class="cu-form-group">
 		<view class="title">报名年级</view>
+		<!-- <view class="text-cut"></view> -->
 		<view class="action">
-			<text class="margin-right-xs line-green text-cut" style="width: 41vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green " bindtap="showModal" data-target="rangeModal">选择</button>
+			{{postData.enrollGrade.length !=0?'已选择':'未选择'}}
+			<button class="margin-left cu-btn line-green " bindtap="showModal" data-target="rangeModal" style="min-width: 117rpx;">选择</button>
 		</view>
 	</view>
 	<view class="cu-modal bottom-modal {{modalName=='rangeModal'?'show':''}}" bindtap="hideModal">
@@ -183,8 +186,8 @@
 	<view class="cu-form-group">
 		<view class="title">关联分类</view>
 		<view class="action ">
-			<!-- <view><button class="cu-btn line-green shadow" bindtap="showModal" data-target="DrawerModalL">选择</button></view><text class="text-cut padding-xs bg-green radius" style="max-width:120px">我于杀戮之中绽放 </text> -->
-			<!-- <text class="margin-right-xs line-green text-cut" style="max-width: 40vw;display: inline-block;">{{fakeData.courseName?fakeData.courseName:''}}</text><button class="cu-btn line-green shadow" bindtap="showModal" data-target="classification">选择</button> -->
+			<!-- mutiArray是二维数组，对应两列 -->
+			<!-- mutiValue是一维数组，对应两个数字 -->
 		<picker
 			mode="multiSelector"
 			range="{{multiArray}}"
@@ -193,16 +196,16 @@
 			bindchange="MultiChange"
 		>
 			<view class="picker classification text-cut">
-				{{multiArray[1][multiIndex[1]]?multiArray[1][multiIndex[1]]:'请选择课程'}}
+				{{multiArray[1][multiIndex[1]]?multiArray[1][multiIndex[1]]:'请选择分类'}}
 			</view>
 		</picker>
 		</view>
 	</view>
-	<view class="cu-form-group ">
+	<view class="cu-form-group" hidden="{{!showCourse}}">
 		<view class="title">关联课程</view>
 		<picker bindchange="courseChange" value="{{multiCourseIndex}}" range="{{multiCourse}}" range-key="name">
 			<view class="picker">
-				{{multiCourseIndex?multiCourse[multiCourseIndex].name:'请选择课程'}}
+				{{multiCourseIndex!=null?multiCourse[multiCourseIndex].name:'请选择课程'}}
 			</view>
 		</picker>
 	</view>
@@ -220,9 +223,9 @@
 </view>
 	<view class="cu-form-group">
 		<view class="title">积分方案</view>
-		<picker bindchange="integralChange" value="{{fakeData.integralStatus}}" range="{{dict_integral}}" range-key="dictLabel">
+		<picker bindchange="integralChange" value="{{postData.integralScheme}}" range="{{dict_integral}}" range-key="dictLabel">
 			<view class="picker">
-				{{fakeData.integralStatus?dict_integral[fakeData.integralStatus].dictLabel:'请选择积分方案'}}
+				{{postData.integralScheme!=null?dict_integral[postData.integralScheme].dictLabel:'请选择积分方案'}}
 			</view>
 		</picker>
 	</view>
@@ -261,7 +264,10 @@
 
 	<view class="cu-form-group">
 		<view class="title">允许请假</view>
-		<switch checked bindchange="vacateChange"></switch>
+		<view class="action">
+		{{postData.vacate?'是':'否'}}
+		<switch class="margin-left" checked="{{postData.vacate}}" bindchange="vacateChange"></switch>
+	</view>
 	</view>
 	<view class="cu-form-group">
 		<view class="title">花絮管理</view>
@@ -281,7 +287,10 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">活动地点</view>
-		<button class="cu-btn line-green" bindtap="showModal" data-target="bottomModal">选择</button>
+			<view class="text-cut" style="width: calc(100% - 200rpx);">{{postData.activityPlace}}</view>
+		<view class="action">
+			<button style="min-width: 116rpx;" class="cu-btn line-green" bindtap="showModal" data-target="bottomModal">选择</button>
+		</view>
 	</view>
 	<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}">
   <view class="cu-dialog">

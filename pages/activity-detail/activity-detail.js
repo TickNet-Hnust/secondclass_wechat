@@ -9,6 +9,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		isNeedToRefresh: false,//是否需要刷新
 		//决定是否显示哪一个tab
 		TabCur:0,
 		//节流判断变量
@@ -16,7 +17,7 @@ Page({
 		count:0,
 		operation: [
 			[
-				{ title: '修改', status: 0 },
+				// { title: '修改', status: 0 },
 				{
 					title: '申请发布',
 					status: 1
@@ -52,7 +53,7 @@ Page({
 				// }
 			],
 			[
-				{ title: '修改', status: 0 },
+				// { title: '修改', status: 0 },
 				{
 					title: '取消',
 					status: 4
@@ -250,6 +251,12 @@ Page({
 			this.setData({
 				isCollection: value.data
 			})
+		})
+	},
+	updateActivity() {
+		this.isNeedToRefresh = true
+		wx.navigateTo({
+		  url: `../activity-custom/activity-custom?aid=${this.data.aid}`,
 		})
 	},
 	setCollection() {
@@ -642,7 +649,7 @@ Page({
 	},
 	getDetail() {
 		return request({
-			url: `/secondClass/activity/${this.data.aid}`,
+			url: `/secondClass/activity/detail/${this.data.aid}`,
 			method: 'GET',
 			data:{
 				activityId:this.data.aid
@@ -701,7 +708,28 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-
+		if(this.isNeedToRefresh) {
+			Promise.all([
+				this.getDetail(),
+				this.getCollection(),
+				this.getMember(),
+				this.getFlower(),
+				this.getEvaluation()
+			]).then(value => {
+				this.setData({
+					loadModal: false,
+				});
+			})
+			this.setData({
+				dict_admissionWay:wx.getStorageSync('dict_admissionWay'),
+				dict_rank:wx.getStorageSync('dict_rank'),
+				dict_evaluate_scheme:wx.getStorageSync('dict_evaluate_scheme'),
+				dict_flower:wx.getStorageSync('dict_flower'),
+				dict_sc_activity_status:wx.getStorageSync('dict_sc_activity_status')
+			})
+			this.isNeedToRefresh = false
+		}
+		
 	},
 
 	/**

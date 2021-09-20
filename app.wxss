@@ -107,3 +107,7 @@
 	z-index: 9999;
 	background-color: rgba(0,0,0,0.3);
 }
+
+.transition {
+	transition: font-size .2s;
+}

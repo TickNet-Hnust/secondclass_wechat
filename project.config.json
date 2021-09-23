@@ -21,6 +21,7 @@
         "checkSiteMap": true,
         "uploadWithSourceMap": true,
         "compileHotReLoad": false,
+        "lazyloadPlaceholderEnable": false,
         "useMultiFrameRuntime": true,
         "useApiHook": true,
         "useApiHostProcess": true,
@@ -33,7 +34,12 @@
         "useIsolateContext": true,
         "userConfirmedBundleSwitch": false,
         "packNpmManually": false,
-        "packNpmRelationList": [],
+        "packNpmRelationList": [
+            {
+                "packageJsonPath": "./package.json",
+                "miniprogramNpmDistDir": "./../miniprogram-2"
+            }
+        ],
         "minifyWXSS": true,
         "showES6CompileOption": false
     },
@@ -43,5 +49,6 @@
         "qywx_simulator_plugin": "2.12.3"
     },
     "appid": "wxcfba675bcd332ebf",
+    "libVersion": "2.17.0",
     "condition": {}
 }

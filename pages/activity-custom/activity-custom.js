@@ -18,7 +18,9 @@ Page({
 		multiCourse:[],
 		multiCourseIndex:0,
 		searchValue:'',
-		farSearch:[], 
+		farSearch:[],
+		recordList:[],//本地缓存记录
+		recordState:true, //是否显示record
 		searchShow: false,
 		//当前学年
 		nowYear:null,
@@ -255,6 +257,7 @@ Page({
 		  }
 		})
 	},
+	//远程搜索人
 	onClick() {
 		wx.showLoading({
 		  title: '加载中',
@@ -280,20 +283,59 @@ Page({
 		})
 		console.log(this.data.searchValue)
 	},
+	//选定人并添加记录
+	sureAddHuman(e) {
+		let {name:proxyName,id:proxyId} = this.data.state
+		//检测是否需要新添加记录
+		const {id} = e.currentTarget.dataset
+		const index = this.data.recordList.findIndex(item => {
+			return item.id == id
+		})
+		if(index != -1) { //有对应记录
+			let tempObj = this.data.recordList.splice(index,1)
+			this.data.recordList.unshift(...tempObj)
+		} else {
+			this.data.recordList.unshift({ //添加记录
+				id: e.currentTarget.dataset.id,
+				name: e.currentTarget.dataset.name
+			})
+		}
+		if(this.data.recordList.length > 10) { //记录数超限
+			this.data.recordList.pop()
+		}
+		this.setData({
+			recordList: this.data.recordList,
+			searchShow:false //隐藏搜索组件
+		})
+		wx.setStorageSync('recordList', this.data.recordList)
+		console.log(proxyName,proxyId,e,1212)
+		this.setData({
+			[proxyName]: e.currentTarget.dataset.name,
+			[proxyId]: e.currentTarget.dataset.id
+		})
+		console.log(this.data[proxyName],)
+		console.log(e.currentTarget.dataset.name)
+		console.log(e.currentTarget.dataset.id)
+	},
 	//选定人
 	sureHuman(e) {
 		let {name,id} = this.data.state
-		console.log(name,id,e,1212)
 		this.setData({
 			[name]: e.currentTarget.dataset.name,
 			[id]: e.currentTarget.dataset.id
 		})
+		//选中哪一个就到最前面
+		let tempObj = this.data.recordList.splice(e.currentTarget.dataset.index,1)
+		this.data.recordList.unshift(...tempObj)
 		this.setData({
-			searchShow:false
+			searchShow:false,
+			recordList: this.data.recordList
 		})
-		console.log(this.data[name],)
-		console.log(e.currentTarget.dataset.name)
-		console.log(e.currentTarget.dataset.id)
+	},
+	onFocus() {
+		this.setData({
+			recordState: false
+		})
 	},
 	onSearch(){},
 	onChange(e) {
@@ -301,12 +343,15 @@ Page({
 			searchValue:e.detail
 		})
 	},
-	//打开远程搜索框
+	//打开远程搜索框并清空上一次的选择
 	showSearch(e) {
 		this.setData({
 			searchShow:true,
+			recordState: true,
 			'state.name':e.currentTarget.dataset.name,
 			'state.id':e.currentTarget.dataset.id,
+			searchValue:'',
+			farSearch:[]
 		})
 		console.log(this.data.state)
 	},
@@ -680,19 +725,8 @@ Page({
 		this.setData({
 			dict_admissionWay: wx.getStorageSync('dict_admissionWay').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
 		})
-		// this.setData({
-		// 	'postData.admissionWay': this.data.dict_admissionWay[0].dictValue
-		// })
-
 		this.setData({
-		})
-		
-		
-		this.setData({
-		})
-		
-		
-		this.setData({
+			recordList: wx.getStorageSync('recordList') || [],
 			dict_flower: wx.getStorageSync('dict_flower').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})),
 			dict_integral: wx.getStorageSync('dict_integral').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})),
 			dict_evaluate_scheme: wx.getStorageSync('dict_evaluate_scheme').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})),

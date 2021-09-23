@@ -15,6 +15,12 @@
 	}
 	module.exports.format = format
   </wxs>
+<wxs module="statusMap">
+	var arr = ['起草','待审核','审核通过','审核不通过','已取消','报名中','等待中','进行中','已结束']
+	module.exports = function(index) {
+		return arr[index]
+	}
+</wxs>
 <view class="detail">
 	<view class="cu-list menu-avatar mainShow">
         <view class="cu-item">
@@ -387,6 +393,7 @@
 							<view>
 								<text class="tabSideText">{{item.activityTag}}</text>
 							</view>
+							<view class="state">{{statusMap(item.status)}}</view>
 						</view>
 				</view>
 				<view wx:else>

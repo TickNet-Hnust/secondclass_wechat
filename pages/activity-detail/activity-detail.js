@@ -709,6 +709,7 @@ Page({
 	 */
 	onShow: function () {
 		if(this.isNeedToRefresh) {
+			
 			Promise.all([
 				this.getDetail(),
 				this.getCollection(),
@@ -719,6 +720,9 @@ Page({
 				this.setData({
 					loadModal: false,
 				});
+				wx.showToast({
+					title: '修改成功',
+				})
 			})
 			this.setData({
 				dict_admissionWay:wx.getStorageSync('dict_admissionWay'),

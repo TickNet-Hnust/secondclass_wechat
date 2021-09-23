@@ -2,6 +2,12 @@
 <cu-custom  bgColor="bg-keda-blue" isBack="{{false}}"><view slot="backText">返回</view>
 	<view slot="content">活动</view>
 </cu-custom>
+<wxs module="statusMap">
+	var arr = ['起草','待审核','审核通过','审核不通过','已取消','报名中','等待中','进行中','已结束']
+	module.exports = function(index) {
+		return arr[index]
+	}
+</wxs>
 <view class="containerActivity">
   <view class="activityTop">
 	<view class="activitySearch" bindtap="jumpSearch">
@@ -48,6 +54,7 @@
 					<view class="tabSideText">
 						<text>{{item.activityTag}}</text>
 					</view>
+					<view class="state">{{statusMap(item.status)}}</view>
 				</view>
 			</view>
 			<view hidden="{{recommendActivityList.length == 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayOne?'animation-slide-bottom':''}}" style="animation-delay: {{(recommendActivityList.length)*0.1}}s;"></view>
@@ -68,6 +75,7 @@
 					<view class="tabSideText">
 						<text>{{item.activityTag}}</text>
 					</view>
+					<view class="state">{{statusMap(item.status)}}</view>
 				</view>
 			</view>
 			<view hidden="{{myActivityList.length == 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(myActivityList.length)*0.1}}s;"></view>
@@ -88,6 +96,7 @@
 					<view class="tabSideText">
 						<text>{{item.activityTag}}</text>
 					</view>
+					<view class="state">{{statusMap(item.status)}}</view>
 				</view>
 			</view>
 			<view hidden="{{collectionActivityList.length == 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(collectionActivityList.length)*0.1}}s;"></view>

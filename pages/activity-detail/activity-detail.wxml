@@ -264,7 +264,7 @@
 							</view>
 						</van-col>
 						<van-col span="14">
-							<view class="flexMainTitle">第三教学楼302室</view>
+							<view class="flexMainTitle">{{showData.activityPlaceName}}</view>
 							<view class="flexSideTitle">活动地点</view>
 						</van-col>
 						<!-- <van-col span="6" >

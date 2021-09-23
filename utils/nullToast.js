@@ -19,8 +19,8 @@ export function nullToast(data,state) {
 				(data.courseClassificationId == '' && '关联分类') ||
 				(data.courseId == '' && '关联课程') ||
 				(data.integralScheme == null && '积分方案') ||
-				(data.flowerStatus == '' && '花絮管理') ||
-				(data.evaluateStatus == '' && '评价管理') ||
+				(data.flowerStatus == null && '花絮管理') ||
+				(data.evaluateStatus == null && '评价管理') ||
 				(data.activityPlace == '' && '活动地点') ||
 				(data.activityPlaceName == '' && '地点详细描述') ||
 				(data.activityRegisteDistance == '' && '签到距离') ||

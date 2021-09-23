@@ -18,6 +18,15 @@ Page({
       desc: '获取的信息用于展示',
       success:(res) => {
         console.log(res)
+        request({
+          url: '/user/util/avatar',
+          method: 'put',
+          data:{
+            avatar: res.userInfo.avatarUrl
+          }
+        }).then(value => {
+          console.log(value)
+        })
         this.setData({
           isLogin:true,
           nickName: res.userInfo.nickName,
@@ -38,6 +47,7 @@ Page({
         wx.showToast({
           title: '登录成功',
         })
+        
       }
     })
   },

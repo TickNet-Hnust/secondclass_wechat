@@ -116,7 +116,7 @@
       <view class="chooseMsg">• 关于开展湖南科技大学第十九届学生会主席团候选人报名</view>
       <view class="Middlearrow">></view> -->
   </view>
-  <view class="chooseBottom">
+  <view class="chooseBottom" bindtap="kaifa">
     <view class="cu-bar bg-white">
     <view class="action">
       <text class="cuIcon-titles text-blue"></text>

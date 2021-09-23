@@ -1,11 +1,13 @@
 // pages/activity/activity.js
 import {request} from '../../js/http.js'
+const app = getApp()
 Page({
 
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
+		isNeedToRefresh:false,
 		toggleDelay:false,
 		groupClassificationMap:{},
 		dict_ga_group_status:[],
@@ -52,17 +54,19 @@ Page({
 		}, 1500)
 	  },
 	jumpDetail(e) {
-		console.log(e)
+		this.data.isNeedToRefresh = true
 		wx.navigateTo({
 		  url: `../group-detail/group-detail?gid=${e.currentTarget.dataset.id}`,
 		})
 	},
 	jumpSearch() {
+		this.data.isNeedToRefresh = true
 		wx.navigateTo({
 		  url: '../group-search/group-search',
 		})
 	},
 	jumpRelease() {
+		this.data.isNeedToRefresh = true
 		wx.navigateTo({
 			url: '../group-custom/group-custom',
 		  })
@@ -116,7 +120,6 @@ Page({
 		this.setData({
 			dict_ga_group_status: wx.getStorageSync('dict_ga_group_status')
 		})
-		this.toggleDelay()
 		this.getRecommend().then(value => {
 			console.log(value)
 			this.setData({
@@ -154,7 +157,29 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-		
+		if(this.data.isNeedToRefresh) {
+			this.getRecommend().then(value => {
+				console.log(value)
+				this.setData({
+					recommendGroupList: value.rows
+				})
+			})
+			//我的
+			this.getMyGroup().then(value => {
+				console.log(value)
+				this.setData({
+					myGroupList: value.rows
+				})
+			})
+			//收藏
+			this.getCollection().then(value => {
+				console.log(value)
+				this.setData({
+					collectionGroupList: value.rows
+				})
+			})
+		}
+		this.data.isNeedToRefresh = false
 	},
 
 	/**
@@ -193,6 +218,7 @@ Page({
 				success: (res) => {},
 			})
 			this.toggleDelay()
+			app.showSuccess()
 		})
 		  
 		},

@@ -1,8 +1,11 @@
+import {request} from '../../js/http.js'
 Page({
   options: {
     addGlobalClass: true,
   },
   data: {
+    TimeOut: null,
+    angle: 0, //感应角度
     isLogin:false,
     nickName: '',
     avatarUrl:'',
@@ -67,7 +70,43 @@ Page({
     })
     
   },
+  onShow() {
+    let that = this
+    wx.request({   //天气越热，变化越快
+      url: 'http://wthrcdn.etouch.cn/weather_mini?city=%E6%B9%98%E6%BD%AD%E5%B8%82',
+      method: 'GET',
+      success:(res) => {
+        if(res.data.data) {
+          let high = /\d+/.exec(res.data.data.forecast[0].high)[0]
+          let low = /\d+/.exec(res.data.data.forecast[0].low)[0]
+          let avg = (Number(high) + Number(low)) / 2
+          this.data.multiple = 2000 / (avg / 20)
+          this.data.multiple  = this.data.multiple > 8000 ? 8000 : this.data.multiple
+          this.data.multiple  = this.data.multiple < 1000 ? 1000 : this.data.multiple 
+        }else {
+          console.log('获取天气接口错误')
+          this.data.multiple = 2000  //接口默认值
+        }
+        console.log('事件间隔',this.data.multiple)
+        this.setData({
+          multiple: this.data.multiple
+        })
+        that.data.TimeOut = setInterval(() => {
+          console.log(Math.random())
+          that.setData({
+            angle:(Math.random()-0.5)*15 //最大旋转15deg
+          })
+        },this.data.multiple)
+      }
+    })
+    
+  },
+  onHide() {
+    
+    clearInterval(this.data.TimeOut)
+  },
   onLoad() {
+    
     this.setData({
       isLogin: wx.getStorageSync('isLogin'),
       nickName:wx.getStorageSync('nickName'),

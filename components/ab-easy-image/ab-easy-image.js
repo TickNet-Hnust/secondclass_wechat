@@ -1,7 +1,14 @@
 Component({
+	options:{
+		addGlobalClass: true  //使全局类作用到当前组件
+	},
 	properties: {
 		// 图片资源
 		src: {
+			type: String,
+			value: ''
+		},
+		className:{
 			type: String,
 			value: ''
 		},
@@ -24,9 +31,6 @@ Component({
 			type:String,
 			value:'aspectFill'
 		},
-		class:{
-			type: String
-		}
 		},
 	
 		data: {

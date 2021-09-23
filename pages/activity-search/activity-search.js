@@ -1,5 +1,6 @@
 // pages/activity-search/activity-search.js
 import {request} from '../../js/http.js'
+const app = getApp()
 Page({
 
 	/**
@@ -18,7 +19,8 @@ Page({
 		allNum:2,
 		searchActivityList:[],
 		searchNum:2,
-		TabCur:0
+		TabCur:0,
+		isNeed: true,//第一次进入需要聚焦
 	},
 	tabSelect(e) {
 		this.setData({
@@ -47,7 +49,7 @@ Page({
 	jumpDetail(e) {
 		console.log(e)
 		wx.navigateTo({
-		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
+		  url: `../activity-detail/activity-detail?aid=${e.target.dataset.id}`,
 		})
 	},
 	//按钮改变触发
@@ -244,6 +246,9 @@ Page({
 	 * 生命周期函数--监听页面隐藏
 	 */
 	onHide: function () {
+		this.setData({
+			isNeed: false
+		})
 	},
 
 	/**
@@ -273,6 +278,7 @@ Page({
 				success: (res) => {},
 			})
 			this.toggleDelay()
+			app.showSuccess()
 		})
 	},
 
@@ -283,7 +289,7 @@ Page({
 		this.setData({
 			isLoading:true
 		})
-		if(this.data.active == '0') {
+		if(this.data.TabCur == '0') {
 			this.getSearch(this.data.searchNum,10,this.data.value).then(value => {
 				console.log(value)
 				this.data.searchActivityList.push(...value.rows)
@@ -293,7 +299,7 @@ Page({
 					isLoading:false
 				})
 			})
-		}else if(this.data.active == '1') {
+		}else if(this.data.TabCur == '1') {
 			this.getAll(this.data.allNum,10).then(value => {
 				console.log(value)
 				this.data.allActivityList.push(...value.rows)

@@ -5,7 +5,7 @@
 </cu-custom>
 <wxs module="m3">
 	function format(str) {
-		if(str == null) return 'http://' //让其加载失败
+		if(str == null) return undefined //防止报错
 		return	str.split(';')[1]
 	}
 	module.exports.format = format
@@ -32,7 +32,7 @@
 				bind:search="searchGroup"
 				bind:focus="focusSearch"
 				maxlength="{{10}}"
-				focus
+				focus="{{isNeed}}"
 			/>
 			<view class="searchBody"  wx:if="{{show}}">
 				<view class="history">
@@ -49,6 +49,8 @@
 						data-index="{{index}}"
 						data-item="{{item}}"
 						catchtap="tagSearch"
+						class="{{toggleDelayOne?'animation-fade':''}}"
+						style="animation-delay: {{(index+1)*0.1}}s;"
 					>{{item}}</van-tag>
 				</view>
 			</view>
@@ -120,7 +122,7 @@
 						</view>
 					</view>
 				</view>
-				<view wx:if="{{allGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+				<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 			</scroll-view>
 	</view>
 	<!-- 热门 -->

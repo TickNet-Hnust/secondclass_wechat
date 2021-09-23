@@ -62,6 +62,7 @@
 		}
 	},
 	"usingComponents": {
+		"delay-button": "/components/delay-button/delay-button",
 		"mp-html": "mp-html",
 		"ab-easy-image": "/components/ab-easy-image/ab-easy-image",
 		"cu-custom": "/colorui/components/cu-custom",

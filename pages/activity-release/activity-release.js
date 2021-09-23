@@ -50,6 +50,13 @@ Page({
 			}
 		]
 	},
+	
+	kaifa() {
+		wx.showModal({
+		  title: '提示',
+		  content:'该功能还在开发中，敬请期待...'
+		})
+	},
 	tabSelect(e) {
 		// setTimeout(() => {
 			// },300)
@@ -135,6 +142,9 @@ Page({
 	 */
 	onPullDownRefresh: function () {
 		this.toggleDelay()
+		setTimeout(() => {
+			wx.stopPullDownRefresh()
+		},1000)
 	},
 
 	/**

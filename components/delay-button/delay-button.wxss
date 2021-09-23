@@ -1,0 +1,7 @@
+/* components/delayButton/delay-button.wxss */
+.like {
+	font-size: 50px;
+}
+.hate {
+	font-size: 60px;
+}

@@ -6,13 +6,17 @@
   <view class="activityTop">
 	<view class="activitySearch" bindtap="jumpSearch">
 		<image class="activityBgImg" src="../../images/activity/search.png"></image>
-		<text class="activitySideText">搜索</text>
-		<text class="activityText">792</text>
+		<text class="activitySideText text-xxl">
+			<text class="cuIcon-discover"></text>
+		</text>
+		<text class="activityText">发现更多</text>
 	</view>
 	<view class="activityRocket" bindtap="jumpRelease">
 		<image class="activityBgImg" src="../../images/activity/rocket.png"></image>
-		<text class="activitySideText">发布</text>
-		<text class="activityText">2</text>
+		<text class="activitySideText text-xxl">
+			<text class="cuIcon-newshot"></text>
+		</text>
+		<text class="activityText">发布活动</text>
 	</view>
   </view>
 
@@ -29,12 +33,12 @@
 		</view>
 	</scroll-view>
 	<!-- 推荐 -->
-	<view  hidden="{{0!=TabCur}}" class="">
+	<view  hidden="{{0!=TabCur}}" class="" bindtap="jumpDetail">
 		<van-empty description="空空如也" wx:if="{{recommendActivityList.length == 0}}"/>
 			<view class="activityAbstract">
-				<view wx:for="{{recommendActivityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelayOne?'animation-slide-bottom':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view wx:for="{{recommendActivityList}}" wx:key="index" data-id="{{item.id}}" class="activityFull {{toggleDelayOne?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
-						<ab-easy-image src="{{item.image}}"></ab-easy-image>
+						<ab-easy-image src="{{item.image}}" data-id="{{item.id}}"></ab-easy-image>
 					</view>
 					<view>
 						<view class="tabMainText">
@@ -46,15 +50,15 @@
 					</view>
 				</view>
 			</view>
-			<view wx:if="{{recommendActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+			<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayOne?'animation-slide-bottom':''}}" style="animation-delay: {{(recommendActivityList.length)*0.1}}s;"></view>
 	</view>
 	<!-- 我的 -->
-	<view hidden="{{1!=TabCur}}" class="">
+	<view hidden="{{1!=TabCur}}" class="" bindtap="jumpDetail">
 		<van-empty description="空空如也" wx:if="{{myActivityList.length == 0}}"/>
 			<view class="activityAbstract">
-				<view wx:for="{{myActivityList}}" wx:key="index"  data-id="{{item.id}}" bindtap="jumpDetail" class="activityFull {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view wx:for="{{myActivityList}}" wx:key="index"  data-id="{{item.id}}" class="activityFull {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
-						<ab-easy-image src="{{item.image}}"></ab-easy-image>
+						<ab-easy-image src="{{item.image}}" data-id="{{item.id}}"></ab-easy-image>
 					</view>
 					<view >
 						<view class="tabMainText">
@@ -66,15 +70,15 @@
 					</view>
 				</view>
 			</view>
-			<view wx:if="{{myActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+			<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(myActivityList.length)*0.1}}s;"></view>
 	</view>
 	<!-- 收藏 -->
-	<view  hidden="{{2!=TabCur}}" class="">
+	<view  hidden="{{2!=TabCur}}" class="" bindtap="jumpDetail">
 		<van-empty description="空空如也" wx:if="{{collectionActivityList.length == 0}}"/>
 			<view class="activityAbstract">				
-				<view wx:for="{{collectionActivityList}}" wx:key="index" bindtap="jumpDetail" data-id="{{item.id}}" class="activityFull {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view wx:for="{{collectionActivityList}}" wx:key="index" data-id="{{item.id}}" class="activityFull {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
-						<ab-easy-image src="{{item.image}}"></ab-easy-image>
+						<ab-easy-image src="{{item.image}}" data-id="{{item.id}}"></ab-easy-image>
 					</view>
 					<view >
 						<view class="tabMainText">
@@ -86,7 +90,7 @@
 					</view>
 				</view>
 			</view>
-			<view wx:if="{{collectionActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+			<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(collectionActivityList.length)*0.1}}s;"></view>
 	</view>
 	<!-- <van-tabs 
 		id="tabs"

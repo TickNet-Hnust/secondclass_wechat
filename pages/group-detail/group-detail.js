@@ -12,6 +12,7 @@ Page({
 		textShow:true,
 		show:false,
 		loadModal:true,
+		loading: false,
 		gid: null,
 		isCollection: false,
 		dict_ga_group_status:[],
@@ -28,6 +29,7 @@ Page({
 			title: '',
 			text: '',
 		},
+		memberNum: 2,//记录成员的页数
 		title:'群组消息发布',
 		TabCur:'', //决定是哪个tab
 	},
@@ -35,7 +37,6 @@ Page({
 		this.setData({
 		  TabCur: e.currentTarget.dataset.id,
 		})
-		this.toggleDelay()
 	},
 	showNotice(e) {
 		console.log(123)
@@ -84,11 +85,25 @@ Page({
 		
 	},
 	ViewImage() {
-		wx.previewImage({
-			urls: [this.data.showData.avatar.split(';')[0]],
-			current:this.data.showData.avatar.split(';')[0]
-		});
+		if(this.data.showData.avatar == null) {
+			wx.previewImage({
+				urls: ['../../images/group.png'],
+				current:'../../images/group.png'
+			});
+		}else {
+			wx.previewImage({
+				urls: [this.data.showData.avatar.split(';')[0]],
+				current:this.data.showData.avatar.split(';')[0]
+			});
+		}
+		
 	},
+	kaifa() {
+		wx.showModal({
+		  title: '提示',
+		  content:'该功能还在开发中，敬请期待...'
+		})
+	  },
 	postMsg() {
 		request({
 			url: '/group/msg',
@@ -115,14 +130,28 @@ Page({
 	},
 	//解散群组
 	disMissGoup() {
-		request({
-			url: `/group/${this.data.gid}`,
-			method:'DELETE'
-		}).then(value => {
-			wx.navigateBack({
-			  delta: 1,
-			})
+		wx.showModal({
+			title: '提示框',
+			content: '您确定要解散群组吗？',
+			success:(res) => {
+				if(res.confirm) {
+					request({
+						url: `/group/${this.data.gid}`,
+						method:'DELETE'
+					}).then(value => {
+						wx.navigateBack({
+						  delta: 1,
+						})
+					})
+				} else {
+					wx.showToast({
+					  title: '用户取消',
+					  icon:'none'
+					})
+				}
+			}
 		})
+		
 	},
 	showModal(e) {
 		if(e.currentTarget.dataset.target == 'controlModal') {
@@ -192,21 +221,15 @@ Page({
 			})
 		})
 	},
-	getMember() {
+	getMember(pageNum=1, pageSize=10) {
 		return request({
 			url: `/group/member/list`,
 			method: 'GET',
 			data:{
 				groupId: this.data.gid,
-				pageNum:1,
-				pageSize:10
+				pageNum,
+				pageSize
 			}
-		}).then(value => {
-			console.log(value.rows)
-			this.setData({
-				memberList:value.rows
-			})
-			// this.computedState()
 		})
 	},
 	getActivity() {
@@ -307,6 +330,7 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
+		console.log(options)
 		this.setData({
 			gid:options.gid,
 			dict_ga_group_status: wx.getStorageSync('dict_ga_group_status'),
@@ -315,7 +339,12 @@ Page({
 			groupClassificationMap: wx.getStorageSync('groupClassificationMap')
 		})
 		console.log(options)
-		this.getMember()
+		this.getMember().then(value => {
+			console.log(value.rows)
+			this.setData({
+				memberList:value.rows
+			})
+		})
 		this.getDetail()
 		this.getActivity()
 		this.getMsg()
@@ -363,9 +392,14 @@ Page({
 			this.getMsg(),
 			this.getCollection()
 		]).then(value => {
+				this.setData({
+					memberList:value[0].rows
+				})
+			
 			wx.stopPullDownRefresh({
 				success: (res) => {},
 			})
+			app.showSuccess()
 		})
 	},
 
@@ -373,7 +407,22 @@ Page({
 	 * 页面上拉触底事件的处理函数
 	 */
 	onReachBottom: function () {
-
+		this.setData({
+			loading: true
+		})
+		if(this.data.TabCur == 1) {
+			this.getMember(this.data.memberNum).then(value => {
+				this.data.memberList.push(...value.rows)
+				this.data.memberNum++
+				this.setData({
+					memberList: this.data.memberList,
+					memberNum: this.data.memberNum
+				})
+				this.setData({
+					loading: false
+				})
+			})
+		}
 	},
 
 	/**

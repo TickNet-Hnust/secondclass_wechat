@@ -2,11 +2,11 @@
 <view class="ab-easy-image">
  	<image 
 	 	wx:if="{{!loadFinish && placeholder}}" 
-		class="ab-easy-image__pic {{class}}"
+		class="ab-easy-image__pic {{className}}"
 		src="{{placeholder}}" 
 		mode="{{mode}}" />
   	<image 
-	  	class="ab-easy-image__pic {{class}}"
+	  	class="ab-easy-image__pic {{className}}"
 		src="{{src}}" 
 		lazy-load="{{lazyload}}" 
 		mode="{{mode}}" 

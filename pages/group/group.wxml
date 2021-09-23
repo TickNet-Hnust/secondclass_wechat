@@ -6,13 +6,17 @@
   <view class="activityTop">
 	<view class="activitySearch" bindtap="jumpSearch">
 		<image class="activityBgImg" src="../../images/activity/search.png"></image>
-		<text class="activitySideText">搜索</text>
-		<text class="activityText">792</text>
+		<text class="activitySideText text-xxl">
+			<text class="cuIcon-discover"></text>
+		</text>
+		<text class="activityText">发现更多</text>
 	</view>
 	<view class="activityRocket" bindtap="jumpRelease">
 		<image class="activityBgImg" src="../../images/activity/rocket.png"></image>
-		<text class="activitySideText">发布</text>
-		<text class="activityText">2</text>
+		<text class="activitySideText text-xxl">
+			<text class="cuIcon-roundadd"></text>
+		</text>
+		<text class="activityText">创建群组</text>
 	</view>
   </view>
   <view>
@@ -29,11 +33,11 @@
 	</scroll-view>
 	<!-- 推荐 -->
 	<view  hidden="{{0!=TabCur}}" class="">
-		<van-empty description="空空如也" wx:if="{{recommendGroupList.length == 0}}"/>
+		<van-empty description="空空如也" hidden="{{recommendGroupList.length != 0}}" wx:if="{{recommendGroupList.length == 0}}"/>
 			<view class="">
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayOne?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+						<ab-easy-image  class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
 							
 						</ab-easy-image>
 						<view class="content">
@@ -58,7 +62,7 @@
 							
 						</view>
 					</view>
-					<view wx:if="{{recommendGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+					<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayOne?'animation-fade':''}}" style="animation-delay: {{(recommendGroupList.length)*0.1}}s;"></view>
 				</view>
 			</view>
 	</view>
@@ -68,7 +72,7 @@
 			<view class="">				
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
-						<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+						<ab-easy-image class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
 							
 						</ab-easy-image>
 						<view class="content">
@@ -92,17 +96,17 @@
 							</view>
 						</view>
 					</view>
-					<view wx:if="{{myGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+					<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(myGroupList.length)*0.1}}s;"></view>
 				</view>
 			</view>
 	</view>
-	<!-- 推荐 -->
+	<!-- 收藏 -->
 	<view  hidden="{{2!=TabCur}}" class="">
 		<van-empty description="空空如也" wx:if="{{collectionGroupList.length == 0}}"/>
 			<view class="">
 				<view class="cu-list menu-avatar">
 					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+						<ab-easy-image class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
 							
 						</ab-easy-image>
 						<view class="content">
@@ -126,7 +130,7 @@
 							</view>
 						</view>
 					</view>
-					<view wx:if="{{collectionGroupList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+					<view class="cu-load bg-white {{isLoading?'loading':'over'}} {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(collectionGroupList.length)*0.1}}s;"></view>
 				</view>
 			</view>
 	</view>
@@ -134,9 +138,8 @@
 
   <wxs module="m3">
 	function format(str) {
-		if(str == null) return 'http://' //让其加载失败
-		console.log(str.split(';'))
-		return	str.split(';')[1]
+		if(str == null) return undefined //防止报错
+		return	str.split(';')[1]  //否则，返回模糊图片的路径
 	}
 	module.exports.format = format
   </wxs>

@@ -1,5 +1,6 @@
 // pages/Group-search/Group-search.js
 import {request} from '../../js/http.js'
+const app = getApp()
 Page({
 	/**
 	 * 页面的初始数据
@@ -17,7 +18,8 @@ Page({
 		hotNum:2,
 		allNum:2,				
 		searchNum:2,
-		TabCur:0
+		TabCur:0,
+		isNeed: true,//是否需要聚焦
 	},
 	tabSelect(e) {
 		this.setData({
@@ -109,6 +111,7 @@ Page({
 	//确认搜索触发
 	searchGroup(event){
 		event.detail = event.detail.trim()
+		this.data.value = event.detail
 		if(event.detail) {
 			let temp =  this.data.tags
 			//判断重复
@@ -200,7 +203,7 @@ Page({
 				allGroupList:value[0].rows,
 				hotGroupList:value[1].rows
 			})
-			this.toggleDelay()
+			app.showSuccess()
 		})
 		this.setData({
 			tags: wx.getStorageSync('Gtags') || [],
@@ -227,9 +230,9 @@ Page({
 	 * 生命周期函数--监听页面隐藏
 	 */
 	onHide: function () {
-		wx.reLaunch({
-			url: '../Group-search/Group-search'
-		  })
+		this.setData({
+			isNeed: false
+		})
 	},
 
 	/**
@@ -243,23 +246,32 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-		console.log('onPullDownRefresh')
-		Promise.all([
-			this.getAll(),
-			this.getHot()
-		]).then(value => {
-			this.setData({
-				allGroupList:value[0].rows,
-				hotGroupList:value[1].rows,
-				hotNum:2,
-				allNum:2,				
-				searchNum:2
+
+		if(this.data.TabCur == 0) {
+			setTimeout(() => {
+				wx.stopPullDownRefresh()
+				this.toggleDelay()
+				app.showSuccess()
+			},500)
+		}else if(this.data.TabCur == 1) {
+			this.getAll().then(value => {
+				this.setData({
+					allGroupList:value.data
+				})
+				wx.stopPullDownRefresh()
+				this.toggleDelay()
+				app.showSuccess()
 			})
-			wx.stopPullDownRefresh({
-				success: (res) => {},
+		} else {
+			this.getHot().then(value => {
+				this.setData({
+					hotGroupList:value.data
+				})
+				wx.stopPullDownRefresh()
+				this.toggleDelay()
+				app.showSuccess()
 			})
-			this.toggleDelay()
-		})
+		}
 	},
 
 	/**
@@ -269,7 +281,7 @@ Page({
 		this.setData({
 			isLoading:true
 		})
-		if(this.data.TabCur == '0') {
+		if(this.data.TabCur == 0) {
 			this.getSearch(this.data.value,this.data.searchNum).then(value => {
 				this.data.searchGroupList.push(...value.rows)
 				this.setData({
@@ -279,7 +291,7 @@ Page({
 					isLoading:false
 				})
 			})
-		}else if(this.data.TabCur == '1') {
+		}else if(this.data.TabCur == 1) {
 			this.getAll(this.data.allNum,10).then(value => {
 				this.data.allGroupList.push(...value.rows)
 				this.setData({

@@ -9,7 +9,7 @@ export function nullToast(data,state) {
 				(data.guideTeacherId == '' && '指导老师') ||
 				(data.deptId == '' && '指导单位') ||
 				(data.groupId == '' && '主办方') ||
-				(data.admissionWay == '' && '录取方式') ||
+				(data.admissionWay == null && '录取方式') ||
 				(data.enrollRange == '' && '报名范围') ||
 				(data.enrollGrade == '' && '报名年级') ||
 				(data.maxAdmissionNumber == '' && '最大录取人数') ||
@@ -18,7 +18,7 @@ export function nullToast(data,state) {
 				(data.activityTag == '' && '活动标签') ||
 				(data.courseClassificationId == '' && '关联分类') ||
 				(data.courseId == '' && '关联课程') ||
-				(data.integralScheme == '' && '积分方案') ||
+				(data.integralScheme == null && '积分方案') ||
 				(data.flowerStatus == '' && '花絮管理') ||
 				(data.evaluateStatus == '' && '评价管理') ||
 				(data.activityPlace == '' && '活动地点') ||

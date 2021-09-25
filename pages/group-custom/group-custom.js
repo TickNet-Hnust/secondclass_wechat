@@ -170,44 +170,47 @@ Page({
 		  sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 		  sourceType: ['album','camera'], //从相册选择
 		  success: (res) => {
-			console.log(res,77,)
-			if(!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
-				wx.showToast({
-				  title: '图片只支持jpg格式',
-				  icon: 'none',
-				  duration:2000
-				})
-				return ;
-			}
-			if(res.tempFiles[0].size > 1024*1024*2) {
-				wx.showToast({
-				  title: '图片大小不能超过2M',
-				  icon: 'none',
-				  duration:2000
-				})
-				return ;
-			}
-			that.setData({
-				imgList: res.tempFilePaths
-			})
-			getImgUrl(res.tempFilePaths[0]).then(value => {
+			// console.log(res,77,)
+			// if(!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
+			// 	wx.showToast({
+			// 	  title: '图片只支持jpg格式',
+			// 	  icon: 'none',
+			// 	  duration:2000
+			// 	})
+			// 	return ;
+			// }
+			// if(res.tempFiles[0].size > 1024*1024*2) {
+			// 	wx.showToast({
+			// 	  title: '图片大小不能超过2M',
+			// 	  icon: 'none',
+			// 	  duration:2000
+			// 	})
+			// 	return ;
+			// }
+			// that.setData({
+			// 	imgList: res.tempFilePaths
+			// })
+			// getImgUrl(res.tempFilePaths[0]).then(value => {
+			// 	that.setData({
+			// 		'postData.avatar': value //原图
+			// 	})
+			// }).then(() => {
 				that.setData({
-					'postData.avatar': value //原图
+					imgList: res.tempFilePaths
 				})
-			}).then(() => {
 				wx.compressImage({
 					src: res.tempFilePaths[0], // 图片路径
 					quality: 10, // 压缩质量
 					success:(val) => {
 						getImgUrl(val.tempFilePath).then(value => {
 						  that.setData({
-							  'postData.avatar': `${this.data.postData.avatar};${value}` //压缩图
+							  'postData.avatar': value //压缩图
 							})
-							console.info(this.data.postData.avatar.length)
+							
 						})
 					}
 				})
-			})
+			// })
 		  }
 		});
 	},
@@ -365,6 +368,7 @@ Page({
 			this.setData({
 				multiArray: temp
 			})
+			// debugger
 			this.setData({
 				'postData.type': this.data.typeList[0]?.children[0].id
 			})

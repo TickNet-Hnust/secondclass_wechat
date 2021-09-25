@@ -3,22 +3,25 @@
 	<view slot="backText">返回</view>
 	<view slot="content">群组查看</view>
 </cu-custom>
-<wxs module="m3">
+<view class="backTop" bindtap="goTop">
+	<text class="cuIcon-top"></text>
+</view>
+<!-- <wxs module="m3">
 	function format(str) {
 		if(str == null) return undefined //防止报错
 		return	str.split(';')[1]
 	}
 	module.exports.format = format
-  </wxs>
+  </wxs> -->
 <view class="search">
-	<scroll-view scroll-x class="bg-white nav text-left">
-		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+	<scroll-view scroll-x class="bg-white nav text-left" style="height:90rpx">
+		<view bindtap="tabSelect" class="cu-item transition {{0==TabCur?'text-blue cur text-xl':'abcf'}}" data-id="{{0}}">
 			搜索
 		</view>
-		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+		<view bindtap="tabSelect" class="cu-item transition {{1==TabCur?'text-blue cur text-xl':'abcf'}}" data-id="{{1}}">
 			全部
 		</view>
-		<view class="cu-item {{2==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{2}}">
+		<view bindtap="tabSelect" class="cu-item transition {{2==TabCur?'text-blue cur text-xl':'abcf'}}" data-id="{{2}}">
 			热门
 		</view>
 	</scroll-view>
@@ -61,7 +64,7 @@
 				<view class="">
 					<view class="cu-list menu-avatar">
 						<view wx:for="{{searchGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayOne?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-							<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+							<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{item.avatar}}">
 							</ab-easy-image>
 						<view class="content">
 							<view class="text-grey">
@@ -93,11 +96,11 @@
 	</view>
 	<!-- 全部 -->
 	<view  hidden="{{1!=TabCur}}" class="">
-		<scroll-view scroll-y>
+		<scroll-view scroll-y class="">
 			<view>
 					<view class="cu-list menu-avatar">
 						<view wx:for="{{allGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-							<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+							<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{item.avatar}}">
 							</ab-easy-image>
 						<view class="content">
 							<view class="text-grey">
@@ -131,7 +134,7 @@
 				<view >
 					<view class="cu-list menu-avatar">
 						<view wx:for="{{hotGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-							<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{m3.format(item.avatar)}}">
+							<ab-easy-image error="../../images/group.png" class="cu-avatar radius lg" src="{{item.avatar}}">
 							</ab-easy-image>
 						<view class="content">
 							<view class="text-grey">

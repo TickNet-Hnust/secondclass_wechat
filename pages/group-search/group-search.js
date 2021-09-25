@@ -25,9 +25,6 @@ Page({
 		this.setData({
 			TabCur: e.currentTarget.dataset.id,
 		})
-		// setTimeout(() => {
-			// this.toggleDelay()
-		// },200)
 	},
 	toggleDelay() {
 		var that = this;
@@ -189,6 +186,9 @@ Page({
 			}
 		})
 	},
+	goTop() {
+		app.goTop()
+	},
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
@@ -198,7 +198,7 @@ Page({
 			this.getAll(),
 			this.getHot()
 		]).then(value => {
-			console.log(123)
+			console.log(123,value)
 			this.setData({
 				allGroupList:value[0].rows,
 				hotGroupList:value[1].rows
@@ -302,6 +302,7 @@ Page({
 			})
 		} else {
 			this.getHot(this.data.hotNum,10).then(value => {
+				console.error(value,'hot')
 				this.data.hotGroupList.push(...value.rows)
 				this.setData({
 					hotGroupList:this.data.hotGroupList,

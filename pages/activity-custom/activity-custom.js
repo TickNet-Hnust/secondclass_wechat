@@ -11,13 +11,14 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		title: '自定义活动',//页面标题
 		//分类
 		multiArray:[],
-		multiIndex:[0,0],
+		multiIndex:[0,null],
 		multiCourse:[],
 		multiCourseIndex:0,
 		searchValue:'',
-		farSearch:[],
+		farSearch:[], 
 		searchShow: false,
 		//当前学年
 		nowYear:null,
@@ -79,7 +80,7 @@ Page({
 			rankIdno: 0,
 			admissionWay:null,
 			flowerStatus:null,
-			integralStatus: null,//积分状态
+			integralScheme: null,//积分状态
 			evaluateStatus:null,
 
 		},
@@ -156,7 +157,7 @@ Page({
 					if(e.locationEnabled == false) {
 						wx.showModal({
 							showCancel:false,
-							content: '确保定位准确，请手动打开GPS'
+							content: '为确保定位准确，请先手动打开GPS'
 						})
 						flag = false
 					}
@@ -337,6 +338,7 @@ Page({
 	MultiChange(e) {
 		console.log(e.detail.value)
 		this.setData({
+			showCourse:true,
 			'postData.courseClassificationId': this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id,
 			'postData.courseClassificationPath': this.data.courseClassificationList[e.detail.value[0]].id + ',' +this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id
 		})
@@ -351,7 +353,7 @@ Page({
 				rank: this.data.postData.rankId
 			}
 		}).then(value => {
-			console.log(value)
+			console.log(value,'课程')
 			this.setData({
 				multiCourse:value.data
 			})
@@ -408,7 +410,7 @@ Page({
 	//点击了部门多选项
 	ChooseDeptCheckbox(e) {
 		let items = this.data.deptList;
-		let values = e.currentTarget.dataset.value;
+		let values = e.currentTarget.dataset.value; //点击了某个
 		for (let i = 0, lenI = items.length; i < lenI; ++i) {
 		  if (i == values) {
 			items[i].checked = !items[i].checked;
@@ -416,7 +418,8 @@ Page({
 		  }
 		}
 		this.setData({
-			deptList: items
+			deptList: items,
+			'postData.enrollRange': this.data.deptList.filter(item => item.checked).map(item => item.deptId).join(';')
 		})
 	},
 	//签到状态改变
@@ -443,7 +446,8 @@ Page({
 		  }
 		}
 		this.setData({
-			range: items
+			range: items,
+			'postData.enrollGrade': this.data.range.filter(item => item.checked).map(item => item.name).join('，')
 		})
 		console.log(this.data.range,values)
 	},
@@ -604,36 +608,48 @@ Page({
 		this.setData({
 			'postData.schoolYearId': this.data.nowYear //默认当前学年
 		})
-		console.log(this.data.postData)
+		console.error(this.data.postData)
 		let msg = nullToast(this.data.postData,'activity')
 		
 		if(msg == 'ok') {
-			request({
-				url: '/secondClass/activity',
-				method: 'POST',
-				data:this.data.postData
-			}).then(value => {
-				console.log(value)
-				if(value.code == 500) {
-					wx.showToast({
-						title: value.msg,
-						icon: 'none',
-						duration: 2000
-					})
-				} else if(value.code == 200) {
-					wx.showToast({
-						title: '成功',
-						icon: 'success',
-						duration: 2000,
-						success:() =>{
-							wx.navigateBack({
-							  delta: 2,
-							})
-						}
-					})
-					
-				}
-			})
+			if(this.data.title == '修改活动') {
+				request({
+					url: '/secondClass/activity',
+					method: 'PUT',
+					data:this.data.postData
+				}).then(value => {
+					console.log(value,333)
+					wx.navigateBack()
+				})
+			} else {
+				request({
+					url: '/secondClass/activity',
+					method: 'POST',
+					data:this.data.postData
+				}).then(value => {
+					console.log(value)
+					if(value.code == 500) {
+						wx.showToast({
+							title: value.msg,
+							icon: 'none',
+							duration: 2000
+						})
+					} else if(value.code == 200) {
+						wx.showToast({
+							title: '成功',
+							icon: 'success',
+							duration: 2000,
+							success:() =>{
+								wx.navigateBack({
+								  delta: 2,
+								})
+							}
+						})
+						
+					}
+				})
+			}
+			
 		} else {
 			wx.showToast({
 			  	title: msg,
@@ -649,16 +665,6 @@ Page({
 	 */
 	onLoad: function (options) {
 		this.mapCtx = wx.createMapContext('myMap')
-	},
-
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {
-		setTimeout(() => {
-			this.mapCtx.moveToLocation()
-		},1000)  
-
 		let tempDept =  wx.getStorageSync('deptList')
 		this.setData({
 			deptList: tempDept.map(item => ({...item,checked:false})),
@@ -679,21 +685,17 @@ Page({
 		// })
 
 		this.setData({
-			dict_flower: wx.getStorageSync('dict_flower').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
 		})
 		
-
+		
 		this.setData({
-			dict_integral: wx.getStorageSync('dict_integral').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
 		})
 		
-
-		this.setData({
-			dict_evaluate_scheme: wx.getStorageSync('dict_evaluate_scheme').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel}))
-		})
 		
-
 		this.setData({
+			dict_flower: wx.getStorageSync('dict_flower').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})),
+			dict_integral: wx.getStorageSync('dict_integral').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})),
+			dict_evaluate_scheme: wx.getStorageSync('dict_evaluate_scheme').map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})),
 			courseClassificationList: filterTwoLayer(wx.getStorageSync('courseClassificationList'))
 		})
 		let temp = []
@@ -705,11 +707,111 @@ Page({
 		})
 		setTimeout(() => {
 
-			this.MultiChange({detail:{value:[0,0]}})
+			// this.MultiChange({detail:{value:[0,0]}})
 		})
 		this.setData({
 			nowYear: wx.getStorageSync('nowYear')
 		})
+		if(options.aid) {
+			this.setData({
+				title: '修改活动'
+			})
+			request({
+				url: `/secondClass/activity/${options.aid}`,
+				method: 'get'
+			}).then(({data}) => {
+				console.error(data)
+				this.data.postData = data
+				this.setData({
+					activityReleaserName :data.activityReleaserName,
+					guideTeacherName: data.guideTeacherName,
+					activityManagerName: data.activityManagerName,
+					activityOrganizerName: data.activityOrganizerName,
+					'fakeData.admissionWay': data.admissionWay,
+					'fakeData.enrollStartTimeFront': data.enrollStartTime.split(' ')[0],
+					'fakeData.enrollStartTimeEnd': data.enrollStartTime.split(' ')[1].slice(0,-3),
+					'fakeData.enrollEndTimeFront': data.enrollEndTime.split(' ')[0],
+					'fakeData.enrollEndTimeEnd': data.enrollEndTime.split(' ')[1].slice(0,-3),
+
+					'fakeData.activityStartTimeFront': data.activityStartTime.split(' ')[0],
+					'fakeData.activityStartTimeEnd': data.activityStartTime.split(' ')[1].slice(0,-3),
+					'fakeData.activityEndTimeFront': data.activityEndTime.split(' ')[0],
+					'fakeData.activityEndTimeEnd': data.activityEndTime.split(' ')[1].slice(0,-3),
+					'imgList': [data.images],
+					'fakeData.rankIdno': data.rankId,
+					'fakeData.flowerStatus': data.flowerStatus,
+					'fakeData.evaluateStatus': data.evaluateStatus,
+					postData: this.data.postData
+				})
+				if(data.registeStartTime) { //限制了签到时间
+					this.setData({
+						'fakeData.registerStartTimeFront': data.registeStartTime.split(' ')[0],
+						'fakeData.registerStartTimeEnd': data.registeStartTime.split(' ')[1].slice(0,-3),
+						'fakeData.registerEndTimeFront': data.registeEndTime.split(' ')[0],
+						'fakeData.registerEndTimeEnd': data.registeEndTime.split(' ')[1].slice(0,-3),
+					})
+				}
+				//报名范围确定
+				let enrollrange = data.enrollRange.split(';')
+				enrollrange.forEach(item => {
+					this.data.deptList.find(it => {
+						return it.deptId == item
+					}).checked = true
+				})
+				 
+				this.setData({
+					deptList: this.data.deptList
+				})
+				//报名年级确定
+				let enrollGrade = data.enrollGrade.split('，')
+				enrollGrade.forEach(item => {
+					this.data.range.find(it => {
+						return it.name == item
+					}).checked = true
+				})
+				this.setData({
+					range: this.data.range
+				})
+				//积分方案
+				let path = data.courseClassificationPath.split(',')
+				let index_first = this.data.courseClassificationList.findIndex(item => item.id == path[0])
+				let index_second = this.data.courseClassificationList[index_first].children.findIndex(item => item.id == path[1])
+				this.data.multiArray[1] = this.data.courseClassificationList[index_first].children.map(item => item.name)
+				this.setData({
+					multiIndex: [index_first, index_second],
+					multiArray: this.data.multiArray,
+					showCourse: true
+				})
+				//课程
+				request({
+					url: '/secondClass/course/list',
+					method: 'GET',
+					data:{
+						classificationId: this.data.courseClassificationList[index_first].children[index_second].id,
+						schoolYearId: this.data.nowYear, 
+						status: 1,
+						term: 1,
+						rank: this.data.postData.rankId
+					}
+				}).then(value => {
+					console.log(value,'课程2')
+					this.setData({
+						multiCourse:value.data
+					})
+				})
+			})
+		}
+	},
+
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady: function () {
+		setTimeout(() => {
+			this.mapCtx.moveToLocation()
+		},1000)  
+
+		
 	},
 
 	/**

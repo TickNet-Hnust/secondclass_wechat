@@ -1,6 +1,7 @@
 // pages/activity-detail/activity-detail.js
 import {request} from '../../js/http.js'
 import getImgUrl from '../../utils/upload.js'
+import Toast from '@vant/weapp/toast/toast';
 const app = getApp()
 Page({
 
@@ -8,6 +9,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		isNeedToRefresh: false,//是否需要刷新
 		//决定是否显示哪一个tab
 		TabCur:0,
 		//节流判断变量
@@ -15,7 +17,7 @@ Page({
 		count:0,
 		operation: [
 			[
-				{ title: '修改', status: 0 },
+				// { title: '修改', status: 0 },
 				{
 					title: '申请发布',
 					status: 1
@@ -51,7 +53,7 @@ Page({
 				// }
 			],
 			[
-				{ title: '修改', status: 0 },
+				// { title: '修改', status: 0 },
 				{
 					title: '取消',
 					status: 4
@@ -176,8 +178,11 @@ Page({
 		//录取方式
 		dict_admissionWay:[],
 		imgList:[],
-		leaveReason:'',
-		material:''
+		leaveReason:'', //请假原因
+		material:'', //请假材料
+		memberNum: 2,
+		flowerNum: 2,
+		evaluateNum: 2,
 	},
 	//tab切换
 	tabSelect(e) {
@@ -248,6 +253,12 @@ Page({
 			})
 		})
 	},
+	updateActivity() {
+		this.isNeedToRefresh = true
+		wx.navigateTo({
+		  url: `../activity-custom/activity-custom?aid=${this.data.aid}`,
+		})
+	},
 	setCollection() {
 		//改变收藏了改群组
 		request({
@@ -294,6 +305,13 @@ Page({
 		console.log(this.data.aid,
 			 this.data.reason,
 			 this.data.material)
+			 if(!this.data.reason) {
+				Toast({
+					zIndex:9999,
+					message: '请填写请假原因'
+				})
+				return
+			 }
 		request({
 			url: '/secondClass/activity/leave',
 			method: 'POST',
@@ -304,11 +322,20 @@ Page({
 			}
 		}).then(value => {
 			console.log(value)
-			wx.showToast({
-			  title: '提交成功',
-			  icon: 'none',
-			  duration:2000
-			})
+			if(value.code == 200) {
+				this.hideModal()
+				Toast({
+					zIndex:9999,
+					message: '提交成功'
+				})
+				this.getMember()
+			} else {
+				wx.showToast({
+					title: value.msg,
+					icon: 'none',
+					duration:2000
+				})
+			}
 		})
 	},
 	getUserInfo(event) {
@@ -499,11 +526,7 @@ Page({
 		}).then(value => {
 			console.log(value)
 			if(value.code == 200) {
-				wx.showToast({
-					title: '报名成功',
-					icon: 'none',
-					duration:2000
-				})
+				Toast('报名成功');
 				this.getMember()
 			} else {
 				wx.showToast({
@@ -523,43 +546,49 @@ Page({
 				if(e.locationEnabled == false) {
 					wx.showModal({
 						showCancel:false,
-						content: '确保定位准确，请手动打开GPS'
+						content: '为确保定位准确，请先手动打开GPS'
 					})
 					flag = false
 				}
 			}
 		})
-		flag && wx.getLocation({
-			isHighAccuracy:true,
-			success:(res) => {
-				console.log(res)
-				request({
-					url: '/secondClass/activity/registe',
-					method: 'post',
-					data:{
-						activityId: this.data.aid,
-						location:`${res.longitude},${res.latitude}`
-					}
-				}).then(value => {
-					console.log(value)
-					if(value.code == 200) {
-						wx.showToast({
-							title: '签到成功',
-							icon: 'none',
-							duration:2000
-						})
-						this.getMember()
-					} else {
-						wx.showToast({
-							title: value.msg,
-							icon: 'none',
-							duration:2000
-						})
-					}
-					
-				})
-			}
-		})
+		if(flag) {
+			wx.showLoading({
+			  title: '获取定位中',
+			  mask:true
+			})
+			wx.getLocation({
+				isHighAccuracy:true,
+				success:(res) => {
+					console.log(res)
+					request({
+						url: '/secondClass/activity/registe',
+						method: 'post',
+						data:{
+							activityId: this.data.aid,
+							location:`${res.longitude},${res.latitude}`
+						}
+					}).then(value => {
+						console.log(value)
+						wx.hideLoading()
+						if(value.code == 200) {
+							Toast('签到成功');
+							this.enroll.disabled = true //防止用户狂点触发第二次
+							this.getMember()
+						} else {
+							wx.showToast({
+								title: value.msg,
+								icon: 'none',
+								mask:true,
+								duration:2000
+							})
+						}
+					}).catch(() => {
+						wx.hideLoading()
+					})
+				}
+			})
+		}
 	},
 	//请假
 	leave() {
@@ -568,28 +597,33 @@ Page({
 	computedEnroll() {
 		return '123'
 	},
-	getMember() {
+	getMember(pageNum = 1,pageSize = 10) {
 		return request({
 			url: `/secondClass/activity/${this.data.aid}/participants`,
 			method: 'GET',
 			data:{
-				pageNum:1,
-				pageSize:10
+				pageNum,
+				pageSize
 			}
 		}).then(value => {
 			console.log(value,'getmember')
 			this.setData({
 				memberList:value.rows
 			})
+			wx.nextTick(() => {
+				
+			})
 			this.computedState()
 		})
 	},
-	getFlower() {
+	getFlower(pageNum = 1,pageSize = 10) {
 		return request({
 			url: '/secondClass/activity/flower/list',
 			method: 'GET',
 			data:{
-				activityId:this.data.aid
+				activityId:this.data.aid,
+				pageNum,
+				pageSize
 			}
 		}).then(value => {
 			this.setData({
@@ -597,12 +631,14 @@ Page({
 			})
 		})
 	},
-	getEvaluation() {
+	getEvaluation(pageNum = 1,pageSize = 10) {
 		return request({
 			url: '/secondClass/activity/evaluation/list',
 			method: 'GET',
 			data:{
-				activityId:this.data.aid
+				activityId:this.data.aid,
+				pageNum,
+				pageSize
 			}
 		}).then(value => {
 			console.log(value,'评论')
@@ -613,7 +649,7 @@ Page({
 	},
 	getDetail() {
 		return request({
-			url: `/secondClass/activity/${this.data.aid}`,
+			url: `/secondClass/activity/detail/${this.data.aid}`,
 			method: 'GET',
 			data:{
 				activityId:this.data.aid
@@ -672,7 +708,28 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-
+		if(this.isNeedToRefresh) {
+			Promise.all([
+				this.getDetail(),
+				this.getCollection(),
+				this.getMember(),
+				this.getFlower(),
+				this.getEvaluation()
+			]).then(value => {
+				this.setData({
+					loadModal: false,
+				});
+			})
+			this.setData({
+				dict_admissionWay:wx.getStorageSync('dict_admissionWay'),
+				dict_rank:wx.getStorageSync('dict_rank'),
+				dict_evaluate_scheme:wx.getStorageSync('dict_evaluate_scheme'),
+				dict_flower:wx.getStorageSync('dict_flower'),
+				dict_sc_activity_status:wx.getStorageSync('dict_sc_activity_status')
+			})
+			this.isNeedToRefresh = false
+		}
+		
 	},
 
 	/**
@@ -694,6 +751,7 @@ Page({
 	 */
 	onPullDownRefresh: function () {
 		console.log('onPullDownRefresh')
+		this.computedState()
 		let arr = []
 		if(this.data.TabCur == 0) {
 			arr = [
@@ -727,7 +785,62 @@ Page({
 	 * 页面上拉触底事件的处理函数
 	 */
 	onReachBottom: function () {
-
+		this.setData({
+			isLoading:true
+		})
+		if(this.data.TabCur == 1) {
+			request({
+				url: `/secondClass/activity/${this.data.aid}/participants`,
+				method: 'GET',
+				data:{
+					pageNum:this.data.memberNum,
+					pageSize:10
+				}
+			}).then(value => {
+				this.data.memberList.push(...value.rows)
+				this.data.memberNum++
+				this.setData({
+					memberList: this.data.memberList,
+					memberNum: this.data.memberNum,
+				})
+			})
+		} else if(this.data.TabCur == 2) {
+			request({
+				url: '/secondClass/activity/flower/list',
+				method: 'GET',
+				data:{
+					activityId:this.data.aid,
+					pageNum:this.data.flowerNum
+				}
+			}).then(value => {
+				this.data.flowerList.push(...value.rows)
+				this.data.flowerNum++
+				this.setData({
+					flowerList: this.data.flowerList,
+					flowerNum: this.data.flowerNum
+				})
+			})
+		} else if(this.data.TabCur == 3) {
+			request({
+				url: '/secondClass/activity/evaluation/list',
+				method: 'GET',
+				data:{
+					activityId:this.data.aid,
+					pageNum:this.data.evaluateNum,
+					pageSize:10
+				}
+			}).then(value => {
+				this.data.remarkList.push(...value.rows)
+				this.data.evaluateNum++
+				this.setData({
+					remarkList: this.data.remarkList,
+					evaluateNum: this.data.evaluateNum
+				})
+			})
+		}
+		this.setData({
+			isLoading:false
+		})
 	},
 
 	/**

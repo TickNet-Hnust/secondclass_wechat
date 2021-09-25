@@ -2,23 +2,24 @@
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">活动详情</view>
 </cu-custom>
+<van-toast id="van-toast" />
 <view class='cu-load load-modal' wx:if="{{loadModal}}">
   <!-- <view class='cuIcon-emojifill text-orange'></view> -->
-  <image src='../../images/logo.png' class='png' mode='aspectFit'></image>
+  <!-- <image src='../../images/log' class='png' mode='aspectFit'></image> -->
   <view class='gray-text'>加载中...</view>
 </view>
 <view class="detail">
-	<scroll-view scroll-x class="bg-white nav text-center">
-		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
+	<scroll-view scroll-x class="bg-white nav text-center" style="height:90rpx">
+		<view class="cu-item transition {{0==TabCur?'text-blue cur text-xl':''}}"  bindtap="tabSelect" data-id="{{0}}">
 			概况
 		</view>
-		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+		<view class="cu-item transition {{1==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{1}}">
 			参与人
 		</view>
-		<view class="cu-item {{2==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{2}}">
+		<view class="cu-item transition {{2==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{2}}">
 			花絮
 		</view>
-		<view class="cu-item {{3==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{3}}">
+		<view class="cu-item transition {{3==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{3}}">
 			评论
 		</view>
 	</scroll-view>
@@ -29,14 +30,13 @@
 				<view class="boxs solid shadow-warp">
 					<image mode="aspectFill" class="adImg" src="../../images/choose/ad2.png" alt="" srcset=""></image>
 					<view class="actTitle">
-						{{showData.name}}
+							{{showData.name}}
 						<text class="cuIcon-favorfill text-yellow" wx:if="{{isCollection}}" bindtap="setCollection"></text>
 						<text class="cuIcon-favor text-yellow" wx:else bindtap="setCollection" ></text>
 					</view>
-							
 						<!-- </swiper-item> -->
 						<!-- <swiper-item> -->
-							<!-- <image mode="widthFix" class="adImg" src="../../images/choose/ad.png" alt="" srcset=""></image> -->
+							<!-- <image mode="widthFix" class="adImg" src="../../images/选择/ad.png" alt="" srcset=""></image> -->
 						<!-- </swiper-item> -->
 					<!-- </swiper> -->
 					<view style="padding:20rpx 20rpx">
@@ -65,7 +65,7 @@
 							</view>
 							</view>
 							<view >
-								<scroll-view catchtouchmove="return" scroll-y style="height:calc(70vh - {{CustomBar}}px)">
+								<scroll-view scroll-y style="height:calc(70vh - {{CustomBar}}px)">
 									<form>
 										<view class="cu-form-group" style="padding: 1rpx 30rpx;">
 											<view class="title">活动名称</view>
@@ -113,11 +113,9 @@
 										<view class="cu-form-group">
 											<wxs module="hh">
 												module.exports = function (str) {
-													console.log(str,'报名范围')
 													if(str) {
 														str = str.split('，').join('\n')
 													}
-													console.log(str)
 													return str
 												}
 											</wxs>
@@ -208,19 +206,6 @@
 						<van-grid-item icon="notes-o" text="活动介绍" bindtap="showModal" data-target="introduce"/>
 						<van-grid-item icon="orders-o" text="报名须知" bindtap="showModal" data-target="notice"/>
 					</van-grid>
-					<!-- <view style="padding:20rpx 20rpx">
-						<van-row style="line-height: 40rpx;">
-							<van-col class="leftTitle" span="6">
-								<text class="cuIcon-title text-black"></text>报名须知
-							</van-col>
-						</van-row>
-						<van-row style="line-height: 40rpx;">
-							<text class="box-p">{{showData.activityIntroduce}}</text>
-						</van-row>
-					</view>
-					<view class="iconBg  padding-top dashed-top" bindtap="showModal" data-target="notice">
-						<text class="cuIcon-unfold "></text>
-					</view> -->
 					<view catchtouchmove="return" class="cu-modal {{modalName=='introduce'?'show':''}}">
 						<view class="cu-dialog" style="max-height:calc(80vh - {{CustomBar}}px)">
 							<view class="cu-bar bg-white justify-end">
@@ -282,12 +267,12 @@
 							<view class="flexMainTitle">第三教学楼302室</view>
 							<view class="flexSideTitle">活动地点</view>
 						</van-col>
-						<van-col span="6" >
+						<!-- <van-col span="6" >
 							<button
 								bindtap="kaifa"
 								class="cu-btn line-green text-sm fr"
 							>查看地图</button>
-						</van-col>
+						</van-col> -->
 					</van-row>
 				</view>
 				<view class="flexLines">
@@ -325,7 +310,7 @@
 								签到时间
 								<view style="vertical-align: text-top;" class="cu-tag round bg-blue sm">{{registe.hint}}</view>
 							</view>
-							<view class="flexSideTitle" wx:if="{{!showData.registeStartTime}}">时间无限制</view>
+							<view class="flexSideTitle" wx:if="{{!showData.registeStartTime}}">签到时间无限制</view>
 							<view class="flexSideTitle" wx:else>{{showData.registeStartTime}} 至<view></view> {{showData.registeEndTime}}</view>
 						</van-col>
 						<van-col span="6" >
@@ -351,7 +336,7 @@
 									{{leave.hint}}
 								</view>
 							</view>
-							<view class="flexSideTitle">时间无限制</view>
+							<view class="flexSideTitle">请假时间无限制</view>
 							<!-- <view class="flexSideTitle" wx:else>{{showData.registeStartTime}} 至<view></view> {{showData.registeEndTime}}</view> -->
 						</van-col>
 						<van-col span="6" >
@@ -366,7 +351,7 @@
 							<!-- <van-button plain type="primary" size="small">请假</van-button> -->
 						</van-col>
 						<!-- 请假弹窗 -->
-						<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='leaveModal'?'show':''}}">
+						<view catchtouchmove="return" class="cu-modal {{modalName=='leaveModal'?'show':''}}">
 							<view class="cu-dialog" style="max-height:calc(80vh - {{CustomBar}}px)">
 								<view class="cu-bar bg-white justify-end">
 								<view class="content">请假事由</view>
@@ -430,13 +415,13 @@
 					</van-row>
 				</view>
 				<wxs module="vip">
-					function sure(state,list) {
+					function sure(state) {
 						
 						return state.flag == 1 
 					}
 					module.exports.sure = sure
 				</wxs>
-				<view class="flexLines" wx:if="{{vip.sure(showData,memberList)}}">
+				<view class="flexLines" wx:if="{{vip.sure(showData)}}">
 					<van-row>
 						<van-col span="4">
 							<view>
@@ -496,6 +481,11 @@
 										</view>
 										<view class="action">
 											
+										</view>
+									</view>
+									<view class="cu-item arrow" bindtap="updateActivity">
+										<view class="content">
+											<view>修改</view>
 										</view>
 									</view>
 									<view wx:for="{{operation[showData.status]}}" class="cu-item arrow" wx:key="index" data-status="{{item.status}}" bindtap="changeState">
@@ -558,7 +548,7 @@
 			</scroll-view>
 	</view>
 	<!-- 参与人 -->
-	<view  hidden="{{1!=TabCur}}" class="">
+	<view  hidden="{{1!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
 		<van-empty description="空空如也" wx:if="{{memberList.length == 0}}"/>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
@@ -593,13 +583,20 @@
 							<view class="cu-tag radius sm">积分：{{item.integral==null?0:item.integral}}分</view>
 						</view>
 					</view>
+				<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 				</view>
 			</scroll-view>
 	</view>
 	<!-- 花絮 -->
-	<view  hidden="{{2!=TabCur}}" class="">
-		<van-empty description="空空如也" wx:if="{{flowerList.length == 0}}"/>
+	<view  hidden="{{2!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
+		<view wx:if="{{flowerList.length == 0}}">
+			<view style="height:50vw;width:100%;background-size:100%;background-image:url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/18/9e1d20ff-96de-47c2-874d-066a187e55a0.png);background-repeat: no-repeat;"></view>
+			<van-empty
+				image=""
+				description="暂时还没有人发布花絮"
+			/>
+		</view>
 			<view class="activityTemplate">
 				<view class="cu-card dynamic no-card">
 					<view class="cu-item shadow" wx:for="{{flowerList}}" wx:key="index">
@@ -624,26 +621,22 @@
 						>
 							<wxs module="flower">
 								function blur(src) {
-									console.log(src,'src')
 									if(src) {
 										var arr =  src.split('_').reduce(
 											function(pre,cur) {
 												pre.push(cur.split(';')[0]);
 												return pre
 											},[])
-										console.log(arr)
 										return arr
 									}
 								}
 								function clear(src) {
-									console.log(src,'src')
 									if(src) { //先渲染模糊的图片
 										var arr =  src.split('_').reduce(
 											function(pre,cur) {
 												pre.push(cur.split(';')[1]);
 												return pre
 											},[])
-										console.log(arr)
 										return arr
 									}
 								}
@@ -654,63 +647,54 @@
 								wx:for="{{flower.blur(item.picture)}}" 
 								wx:key="index"
 							>
-								<image
+								<ab-easy-image
 									data-index="{{index}}"
 									class="flowerImage radius" 
 									src="{{item}}"
-								></image>
+								></ab-easy-image>
 							</block>
 						</view>
-						<!-- <view class="text-gray text-sm text-right padding">
-						<text class="cuIcon-attentionfill margin-lr-xs"></text> 10
-						<text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
-						<text class="cuIcon-messagefill margin-lr-xs"></text> 30
-						</view> -->
-						<view class="cu-list menu-avatar comment solids-top">
-						
-						</view>
 					</view>
+					<view wx:if="{{flowerList.length != 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 					</view>
 			</view>
 	</view>
 	<!-- 评论 -->
-	<view  hidden="{{3!=TabCur}}" class="">
-		<van-empty description="空空如也" wx:if="{{remarkList.length == 0}}"/>
+	<view  hidden="{{3!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
+		
+		<view wx:if="{{remarkList.length == 0}}">
+			<view style="height:69vw;width:100%;background-size:100%;background-image:url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/18/ad7ba15c-6a4f-48ca-8e59-761fefd3e638.png);background-repeat: no-repeat;"></view>
+			<van-empty
+				image=""
+				description="暂时还没有人发布评论"
+			/>
+		</view>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
-				<view class="cu-list menu-avatar comment ">
-				<view class="cu-item solids-top" wx:for="{{remarkList}}" wx:key="index">
-					<view class="cu-avatar round" style="background-image:url({{item.avatar}})"></view>
-					<view class="content">
-					<view class="text-grey">{{item.nickName}}</view>
-					<view class="text-gray text-content text-df">
-						{{item.content}}
-					</view>
-					<van-rate
-						value="{{ item.score }}"
-						allow-half
-						readonly 
-						size="12"
-						void-icon="star"
-						void-color="#eee"
-						bind:change="onChange"
-					/>
-					<!-- <view class="bg-grey padding-sm radius margin-top-sm  text-sm">
-						<view class="flex">
-						<view>凯尔：</view>
-						<view class="flex-sub">妹妹，你在帮他们给黑暗找借口吗?</view>
+					<view class="cu-list menu-avatar comment ">
+					<view class="cu-item solids-top" wx:for="{{remarkList}}" wx:key="index">
+						<view class="cu-avatar round" style="background-image:url({{item.avatar}})"></view>
+							<view class="content">
+								<view class="text-grey">{{item.nickName}}</view>
+								<view class="text-gray text-content text-df">
+									{{item.content}}
+								</view>
+								<van-rate
+									value="{{ item.score }}"
+									allow-half
+									readonly 
+									size="12"
+									void-icon="star"
+									void-color="#eee"
+									bind:change="onChange"
+								/>
+								<view class="margin-top-sm flex justify-between">
+								<view class="text-gray text-df">{{item.createTime}}</view>
+								</view>
+							</view>
 						</view>
-					</view> -->
-					<view class="margin-top-sm flex justify-between">
-						<view class="text-gray text-df">{{item.createTime}}</view>
-						<!-- <view>
-						<text class="cuIcon-appreciatefill text-red"></text>
-						<text class="cuIcon-messagefill text-gray margin-left-sm"></text>
-						</view> -->
 					</view>
-					</view>
-				</view>
-				</view>
+					<view wx:if="{{remarkList.length != 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</scroll-view>
 	</view>

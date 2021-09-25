@@ -4,6 +4,7 @@ const app = getApp()
 import {request} from '../../js/http.js'
 Page({
   data: {
+    recommendList:[],
     cardCur: 0,
     motto: 'Hello World',
     userInfo: {},
@@ -227,6 +228,27 @@ Page({
       console.log('储存当前学年')
 			wx.setStorageSync('nowYear',Object.keys(value.data)[0])
     })
+    //推荐活动
+    request({
+      url: '/secondClass/activity/list',
+      method: 'get',
+      data:{
+        status: 1,
+        recommend: 1,
+        pageNum: 1,
+        pageSize: 5
+      }
+    }).then(value => {
+      console.error(value)
+      this.setData({
+        recommendList: value.rows
+      })
+    })
+  },
+  jumpActivity(e) {
+    wx.navigateTo({
+      url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
+    })
   },
   getUserProfile(e) {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
@@ -259,7 +281,14 @@ Page({
       hasUserInfo: true
     })
   },
-  onShow() {
+  onShow(option) {
+    console.log(wx.getLaunchOptionsSync().scene,'option')
+    // wx.showModal({
+    //   content: wx.getLaunchOptionsSync().scene +''
+    // })
+  },
+  fd() {
+    // this.data.video.requestFullScreen()
   },
   onReachBottom: function (obj) {
     this.setData({

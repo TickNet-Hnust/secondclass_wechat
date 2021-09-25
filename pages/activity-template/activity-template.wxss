@@ -1,6 +1,6 @@
 /* pages/activity-template/activity-template.wxss */
 .template {
-	padding: 0 30rpx;
+	/* padding: 0 30rpx; */
 	padding-bottom: 140rpx;
 	overflow: hidden;
 }
@@ -30,4 +30,18 @@
 	width: 100%;
     background-color: #fff;
     text-align: center;
+}
+.maker {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-100%);
+	width: 20px;
+	height: 20px;
+	font-family: 'iconfont';
+}
+#myMap{
+	position: relative;
+	width: 100vw;
+	height: 60vh;
 }

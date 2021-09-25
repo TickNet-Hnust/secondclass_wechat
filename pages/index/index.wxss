@@ -90,3 +90,12 @@
   font-size: 23rpx !important;
 
 }
+
+.actTitle {
+	position: absolute;
+	top: 26%;
+	color:#fff;
+	font-size: 34rpx;
+	opacity: 0.9;
+	padding: 0 60rpx
+}

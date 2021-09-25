@@ -145,7 +145,9 @@ Page({
 			groupClassificationMap: wx.getStorageSync('groupClassificationMap')
 		})
 	},
-
+	goTop() {
+		app.goTop()
+	},
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */

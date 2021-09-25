@@ -34,10 +34,10 @@ Component({
 		onTap(e) {
 			if(this.data.isUse) {
 				this.data.isUse = false
+				this.triggerEvent('click',e)
 				setTimeout(() => {
 					this.data.isUse = true
-				},2000)
-				this.triggerEvent('click',e)
+				},4000)
 			}
 		}
 	}

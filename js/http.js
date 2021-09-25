@@ -81,13 +81,13 @@ export const request = (opt) => {
 			},
 			fail: function (err) {
 				console.log(err,123)
-				wx.hideLoading()
-				wx.showToast({
-					title: '请求超时',
-					icon: 'none',
-					mask: true,
-					duration: 2000
-				})
+				// wx.hideLoading()
+				// wx.showToast({
+				// 	title: '请求超时',
+				// 	icon: 'none',
+				// 	mask: true,
+				// 	duration: 2000
+				// })
 			},
 			complete: function () {
 			}

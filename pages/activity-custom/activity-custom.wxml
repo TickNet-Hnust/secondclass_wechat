@@ -20,14 +20,51 @@
 		custom-style="padding-top:{{CustomBar}}px;"
 		bind:close="hideSearch"
 	>
-	<van-search id="searchName" use-action-slot value="{{ searchValue }}" bind:change="onChange" bind:search="onClick" placeholder="请输入完整姓名" focus>
+	<van-search 
+		id="searchName" 
+		use-action-slot 
+		value="{{ searchValue }}" 
+		bind:change="onChange" 
+		bind:search="onClick"
+		bind:focus="onFocus"
+		bind:blur="onBlur"
+		placeholder="请输入完整姓名"
+	>
 		<view slot="action" bind:tap="onClick">搜索</view>
 	</van-search>
 		<view class="cu-list menu">
 			<view class="cu-item " wx:for="{{farSearch}}" wx:key="index">
-			<view class="content" data-id="{{item.userId}}" data-name="{{item.userName}}-{{item.nickName}}" bindtap="sureHuman">
-				<text class="text-grey">{{item.userName}}-{{item.nickName}}</text>
-			</view> 
+				<view class="content" data-id="{{item.userId}}" data-name="{{item.userName}}-{{item.nickName}}" bindtap="sureAddHuman">
+					<text class="text-grey">{{item.userName}}-{{item.nickName}}</text>
+				</view> 
+			</view>
+			
+			<view class="cu-bar bg-white solid-bottom" hidden="{{!recordState || recordList.length == 0}}">
+				<view class="action">
+					<text class="cuIcon-title text-blue "></text>历史记录
+				</view>
+			</view>
+			<wxs module="getLast">
+				module.exports = function(str) {
+					return str.split('-')[1]
+				}
+			</wxs>
+			<view class="flexTags"   hidden="{{!recordState}}">
+				<!-- <view class="content" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="sureHuman"> -->
+				<!-- <text class="text-grey">{{item.name}}</text> -->
+				<van-tag
+					wx:for="{{recordList}}"
+					wx:key="index"
+					type="success" 
+					size="large"
+					custom-class="tags"
+					data-id="{{item.id}}" 
+					data-name="{{item.name}}"
+					data-index="{{index}}"
+					bindtap="sureHuman"
+				>{{getLast(item.name)}}</van-tag>
+			<!-- </view>  -->
+			<!-- </view> -->
 			</view>
 		</view>
 	</van-popup>

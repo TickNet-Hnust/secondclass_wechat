@@ -109,5 +109,14 @@
 }
 
 .transition {
-	transition: font-size .2s;
+	transition: font-size .4s;
+}
+.state {
+	position: absolute;
+	top: 15rpx;
+	background-color: #f1f1f1;
+	padding: 3rpx 6rpx;
+	right: 15rpx;
+	border-radius: 5rpx;
+	font-size: 22rpx;
 }

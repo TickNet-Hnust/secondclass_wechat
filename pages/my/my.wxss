@@ -1,6 +1,7 @@
 .UCenter-bg {
-	background-image: url(https://image.weilanwl.com/color2.0/index.jpg);
-	background-size: cover;
+	background-image: url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/23/6cccf2c8-0af5-4d9d-a406-8676ca85a271.png);
+	background-size: 154%;
+    background-position: center;
 	height: 550rpx;
 	display: flex;
 	z-index: 10;

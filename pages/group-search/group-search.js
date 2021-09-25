@@ -25,6 +25,21 @@ Page({
 		this.setData({
 			TabCur: e.currentTarget.dataset.id,
 		})
+		if(this.data.TabCur == 1) {
+			this.getHot().then(value => {
+				this.data.hotGroupList = value.rows
+				this.setData({
+					hotGroupList:this.data.hotGroupList
+				})
+			})
+		} else if(this.data.TabCur == 2) {
+			this.getAll().then(value => {
+				this.data.allGroupList = value.rows
+				this.setData({
+					allGroupList:this.data.allGroupList
+				})
+			})
+		}
 	},
 	toggleDelay() {
 		var that = this;

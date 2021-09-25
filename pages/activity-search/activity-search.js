@@ -26,7 +26,23 @@ Page({
 		this.setData({
 		  TabCur: e.currentTarget.dataset.id,
 		})
-	  },
+		if(this.data.TabCur == '1') {
+			this.getHot().then(value => {
+				this.data.hotActivityList = value.rows
+				this.setData({
+					hotActivityList:this.data.hotActivityList
+				})
+			})
+		} else if(this.data.TabCur == '2'){
+			this.getAll().then(value => {
+				this.data.allActivityList = value.rows
+				this.setData({
+					allActivityList:this.data.allActivityList
+				})
+			})
+			
+		}
+	},
 	toggleDelay() {
 		var that = this;
 		let temp 
@@ -49,7 +65,7 @@ Page({
 	jumpDetail(e) {
 		console.log(e)
 		wx.navigateTo({
-		  url: `../activity-detail/activity-detail?aid=${e.target.dataset.id}`,
+		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
 		})
 	},
 	//按钮改变触发

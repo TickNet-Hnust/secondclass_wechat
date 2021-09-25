@@ -2,6 +2,12 @@
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">活动查看</view>
 </cu-custom>
+<wxs module="statusMap">
+	var arr = ['起草','待审核','审核通过','审核不通过','已取消','报名中','等待中','进行中','已结束']
+	module.exports = function(index) {
+		return arr[index]
+	}
+</wxs>
 <view class="backTop" bindtap="goTop">
 	<text class="cuIcon-top"></text>
 </view>
@@ -62,10 +68,10 @@
 				<view class="activityAbstract" wx:if="{{searchActivityList.length == 0}}" >
 					<van-empty image="search" description="没有找到匹配的活动" style="margin: 0 auto;"/>
 				</view>
-				<view class="activityAbstract"  bindtap="jumpDetail">
-					<view  wx:for="{{searchActivityList}}" wx:key="index" data-id="{{item.id}}" class="activityFull {{toggleDelayOne?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view class="activityAbstract" >
+					<view  wx:for="{{searchActivityList}}" wx:key="index"  bindtap="jumpDetail" data-id="{{item.id}}" class="activityFull {{toggleDelayOne?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 						<view>
-							<ab-easy-image src="{{item.image}}" data-id="{{item.id}}"></ab-easy-image>
+							<ab-easy-image src="{{item.image}}"></ab-easy-image>
 						</view>
 						<view>
 							<view class="tabMainText">
@@ -75,6 +81,7 @@
 						<view class="tabSideText">
 							<text>{{item.activityTag}}</text>
 						</view>
+						<view class="state">{{statusMap(item.status)}}</view>
 					</view>
 				</view>
 				
@@ -85,19 +92,20 @@
 	<view  hidden="{{1!=TabCur}}" class="">
 		<view class="searchAll">
 				
-				<view class="activityAbstract" bindtap="jumpDetail">
-					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.id}}">
-					<view>
-						<ab-easy-image src="{{item.image}}" data-id="{{item.id}}"></ab-easy-image>
-					</view>
-					<view >
-						<view class="tabMainText">
-							{{item.name}}
+				<view class="activityAbstract">
+					<view wx:for="{{allActivityList}}" wx:key="index" class="activityFull {{toggleDelayTwo?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;"  bindtap="jumpDetail" data-id="{{item.id}}">
+						<view>
+							<ab-easy-image src="{{item.image}}"></ab-easy-image>
 						</view>
-					</view>
-					<view class="tabSideText">
-						<text>{{item.activityTag}}</text>
-					</view>
+						<view >
+							<view class="tabMainText">
+								{{item.name}}
+							</view>
+						</view>
+						<view class="tabSideText">
+							<text>{{item.activityTag}}</text>
+						</view>
+						<view class="state">{{statusMap(item.status)}}</view>
 				</view>
 			</view>
 		<view wx:if="{{allActivityList.length >= 10}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
@@ -106,10 +114,10 @@
 	<!-- 热门 -->
 	<view  hidden="{{2!=TabCur}}" class="">
 		<view class="searchHot">
-				<view class="activityAbstract" bindtap="jumpDetail">
-				<view wx:for="{{hotActivityList}}" wx:key="index" data-id="{{item.id}}"  class="activityFull {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
+				<view class="activityAbstract">
+				<view wx:for="{{hotActivityList}}" wx:key="index"  bindtap="jumpDetail" data-id="{{item.id}}"  class="activityFull {{toggleDelayThree?'animation-scale-up':''}}" style="animation-delay: {{(index+1)*0.1}}s;">
 					<view>
-						<ab-easy-image src="{{item.image}}" data-id="{{item.id}}"></ab-easy-image>
+						<ab-easy-image src="{{item.image}}"></ab-easy-image>
 					</view>
 					<view >
 						<view class="tabMainText">
@@ -119,6 +127,7 @@
 					<view class="tabSideText">
 						<text>{{item.activityTag}}</text>
 					</view>
+					<view class="state">{{statusMap(item.status)}}</view>
 				</view>
 			</view>
 			</view>

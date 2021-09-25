@@ -51,5 +51,10 @@
 .classification {
 	width: 50vw !important;
 }
-
-  
+.flexTags {
+	display: flex;
+    flex-wrap: wrap;
+}
+.tags {
+	margin: 20rpx 10rpx
+}

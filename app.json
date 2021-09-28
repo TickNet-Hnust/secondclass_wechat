@@ -1,93 +1,94 @@
 {
-	"pages": [
-		"pages/index/index",
-		"pages/logs/logs",
-		"pages/my/my",
-		"pages/activity/activity",
-		"pages/activity-detail/activity-detail",
-		"pages/activity-search/activity-search",
-		"pages/activity-release/activity-release",
-		"pages/activity-custom/activity-custom",
-		"pages/activity-template/activity-template",
-		"pages/group/group",
-		"pages/group-search/group-search",
-		"pages/group-custom/group-custom",
-		"pages/group-detail/group-detail",
-		"pages/activity-declare/activity-declare",
-		"pages/activity-sideLight/activity-sideLight",
-		"pages/activity-comment/activity-comment"
-	],
-	"window": {
-		"backgroundTextStyle": "dark",
-		"navigationBarBackgroundColor": "#fff",
-		"navigationBarTitleText": "Weixin",
-		"navigationBarTextStyle": "black",
-		"navigationStyle": "custom",
-		"backgroundColor": "#00a2e6"
-	},
-	"tabBar": {
-		"color": "#6e6d6b",
-		"selectedColor": "#2d7ecd",
-		"backgroundColor": "#fff",
-		"list": [
-			{
-				"pagePath": "pages/index/index",
-				"iconPath": "images/tabbar/home-off.png",
-				"selectedIconPath": "images/tabbar/home-on.png",
-				"text": "精选"
-			},
-			{
-				"pagePath": "pages/activity/activity",
-				"iconPath": "images/tabbar/act-off.png",
-				"selectedIconPath": "images/tabbar/act-on.png",
-				"text": "活动"
-			},
-			{
-				"pagePath": "pages/group/group",
-				"iconPath": "images/tabbar/group-off.png",
-				"selectedIconPath": "images/tabbar/group-on.png",
-				"text": "群组"
-			},
-			{
-				"pagePath": "pages/my/my",
-				"iconPath": "images/tabbar/myi-off.png",
-				"selectedIconPath": "images/tabbar/myi-on.png",
-				"text": "我的"
-			}
-		]
-	},
-	"permission": {
-		"scope.userLocation": {
-			"desc": "请点击确定"
-		}
-	},
-	"usingComponents": {
-		"van-toast": "@vant/weapp/toast/index",
-		"delay-button": "/components/delay-button/delay-button",
-		"mp-html": "mp-html",
-		"ab-easy-image": "/components/ab-easy-image/ab-easy-image",
-		"cu-custom": "/colorui/components/cu-custom",
-		"van-tab": "@vant/weapp/tab/index",
-		"van-tabs": "@vant/weapp/tabs/index",
-		"van-search": "@vant/weapp/search/index",
-		"van-icon": "@vant/weapp/icon/index",
-		"van-switch": "@vant/weapp/switch/index",
-		"van-field": "@vant/weapp/field/index",
-		"van-button": "@vant/weapp/button/index",
-		"van-row": "@vant/weapp/row/index",
-		"van-col": "@vant/weapp/col/index",
-		"van-divider": "@vant/weapp/divider/index",
-		"van-grid": "@vant/weapp/grid/index",
-		"van-grid-item": "@vant/weapp/grid-item/index",
-		"van-tag": "@vant/weapp/tag/index",
-		"van-empty": "@vant/weapp/empty/index",
-		"van-popup": "@vant/weapp/popup/index",
-		"van-datetime-picker": "@vant/weapp/datetime-picker/index",
-		"van-checkbox": "@vant/weapp/checkbox/index",
-		"van-checkbox-group": "@vant/weapp/checkbox-group/index",
-		"van-skeleton": "@vant/weapp/skeleton/index",
-		"van-sticky": "@vant/weapp/sticky/index",
-		"van-rate": "@vant/weapp/rate/index"
-	},
-	"sitemapLocation": "sitemap.json"
+    "pages": [
+        "pages/index/index",
+        "pages/logs/logs",
+        "pages/my/my",
+        "pages/activity/activity",
+        "pages/activity-detail/activity-detail",
+        "pages/activity-search/activity-search",
+        "pages/activity-release/activity-release",
+        "pages/activity-custom/activity-custom",
+        "pages/activity-template/activity-template",
+        "pages/group/group",
+        "pages/group-search/group-search",
+        "pages/group-custom/group-custom",
+        "pages/group-detail/group-detail",
+        "pages/activity-declare/activity-declare",
+        "pages/activity-sideLight/activity-sideLight",
+        "pages/activity-comment/activity-comment",
+        "pages/activity-entry/activity-entry"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "Weixin",
+        "navigationBarTextStyle": "black",
+        "navigationStyle": "custom",
+        "backgroundColor": "#00a2e6"
+    },
+    "tabBar": {
+        "color": "#6e6d6b",
+        "selectedColor": "#2d7ecd",
+        "backgroundColor": "#fff",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "iconPath": "images/tabbar/home-off.png",
+                "selectedIconPath": "images/tabbar/home-on.png",
+                "text": "精选"
+            },
+            {
+                "pagePath": "pages/activity/activity",
+                "iconPath": "images/tabbar/act-off.png",
+                "selectedIconPath": "images/tabbar/act-on.png",
+                "text": "活动"
+            },
+            {
+                "pagePath": "pages/group/group",
+                "iconPath": "images/tabbar/group-off.png",
+                "selectedIconPath": "images/tabbar/group-on.png",
+                "text": "群组"
+            },
+            {
+                "pagePath": "pages/my/my",
+                "iconPath": "images/tabbar/myi-off.png",
+                "selectedIconPath": "images/tabbar/myi-on.png",
+                "text": "我的"
+            }
+        ]
+    },
+    "permission": {
+        "scope.userLocation": {
+            "desc": "请点击确定"
+        }
+    },
+    "usingComponents": {
+        "van-toast": "@vant/weapp/toast/index",
+        "delay-button": "/components/delay-button/delay-button",
+        "mp-html": "mp-html",
+        "ab-easy-image": "/components/ab-easy-image/ab-easy-image",
+        "cu-custom": "/colorui/components/cu-custom",
+        "van-tab": "@vant/weapp/tab/index",
+        "van-tabs": "@vant/weapp/tabs/index",
+        "van-search": "@vant/weapp/search/index",
+        "van-icon": "@vant/weapp/icon/index",
+        "van-switch": "@vant/weapp/switch/index",
+        "van-field": "@vant/weapp/field/index",
+        "van-button": "@vant/weapp/button/index",
+        "van-row": "@vant/weapp/row/index",
+        "van-col": "@vant/weapp/col/index",
+        "van-divider": "@vant/weapp/divider/index",
+        "van-grid": "@vant/weapp/grid/index",
+        "van-grid-item": "@vant/weapp/grid-item/index",
+        "van-tag": "@vant/weapp/tag/index",
+        "van-empty": "@vant/weapp/empty/index",
+        "van-popup": "@vant/weapp/popup/index",
+        "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+        "van-checkbox": "@vant/weapp/checkbox/index",
+        "van-checkbox-group": "@vant/weapp/checkbox-group/index",
+        "van-skeleton": "@vant/weapp/skeleton/index",
+        "van-sticky": "@vant/weapp/sticky/index",
+        "van-rate": "@vant/weapp/rate/index"
+    },
+    "sitemapLocation": "sitemap.json"
 }

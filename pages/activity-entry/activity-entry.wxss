@@ -1,0 +1,4 @@
+/* pages/activity-entry/activity-entry.wxss */
+.shenhe .content {
+    line-height: 1em !important;
+}

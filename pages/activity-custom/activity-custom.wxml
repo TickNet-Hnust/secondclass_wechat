@@ -262,7 +262,7 @@
 		<view class="title">积分方案</view>
 		<picker bindchange="integralChange" value="{{postData.integralScheme}}" range="{{dict_integral}}" range-key="dictLabel">
 			<view class="picker">
-				{{postData.integralScheme!=null?dict_integral[postData.integralScheme].dictLabel:'请选择积分方案'}}
+				{{postData.integralScheme!=0?dict_integral[postData.integralScheme].dictLabel:'请选择积分方案'}}
 			</view>
 		</picker>
 	</view>

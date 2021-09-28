@@ -208,7 +208,7 @@ Page({
 			url: '/secondClass/activity/list',
 			method: 'GET',
 			data:{
-				status: +this.data.checked,
+				
 				pageNum:pageNum,
 				pageSize:pageSize,
 			}

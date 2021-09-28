@@ -1,0 +1,29 @@
+<!--pages/activity-detail/activity-detail.wxml-->
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
+	<view slot="content">成员审核</view>
+</cu-custom>
+<van-toast id="van-toast" />
+<view class="shenhe">
+  <view class="cu-bar bg-white solid-bottom">
+    <view class="action">
+      <text class="cuIcon-title text-blue "></text>待审核列表
+    </view>
+  </view>
+  <view class="cu-list menu-avatar">
+    <view class="cu-item" wx:for="{{memberList}}" wx:key="index"> 
+      <view class="cu-avatar round lg" style="background-image:url({{item.avatar}});"></view>
+      <view class="content">
+        <view class="text-grey">{{item.nickName}}</view>
+        <view class="text-gray text-sm flex">
+          <text class="text-cut">
+            {{item.className}}-{{item.userName}}
+          </text>
+        </view>
+      </view>
+      <view class="action">
+        <button class="cu-btn round sm bg-green" bindtap="pass" data-id="{{item.userId}}">通过</button>
+        <!-- <button class="cu-btn round sm margin-top-sm bg-red" bindtap="out" data-id="{{item.userId}}">不通过</button> -->
+      </view>
+    </view>
+  </view>
+</view>

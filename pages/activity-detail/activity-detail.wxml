@@ -493,7 +493,14 @@
 											<view>{{item.title}}</view>
 										</view>
 									</view>
-									<view class="cu-item  margin-top">
+									<view class="cu-item arrow margin-top" bindtap="jumpEntry">
+										<view class="content">
+											<view>
+												人员审核
+											</view>
+										</view>
+									</view>
+									<view class="cu-item margin-top">
 										<view class="content">
 											<view>活动统计表</view>
 										</view>

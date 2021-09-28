@@ -218,6 +218,11 @@ Page({
 			url: `../activity-sideLight/activity-sideLight?aid=${this.data.aid}`,
 		})
 	},
+	jumpEntry() {
+		wx.navigateTo({
+			url: `../activity-entry/activity-entry?aid=${this.data.aid}`,
+		})
+	},
 	canSendF() {
 		wx.showToast({
 			title: '该活动暂不允许发布花絮',

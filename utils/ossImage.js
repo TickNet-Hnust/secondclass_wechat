@@ -73,6 +73,17 @@ export function upload(ossData, file, ossFileUrl) {
     //     //     })
     //     // }).then(res => {
     // param.append('file', file)
+
+    wx.uploadFile({
+      filePath: file,
+      name: 'name',
+      url: 'http://localhost:8080/utils/imgSecCheck',
+      success:(res) =>{
+        console.log(res)
+      }
+    })
+    console.log(222)
+    return 
     wx.uploadFile({
         url: host, //仅为示例，非真实的接口地址
         filePath: file,

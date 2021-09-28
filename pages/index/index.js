@@ -185,7 +185,7 @@ Page({
       url: '/utils/getCourseClassificationUpdateTime',
       method: 'GET',
     }).then(value => {
-        if(value.data != wx.getStorageSync('classificationLastTime')) { //时间戳不同
+        if(value.data != wx.getStorageSync('classificationLastTime') || wx.getStorageSync('classificationLastTime') == null) { //时间戳不同
           wx.setStorageSync('classificationLastTime', value.data)
           //所有积分分类
           request({

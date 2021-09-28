@@ -116,7 +116,7 @@
       </view>
     </view>
   </view>
-  <view class="chooseBottom" bindtap="kaifa">
+  <!-- <view class="chooseBottom" bindtap="kaifa">
     <view class="cu-bar bg-white">
     <view class="action">
       <text class="cuIcon-titles text-blue"></text>
@@ -149,5 +149,5 @@
     </view>
   </view>
 </view>
-  </view>
+  </view> -->
 </view>

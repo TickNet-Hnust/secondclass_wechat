@@ -209,7 +209,12 @@ courseClassificationName : value.data.courseClassificationName,
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+     if(1==this.data.TabCur){
+       console.log('重新请求了申报人数据')
+      this.getDeclareList({
+        activityId:this.data.aid,
+      });
+     }
   },
 
   /**

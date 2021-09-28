@@ -5,6 +5,7 @@
 		"pages/my/my",
 		"pages/activity/activity",
 		"pages/activity-detail/activity-detail",
+		"pages/activity-score/activity-score",
 		"pages/activity-search/activity-search",
 		"pages/activity-release/activity-release",
 		"pages/activity-custom/activity-custom",

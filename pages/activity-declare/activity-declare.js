@@ -273,6 +273,9 @@ Page({
 					duration: 1000
 				})
 				this.reset();
+				this.setData({
+					imgList:[],
+				})
 			})
 			}
 		}

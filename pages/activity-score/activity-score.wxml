@@ -203,7 +203,7 @@
           </view>
         </view>
         <view class="action" style="position: absolute; right:0">
-          <view class="cu-tag line-gray sm fr margin-right-sm">认定：{{item.confirmIntegral}}</view>
+          <view class="cu-tag line-gray sm fr margin-right-sm">认定：{{item.confirmIntegral||'未认定'}}</view>
           <view class="cu-tag line-gray sm fr margin-right-sm">申请：{{item.applyIntegral}}</view>
         </view>
       </view>

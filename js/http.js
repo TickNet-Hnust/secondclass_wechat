@@ -1,10 +1,10 @@
 
-var flag = true;
+var flag = false;
 var _baseUrl = '';
 if (flag) {
 	_baseUrl = 'http://192.168.124.8:8080';
 } else {
-	_baseUrl = 'http://admin.ticknet.hnust.cn';
+	_baseUrl = 'http://test.ticknet.hnust.cn';
 }
 var baseUrl = _baseUrl;
 var commonParams = {
@@ -12,7 +12,7 @@ var commonParams = {
 	data: {},
 	method: 'POST',
 	header: {
-	
+		
 	},
 	dataType: 'json'
 };
@@ -23,7 +23,7 @@ export const request = (opt) => {
 	let _url = baseUrl + url
 	wx.showLoading({
 		title: '数据加载...',
-		mask:true
+		// mask:true
 	})
 	return new Promise((resolve, reject) => {
 		wx.request({

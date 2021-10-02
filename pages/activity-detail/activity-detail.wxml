@@ -16,12 +16,12 @@
 		<view class="cu-item transition {{1==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{1}}">
 			参与人
 		</view>
-		<view class="cu-item transition {{2==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{2}}">
+		<!-- <view class="cu-item transition {{2==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{2}}">
 			花絮
 		</view>
 		<view class="cu-item transition {{3==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{3}}">
 			评论
-		</view>
+		</view> -->
 	</scroll-view>
 	<!-- 概况 -->
 	<view  hidden="{{0!=TabCur}}" class="">
@@ -596,7 +596,7 @@
 			</scroll-view>
 	</view>
 	<!-- 花絮 -->
-	<view  hidden="{{2!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
+	<!-- <view  hidden="{{2!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
 		<view wx:if="{{flowerList.length == 0}}">
 			<view style="height:50vw;width:100%;background-size:100%;background-image:url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/18/9e1d20ff-96de-47c2-874d-066a187e55a0.png);background-repeat: no-repeat;"></view>
 			<van-empty
@@ -665,9 +665,9 @@
 					<view wx:if="{{flowerList.length != 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 					</view>
 			</view>
-	</view>
+	</view> -->
 	<!-- 评论 -->
-	<view  hidden="{{3!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
+	<!-- <view  hidden="{{3!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
 		
 		<view wx:if="{{remarkList.length == 0}}">
 			<view style="height:69vw;width:100%;background-size:100%;background-image:url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/18/ad7ba15c-6a4f-48ca-8e59-761fefd3e638.png);background-repeat: no-repeat;"></view>
@@ -704,7 +704,7 @@
 					<view wx:if="{{remarkList.length != 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</scroll-view>
-	</view>
+	</view> -->
 </view>
 
 <view class="addBtn" hidden="{{TabCur != 2}}" bindtap="{{showData.flowerStatus!=0? 'jumpSideLight': 'canSendF'}}">+</view>

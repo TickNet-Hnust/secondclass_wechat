@@ -725,9 +725,9 @@ Page({
 				this.setData({
 					loadModal: false,
 				});
-				wx.showToast({
-					title: '修改成功',
-				})
+				// wx.showToast({
+				// 	title: '修改成功',
+				// })
 			})
 			this.setData({
 				dict_admissionWay:wx.getStorageSync('dict_admissionWay'),

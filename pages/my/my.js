@@ -27,6 +27,10 @@ Page({
         }).then(value => {
           console.log(value)
         })
+        let content = this.data.isLogin ? '同步成功' : '登录成功'
+        wx.showToast({
+          title: content,
+        })
         this.setData({
           isLogin:true,
           nickName: res.userInfo.nickName,
@@ -44,9 +48,7 @@ Page({
           key:'avatarUrl', 
           data:res.userInfo.avatarUrl
         })
-        wx.showToast({
-          title: '登录成功',
-        })
+        
         
       }
     })

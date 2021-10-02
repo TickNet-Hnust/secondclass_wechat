@@ -1,5 +1,5 @@
 .UCenter-bg {
-	background-image: url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/23/6cccf2c8-0af5-4d9d-a406-8676ca85a271.png);
+	background-image: url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/10/02/69a8033b-8d92-4c18-86f8-66ea73080019.png);
 	background-size: 154%;
     background-position: center;
 	height: 550rpx;
@@ -13,8 +13,16 @@
 	color: #fff;
 	font-weight: 300;
 	text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+	animation: updown 6s infinite alternate;
   }
-  
+  @keyframes updown{
+	0% {
+		background-position: 50% 50%;
+	}
+	100% {
+		background-position: 50% 60%;
+	}
+  }
   .UCenter-bg text {
 	opacity: 0.8;
   }

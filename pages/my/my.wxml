@@ -11,9 +11,9 @@
       <image wx:if="{{!isLogin}}" catchtap="login" class="round solid-green" style="height: 130rpx;width: 130rpx;" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/da921004-9be9-41c8-8a6b-ba41af82129f.jpg"></image>
       <image wx:else class="round solid-green" style="border:2px solid #eee;height: 130rpx;width: 130rpx;" src="{{avatarUrl}}"></image>
     </view>
-    <view class="text-xl">
+    <view class="text-xl" style="color:#3f3d56">
       <text wx:if="{{!isLogin}}" catchtap="login">点击头像登录</text>
-      <text wx:else>{{nickName}}</text>
+      <text wx:else sty>{{nickName}}</text>
     </view>
     <view class="girfather">
       <image style="transform: rotate({{angle}}deg);transition: all {{multiple/1000}}s;" class="gifImg gif-wave" mode="aspectFill" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/88fa6475-d5eb-4178-bbf9-0bf656762779.gif" mode="scaleToFill"></image>
@@ -62,10 +62,10 @@
         <text class="text-grey">意见反馈</text>
       </button>
     </view>
-    <view class="cu-item arrow" bindtap="logout" >
+    <view class="cu-item arrow" bindtap="login" wx:if="{{isLogin}}">
       <navigator class="content" hover-class="none">
         <text class="cuIcon-pullright text-orange"></text>
-        <text class="text-grey">退出登录</text>
+        <text class="text-grey">同步企业微信头像</text>
       </navigator>
     </view>
   </view>

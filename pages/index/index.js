@@ -281,8 +281,21 @@ Page({
       hasUserInfo: true
     })
   },
+  noLimitDialog() {
+    wx.showModal({
+      title: '温馨提示',
+      content: '请在企业微信中打开小程序',
+      showCancel: false,
+      success: (res) => {
+        this.noLimitDialog()
+      }
+    })
+  },
   onShow(option) {
     console.log(wx.getLaunchOptionsSync().scene,'option')
+    // if(wx.getLaunchOptionsSync().scene == 1119) {
+    //   this.noLimitDialog()
+    // }
     // wx.showModal({
     //   content: wx.getLaunchOptionsSync().scene +''
     // })

@@ -10,6 +10,7 @@
     </view>
   </view>
   <view class="cu-list menu-avatar">
+    <van-empty wx:if="{{memberList.length == 0}}" description="待审核列表为空" />
     <view class="cu-item" wx:for="{{memberList}}" wx:key="index"> 
       <view class="cu-avatar round lg" style="background-image:url({{item.avatar}});"></view>
       <view class="content">

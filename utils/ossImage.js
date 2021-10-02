@@ -57,41 +57,47 @@ export function upload(ossData, file, ossFileUrl) {
     const signature = ossData.signature
     const host = ossData.host
     const key = ossFileUrl.substring(host.length + 1)
-    // const param = new FormData()
-    // param.append('name', `${photoName}`)
-    // param.append('key', `${key}`)
-    // param.append('policy', `${policy}`)
-    // param.append('OSSAccessKeyId', `${OSSAccessKeyId}`)
-    // param.append('success_action_status', 200)
-    //     // param.append('callback', `${callback}`)
-    // param.append('signature', `${signature}`)
-    //     // return new Promise((resolve, reject) => {
-    //     //     new Compressor(file.file, {
-    //     //         quality: 0.8,
-    //     //         success: resolve,
-    //     //         error: reject
-    //     //     })
-    //     // }).then(res => {
-    // param.append('file', file)
+    
     wx.uploadFile({
-        url: host, //仅为示例，非真实的接口地址
+        url: 'http://localhost:8080/utils/imgSecCheck',
+        header : {
+            Authorization: wx.getStorageSync('token')
+        },
         filePath: file,
         name: 'file',
-        formData:{
-            // 'name':`${photoName}`,
-            'key': `${key}`,
-            'policy': `${policy}`,
-            'OSSAccessKeyId': `${OSSAccessKeyId}`,
-            'Signature': `${signature}`,
-            'success_action_status': 200,
-            // 'file':file
-        },
-        success: function(res){
-        var data = res.data
-        
-        //do something
+        success:(e)=> {
+            e.data = JSON.parse(e.data)
+            console.log(e)
+            if(e.data.data.errcode == 0) {
+                wx.uploadFile({
+                    url: host, //仅为示例，非真实的接口地址
+                    filePath: file,
+                    name: 'file',
+                    formData:{
+                        // 'name':`${photoName}`,
+                        'key': `${key}`,
+                        'policy': `${policy}`,
+                        'OSSAccessKeyId': `${OSSAccessKeyId}`,
+                        'Signature': `${signature}`,
+                        'success_action_status': 200,
+                        // 'file':file
+                    },
+                    success: function(res){
+                    var data = res.data
+                    
+                    //do something
+                    }
+                })
+            } else {
+                wx.showToast({
+                  title: JSON.stringify(e.data.data),
+                  icon: 'none'
+                })
+            }
+            
         }
     })
+    
 		// return request({
 		// 	url: host,
 		// 	method: 'POST',

@@ -34,11 +34,28 @@ Page({
 			})
 			return
 		}
+		
 		request({
-			url: '/secondClass/activity/flower',
-			method: 'POST',
-			data:this.data.postData
+			url: '/utils/msgSecCheck',
+			method: 'get',
+			data:{
+				text:this.data.postData.content
+			}
 		}).then(value => {
+			if(value.data.errcode == 87014) {
+				wx.showToast({
+				  title: JSON.stringify(value.data),
+				  icon: 'none'
+				})
+			} else {
+				return request({
+					url: '/secondClass/activity/flower',
+					method: 'POST',
+					data:this.data.postData
+				})
+			}
+		})
+		.then(value => {
 			console.log(value)
 			value.code == 200 && wx.showToast({
 			  title: '发布成功'

@@ -138,6 +138,9 @@ Page({
 		enrollNoticeShow: true,
 		IntroduceShow:true
 	},
+	formatDate() {
+		new Date()	
+	},
 	showNotice(e) {
 		console.log(123)
 		this.setData({
@@ -709,6 +712,14 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
+		this.setData({
+			'postData.enrollStartTimeFront': this.formatDate(),
+			'postData.enrollEndTimeFront': this.formatDate(2),
+			'postData.registerStartTimeFront': this.formatDate(),
+			'postData.registerEndTimeFront': this.formatDate(2),
+			'postData.registerStartTimeFront': this.formatDate(),
+			'postData.registerEndTimeFront': this.formatDate(2),
+		})
 		this.mapCtx = wx.createMapContext('myMap')
 		let tempDept =  wx.getStorageSync('deptList')
 		this.setData({
@@ -836,7 +847,18 @@ Page({
 			})
 		}
 	},
-
+	//未来n个月的时间
+	formatDate(n) {
+		let temp = +new Date()
+		if(n) {
+			temp = temp + 2592000000 * n
+		}
+		const date = new Date(temp)
+		const yy = date.getFullYear()
+		const mm = date.getMonth() + 1
+		const dd = date.getDate()
+		return `${yy}-${mm}-${dd}`
+	},
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */

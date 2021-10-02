@@ -268,7 +268,7 @@
 	</view>
 	<view class="cu-form-group ">
 		<view class="title">活动开始日期</view>
-		<picker mode="date" value="{{fakeData.activityStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.activityStartTimeFront">
+		<picker mode="date" value="{{fakeData.activityStartTimeFront}}" start="{{postData.enrollStartTimeFront}}" end="2025-01-01" bindchange="TimeChange" data-time="fakeData.activityStartTimeFront">
 			<view class="picker">
 				{{fakeData.activityStartTimeFront}}
 			</view>

@@ -4,7 +4,7 @@ var _baseUrl = '';
 if (flag) {
 	_baseUrl = 'http://192.168.124.8:8080';
 } else {
-	_baseUrl = 'http://test.ticknet.hnust.cn';
+	_baseUrl = 'https://admin.ticknet.hnust.cn';
 }
 var baseUrl = _baseUrl;
 var commonParams = {

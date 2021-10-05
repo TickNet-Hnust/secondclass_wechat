@@ -49,105 +49,54 @@
           <text slot="icon" class="iconfont icon-zhengshuguanli-" style="font-size:60rpx"></text>
         </van-grid-item>
       </van-grid>
-    <!-- <ul class="navs">
-      <li bindtap="jumpActivity">
-        <image  src="../../images/gift.png"></image>
-        <view>
-          <text>活动</text>
-        </view>
-      </li>
-      <li>
-        <image  src="../../images/gift.png"></image>
-        <view>
-          <text>群组</text>
-        </view>
-      </li>
-      <li>
-        <image  src="../../images/gift.png"></image>
-        <view>
-          <text>场地</text>
-        </view>
-      </li>
-      <li>
-        <image  src="../../images/gift.png"></image>
-        <view>
-          <text>认证</text>
-        </view>
-      </li>
-      <li>
-        <image  src="../../images/gift.png"></image>
-        <view>
-          <text>报名</text>
-        </view>
-      </li>
-      <li>
-        <image  src="../../images/gift.png"></image>
-        <view>
-          <text>投票</text>
-        </view>
-      </li>
-      <li>
-        <image  src="../../images/gift.png"></image>
-        <view>
-          <text>证书</text>
-        </view>
-      </li>
-    </ul> -->
+
   </view>
-  <view class="chooseMiddle" bindtap="kaifa">
-    <view class="cu-list menu">
+  <view class="chooseMiddle">
+    <view class="cu-list menu" bindtap="jumpNews" data-path="https://tw.hnust.edu.cn/">
       <view class="cu-item arrow">
         <view class="content text-cut">
           <text class="cuIcon-title text-grey "></text>
-          <text class="text-grey">关于开展向“心与馨”志愿支教服务队学习的倡议</text>
+          <text class="text-grey">共青团湖南科技大学委员会官网</text>
         </view>
       </view>
-      <view class="cu-item arrow">
+      <view class="cu-item arrow" bindtap="jumpNews" data-path="https://www.hnust.cn/">
         <view class="content text-cut">
           <text class="cuIcon-title text-grey"></text>
-          <text class="text-grey">关于湖南科技大学第十九届学生会主席团候选人资格审查</text>
+          <text class="text-grey">湖南科技大学官网</text>
         </view>
       </view>
-      <view class="cu-item arrow">
+      <view class="cu-item arrow" bindtap="jumpNews" data-path="https://jwc.hnust.edu.cn/">
         <view class="content text-cut">
           <text class="cuIcon-title text-grey"></text>
-          <text class="text-grey">关于开展湖南科技大学第十九届学生会主席团候选人报名</text>
+          <text class="text-grey">湖南科技大学教务处官网</text>
         </view>
       </view>
     </view>
   </view>
-  <!-- <view class="chooseBottom" bindtap="kaifa">
+  <view class="chooseBottom">
     <view class="cu-bar bg-white">
     <view class="action">
       <text class="cuIcon-titles text-blue"></text>
-      <text class="text-xl text-bold">新闻中心</text>
+      <text class="text-xl text-bold">校内资讯</text>
     </view>
   </view>
-  <view class="cu-card article no-card" bindtap="kaifa">
-    <view class="cu-item shadow solid-bottom margin-bottom" >
+  <view class="cu-card article no-card">
+    <view wx:for="{{newList}}" wx:key="index" bindtap="jumpNews" data-path="{{item.link}}" class="cu-item shadow solid-bottom margin-bottom padding-top">
       <view class="content">
-        <image src="http://file.chinacourt.org/f.php?id=1410225&class=imageid" mode="aspectFill"></image>
+        <image v-if="{{item.pictures}}" src="{{item.pictures[0]}}" mode="aspectFill"></image>
         <view class="desc">
-          <view class="text-content text-pink">  习近平:决胜全面建成小康社会决战脱贫攻坚继续建设经济繁荣民族团结环境优美</view>
+          <view class="text-content text-pink">
+            {{item.title ? item.title : ''}} <br/>
+            {{item.content ? item.content:''}}
+          </view>
           <view>
-            <view class="cu-tag bg-red light sm round">置顶</view>
-            <view class="cu-tag bg-green light sm round">人民网</view>
+            <view class="cu-tag bg-blue light sm round">{{item.category}}</view>
+            <view class="cu-tag bg-gray light sm round">{{item.date}}</view>
           </view>
         </view>
       </view>
     </view>
-    <view class="cu-item shadow padding-top">
-    <view class="content">
-      
-      <view class="desc">
-        <view class="text-content text-pink">  习近平:决胜全面建成小康社会决战脱贫攻坚继续建设经济繁荣民族团结环境优美</view>
-        <view>
-          <view class="cu-tag bg-red light sm round">置顶</view>
-          <view class="cu-tag bg-green light sm round">人民网</view>
-        </view>
-      </view>
-    </view>
-  </view>
+
 </view>
-  </view> -->
+  </view>
 </view>

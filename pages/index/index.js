@@ -4,6 +4,7 @@ const app = getApp()
 import {request} from '../../js/http.js'
 Page({
   data: {
+    newList:[],
     recommendList:[],
     cardCur: 0,
     motto: 'Hello World',
@@ -39,6 +40,11 @@ Page({
       url: '../activity/activity',
     })
   },
+  jumpNews(e) {
+    wx.navigateTo({
+      url: `../news/news?path=${e.currentTarget.dataset.path}`,
+    })
+  },
   // 事件处理函数
   bindViewTap() {
     wx.navigateTo({
@@ -51,6 +57,15 @@ Page({
         canIUseGetUserProfile: true
       })
     }
+    wx.request({
+      url: 'http://49.123.0.28:8000',
+      success: (res) => {
+        console.log(res.data)
+        this.setData({
+          newList: res.data.data
+        })
+      }
+    })
     //设置部门
     request({
 			url: '/dept/util/listCollege',

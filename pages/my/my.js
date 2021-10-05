@@ -1,4 +1,5 @@
 import {request} from '../../js/http.js'
+import Toast from '@vant/weapp/toast/toast';
 Page({
   options: {
     addGlobalClass: true,
@@ -28,9 +29,7 @@ Page({
           console.log(value)
         })
         let content = this.data.isLogin ? '同步成功' : '登录成功'
-        wx.showToast({
-          title: content,
-        })
+        Toast(content)
         this.setData({
           isLogin:true,
           nickName: res.userInfo.nickName,

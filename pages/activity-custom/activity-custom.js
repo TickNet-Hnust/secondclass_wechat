@@ -11,6 +11,12 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		trainingProgramId: null,
+		trainingProgramList:[], //培养方案列表
+		courseClassificationList:[], //积分分类列表
+		courseClassificationListTwoId: null, //二级积分分类列表
+		courseClassificationListTwo:[], //二级积分分类列表
+		courseList:[], //课程列表
 		title: '自定义活动',//页面标题
 		//分类
 		multiArray:[],
@@ -27,8 +33,6 @@ Page({
 		//地图
 		mapCtx:null,
 		CustomBar: app.globalData.CustomBar,
-		courseList:[],
-		courseClassificationList:[],
 		imgList:[],
 		fileList:[],
 		index: 5,
@@ -63,28 +67,7 @@ Page({
 			checked:false
 		}],
 		fakeData:{
-			enrollStartTimeFront: '2021-07-01',
-			enrollStartTimeEnd: '00:00',
-			enrollEndTimeFront: '2021-09-01',
-			enrollEndTimeEnd: '24:00',
-			activityStartTimeFront: '2021-07-01',
-			activityStartTimeEnd: '00:00',
-			activityEndTimeFront: '2021-09-01',
-			activityEndTimeEnd: '24:00',
-			registerStartTimeFront: '2021-07-01',
-			registerStartTimeEnd: '00:00',
-			registerEndTimeFront: '2021-09-01',
-			registerEndTimeEnd: '24:00',
-			registerStatus: true, //签到状态
-			deptIdno:null,
-			groupIdno:null,
 			enrollRange: null,
-			rankIdno: 0,
-			admissionWay:null,
-			flowerStatus:null,
-			integralScheme: null,//积分状态
-			evaluateStatus:null,
-
 		},
 		activityReleaserName: '',//发布人
 		guideTeacherName:'', //指导老师
@@ -94,7 +77,7 @@ Page({
 			name:'', //活动名称
 			groupId: '', //主办方
 			activityReleaserId: '', //活动发布人
-			deptId: '', //指导单位
+			deptId: null, //指导单位
 			guideTeacherId: '', //指导老师ID
 
 			enrollStartTime: '', //报名开始时间
@@ -109,8 +92,8 @@ Page({
 			activityTag: '', //活动标签
 			courseId:'',
 			courseClassificationId: '', //课程分类
-			courseClassificationIdPath: '', //关联的课程的课程分类完整名字
-			courseClassificationDetail: '',
+			courseClassificationPath: '', //关联的课程的课程分类Id
+			courseClassificationName: '', //关联的课程的课程分类完整名字
 			integralScheme: '', //积分方案
 			activityStartTime: '', //活动开始时间
 			activityEndTime: '', //活动结束时间
@@ -137,9 +120,6 @@ Page({
 		},
 		enrollNoticeShow: true,
 		IntroduceShow:true
-	},
-	formatDate() {
-		new Date()	
 	},
 	showNotice(e) {
 		console.log(123)
@@ -382,57 +362,7 @@ Page({
 			'postData.maxAdmissionNumber': e.detail.value.trim()
 		})
 	},
-	//确定分类
-	MultiChange(e) {
-		console.log(e.detail.value)
-		this.setData({
-			showCourse:true,
-			'postData.courseClassificationId': this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id,
-			'postData.courseClassificationPath': this.data.courseClassificationList[e.detail.value[0]].id + ',' +this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id
-		})
-		request({
-			url: '/secondClass/course/list',
-			method: 'GET',
-			data:{
-				classificationId: this.data.courseClassificationList[e.detail.value[0]].children[e.detail.value[1]].id,
-				schoolYearId: this.data.nowYear, 
-				status: 1,
-				term: 1,
-				rank: this.data.postData.rankId
-			}
-		}).then(value => {
-			console.log(value,'课程')
-			this.setData({
-				multiCourse:value.data
-			})
-		})
-	},
-	//分类列改变
-	MultiColumnChange(e) {
-		console.log(e)
-		//复制数组
-		let temp = [...this.data.multiArray]
-		let index = [...this.data.multiIndex]
-		//改变的是第一列，则让第二列为第一列对应的值children
-		if(e.detail.column==0) {
-			temp[1] = this.data.courseClassificationList[e.detail.value].children.map(item => item.name)
-			index[0] = e.detail.value //改变选中的下标
-			index[1] = 0
-		}else { //否则，就只用改变第二列的选择
-			index[1] = e.detail.value
-		}
-		this.setData({
-			multiArray:temp,
-			multiIndex:index,
-			// 'postData.courseClassificationId': this.data.courseClassificationList[index[0]].children[index[1]].id,
-			// 'postData.courseClassificationIdPath': this.data.courseClassificationList[index[0]].id + ',' +this.data.courseClassificationList[index[0]].children[index[1]].id
-		})
-		console.log(this.data.courseClassificationList[index[0]].children[index[1]].id)
-		console.log(this.data.nowYear)
-		console.log(this.data.postData.rankId)
-		// e.datail.value
-		
-	},
+	
 	//确定经纬度
 	surePosition() {
 		this.mapCtx.getCenterLocation({
@@ -472,10 +402,9 @@ Page({
 	},
 	//签到状态改变
 	registerChange(e) {
-
-			this.setData({
-				'fakeData.registerStatus':e.detail.value
-			})
+		this.setData({
+			'fakeData.registerStatus':e.detail.value
+		})
 	},
 	//允许请假改变
 	vacateChange(e){
@@ -499,75 +428,64 @@ Page({
 		})
 		console.log(this.data.range,values)
 	},
-	//活动开始日期改变
-	TimeChange(e) {
-		this.setData({
-			[e.currentTarget.dataset.time]: e.detail.value
-		})
-	},
-	//活动结束时间改变
-	activityEndTimeEndChange(e) {
-		this.setData({
-			'fakeData.activityEndTimeEnd': e.detail.value
-		})
-	},
 	//报名开始日期改变
-	enrollStartTimeFrontChange(e) {
+	enrollStartTimeChange(e) {
 		this.setData({
-			'fakeData.enrollStartTimeFront': e.detail.value
-		})
-	},
-	//报名开始时间改变
-	enrollStartTimeEndChange(e) {
-		this.setData({
-			'': e.detail.value
+			'postData.enrollStartTime': e.detail
 		})
 	},
 	//报名结束日期改变
-	enrollEndTimeFrontChange(e) {
+	enrollEndTimeChange(e) {
 		this.setData({
-			'': e.detail.value
+			'postData.enrollEndTime': e.detail
 		})
 	},
-	//报名结束时间改变
-	enrollEndTimeEndChange(e) {
+	//活动开始时间改变
+	activityStartTimeChange(e) {
 		this.setData({
-			'fakeData.enrollEndTimeEnd': e.detail.value
+			'postData.activityStartTime': e.detail
 		})
 	},
+	//活动结束时间改变
+	activityEndTimeChange(e) {
+		this.setData({
+			'postData.activityEndTime': e.detail
+		})
+	},
+	//签到开始时间改变
+	registeStartTimeChange(e) {
+		this.setData({
+			'postData.registeStartTime': e.detail
+		})
+	},
+	//签到结束时间改变
+	registeEndTimeChange(e) {
+		this.setData({
+			'postData.registeEndTime': e.detail
+		})
+	},
+	//评价状态改变
 	evaluateStatusChange(e) {
 		this.setData({
-			'fakeData.evaluateStatus': e.detail.value
-		})
-		this.setData({
-			'postData.evaluateStatus' : this.data.dict_evaluate_scheme[e.detail.value].dictValue
+			'postData.evaluateStatus' : e.detail
 		})
 	},
 	//花絮改变
-	flowerChange(e) {
+	flowerChange(e) { //over
 		this.setData({
-			'fakeData.flowerStatus': e.detail.value
-		})
-		this.setData({
-			'postData.flowerStatus' : this.data.dict_flower[e.detail.value].dictValue
+			'postData.flowerStatus' : e.detail
 		})
 	},
 	//积分方案改变
 	integralChange(e) {
 		this.setData({
-			'fakeData.integralStatus': e.detail.value
-		})
-		this.setData({
-			'postData.integralScheme' : this.data.dict_flower[e.detail.value].dictValue
+			'postData.integralScheme' : e.detail
 		})
 	},
 	//录取方式改变
-	admissionWayChange(e) {
+	admissionWayChange(e) {  //over
 		this.setData({
-			'fakeData.admissionWay': e.detail.value
-		})
-		this.setData({
-			'postData.admissionWay' : this.data.dict_admissionWay[e.detail.value].dictValue
+			'postData.admissionWay' : e.detail
 		})
 	},
 	//课程改变
@@ -578,27 +496,81 @@ Page({
 		})
 	},
 	//活动级别改变
-	rankChange(e) {
+	rankChange(e) { //over
 		this.setData({
-			'fakeData.rankIdno': e.detail.value
-		})
-		this.setData({
-			'postData.rankId' : this.data.dict_rank[e.detail.value].dictValue
+			'postData.rankId' : e.detail
 		})
 	},
-	//部门改变
-	deptChange(e) {
+	//培养方案改变
+	trainingProgramChange(e) { //over
 		this.setData({
-			'fakeData.deptIdno': e.detail.value
+			'trainingProgramId' : e.detail
 		})
+	},
+	//一级分类改变
+	courseClassificationChange(e) {
 		this.setData({
-			'postData.deptId' : this.data.deptList[e.detail.value].deptId
+			'postData.courseClassificationId' : e.detail
+		})
+		request({
+			url: '/secondClass/course/list',
+			method: 'get',
+			data:{
+				classificationId: e.detail,
+				schoolYearId: this.data.nowYear,
+				status: 1,
+				rank: 0, //todo 假设现在都是院级
+				trainingProgramId: this.data.trainingProgramId
+			}
+		}).then(value => {
+			this.setData({
+				courseList: value.data
+			})
+		})
+		request({
+			url: '/secondClass/courseClassification/listByParentId',
+			method: 'get',
+			data:{
+				pid: e.detail,
+			}
+		}).then(value => {
+			this.setData({
+				courseClassificationListTwo: value.data
+			})
+		})
+	},
+	//课程改变
+	courseChange(e) {
+		this.setData({
+			'postData.courseId' : e.detail
+		})
+	},
+	//二级分类改变
+	courseClassificationTwoChange(e) {
+		const frontName = this.data.courseClassificationList.find(item => {
+			return item.id == this.data.postData.courseClassificationId
+		}).name
+		const endName = this.data.courseClassificationListTwo.find(item => {
+			return item.id == e.detail
+		}).name
+		this.setData({
+			'courseClassificationListTwoId' : e.detail,
+			'postData.courseClassificationPath': `${this.data.postData.courseClassificationId}、${e.detail}`,
+			'postData.courseClassificationName': `${frontName}、${endName}`
+		})
+
+	},
+	//部门改变
+	deptChange(e) {  //over
+		console.log(e)
+		this.setData({
+			'postData.deptId' : e.detail
 		})
 		request({
 			url: '/group/list',
 			method: 'get',
 			data:{
-				parentId: this.data.deptList[e.detail.value].deptId
+				parentId: e.detail
 			}
 		}).then(value => {
 			console.log(value,'group')
@@ -611,12 +583,8 @@ Page({
 		})
 	},
 	groupChange(e) {
-		
 		this.setData({
-			'fakeData.groupIdno': e.detail.value
-		})
-		this.setData({
-			'postData.groupId' : this.data.groupList[e.detail.value].deptId
+			'postData.groupId' : e.detail
 		})
 	},
 	//提交
@@ -634,16 +602,6 @@ Page({
 				'postData.registerEndTime' : ''
 			})
 		}
-		//收集报名开始与结束时间
-		this.setData({
-			'postData.enrollStartTime' : `${this.data.fakeData.enrollStartTimeFront} ${this.data.fakeData.enrollStartTimeEnd}:00`,
-			'postData.enrollEndTime' : `${this.data.fakeData.enrollEndTimeFront} ${this.data.fakeData.enrollEndTimeEnd}:00`
-		})
-		//收集活动开始时间与结束时间
-		this.setData({
-			'postData.activityStartTime' : `${this.data.fakeData.activityStartTimeFront} ${this.data.fakeData.activityStartTimeEnd}:00`,
-			'postData.activityEndTime' : `${this.data.fakeData.activityEndTimeFront} ${this.data.fakeData.activityEndTimeEnd}:00`
-		})
 		console.log()
 		//收集报名学院范围
 		this.setData({
@@ -712,14 +670,16 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		this.setData({
-			'postData.enrollStartTimeFront': this.formatDate(),
-			'postData.enrollEndTimeFront': this.formatDate(2),
-			'postData.registerStartTimeFront': this.formatDate(),
-			'postData.registerEndTimeFront': this.formatDate(2),
-			'postData.registerStartTimeFront': this.formatDate(),
-			'postData.registerEndTimeFront': this.formatDate(2),
+
+		request({
+			url: '/secondClass/trainingProgram/list',
+			method: 'GET'
+		}).then(value => {
+			this.setData({
+				trainingProgramList: value.data
+			})
 		})
+
 		this.mapCtx = wx.createMapContext('myMap')
 		let tempDept =  wx.getStorageSync('deptList')
 		this.setData({

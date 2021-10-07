@@ -1,0 +1,8 @@
+<view class="cu-form-group">
+    <view class="title">{{title}}</view>
+    <picker bindchange="change" value="{{no}}" range="{{range}}" range-key="{{rangeKey}}">
+        <view class="picker">
+            {{no!=null?range[no][rangeKey]:'请填写'+ title}}
+        </view>
+    </picker>
+</view>

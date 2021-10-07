@@ -64,6 +64,8 @@
         }
     },
     "usingComponents": {
+        "l-time": "/components/l-time/l-time",
+        "l-select": "/components/l-select/l-select",
         "van-toast": "@vant/weapp/toast/index",
         "delay-button": "/components/delay-button/delay-button",
         "mp-html": "mp-html",

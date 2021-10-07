@@ -58,7 +58,7 @@ Page({
       })
     }
     wx.request({
-      url: 'http://49.123.0.28:8000',
+      url: 'https://secondclass.ticknet.hnust.cn/news',
       success: (res) => {
         console.log(res.data)
         this.setData({

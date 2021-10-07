@@ -79,69 +79,52 @@
 		{{guideTeacherName}}
 		<button class="cu-btn line-green " data-id="postData.guideTeacherId" data-name="guideTeacherName" bindtap="showSearch" >选择</button>
 	</view>
+	
+	<l-select 
+		title="指导单位"
+		range="{{deptList}}"
+		rangeKey="deptName"
+		valueKey="deptId"
+		value="{{postData.deptId}}"
+		bind:change="deptChange"
+	></l-select>
 
-	<view class="cu-form-group" wx:if="{{title == '自定义活动'}}">
-		<view class="title">指导单位</view>
-		<picker bindchange="deptChange" value="{{fakeData.deptIdno}}" range="{{deptList}}" range-key="deptName">
-			<view class="picker">
-				{{fakeData.deptIdno?deptList[fakeData.deptIdno].deptName:'请填写指导单位'}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group" wx:if="{{title == '自定义活动'}}">
-		<view class="title">主办方</view>
-		<picker bindchange="groupChange" value="{{fakeData.groupIdno}}" range="{{groupList}}" range-key="deptName">
-			<view class="picker">
-				{{fakeData.groupIdno?groupList[fakeData.groupIdno].deptName:'请填写主办方'}}
-			</view>
-		</picker>
-	</view>
+	<l-select
+		title="主办方"
+		range="{{groupList}}"
+		rangeKey="deptName"
+		valueKey="deptId"
+		value="{{postData.groupId}}"
+		bind:change="groupChange"
+	></l-select>
+
 	<view class="cu-bar solid-bottom ">
 		<view class="action">
 			<text class="cuIcon-title text-blue"></text>报名信息
 		</view>
 	</view>
-	<view class="cu-form-group ">
-		<view class="title">报名开始日期</view>
-		<picker mode="date" value="{{fakeData.enrollStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.enrollStartTimeFront">
-			<view class="picker">
-				{{fakeData.enrollStartTimeFront}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">报名开始时间</view>
-		<picker mode="time" value="{{fakeData.enrollStartTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.enrollStartTimeEnd">
-			<view class="picker">
-				{{fakeData.enrollStartTimeEnd}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">报名结束日期</view>
-		<picker mode="date" value="{{fakeData.enrollEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.enrollEndTimeFront">
-			<view class="picker">
-				{{fakeData.enrollEndTimeFront}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">报名结束时间</view>
-		<picker mode="time" value="{{fakeData.enrollEndTimeEnd}}" start="00:00" end="24:00" bindchange="enrollEndTimeEndChange">
-			<view class="picker">
-				{{fakeData.enrollEndTimeEnd}}
-			</view>
-		</picker>
-	</view>
 
-	<view class="cu-form-group">
-		<view class="title">录取方式</view>
-		<picker bindchange="admissionWayChange" value="{{fakeData.admissionWay}}" range="{{dict_admissionWay}}" range-key="dictLabel">
-			<view class="picker">
-				{{fakeData.admissionWay!=null?dict_admissionWay[fakeData.admissionWay].dictLabel:'录取方式'}}
-			</view>
-		</picker>
-	</view>
+	<l-time
+		title="报名开始"
+		value="{{postData.enrollStartTime}}"
+		bind:change="enrollStartTimeChange"
+	></l-time>
+
+	<l-time
+		title="报名结束"
+		n="2"
+		value="{{postData.enrollEndTime}}"
+		bind:change="enrollEndTimeChange"
+	></l-time>
+
+	<l-select
+		title="录取方式"
+		range="{{dict_admissionWay}}"
+		rangeKey="dictLabel"
+		valueKey="dictValue"
+		value="{{postData.admissionWay}}"
+		bind:change="admissionWayChange"
+	></l-select>
 
 	<view class="cu-form-group">
 		<view class="title">报名范围</view>
@@ -206,46 +189,56 @@
 			<text class="cuIcon-title text-blue"></text>活动信息
 		</view>
 	</view>
-	<view class="cu-form-group ">
-		<view class="title">活动级别</view>
-		<picker bindchange="rankChange" value="{{fakeData.rankIdno}}" range="{{dict_rank}}" range-key="dictLabel">
-			<view class="picker">
-				{{fakeData.rankIdno!=null?dict_rank[fakeData.rankIdno].dictLabel:'请填写活动级别'}}
-			</view>
-		</picker>
-	</view>
+
+	<l-select
+		title="活动级别"
+		range="{{dict_rank}}"
+		rangeKey="dictLabel"
+		valueKey="dictValue"
+		value="{{postData.rankId}}"
+		bind:change="rankChange"
+	></l-select>
 
 	<view class="cu-form-group">
 		<view class="title">活动标签</view>
 		<input placeholder="例：辩论赛" value="{{postData.activityTag}}" data-value="{{'postData.activityTag'}}" bindinput="VALUECHANGED"></input>
 	</view>
 
-	<view class="cu-form-group">
-		<view class="title">关联分类</view>
-		<view class="action ">
-			<!-- mutiArray是二维数组，对应两列 -->
-			<!-- mutiValue是一维数组，对应两个数字 -->
-		<picker
-			mode="multiSelector"
-			range="{{multiArray}}"
-			value="{{multiIndex}}"
-			bindcolumnchange="MultiColumnChange"
-			bindchange="MultiChange"
-		>
-			<view class="picker classification text-cut">
-				{{multiArray[1][multiIndex[1]]?multiArray[1][multiIndex[1]]:'请选择分类'}}
-			</view>
-		</picker>
-		</view>
-	</view>
-	<view class="cu-form-group" hidden="{{!showCourse}}">
-		<view class="title">关联课程</view>
-		<picker bindchange="courseChange" value="{{multiCourseIndex}}" range="{{multiCourse}}" range-key="name">
-			<view class="picker">
-				{{multiCourseIndex!=null?multiCourse[multiCourseIndex].name:'请选择课程'}}
-			</view>
-		</picker>
-	</view>
+	<l-select
+		title="培养方案"
+		range="{{trainingProgramList}}"
+		rangeKey="name"
+		valueKey="id"
+		value="{{trainingProgramId}}"
+		bind:change="trainingProgramChange"
+	></l-select>
+
+	<l-select
+		title="积分分类"
+		range="{{courseClassificationList}}"
+		rangeKey="name"
+		valueKey="id"
+		value="{{postData.courseClassificationId}}"
+		bind:change="courseClassificationChange"
+	></l-select>
+
+	<l-select
+		title="课程"
+		range="{{courseList}}"
+		rangeKey="name"
+		valueKey="id"
+		value="{{postData.courseId}}"
+		bind:change="courseChange"
+	></l-select>
+
+	<l-select
+		title="二级分类"
+		range="{{courseClassificationListTwo}}"
+		rangeKey="name"
+		valueKey="id"
+		value="{{courseClassificationListTwoId}}"
+		bind:change="courseClassificationTwoChange"
+	></l-select>
 
 	<view class="cu-modal bottom-modal {{modalName=='classification'?'show':''}}">
   	<view class="cu-dialog">
@@ -258,46 +251,28 @@
     </view>
   </view>
 </view>
-	<view class="cu-form-group">
-		<view class="title">积分方案</view>
-		<picker bindchange="integralChange" value="{{postData.integralScheme}}" range="{{dict_integral}}" range-key="dictLabel">
-			<view class="picker">
-				{{postData.integralScheme!=0?dict_integral[postData.integralScheme].dictLabel:'请选择积分方案'}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group ">
-		<view class="title">活动开始日期</view>
-		<picker mode="date" value="{{fakeData.activityStartTimeFront}}" start="{{postData.enrollStartTimeFront}}" end="2025-01-01" bindchange="TimeChange" data-time="fakeData.activityStartTimeFront">
-			<view class="picker">
-				{{fakeData.activityStartTimeFront}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">活动开始时间</view>
-		<picker mode="time" value="{{fakeData.activityStartTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.activityStartTimeEnd">
-			<view class="picker">
-				{{fakeData.activityStartTimeEnd}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">活动结束日期</view>
-		<picker mode="date" value="{{fakeData.activityEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.activityEndTimeFront">
-			<view class="picker">
-				{{fakeData.activityEndTimeFront}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">活动结束时间</view>
-		<picker mode="time" value="{{fakeData.activityEndTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.activityEndTimeEnd">
-			<view class="picker">
-				{{fakeData.activityEndTimeEnd}}
-			</view>
-		</picker>
-	</view>
+
+	<l-select
+		title="积分方案"
+		range="{{dict_integral}}"
+		rangeKey="dictLabel"
+		valueKey="dictValue"
+		value="{{postData.integralScheme}}"
+		bind:change="integralChange"
+	></l-select>
+
+	<l-time
+		title="活动开始"
+		value="{{postData.activityStartTime}}"
+		bind:change="activityStartTimeChange"
+	></l-time>
+
+	<l-time
+		title="活动结束"
+		n="2"
+		value="{{postData.activityEndTime}}"
+		bind:change="activityEndTimeChange"
+	></l-time>
 
 	<view class="cu-form-group">
 		<view class="title">允许请假</view>
@@ -306,22 +281,25 @@
 		<switch class="margin-left" checked="{{postData.vacate}}" bindchange="vacateChange"></switch>
 	</view>
 	</view>
-	<view class="cu-form-group">
-		<view class="title">花絮管理</view>
-		<picker bindchange="flowerChange" value="{{fakeData.flowerStatus}}" range="{{dict_flower}}" range-key="dictLabel">
-			<view class="picker">
-				{{fakeData.flowerStatus?dict_flower[fakeData.flowerStatus].dictLabel:'请选择花絮管理'}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group">
-		<view class="title">评价管理</view>
-		<picker bindchange="evaluateStatusChange" value="{{fakeData.evaluateStatus}}" range="{{dict_evaluate_scheme}}" range-key="dictLabel">
-			<view class="picker">
-				{{fakeData.evaluateStatus?dict_evaluate_scheme[fakeData.evaluateStatus].dictLabel:'请选择评价管理'}}
-			</view>
-		</picker>
-	</view>
+
+	<l-select
+		title="花絮管理"
+		range="{{dict_flower}}"
+		rangeKey="dictLabel"
+		valueKey="dictValue"
+		value="{{postData.flowerStatus}}"
+		bind:change="flowerChange"
+	></l-select>
+
+	<l-select
+		title="评价管理"
+		range="{{dict_evaluate_scheme}}"
+		rangeKey="dictLabel"
+		valueKey="dictValue"
+		value="{{postData.evaluateStatus}}"
+		bind:change="evaluateStatusChange"
+	></l-select>
+
 	<view class="cu-form-group">
 		<view class="title">活动地点</view>
 			<view class="text-cut" style="width: calc(100% - 200rpx);">{{postData.activityPlace}}</view>
@@ -356,46 +334,27 @@
 		<view class="title">地点详细描述</view>
 		<input placeholder="例：逸夫楼308" data-value="postData.activityPlaceName" value="{{postData.activityPlaceName}}" bindinput="VALUECHANGED"></input>
 	</view>
-	<view class="cu-form-group">
+	<!-- <view class="cu-form-group">
 		<view class="title">签到时间</view>
 		<view class="action">
 		<text class="margin-right" wx:if="{{fakeData.registerStatus}}">不限</text>
 		<text class="margin-right" wx:if="{{!fakeData.registerStatus}}">限制</text>
 		<switch checked bindchange="registerChange"></switch>
 		</view>
-	</view>
-	<view class="cu-form-group " wx:if="{{!fakeData.registerStatus}}">
-		<view class="title">签到开始日期</view>
-		<picker mode="date" value="{{fakeData.registerStartTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.registerStartTimeFront">
-			<view class="picker">
-				{{fakeData.registerStartTimeFront}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group" wx:if="{{!fakeData.registerStatus}}">
-		<view class="title">签到开始时间</view>
-		<picker mode="time" value="{{fakeData.registerStartTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.registerStartTimeEnd">
-			<view class="picker">
-				{{fakeData.registerStartTimeEnd}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group" wx:if="{{!fakeData.registerStatus}}">
-		<view class="title">签到结束日期</view>
-		<picker mode="date" value="{{fakeData.registerEndTimeFront}}" start="2021-01-01" end="2023-01-01" bindchange="TimeChange" data-time="fakeData.registerEndTimeFront">
-			<view class="picker">
-				{{fakeData.registerEndTimeFront}}
-			</view>
-		</picker>
-	</view>
-	<view class="cu-form-group" wx:if="{{!fakeData.registerStatus}}">
-		<view class="title">签到结束时间</view>
-		<picker mode="time" value="{{fakeData.registerEndTimeEnd}}" start="00:00" end="24:00" bindchange="TimeChange" data-time="fakeData.registerEndTimeEnd">
-			<view class="picker">
-				{{fakeData.registerEndTimeEnd}}
-			</view>
-		</picker>
-	</view>
+	</view> -->
+
+	<l-time
+		title="签到开始"
+		value="{{postData.registeStartTime}}"
+		bind:change="registeStartTimeChange"
+	></l-time>
+
+	<l-time
+		title="签到结束"
+		n="2"
+		value="{{postData.registeEndTime}}"
+		bind:change="registeEndTimeChange"
+	></l-time>
 	<view class="cu-form-group">
 		<view class="title">签到距离</view>
 		<input placeholder="例：200" value="{{postData.activityRegisteDistance}}" bindinput="VALUECHANGED" data-value="postData.activityRegisteDistance"></input>

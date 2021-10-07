@@ -1,0 +1,16 @@
+<view class="cu-form-group ">
+    <view class="title">{{title}}日期</view>
+    <picker mode="date" value="{{timeFront}}" start="2021-01-01" end="2023-01-01" bindchange="timeChange" data-time="timeFront">
+        <view class="picker">
+            {{timeFront}}
+        </view>
+    </picker>
+</view>
+<view class="cu-form-group">
+    <view class="title">{{title}}时间</view>
+    <picker mode="time" value="{{timeEnd}}" start="00:00" end="24:00" bindchange="timeChange" data-time="timeEnd">
+        <view class="picker">
+            {{timeEnd}}
+        </view>
+    </picker>
+</view>

@@ -575,10 +575,8 @@ Page({
 		}).then(value => {
 			console.log(value,'group')
 			this.setData({
+				'postData.groupId': this.data.postData.groupId,
 				groupList: value.rows
-			})
-			this.setData({
-				'fakeData.groupIdno': 0
 			})
 		})
 	},
@@ -710,10 +708,7 @@ Page({
 			multiArray: temp,
 			multiCourseIndex:0
 		})
-		setTimeout(() => {
 
-			// this.MultiChange({detail:{value:[0,0]}})
-		})
 		this.setData({
 			nowYear: wx.getStorageSync('nowYear')
 		})
@@ -732,30 +727,12 @@ Page({
 					guideTeacherName: data.guideTeacherName,
 					activityManagerName: data.activityManagerName,
 					activityOrganizerName: data.activityOrganizerName,
-					'fakeData.admissionWay': data.admissionWay,
-					'fakeData.enrollStartTimeFront': data.enrollStartTime.split(' ')[0],
-					'fakeData.enrollStartTimeEnd': data.enrollStartTime.split(' ')[1].slice(0,-3),
-					'fakeData.enrollEndTimeFront': data.enrollEndTime.split(' ')[0],
-					'fakeData.enrollEndTimeEnd': data.enrollEndTime.split(' ')[1].slice(0,-3),
-
-					'fakeData.activityStartTimeFront': data.activityStartTime.split(' ')[0],
-					'fakeData.activityStartTimeEnd': data.activityStartTime.split(' ')[1].slice(0,-3),
-					'fakeData.activityEndTimeFront': data.activityEndTime.split(' ')[0],
-					'fakeData.activityEndTimeEnd': data.activityEndTime.split(' ')[1].slice(0,-3),
 					'imgList': [data.images],
-					'fakeData.rankIdno': data.rankId,
-					'fakeData.flowerStatus': data.flowerStatus,
-					'fakeData.evaluateStatus': data.evaluateStatus,
 					postData: this.data.postData
 				})
-				if(data.registeStartTime) { //限制了签到时间
-					this.setData({
-						'fakeData.registerStartTimeFront': data.registeStartTime.split(' ')[0],
-						'fakeData.registerStartTimeEnd': data.registeStartTime.split(' ')[1].slice(0,-3),
-						'fakeData.registerEndTimeFront': data.registeEndTime.split(' ')[0],
-						'fakeData.registerEndTimeEnd': data.registeEndTime.split(' ')[1].slice(0,-3),
-					})
-				}
+				this.deptChange({  //加载主办方
+					detail: data.deptId
+				})
 				//报名范围确定
 				let enrollrange = data.enrollRange.split(';')
 				enrollrange.forEach(item => {

@@ -3,32 +3,6 @@
 
 App({
   onLaunch() {
-    // wx.setStorageSync('token', 'eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjQ3YWVlNTYyLTEzYzctNDU1MS1hOTlmLWNhYzhkYWZiOTAwMyJ9.ajnsSWw2lcuYP7tTIb_elJKNHb1QcqCHhsqxVvdjGOvC5yz_dHq3wDc1EcPXIu1rY48bJxTu8yHWUQVPqFriAA')
-	//获取部门
-	// http.getData('/dept/util/listByType',{type:1},(res) => {
-	// 	wx.setStorageSync('dept', res.data)
-	// 	console.log(wx.getStorageSync('dept'),res,123)
-  // })
-  // //获取报名方式字典
-  // http.getData('/dict/data/type/sc_activity_admission_way',{type:1},(res) => {
-	// 	wx.setStorageSync('admisstionWay', res.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})))
-	// 	console.log(res,123)
-  // })
-  // //获取活动级别
-  // http.getData('/dict/data/type/sc_train_program_rank',{type:1},(res) => {
-	// 	wx.setStorageSync('rank', res.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})))
-	// 	console.log(res,123)
-  // })
-  // //活动花絮管理方案
-  // http.getData('/dict/data/type/sc_activity_flower_scheme',{type:1},(res) => {
-	// 	wx.setStorageSync('flower', res.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})))
-	// 	console.log(res,123)
-  // })
-  // //活动评价管理方案
-  // http.getData('/dict/data/type/sc_activity_evaluate_scheme',{type:1},(res) => {
-	// 	wx.setStorageSync('evaluate', res.data.map(item => ({dictValue:item.dictValue,dictLabel:item.dictLabel})))
-	// 	console.log(res,123)
-  // })
     // 登录
     
 		wx.getSystemInfo({
@@ -43,16 +17,14 @@ App({
 				  this.globalData.CustomBar = e.statusBarHeight + 50;
 			  }
 			}
-		  })
-  },
-  onShow(e) {
+    })
     wx.qy.login({
 			success: function(res) {
 				console.log(res,44)
 				if (res.code) {
 				  //发起网络请求
 				  wx.request({
-            url: `http://192.168.124.8:8080/MpLoginByCode/${res.code}`,
+            url: `https://admin.ticknet.hnust.cn/MpLoginByCode/${res.code}`,
             success:(res) => {
               console.log(res,45)
               wx.setStorageSync('token', res.data.data.token)
@@ -67,6 +39,9 @@ App({
 				}	
 			}
     })
+  },
+  onShow(e) {
+    
   },
   goTop() {
 		wx.pageScrollTo({

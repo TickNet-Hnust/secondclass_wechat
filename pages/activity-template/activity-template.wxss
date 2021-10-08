@@ -45,3 +45,7 @@
 	width: 100vw;
 	height: 60vh;
 }
+
+.cu-form-group .title {
+	min-width: calc(6em + 30rpx);
+}

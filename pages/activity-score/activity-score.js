@@ -103,6 +103,8 @@ courseClassificationName : value.data.courseClassificationName,
           //获取活动积分规则 
           //放在概况请求里面是因为要先通过上面请求拿到courseClassificationId再发请求
             let courseClassificationList = wx.getStorageSync('courseClassificationList')
+            let path = path;
+            let currentClassificationId = path.split('、')[1]
             console.log(courseClassificationList,'课程分类列表')
             courseClassificationList.forEach((item)=>{
               if(item.id===this.data.courseClassificationId)

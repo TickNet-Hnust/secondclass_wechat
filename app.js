@@ -18,6 +18,7 @@ App({
 			  }
 			}
     })
+    console.log(49)
     wx.qy.login({
 			success: function(res) {
 				console.log(res,44)
@@ -36,8 +37,14 @@ App({
           
 				} else {
 				  console.log('登录失败！' + res.errMsg)
-				}	
-			}
+				}
+      },
+      fail:(res) => {
+        console.log(50)
+      },
+      complete:(res) => {
+        console.log(50)
+      }
     })
   },
   onShow(e) {

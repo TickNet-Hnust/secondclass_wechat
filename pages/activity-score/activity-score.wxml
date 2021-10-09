@@ -46,9 +46,11 @@
     <view class="activityScoreRule">
         <van-row >
           <van-col class="ruleText" span="6">• 积分规则</van-col>
+          <van-col class="ruleText" span="18" wx:if="{{maxLayer==0}}">当前活动无积分规则</van-col>
         </van-row>
     
         <van-row>
+
           <!-- 积分在三层的情况 -->
           <!-- 循环第二层，用wxs计算每个grid要显示的数据 -->
         <van-grid column-num="2" gutter="8" wx:if="{{maxLayer==3}}">

@@ -24,6 +24,7 @@ Page({
     filterCourseClassificationList:[],
     maxLayer:'',
     declareList:[],
+    courseClassificationPath:'',
     TabCur:'' //控制当前是哪个tab
   },
   tabSelect(e) {
@@ -98,16 +99,18 @@ Page({
   courseClassificationId : value.data.courseClassificationId,
   // courseClassificationId : 87,
 courseClassificationName : value.data.courseClassificationName,
+courseClassificationPath: value.data.courseClassificationPath,
           integralScheme : value.data.integralScheme,
       })
           //获取活动积分规则 
           //放在概况请求里面是因为要先通过上面请求拿到courseClassificationId再发请求
             let courseClassificationList = wx.getStorageSync('courseClassificationList')
-            let path = path;
+            let path = this.data.courseClassificationPath;
             let currentClassificationId = path.split('、')[1]
             console.log(courseClassificationList,'课程分类列表')
+            console.log(currentClassificationId,'截取的当前积分分类id')
             courseClassificationList.forEach((item)=>{
-              if(item.id===this.data.courseClassificationId)
+              if(item.id===currentClassificationId)
               {
                   this.setData({
                     currentCourseClassification:JSON.parse(JSON.stringify(item)),
@@ -118,7 +121,7 @@ courseClassificationName : value.data.courseClassificationName,
                   console.log(this.data.currentCourseClassification,'当前查找到的课程分类id')
                   
                   this.setData({
-                     filterCourseClassificationList:filterCourseClassificationList2(courseClassificationList,this.data.currentCourseClassification,this.data.courseClassificationId),
+                     filterCourseClassificationList:filterCourseClassificationList2(courseClassificationList,this.data.currentCourseClassification,currentClassificationId),
                   })
                   
                   console.log(this.data.filterCourseClassificationList,'过滤后的数组');

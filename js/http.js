@@ -1,5 +1,5 @@
 
-var flag = false;
+var flag = true;
 var _baseUrl = '';
 if (flag) {
 	_baseUrl = 'http://192.168.124.8:8080';

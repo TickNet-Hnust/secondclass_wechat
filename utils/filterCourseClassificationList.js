@@ -63,13 +63,14 @@ export function filterCourseClassificationList2(data,current,id)
     let filter = (father_id) => {
         let array = []
         data.forEach(item => {
-            if (item.pid === father_id) {
+            if (item.pid == father_id) {
                 array.push(item)
             }
         })
         count++;
         if(count==1&&array.length==0)
         {
+            console.log('没有子节点')
             return data
         }
         else{

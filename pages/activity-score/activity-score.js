@@ -110,11 +110,12 @@ courseClassificationPath: value.data.courseClassificationPath,
             console.log(courseClassificationList,'课程分类列表')
             console.log(currentClassificationId,'截取的当前积分分类id')
             courseClassificationList.forEach((item)=>{
-              if(item.id===currentClassificationId)
+              if(item.id==currentClassificationId)
               {
                   this.setData({
                     currentCourseClassification:JSON.parse(JSON.stringify(item)),
                   })
+                  console.log('我查到了！')
               }
              })
 

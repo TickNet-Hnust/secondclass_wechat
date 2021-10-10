@@ -251,7 +251,6 @@ Page({
       url: '/secondClass/activity/list',
       method: 'get',
       data:{
-        status: 1,
         recommend: 1,
         pageNum: 1,
         pageSize: 5

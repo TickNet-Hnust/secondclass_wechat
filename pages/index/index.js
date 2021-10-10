@@ -62,7 +62,10 @@ Page({
       success: (res) => {
         console.log(res.data)
         this.setData({
-          newList: res.data.data
+          newList: res.data.data.map(item => ({
+            ...item,
+            link: item.link.replace('tw.hnust.edu.cn','secondclass.ticknet.hnust.cn/new') //绕过小程序webview验证
+          }))
         })
       }
     })

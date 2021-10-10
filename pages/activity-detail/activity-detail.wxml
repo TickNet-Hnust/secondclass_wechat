@@ -231,7 +231,7 @@
 							</view>
 							<view class="padding bg-white solid-top">
 								<scroll-view scroll-y style="max-height: 70vh;">
-									<mp-html catchtouchmove="return" content="{{showData.enrollNotice}}"></mp-html>
+									<mp-html catchtouchmove="return" content="{{showData.enrollNotice?showData.enrollNotice:'无'}}"></mp-html>
 								</scroll-view>
 							</view>
 						</view>
@@ -556,7 +556,7 @@
 	</view>
 	<!-- 参与人 -->
 	<view  hidden="{{1!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
-		<van-empty description="空空如也" wx:if="{{memberList.length == 0}}"/>
+		<van-empty description="暂时还没有人参加此活动" wx:if="{{memberList.length == 0}}"/>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="cu-list menu-avatar">
@@ -590,7 +590,7 @@
 							<view class="cu-tag radius sm">积分：{{item.integral==null?0:item.integral}}分</view>
 						</view>
 					</view>
-				<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+				<view wx:if="{{memberList.length != 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 				</view>
 			</scroll-view>

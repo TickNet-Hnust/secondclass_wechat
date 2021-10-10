@@ -19,33 +19,33 @@ App({
 			}
     })
     console.log(49)
-    // wx.qy.login({
-		// 	success: function(res) {
-		// 		console.log(res,44)
-		// 		if (res.code) {
-		// 		  //发起网络请求
-		// 		  wx.request({
-    //         url: `https://admin.ticknet.hnust.cn/MpLoginByCode/${res.code}`,
-    //         success:(res) => {
-    //           console.log(res,45)
-    //           wx.setStorageSync('token', res.data.data.token)
-    //         },
-    //         fail:(res) => {
-    //           console.log(res,46)
-    //         }
-    //       })
+    wx.qy.login({
+			success: function(res) {
+				console.log(res,44)
+				if (res.code) {
+				  //发起网络请求
+				  wx.request({
+            url: `https://admin.ticknet.hnust.cn/MpLoginByCode/${res.code}`,
+            success:(res) => {
+              console.log(res,45)
+              wx.setStorageSync('token', res.data.data.token)
+            },
+            fail:(res) => {
+              console.log(res,46)
+            }
+          })
           
-		// 		} else {
-		// 		  console.log('登录失败！' + res.errMsg)
-		// 		}
-    //   },
-    //   fail:(res) => {
-    //     console.log(50)
-    //   },
-    //   complete:(res) => {
-    //     console.log(50)
-    //   }
-    // })
+				} else {
+				  console.log('登录失败！' + res.errMsg)
+				}
+      },
+      fail:(res) => {
+        console.log(50)
+      },
+      complete:(res) => {
+        console.log(50)
+      }
+    })
   },
   onShow(e) {
     

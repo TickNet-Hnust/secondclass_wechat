@@ -40,16 +40,6 @@
 				></l-select>
 
 				<l-select
-					title="课程"
-					wx:if="{{trainingProgramId && postData.courseClassificationId}}"
-					range="{{courseList}}"
-					rangeKey="name"
-					valueKey="id"
-					value="{{postData.courseId}}"
-					bind:change="courseChange"
-				></l-select>
-
-				<l-select
 					title="二级分类"
 					wx:if="{{postData.courseClassificationId}}"
 					range="{{courseClassificationListTwo}}"
@@ -59,6 +49,16 @@
 					bind:change="courseClassificationTwoChange"
 				></l-select>
 
+				<l-select
+					title="课程"
+					wx:if="{{trainingProgramId && postData.courseClassificationId}}"
+					range="{{courseList}}"
+					rangeKey="name"
+					valueKey="id"
+					value="{{postData.courseId}}"
+					bind:change="courseChange"
+				></l-select>
+				
 				<view class="cu-form-group">
 					<view class="title">活动地点</view>
 						<view class="text-cut" style="width: calc(100% - 200rpx);">{{postData.activityPlace?postData.activityPlace:''}}</view>

@@ -225,6 +225,16 @@
 	></l-select>
 
 	<l-select
+		title="二级分类"
+		wx:if="{{title== '自定义活动' && postData.courseClassificationId}}"
+		range="{{courseClassificationListTwo}}"
+		rangeKey="name"
+		valueKey="id"
+		value="{{courseClassificationListTwoId}}"
+		bind:change="courseClassificationTwoChange"
+	></l-select>
+
+	<l-select
 		title="课程"
 		wx:if="{{title== '自定义活动'}}"
 		wx:if="{{trainingProgramId && postData.courseClassificationId}}"
@@ -233,16 +243,6 @@
 		valueKey="id"
 		value="{{postData.courseId}}"
 		bind:change="courseChange"
-	></l-select>
-
-	<l-select
-		title="二级分类"
-		wx:if="{{title== '自定义活动'}}"
-		range="{{courseClassificationListTwo}}"
-		rangeKey="name"
-		valueKey="id"
-		value="{{courseClassificationListTwoId}}"
-		bind:change="courseClassificationTwoChange"
 	></l-select>
 
 	<view class="cu-modal bottom-modal {{modalName=='classification'?'show':''}}">

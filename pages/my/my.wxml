@@ -1,4 +1,6 @@
-<van-toast id="van-toast" />
+<van-toast id="van-toast">
+  <image style="width: 100rpx;height: 100rpx;" class="load" src="../../images/logo2.png"></image>
+</van-toast>
 <scroll-view scroll-y class="scrollPage">
   <view class="UCenter-bg">
     <view class="text-center">

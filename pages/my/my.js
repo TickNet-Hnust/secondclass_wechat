@@ -82,6 +82,9 @@ Page({
     
   },
   onShow() {
+    Toast({
+      duration:300000,
+    })
     let that = this
     wx.request({   //湘潭市天气越热，变化越快
       url: 'https://secondclass.ticknet.hnust.cn/weather/weather_mini?city=%E6%B9%98%E6%BD%AD%E5%B8%82',

@@ -147,9 +147,9 @@ Page({
   },
   onShow(option) {
     console.log(wx.getLaunchOptionsSync().scene,'场景值')
-    if(wx.getLaunchOptionsSync().scene == 1168) {
-      this.noLimitDialog()
-    }
+    // if(wx.getLaunchOptionsSync().scene != 1168) {
+    //   this.noLimitDialog()
+    // }
   },
   fd() {
     // this.data.video.requestFullScreen()

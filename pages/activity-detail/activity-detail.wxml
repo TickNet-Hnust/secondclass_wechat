@@ -555,7 +555,7 @@
 			</scroll-view>
 	</view>
 	<!-- 参与人 -->
-	<view  hidden="{{1!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
+	<view  hidden="{{1!=TabCur}}">
 		<van-empty description="暂时还没有人参加此活动" wx:if="{{memberList.length == 0}}"/>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">

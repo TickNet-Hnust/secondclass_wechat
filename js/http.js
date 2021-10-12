@@ -16,15 +16,32 @@ var commonParams = {
 	},
 	dataType: 'json'
 };
+
+let needLoadingRequestCount = 0
+function showFullScreenLoading() {
+    if (needLoadingRequestCount === 0) {
+		wx.showLoading({
+			title: '数据加载...',
+			// mask:true
+		})
+    }
+    needLoadingRequestCount++
+}
+
+function tryHideFullScreenLoading() {
+    if (needLoadingRequestCount <= 0) return
+    needLoadingRequestCount--
+    if (needLoadingRequestCount === 0) {
+        wx.hideLoading()
+    }
+}
+
 export const request = (opt) => {
 	let options = Object.assign({}, commonParams, opt)
 	let { url, data, method, header, dataType } = options
 	header["Authorization"] = wx.getStorageSync("token") || ""
 	let _url = baseUrl + url
-	wx.showLoading({
-		title: '数据加载...',
-		// mask:true
-	})
+	showFullScreenLoading()
 	return new Promise((resolve, reject) => {
 		wx.request({
 			url: _url,
@@ -35,35 +52,15 @@ export const request = (opt) => {
 			success: function (res) {
 				if (res && res.statusCode == 200 && res.data) {
 					if (res.data.code == 403) {
-						wx.hideLoading()
+						
 						wx.showToast({
 							title: '无权限操作',
 							icon: "loading",
 							duration:1000
 						})
 						reject(res)
-						// wx.qy.login({
-						// 	success: function(res) {
-						// 		console.log(res)
-						// 		if (res.code) {
-						// 		  //发起网络请求
-						// 		  	wx.request({
-						// 				url: `http://192.168.124.8:8080/MpLoginByCode/${res.code}`,
-						// 				success:(res) => {
-						// 					console.log(res,45)
-						// 					wx.setStorageSync('token', res.data.data.token)
-						// 				},
-						// 				fail:(res) => {
-						// 					console.log(res,46)
-						// 				}
-						// 			})
-						// 		} else {
-						// 			console.log('登录失败！' + res.errMsg)
-						// 		}	
-						// 	}
-						// 	})
 					} else if(res.data.msg == '不允许重复提交，请稍后再试') {
-						wx.hideLoading()
+						
 						wx.showToast({
 							title: '不允许频繁操作，请稍后再试',
 							icon:'none',
@@ -71,7 +68,6 @@ export const request = (opt) => {
 							duration:1000
 						})
 					} else {
-						wx.hideLoading()
 						resolve(res.data)
 					}
  
@@ -90,6 +86,7 @@ export const request = (opt) => {
 				// })
 			},
 			complete: function () {
+				tryHideFullScreenLoading()
 			}
 		})
 	})
@@ -105,7 +102,7 @@ export const requestAll = (requests) => {
 	ret.then(e => {
 		let needLogin = false;
 		needLogin = e.some(v => {
-			return v.code == 403
+			return v.code == 401
 		})
 		if (needLogin) {
 			wx.showToast({

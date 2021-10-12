@@ -83,10 +83,11 @@ Page({
   },
   onShow() {
     let that = this
-    wx.request({   //天气越热，变化越快
-      url: 'http://wthrcdn.etouch.cn/weather_mini?city=%E6%B9%98%E6%BD%AD%E5%B8%82',
+    wx.request({   //湘潭市天气越热，变化越快
+      url: 'https://secondclass.ticknet.hnust.cn/weather/weather_mini?city=%E6%B9%98%E6%BD%AD%E5%B8%82',
       method: 'GET',
       success:(res) => {
+        console.log(res)
         if(res.data.data) {
           let high = /\d+/.exec(res.data.data.forecast[0].high)[0]
           let low = /\d+/.exec(res.data.data.forecast[0].low)[0]
@@ -98,7 +99,7 @@ Page({
           console.log('获取天气接口错误')
           this.data.multiple = 2000  //接口默认值
         }
-        console.log('事件间隔',this.data.multiple)
+        console.log('时间间隔',this.data.multiple)
         this.setData({
           multiple: this.data.multiple
         })

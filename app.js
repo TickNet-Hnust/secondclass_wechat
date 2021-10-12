@@ -1,13 +1,13 @@
 // app.js
-// let http = require('js/http.js')
+let {requestAll,request} = require('js/http.js')
 
 App({
-  onLaunch() {
+  async onLaunch() {
     // 登录
     
 		wx.getSystemInfo({
 			success: e => {
-        console.log(e)
+        console.log('系统硬件数据:',e)
 			  this.globalData.StatusBar = e.statusBarHeight;
 			  let capsule = wx.getMenuButtonBoundingClientRect();
 			  if (capsule) {
@@ -18,33 +18,62 @@ App({
 			  }
 			}
     })
-    console.log(49)
-    wx.qy.login({
-			success: function(res) {
-				console.log(res,44)
-				if (res.code) {
-				  //发起网络请求
-				  wx.request({
-            url: `https://admin.ticknet.hnust.cn/MpLoginByCode/${res.code}`,
-            success:(res) => {
-              console.log(res,45)
-              wx.setStorageSync('token', res.data.data.token)
-            },
-            fail:(res) => {
-              console.log(res,46)
-            }
-          })
-          
-				} else {
-				  console.log('登录失败！' + res.errMsg)
-				}
-      },
-      fail:(res) => {
-        console.log(50)
-      },
-      complete:(res) => {
-        console.log(50)
-      }
+  },
+  getToken() {
+    return new Promise((resolve) => {
+      wx.qy.login({
+        success: function(res) {
+          console.log('登录请求发送成功：',res)
+          if (res.code) {
+            //发起网络请求
+            wx.request({
+              url: `https://admin.ticknet.hnust.cn/MpLoginByCode/${res.code}`,
+              success:(res) => {
+                console.log('后端换取token请求发送成功：',res)
+                wx.setStorageSync('token', res.data.data.token)
+                resolve()
+              },
+              fail:(res) => {
+                console.log('后端换取token请求发送失败：',res)
+                
+              }
+            })
+          } else {
+            console.log('登录失败！' + res.errMsg)
+            reject()
+          }
+        },
+      })
+    })
+  },
+  getDict() {
+    requestAll([
+      {url: '/dept/util/listCollege',method: 'GET'},//设置部门
+      {url: '/dict/data/type/sc_train_program_rank',method: 'GET'}, //活动/培养方案级别
+      {url: '/dict/data/type/sc_activity_integral',method: 'GET'}, //积分认定状态
+      {url: '/dict/data/type/sc_activity_status',method: 'GET'},//活动状态
+      {url: '/dict/data/type/sc_activity_admission_way',method: 'GET'},//报名方式
+      {url: '/dict/data/type/sc_activity_flower_scheme',method: 'GET'},//花絮管理
+      {url: '/dict/data/type/sc_activity_integral_scheme',method: 'GET'},//积分管理
+      {url: '/dict/data/type/sc_integral_type',method: 'GET'}, //积分类型
+      {url: '/dict/data/type/sc_activity_evaluate_scheme',method: 'GET'}, //评价管理
+      {url: '/dict/data/type/ga_group_join_rule',method: 'GET'}, //群组加入规则
+      {url: '/dict/data/type/ga_group_user_status',method: 'GET'}, //群组人员状态
+      {url: '/dict/data/type/ga_group_status',method: 'GET'}, //群组状态
+    ]).then(value => {
+      console.log('获取所有字典成功：',value)
+      wx.setStorage({key:'deptList',data:value[0].data}) //设置部门
+      wx.setStorage({key:'dict_rank',data:value[1].data}) //活动/培养方案级别
+      wx.setStorage({key:'dict_sc_activity_integral',data:value[2].data}) //积分认定状态
+      wx.setStorage({key:'dict_sc_activity_status',data:value[3].data}) //活动状态
+      wx.setStorage({key:'dict_admissionWay',data:value[4].data}) //报名方式
+      wx.setStorage({key:'dict_flower',data:value[5].data}) //花絮管理
+      wx.setStorage({key:'dict_integral',data:value[6].data}) //积分管理
+      wx.setStorage({key:'dict_integral_type',data:value[7].data}) //积分类型
+      wx.setStorage({key:'dict_evaluate_scheme',data:value[8].data}) //评价管理
+      wx.setStorage({key:'dict_ga_group_join_rule',data:value[9].data}) //群组加入规则
+      wx.setStorage({key:'dict_ga_group_user_status',data:value[10].data}) //群组人员状态
+      wx.setStorage({key:'dict_ga_group_status',data:value[11].data}) //群组状态
     })
   },
   onShow(e) {
@@ -59,7 +88,6 @@ App({
 				  })
 			}
 		})
-		
 	},
   showSuccess() {
     wx.showToast({

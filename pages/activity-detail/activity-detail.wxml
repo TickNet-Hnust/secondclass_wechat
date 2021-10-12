@@ -237,7 +237,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="flexLines">
+				<!-- <view class="flexLines">
 					<van-row>
 						<van-col span="4">
 							<view>
@@ -255,7 +255,7 @@
 							>下载</button>
 						</van-col>
 					</van-row>
-				</view>
+				</view> -->
 				<view class="flexLines">
 					<van-row>
 						<van-col span="4">
@@ -394,7 +394,7 @@
 						</view>
 					</van-row>
 				</view>
-				<view class="flexLines" wx:if="{{vip.sure(showData,memberList)}}">
+				<view class="flexLines" >
 					<van-row>
 						<van-col span="4">
 							<view>
@@ -402,8 +402,8 @@
 							</view>
 						</van-col>
 						<van-col span="14">
-							<view class="flexMainTitle">申请积分</view>
-							<view class="flexSideTitle">为活动参与人申请积分</view>
+							<view class="flexMainTitle">积分</view>
+							<view class="flexSideTitle">活动积分情况</view>
 						</van-col>
 						<van-col span="6" >
 							<button 
@@ -500,7 +500,7 @@
 											</view>
 										</view>
 									</view>
-									<view class="cu-item margin-top">
+									<!-- <view class="cu-item margin-top">
 										<view class="content">
 											<view>活动统计表</view>
 										</view>
@@ -544,7 +544,7 @@
 											<button class="sm cu-btn round bg-green shadow">
 											<text class="cuIcon-down"></text> 下载</button>
 										</view>
-									</view>
+									</view> -->
 								</view>
 								
 							</view>

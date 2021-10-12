@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    flag: '',//判断当前的人是否有权限修改
     //0代表默认选中第一个tab
     tabsActive:0,
     aid:null,
@@ -74,9 +75,10 @@ Page({
    */
   onLoad: function (options) {
     //从上个页面的jump获取活动id
-    console.log(options.aid,'传来的活动id')
+    console.log(options,'传来的活动id')
     this.setData({
       aid:options.aid,
+      flag: options.flag,
       dict_sc_activity_integral:wx.getStorageSync('dict_sc_activity_integral')
     })
 

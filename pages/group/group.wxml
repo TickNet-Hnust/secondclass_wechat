@@ -44,7 +44,7 @@
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
 								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
-								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
+								<!-- <view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view> -->
 							</view>
 							<view class="text-gray text-sm flex">
 							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
@@ -79,7 +79,7 @@
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
 								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
-								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
+								<!-- <view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view> -->
 							</view>
 							<view class="text-gray text-sm flex">
 							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>
@@ -113,7 +113,7 @@
 							<view class="text-grey">
 								<text class="text-cut">{{item.deptName}}</text>
 								<view class="cu-tag round bg-blue sm">{{dict_ga_group_status[item.status].dictLabel}}</view>
-								<view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view>
+								<!-- <view class="cu-tag round bg-cyan sm">{{item.activityNumber}}</view> -->
 							</view>
 							<view class="text-gray text-sm flex">
 							<text class="text-cut">{{groupClassificationMap[item.type]}}-{{item.parentName}}</text>

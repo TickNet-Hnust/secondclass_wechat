@@ -7,7 +7,7 @@
 		<view class="cu-item {{0==TabCur?'text-blue cur':''}}"  bindtap="tabSelect" data-id="{{0}}">
 			概况
 		</view>
-		<view class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
+		<view  wx:if="{{flag == 1}}" class="cu-item {{1==TabCur?'text-blue cur':''}}" bindtap="tabSelect" data-id="{{1}}">
 			已申报
 		</view>
 	</scroll-view>
@@ -50,109 +50,122 @@
         </van-row>
     
         <van-row>
-
-          <!-- 积分在三层的情况 -->
+          <wxs module="daom">
+            module.exports = function(arr) {
+              return arr.split('、')[1] != 264 //Todo如果是盗梦空间，就隐藏分数
+            }
+          </wxs>
+        <view wx:if="{{daom(courseClassificationPath)}}">
+            <!-- 积分在三层的情况 -->
           <!-- 循环第二层，用wxs计算每个grid要显示的数据 -->
-        <van-grid column-num="2" gutter="8" wx:if="{{maxLayer==3}}">
-          <van-grid-item use-slot wx:for="{{ integrationRule }}" wx:key="index">
-              <view style="text-align:left;width:100%;margin-bottom: 10rpx">
-                <wxs module="it">
-                  function getName(item) {
-                      var nameArray = [];
-                      var scoreArray =[];
-                      var nameStr;
-                      var scoreStr;
-                        //微信小程序不能用箭头函数 直接用function
-                        item.children && item.children.forEach(function(item){
-                        nameArray.push(item.name);
-                        scoreArray.push(item.integrationRange)
-                      })
+          <van-grid column-num="2" gutter="8" wx:if="{{maxLayer==3}}">
+            <van-grid-item use-slot wx:for="{{ integrationRule }}" wx:key="index">
+                <view style="text-align:left;width:100%;margin-bottom: 10rpx">
+                  <wxs module="it">
+                    function getName(item) {
+                        var nameArray = [];
+                        var scoreArray =[];
+                        var nameStr;
+                        var scoreStr;
+                          //微信小程序不能用箭头函数 直接用function
+                          item.children && item.children.forEach(function(item){
+                          nameArray.push(item.name);
+                          scoreArray.push(item.integrationRange)
+                        })
 
-                      nameStr = nameArray.join('/')
-                      socreStr = scoreArray.join('/');
+                        nameStr = nameArray.join('/')
+                        socreStr = scoreArray.join('/');
 
-                      if(item.type==2)
-                        return [item.name];    
-                      else
-                        return [item.name+'('+nameStr+')',socreStr]
-                  }
-                  module.exports.getName = getName
-                </wxs>
-              <text>{{it.getName(item)[0]}}</text>
-              </view>
+                        if(item.type==2)
+                          return [item.name];    
+                        else
+                          return [item.name+'('+nameStr+')',socreStr]
+                    }
+                    module.exports.getName = getName
+                  </wxs>
+                <text>{{it.getName(item)[0]}}</text>
+                </view>
 
-              <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
-                <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{it.getName(item)[1]}}</text>
-                <text>分</text>
-              </view>  
+                <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
+                  <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{it.getName(item)[1]}}</text>
+                  <text>分</text>
+                </view>  
 
-              <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
-                <text style="font-weight:bold;">备注项</text>
-              </view>
-          </van-grid-item>
-        </van-grid>
+                <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
+                  <text style="font-weight:bold;">备注项</text>
+                </view>
+            </van-grid-item>
+          </van-grid>
 
-        <!-- 积分在第一层的情况 -->
-        <van-grid column-num="2" gutter="8"  wx:elif="{{maxLayer==1||(maxLayer==2&&integrationRule.children[0].type==2)}}">
-        
-        <!-- 先输出本身 -->
-          <van-grid-item use-slot>
-              
-              <view style="text-align:left;width:100%;margin-bottom: 10rpx">
-              <text>{{integrationRule.name}}</text>
-              </view>
+          <!-- 积分在第一层的情况 -->
+          <van-grid column-num="2" gutter="8"  wx:elif="{{maxLayer==1||(maxLayer==2&&integrationRule.children[0].type==2)}}">
+          
+          <!-- 先输出本身 -->
+            <van-grid-item use-slot>
+                
+                <view style="text-align:left;width:100%;margin-bottom: 10rpx">
+                <text>{{integrationRule.name}}</text>
+                </view>
 
-              <view style="text-align:right;width:100%;" wx:if="{{integrationRule.type!=2}}">
-                <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{integrationRule.integrationRange}}</text>
-                <text>分</text>
-              </view>  
+                <view style="text-align:right;width:100%;" wx:if="{{integrationRule.type!=2}}">
+                  <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{integrationRule.integrationRange}}</text>
+                  <text>分</text>
+                </view>  
 
-              <view style="text-align:right;width:100%;" wx:if="{{integrationRule.type==2}}">
-                <text style="font-weight:bold;">备注项</text>
-              </view>
-          </van-grid-item>
+                <view style="text-align:right;width:100%;" wx:if="{{integrationRule.type==2}}">
+                  <text style="font-weight:bold;">备注项</text>
+                </view>
+            </van-grid-item>
 
-          <!-- 再循环本身的孩子 -->
-          <van-grid-item use-slot wx:for="{{ integrationRule.children }}" wx:key="index">
-              <view style="text-align:left;width:100%;margin-bottom: 10rpx">
-              <text>{{item.name}}</text>
-              </view>
+            <!-- 再循环本身的孩子 -->
+            <van-grid-item use-slot wx:for="{{ integrationRule.children }}" wx:key="index">
+                <view style="text-align:left;width:100%;margin-bottom: 10rpx">
+                <text>{{item.name}}</text>
+                </view>
 
-              <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
-                <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{item.integrationRange}}</text>
-                <text>分</text>
-              </view>  
+                <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
+                  <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{item.integrationRange}}</text>
+                  <text>分</text>
+                </view>  
 
-              <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
-                <text style="font-weight:bold;">备注项</text>
-              </view>
-          </van-grid-item>
-        </van-grid>
+                <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
+                  <text style="font-weight:bold;">备注项</text>
+                </view>
+            </van-grid-item>
+          </van-grid>
 
-        <!-- 积分在第二层的情况 -->
-        <van-grid column-num="2" gutter="8"  wx:else>
-          <van-grid-item use-slot wx:for="{{ integrationRule.children }}" wx:key="index">
+          <!-- 积分在第二层的情况 -->
+          <van-grid column-num="2" gutter="8"  wx:else>
+            <van-grid-item use-slot wx:for="{{ integrationRule.children }}" wx:key="index">
 
-              <view style="text-align:left;width:100%;margin-bottom: 10rpx">
-              <text>{{item.name}}</text>
-              </view>
+                <view style="text-align:left;width:100%;margin-bottom: 10rpx">
+                <text>{{item.name}}</text>
+                </view>
 
-              <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
-                <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{item.integrationRange}}</text>
-                <text>分</text>
-              </view>  
+                <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
+                  <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{item.integrationRange}}</text>
+                  <text>分</text>
+                </view>  
 
-              <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
-                <text style="font-weight:bold;">备注项</text>
-              </view>
-          </van-grid-item>
-        </van-grid>
+                <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
+                  <text style="font-weight:bold;">备注项</text>
+                </view>
+            </van-grid-item>
+          </van-grid>
+        </view>
+        <view wx:else>
+          <van-grid column-num="1" gutter="8">
+            <van-grid-item use-slot >
+                暂无积分情况
+            </van-grid-item>
+          </van-grid>
+        </view>
 
 
 
         </van-row>	 
-        <van-row style="width:100%;text-align: center;">
-        <van-button type="primary" bindtap="jumpDeclare">现在申报</van-button>
+        <van-row style="width:100%;text-align: center;" wx:if="{{flag == 1}}">
+          <van-button type="primary" bindtap="jumpDeclare">现在申报</van-button>
         </van-row>
     </view>
   </view>
@@ -185,7 +198,8 @@
       }
       module.exports.it=it 
     </wxs>
-
+    
+    <van-empty wx:if="{{declareList.length == 0}}" description="已申报人员列表为空" />
     <view class="cu-list menu">
       <view class="cu-item  margin-top-sm" wx:for="{{declareList}}" wx:key="index">
         <view class="content padding-tb-sm">

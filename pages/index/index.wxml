@@ -33,7 +33,7 @@
         <van-grid-item link-type="switchTab" url="/pages/group/group" text="群组" >
           <text slot="icon" class="iconfont icon-qunzu" style="font-size:60rpx"></text>
         </van-grid-item> 
-        <van-grid-item  text="场地" bindtap="kaifa">
+        <!-- <van-grid-item  text="场地" bindtap="kaifa">
           <text slot="icon" class="iconfont icon-changdi" style="font-size:60rpx"></text>
         </van-grid-item>
         <van-grid-item  text="认证" bindtap="kaifa">
@@ -47,7 +47,7 @@
         </van-grid-item>
         <van-grid-item  text="证书" bindtap="kaifa">
           <text slot="icon" class="iconfont icon-zhengshuguanli-" style="font-size:60rpx"></text>
-        </van-grid-item>
+        </van-grid-item> -->
       </van-grid>
 
   </view>
@@ -83,7 +83,7 @@
     <view class="cu-card article no-card">
       <view wx:for="{{newList}}" wx:key="index" bindtap="jumpNews" data-path="{{item.link}}" class="cu-item shadow solid-bottom margin-bottom padding-top">
         <view class="content">
-          <image lazy-load v-if="{{item.pictures}}" src="{{item.pictures[0]}}" mode="aspectFill"></image>
+          <image v-if="{{item.pictures.length != 0}}" src="{{item.pictures[0]}}" mode="aspectFill"></image>
           <view class="desc">
             <view class="text-content text-pink">
               {{item.title ? item.title : ''}} <br/>

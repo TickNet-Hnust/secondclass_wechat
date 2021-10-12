@@ -91,6 +91,7 @@
 
 	<l-select
 		title="主办方"
+		wx:if="{{postData.deptId}}"
 		range="{{groupList}}"
 		rangeKey="deptName"
 		valueKey="deptId"
@@ -216,7 +217,7 @@
 
 	<l-select
 		title="积分分类"
-		wx:if="{{title== '自定义活动'}}"
+		wx:if="{{title== '自定义活动' && trainingProgramId}}"
 		range="{{courseClassificationList}}"
 		rangeKey="name"
 		valueKey="id"
@@ -307,7 +308,7 @@
 
 	<view class="cu-form-group">
 		<view class="title">活动地点</view>
-			<view class="text-cut" style="width: calc(100% - 200rpx);">{{postData.activityPlace}}</view>
+			<view class="text-cut" style="width: calc(100% - 200rpx);">{{postData.activityPlace?'已选择':'未选择'}}</view>
 		<view class="action">
 			<button style="min-width: 116rpx;" class="cu-btn line-green" bindtap="showModal" data-target="bottomModal">选择</button>
 		</view>

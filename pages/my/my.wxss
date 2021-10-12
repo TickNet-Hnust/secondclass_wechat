@@ -1,5 +1,5 @@
 .UCenter-bg {
-	background-image: url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/10/02/69a8033b-8d92-4c18-86f8-66ea73080019.png);
+	background-color: #a5d4ef;
 	background-size: 154%;
     background-position: center;
 	height: 550rpx;

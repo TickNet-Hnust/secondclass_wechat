@@ -8,7 +8,7 @@
 		<view class="title">活动名称</view>
 		<input placeholder="请填写" bindinput="nameChanged" value="{{postData.name}}"></input>
 	</view>
-	<view class="cu-bar solid-bottom ">
+	<view class="cu-bar solid-bottom">
 		<view class="action">
 			<text class="cuIcon-title text-blue"></text>概要
 		</view>
@@ -91,6 +91,7 @@
 
 	<l-select
 		title="主办方"
+		wx:if="{{postData.deptId}}"
 		range="{{groupList}}"
 		rangeKey="deptName"
 		valueKey="deptId"
@@ -206,6 +207,7 @@
 
 	<l-select
 		title="培养方案"
+		wx:if="{{title== '自定义活动'}}"
 		range="{{trainingProgramList}}"
 		rangeKey="name"
 		valueKey="id"
@@ -215,6 +217,7 @@
 
 	<l-select
 		title="积分分类"
+		wx:if="{{title== '自定义活动' && trainingProgramId}}"
 		range="{{courseClassificationList}}"
 		rangeKey="name"
 		valueKey="id"
@@ -223,21 +226,24 @@
 	></l-select>
 
 	<l-select
-		title="课程"
-		range="{{courseList}}"
-		rangeKey="name"
-		valueKey="id"
-		value="{{postData.courseId}}"
-		bind:change="courseChange"
-	></l-select>
-
-	<l-select
 		title="二级分类"
+		wx:if="{{title== '自定义活动' && postData.courseClassificationId}}"
 		range="{{courseClassificationListTwo}}"
 		rangeKey="name"
 		valueKey="id"
 		value="{{courseClassificationListTwoId}}"
 		bind:change="courseClassificationTwoChange"
+	></l-select>
+
+	<l-select
+		title="课程"
+		wx:if="{{title== '自定义活动'}}"
+		wx:if="{{trainingProgramId && postData.courseClassificationId}}"
+		range="{{courseList}}"
+		rangeKey="name"
+		valueKey="id"
+		value="{{postData.courseId}}"
+		bind:change="courseChange"
 	></l-select>
 
 	<view class="cu-modal bottom-modal {{modalName=='classification'?'show':''}}">
@@ -302,7 +308,7 @@
 
 	<view class="cu-form-group">
 		<view class="title">活动地点</view>
-			<view class="text-cut" style="width: calc(100% - 200rpx);">{{postData.activityPlace}}</view>
+			<view class="text-cut" style="width: calc(100% - 200rpx);">{{postData.activityPlace?'已选择':'未选择'}}</view>
 		<view class="action">
 			<button style="min-width: 116rpx;" class="cu-btn line-green" bindtap="showModal" data-target="bottomModal">选择</button>
 		</view>

@@ -58,17 +58,17 @@ export function upload(ossData, file, ossFileUrl) {
     const host = ossData.host
     const key = ossFileUrl.substring(host.length + 1)
     
-    wx.uploadFile({
-        url: 'http://localhost:8080/utils/imgSecCheck',
-        header : {
-            Authorization: wx.getStorageSync('token')
-        },
-        filePath: file,
-        name: 'file',
-        success:(e)=> {
-            e.data = JSON.parse(e.data)
-            console.log(e)
-            if(e.data.data.errcode == 0) {
+    // wx.uploadFile({
+    //     url: 'http://localhost:8080/utils/imgSecCheck',  //内容安全审查接口
+    //     header : {
+    //         Authorization: wx.getStorageSync('token')
+    //     },
+    //     filePath: file,
+    //     name: 'file',
+    //     success:(e)=> {
+    //         e.data = JSON.parse(e.data)
+    //         console.log(e)
+    //         if(e.data.data.errcode == 0) {
                 wx.uploadFile({
                     url: host, //仅为示例，非真实的接口地址
                     filePath: file,
@@ -88,15 +88,15 @@ export function upload(ossData, file, ossFileUrl) {
                     //do something
                     }
                 })
-            } else {
-                wx.showToast({
-                  title: JSON.stringify(e.data.data),
-                  icon: 'none'
-                })
-            }
+    //         } else {
+    //             wx.showToast({
+    //               title: JSON.stringify(e.data.data),
+    //               icon: 'none'
+    //             })
+    //         }
             
-        }
-    })
+    //     }
+    // })
     
 		// return request({
 		// 	url: host,

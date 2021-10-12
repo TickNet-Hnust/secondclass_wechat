@@ -115,21 +115,21 @@ Page({
 	 */
 	onLoad: function (options) {
 		this.getRecommend().then(value => {
-			console.log(value)
+			console.log('获得推荐活动',value)
 			this.setData({
 				recommendActivityList:value.rows
 			})
 		})
 
 		this.getCollection().then(value => {
-			console.log(value)
+			console.log('获得收藏活动',value)
 			this.setData({
 				collectionActivityList:value.rows
 			})
 		})
 
 		this.getMy().then(value => {
-			console.log(value)
+			console.log('获得我的活动',value)
 			this.setData({
 				myActivityList:value.rows
 			})
@@ -190,8 +190,6 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-		console.log('onPullDownRefresh')
-		
 		Promise.all([
 			this.getRecommend(),
 			this.getMy(),
@@ -221,37 +219,33 @@ Page({
 		})
 		if(this.data.TabCur == '0') {
 			this.getRecommend(this.data.recommendNum,10).then(value => {
-				console.log(value)
 				this.data.recommendActivityList.push(...value.rows)
 				this.setData({
 					recommendActivityList:this.data.recommendActivityList,
 					recommendNum: this.data.recommendNum + 1,
 					isLoading:false
 				})
-				// app.showSuccess()
+				console.log(`第${this.data.recommendNum}页的数据：`,value)
 			})
 		}else if(this.data.TabCur == '1') {
 			this.getMy(this.data.myNum,10).then(value => {
-				console.log(value)
 				this.data.myActivityList.push(...value.rows)
 				this.setData({
 					myActivityList:this.data.myActivityList,
 					myNum: this.data.myNum + 1,
-					
 					isLoading:false
 				})
-				// app.showSuccess()
+				console.log(`第${this.data.recommendNum}页的数据：`,value)
 			})
 		} else {
 			this.getCollection(this.data.collectionNum,10).then(value => {
-				console.log(value)
 				this.data.collectionActivityList.push(...value.rows)
 				this.setData({
 					collectionActivityList:this.data.collectionActivityList,
 					collectionNum: this.data.collectionNum + 1,
 					isLoading:false
 				})
-				// app.showSuccess()
+				console.log(`第${this.data.recommendNum}页的数据：`,value)
 			})
 		}
 	},

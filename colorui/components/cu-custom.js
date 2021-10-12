@@ -16,11 +16,13 @@ Component({
       default: ''
     }, 
     isCustom: {
-      type: [Boolean, String],
+      type: Boolean,
+      optionalTypes:[String],
       default: false
     },
     isBack: {
-      type: [Boolean, String],
+      type: Boolean,
+      optionalTypes:[String],
       default: false
     },
     bgImage: {

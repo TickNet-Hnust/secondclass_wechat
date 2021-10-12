@@ -33,7 +33,7 @@
         <van-grid-item link-type="switchTab" url="/pages/group/group" text="群组" >
           <text slot="icon" class="iconfont icon-qunzu" style="font-size:60rpx"></text>
         </van-grid-item> 
-        <van-grid-item  text="场地" bindtap="kaifa">
+        <!-- <van-grid-item  text="场地" bindtap="kaifa">
           <text slot="icon" class="iconfont icon-changdi" style="font-size:60rpx"></text>
         </van-grid-item>
         <van-grid-item  text="认证" bindtap="kaifa">
@@ -47,11 +47,11 @@
         </van-grid-item>
         <van-grid-item  text="证书" bindtap="kaifa">
           <text slot="icon" class="iconfont icon-zhengshuguanli-" style="font-size:60rpx"></text>
-        </van-grid-item>
+        </van-grid-item> -->
       </van-grid>
 
   </view>
-  <view class="chooseMiddle">
+  <!-- <view class="chooseMiddle">
     <view class="cu-list menu" bindtap="jumpNews" data-path="https://tw.hnust.edu.cn/">
       <view class="cu-item arrow">
         <view class="content text-cut">
@@ -72,31 +72,30 @@
         </view>
       </view>
     </view>
-  </view>
-  <view class="chooseBottom">
+  </view> -->
+  <view class="chooseBottom" wx:if="{{newList.length != 0}}">
     <view class="cu-bar bg-white">
-    <view class="action">
-      <text class="cuIcon-titles text-blue"></text>
-      <text class="text-xl text-bold">校内资讯</text>
+      <view class="action">
+        <text class="cuIcon-titles text-blue"></text>
+        <text class="text-xl text-bold">校内资讯</text>
+      </view>
     </view>
-  </view>
-  <view class="cu-card article no-card">
-    <view wx:for="{{newList}}" wx:key="index" bindtap="jumpNews" data-path="{{item.link}}" class="cu-item shadow solid-bottom margin-bottom padding-top">
-      <view class="content">
-        <image v-if="{{item.pictures}}" src="{{item.pictures[0]}}" mode="aspectFill"></image>
-        <view class="desc">
-          <view class="text-content text-pink">
-            {{item.title ? item.title : ''}} <br/>
-            {{item.content ? item.content:''}}
-          </view>
-          <view>
-            <view class="cu-tag bg-blue light sm round">{{item.category}}</view>
-            <view class="cu-tag bg-gray light sm round">{{item.date}}</view>
+    <view class="cu-card article no-card">
+      <view wx:for="{{newList}}" wx:key="index" bindtap="jumpNews" data-path="{{item.link}}" class="cu-item shadow solid-bottom margin-bottom padding-top">
+        <view class="content">
+          <image v-if="{{item.pictures.length != 0}}" src="{{item.pictures[0]}}" mode="aspectFill"></image>
+          <view class="desc">
+            <view class="text-content text-pink">
+              {{item.title ? item.title : ''}} <br/>
+              {{item.content ? item.content:''}}
+            </view>
+            <view>
+              <view class="cu-tag bg-blue light sm round">{{item.category}}</view>
+              <view class="cu-tag bg-gray light sm round">{{item.date}}</view>
+            </view>
           </view>
         </view>
       </view>
     </view>
-
-</view>
   </view>
 </view>

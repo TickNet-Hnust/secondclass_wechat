@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    flag: '',//判断当前的人是否有权限修改
     //0代表默认选中第一个tab
     tabsActive:0,
     aid:null,
@@ -24,6 +25,7 @@ Page({
     filterCourseClassificationList:[],
     maxLayer:'',
     declareList:[],
+    courseClassificationPath:'',
     TabCur:'' //控制当前是哪个tab
   },
   tabSelect(e) {
@@ -73,9 +75,10 @@ Page({
    */
   onLoad: function (options) {
     //从上个页面的jump获取活动id
-    console.log(options.aid,'传来的活动id')
+    console.log(options,'传来的活动id')
     this.setData({
       aid:options.aid,
+      flag: options.flag,
       dict_sc_activity_integral:wx.getStorageSync('dict_sc_activity_integral')
     })
 
@@ -98,25 +101,30 @@ Page({
   courseClassificationId : value.data.courseClassificationId,
   // courseClassificationId : 87,
 courseClassificationName : value.data.courseClassificationName,
+courseClassificationPath: value.data.courseClassificationPath,
           integralScheme : value.data.integralScheme,
       })
           //获取活动积分规则 
           //放在概况请求里面是因为要先通过上面请求拿到courseClassificationId再发请求
             let courseClassificationList = wx.getStorageSync('courseClassificationList')
+            let path = this.data.courseClassificationPath;
+            let currentClassificationId = path.split('、')[1]
             console.log(courseClassificationList,'课程分类列表')
+            console.log(currentClassificationId,'截取的当前积分分类id')
             courseClassificationList.forEach((item)=>{
-              if(item.id===this.data.courseClassificationId)
+              if(item.id==currentClassificationId)
               {
                   this.setData({
                     currentCourseClassification:JSON.parse(JSON.stringify(item)),
                   })
+                  console.log('我查到了！')
               }
              })
 
                   console.log(this.data.currentCourseClassification,'当前查找到的课程分类id')
                   
                   this.setData({
-                     filterCourseClassificationList:filterCourseClassificationList2(courseClassificationList,this.data.currentCourseClassification,this.data.courseClassificationId),
+                     filterCourseClassificationList:filterCourseClassificationList2(courseClassificationList,this.data.currentCourseClassification,currentClassificationId),
                   })
                   
                   console.log(this.data.filterCourseClassificationList,'过滤后的数组');

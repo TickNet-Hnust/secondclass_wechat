@@ -231,13 +231,13 @@
 							</view>
 							<view class="padding bg-white solid-top">
 								<scroll-view scroll-y style="max-height: 70vh;">
-									<mp-html catchtouchmove="return" content="{{showData.enrollNotice}}"></mp-html>
+									<mp-html catchtouchmove="return" content="{{showData.enrollNotice?showData.enrollNotice:'无'}}"></mp-html>
 								</scroll-view>
 							</view>
 						</view>
 					</view>
 				</view>
-				<view class="flexLines">
+				<!-- <view class="flexLines">
 					<van-row>
 						<van-col span="4">
 							<view>
@@ -255,7 +255,7 @@
 							>下载</button>
 						</van-col>
 					</van-row>
-				</view>
+				</view> -->
 				<view class="flexLines">
 					<van-row>
 						<van-col span="4">
@@ -394,7 +394,7 @@
 						</view>
 					</van-row>
 				</view>
-				<view class="flexLines" wx:if="{{vip.sure(showData,memberList)}}">
+				<view class="flexLines" >
 					<van-row>
 						<van-col span="4">
 							<view>
@@ -402,8 +402,8 @@
 							</view>
 						</van-col>
 						<van-col span="14">
-							<view class="flexMainTitle">申请积分</view>
-							<view class="flexSideTitle">为活动参与人申请积分</view>
+							<view class="flexMainTitle">积分</view>
+							<view class="flexSideTitle">活动积分情况</view>
 						</van-col>
 						<van-col span="6" >
 							<button 
@@ -500,7 +500,7 @@
 											</view>
 										</view>
 									</view>
-									<view class="cu-item margin-top">
+									<!-- <view class="cu-item margin-top">
 										<view class="content">
 											<view>活动统计表</view>
 										</view>
@@ -544,7 +544,7 @@
 											<button class="sm cu-btn round bg-green shadow">
 											<text class="cuIcon-down"></text> 下载</button>
 										</view>
-									</view>
+									</view> -->
 								</view>
 								
 							</view>
@@ -555,8 +555,8 @@
 			</scroll-view>
 	</view>
 	<!-- 参与人 -->
-	<view  hidden="{{1!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
-		<van-empty description="空空如也" wx:if="{{memberList.length == 0}}"/>
+	<view  hidden="{{1!=TabCur}}">
+		<van-empty description="暂时还没有人参加此活动" wx:if="{{memberList.length == 0}}"/>
 			<scroll-view scroll-y>
 				<view class="activityTemplate">
 				<view class="cu-list menu-avatar">
@@ -590,7 +590,7 @@
 							<view class="cu-tag radius sm">积分：{{item.integral==null?0:item.integral}}分</view>
 						</view>
 					</view>
-				<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
+				<view wx:if="{{memberList.length != 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 				</view>
 			</scroll-view>

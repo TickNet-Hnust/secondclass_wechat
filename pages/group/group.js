@@ -121,21 +121,21 @@ Page({
 			dict_ga_group_status: wx.getStorageSync('dict_ga_group_status')
 		})
 		this.getRecommend().then(value => {
-			console.log(value)
+			console.log('获得推荐群组',value)
 			this.setData({
 				recommendGroupList: value.rows
 			})
 		})
 		//我的
 		this.getMyGroup().then(value => {
-			console.log(value)
+			console.log('获得我的群组',value)
 			this.setData({
 				myGroupList: value.rows
 			})
 		})
 		//收藏
 		this.getCollection().then(value => {
-			console.log(value)
+			console.log('获得收藏群组',value)
 			this.setData({
 				collectionGroupList: value.rows
 			})
@@ -161,21 +161,21 @@ Page({
 	onShow: function () {
 		if(this.data.isNeedToRefresh) {
 			this.getRecommend().then(value => {
-				console.log(value)
+				console.log('获得推荐群组',value)
 				this.setData({
 					recommendGroupList: value.rows
 				})
 			})
 			//我的
 			this.getMyGroup().then(value => {
-				console.log(value)
+				console.log('获得我的群组',value)
 				this.setData({
 					myGroupList: value.rows
 				})
 			})
 			//收藏
 			this.getCollection().then(value => {
-				console.log(value)
+				console.log('获得收藏群组',value)
 				this.setData({
 					collectionGroupList: value.rows
 				})
@@ -202,7 +202,6 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-		console.log('onPullDownRefresh')
 		Promise.all([
 			this.getRecommend(),
 			this.getMyGroup(),
@@ -234,36 +233,33 @@ Page({
 		})
 		if(this.data.TabCur == '0') {
 			this.getRecommend(this.data.recommendNum,10).then(value => {
-				console.log(value)
 				this.data.recommendGroupList.push(...value.rows)
 				this.setData({
 					recommendGroupList:this.data.recommendGroupList,
 					recommendNum: this.data.recommendNum + 1,
-					
 					isLoading:false
 				})
+				console.log(`第${this.data.recommendNum}页的数据：`,value)
 			})
 		}else if(this.data.TabCur == '1') {
 			this.getMyGroup(this.data.myPageNum,10).then(value => {
-				console.log(value)
 				this.data.myGroupList.push(...value.rows)
 				this.setData({
 					myGroupList:this.data.myGroupList,
 					myPageNum: this.data.myPageNum + 1,
-					
 					isLoading:false
 				})
+				console.log(`第${this.data.recommendNum}页的数据：`,value)
 			})
 		} else {
 			this.getCollection(this.data.collectionNum,10).then(value => {
-				console.log(value)
 				this.data.collectionGroupList.push(...value.rows)
 				this.setData({
 					collectionGroupList:this.data.collectionGroupList,
 					collectionNum: this.data.collectionNum + 1,
-					
 					isLoading:false
 				})
+				console.log(`第${this.data.recommendNum}页的数据：`,value)
 			})
 		}
 		// setTimeout(() => {

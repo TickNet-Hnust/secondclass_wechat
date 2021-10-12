@@ -78,7 +78,7 @@
 						</van-row>
 						<van-row style="line-height: 40rpx;">
 							<van-col class="leftTitle"  span="6"><text class="cuIcon-title text-black"></text>指导老师</van-col>
-							<van-col class="rightContent" span="18">{{showData.teacher}}</van-col>
+							<van-col class="rightContent" span="18">{{showData.teacher?showData.teacher:'无'}}</van-col>
 						</van-row>
 					</view>
 				</view>
@@ -90,7 +90,7 @@
 							</van-col>
 						</van-row>
 						<van-row style="line-height: 40rpx;">
-							<text class="box-p">{{showData.introduce}}</text>
+							<text class="box-p">{{showData.introduce?showData.introduce:'无'}}</text>
 						</van-row>
 					</view>
 					<view class="iconBg padding-top-sm dashed-top" bindtap="showModal" data-target="notice">
@@ -120,7 +120,7 @@
 							</view>
 							<view class="padding bg-white solid-top">
 								<scroll-view scroll-y style="max-height: 70vh;">
-									<text> {{showData.introduce}}
+									<text> {{showData.introduce?showData.introduce:'无'}}
 									</text>
 								</scroll-view>
 							</view>
@@ -180,7 +180,7 @@
 								<view style="vertical-align: text-top;" class="cu-tag round line-gray sm" wx:elif="{{showData.joinStatus == 2}}">待审核</view>
 							</view>
 							<view class="flexSideTitle">
-								加入规则: <text class="text-green">{{dict_ga_group_join_rule[showData.joinRule].dictLabel}}</text>
+								加入规则: <text class="text-green">{{showData.joinRule ? dict_ga_group_join_rule[showData.joinRule].dictLabel: '无'}}</text>
 							</view>
 						</van-col>
 						<van-col span="6" >

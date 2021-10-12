@@ -209,7 +209,7 @@ Page({
 	  },
 	jumpActivityScore() {
 		wx.navigateTo({
-			url: `../activity-score/activity-score?aid=${this.data.aid}`,
+			url: `../activity-score/activity-score?aid=${this.data.aid}&flag=${this.data.showData.flag}`,
 		})
 	},
 	//进入发布花絮页面
@@ -564,6 +564,7 @@ Page({
 			})
 			wx.getLocation({
 				isHighAccuracy:true,
+				highAccuracyExpireTime: 4000,
 				success:(res) => {
 					console.log(res)
 					request({

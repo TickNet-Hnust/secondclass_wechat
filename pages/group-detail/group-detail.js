@@ -1,6 +1,7 @@
 // pages/activity-detail/activity-detail.js
 import {request} from '../../js/http.js'
 const app = getApp()
+import Toast from '@vant/weapp/toast/toast';
 Page({
 
 	/**
@@ -65,12 +66,19 @@ Page({
 	statusChange(e) {
 		let copy = {...this.data.memberList[this.data.targetUserIndex]}
 		copy.status = +e.currentTarget.dataset.state
+		copy.groupId = 363759
 		if(e.currentTarget.dataset.state == '1') {
 			request({
 				url: `/group/member/transfer?userId=${copy.userId}&groupId=${this.data.gid}`,
 				method: 'PUT'
 			}).then(value => {
-				console.log(value)
+				console.log('转让负责人成功',value)
+				this.getMember().then(value => {
+					console.log(value.rows)
+					this.setData({
+						memberList:value.rows
+					})
+				})
 			})
 		}else {
 			request({
@@ -78,7 +86,7 @@ Page({
 				method: 'PUT',
 				data: copy
 			}).then(value => {
-				console.log(value,copy)
+				console.log('设为管理员成功',value)
 				this.getMember().then(value => {
 					console.log(value.rows)
 					this.setData({
@@ -119,17 +127,19 @@ Page({
 				groupId: this.data.gid
 			}
 		}).then(value => {
-			console.log(value)
 			this.hideModal()
 			this.setData({
 				'postData.title': '',
 				'postData.text': '',
 			})
 			if(value.code == 200) {
+				console.log('群内消息发送成功',value)
 				wx.showToast({
 				  title: '发布成功',
 				  duration:2000
 				})
+				this.getDetail()
+				this.getMsg()
 			}
 		})
 	},
@@ -169,12 +179,17 @@ Page({
 		})
 	},
 	hideModal(e) {
+		console.log(e,123)
 		this.setData({
 		  modalName: null,
-		  title:'群组消息发布',
-		  'postData.title':'',
-		  'postData.text':''
 		})
+		setTimeout(() => {
+			this.setData({
+				title:'群组消息发布',
+				'postData.title':'',
+				'postData.text':''
+			})
+		},300)
 	},
 	jumpGroupCustom() {
 		wx.navigateTo({
@@ -289,6 +304,10 @@ Page({
 						  icon:'none',
 						  duration:2000,
 						})
+						setTimeout(() => {
+							this.getMsg()
+							this.getDetail()
+						},300)
 						this.hideModal()
 					})
 				}
@@ -371,7 +390,13 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-
+		if(app.globalData.toast) {
+			Toast({
+				message:'群组修改成功',
+				zIndex: 2000
+			});
+			app.globalData.toast = ''
+		}
 	},
 
 	/**

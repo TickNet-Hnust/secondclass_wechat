@@ -96,6 +96,8 @@ App({
     })
   },
   globalData: {
+    isSwitchMy: false, //是否需要切换到“我的”,
+    toast: '', //活动群组修改成功的弹窗
     ColorList: [{
         title: '嫣红',
         name: 'red',

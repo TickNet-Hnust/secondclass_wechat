@@ -714,8 +714,14 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+		if(app.globalData.toast) {
+			Toast({
+				message:'活动修改成功',
+				zIndex: 2000
+			});
+			app.globalData.toast = ''
+		}
 		if(this.isNeedToRefresh) {
-			
 			Promise.all([
 				this.getDetail(),
 				this.getCollection(),

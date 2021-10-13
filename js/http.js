@@ -1,4 +1,3 @@
-
 var flag = false;
 var _baseUrl = '';
 if (flag) {

@@ -2,7 +2,7 @@
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">群组详情</view>
 </cu-custom>
-
+<van-toast id="van-toast" />
 <view class='cu-load load-modal' wx:if="{{loadModal}}">
   <!-- <view class='cuIcon-emojifill text-orange'></view> -->
   <image src='../../images/logo.png' class='png' mode='aspectFit'></image>
@@ -27,7 +27,7 @@
           	<!-- <view class="cu-avatar radius lg" style="background-image:url({{showData.avatar}});">
 			  
 			</view> -->
-			<ab-easy-image bindtap="ViewImage" mode="aspectFill" class="cu-avatar radius lg" src="{{showData.avatar}}">
+			<ab-easy-image placeholder="../../images/logo.png" bindtap="ViewImage" mode="aspectFill" class="cu-avatar radius lg" src="{{showData.avatar}}">
 				
 			</ab-easy-image>
           	<view class="content">
@@ -99,8 +99,8 @@
 					
 				</view>
 				
-				<view class="boxs solid " style="position: relative;" wx:if="{{messageList.length != 0}}">
-					<view class="expand flex align-center"  bindtap="showModal" data-target="AllMessage">
+				<view class="boxs solid " style="position: relative;" wx:if="{{messageList.length != 0}}" data-target="AllMessage" bindtap="showModal">
+					<view class="expand flex align-center" >
 						<text class="cuIcon-right text-black"></text>
 					</view>
 					<view style="padding:20rpx 20rpx" class="text-sm" >
@@ -126,7 +126,7 @@
 							</view>
 						</view>
 				</view>
-				<view catchtouchmove="return" bindtap="hideModal" class="cu-modal {{modalName=='AllMessage'?'show':''}}">
+				<view catchtouchmove="return" class="cu-modal {{modalName=='AllMessage'?'show':''}}">
 						<view class="cu-dialog">
 							<view class="cu-bar bg-white justify-end">
 							<view class="content">群组消息</view>
@@ -233,7 +233,7 @@
 											<view>解散群组</view>
 										</view>
 									</view>
-									<view class="cu-item  margin-top">
+									<!-- <view class="cu-item  margin-top">
 										<view class="content">
 											<view>活动统计表</view>
 										</view>
@@ -259,7 +259,7 @@
 											<button class="sm cu-btn round bg-green shadow">
 											<text class="cuIcon-down"></text> 下载</button>
 										</view>
-									</view>
+									</view> -->
 								</view>
 							</view>
 						</view>
@@ -304,12 +304,8 @@
 				<view class="activityTemplate peoples">
 				<view class="cu-list menu-avatar">
 					<view class="cu-item solid-top" wx:for="{{memberList}}" wx:key="index">
-						<view class="cu-avatar round lg" style="background-image:url({{item.avatar}})">
-							<!-- <view class="cu-tag badge">
-								{{item.identities}}
-							</view> -->
-							<!-- <view class="cu-tag badge" wx:if="item.identities[1]==undefined">{{item.identities[1]!=undefined?'负责人'}}</view> -->
-						</view>
+						<view wx:if="{{item.avatar}}" class="cu-avatar round lg" style="background-image:url({{item.avatar}})"></view>
+						<view wx:else class="cu-avatar round lg" style="background-image:url(../../images/person.jpg)"></view>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.nickName}}</text>

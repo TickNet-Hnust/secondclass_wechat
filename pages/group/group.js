@@ -159,6 +159,11 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+		if(app.globalData.isSwitchMy) {
+			this.setData({
+				TabCur: 1
+			})
+		}
 		if(this.data.isNeedToRefresh) {
 			this.getRecommend().then(value => {
 				console.log('获得推荐群组',value)

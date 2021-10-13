@@ -266,6 +266,7 @@ Page({
 				data:this.data.postData
 			}).then(value => {
 				console.log(value)
+				app.globalData.toast = '群组修改成功'
 				if(value.code == 200) {
 					wx.showToast({
 						title: '成功',

@@ -136,7 +136,7 @@
 										</view> -->
 										<view class="cu-bar solid-bottom ">
 											<view class="action">
-												<text class="cuIcon-title text-blue"></text>报名信息
+												<text class="cuIcon-title text-blue"></text>活动信息
 											</view>
 										</view>
 										<view class="cu-form-group">
@@ -568,8 +568,8 @@
 							module.exports.format = format
 						</wxs>
 					<view class="cu-item solid-top" wx:for="{{memberList}}" wx:key="index">
-						<view class="cu-avatar round lg" style="background-image:url({{item.avatar}})">
-						</view>
+						<view wx:if="{{item.avatar}}" class="cu-avatar round lg" style="background-image:url({{item.avatar}})"></view>
+						<view wx:else class="cu-avatar round lg" style="background-image:url(../../images/person.jpg)"></view>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.nickName}}</text>

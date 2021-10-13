@@ -1,5 +1,6 @@
 import {request} from '../../js/http.js'
 import Toast from '@vant/weapp/toast/toast';
+const app = getApp()
 Page({
   options: {
     addGlobalClass: true,
@@ -10,9 +11,9 @@ Page({
     isLogin:false,
     nickName: '',
     avatarUrl:'',
-    starCount: 0,
-    forksCount: 0,
-    visitTotal: 0,
+    activityCount: 0,
+    groupCount: 0,
+    integral: 0,
   },
   login() {
     wx.getUserProfile({
@@ -82,9 +83,9 @@ Page({
     
   },
   onShow() {
-    Toast({
-      duration:300000,
-    })
+    // Toast({
+    //   duration:300000,
+    // })
     let that = this
     wx.request({   //湘潭市天气越热，变化越快
       url: 'https://secondclass.ticknet.hnust.cn/weather/weather_mini?city=%E6%B9%98%E6%BD%AD%E5%B8%82',
@@ -120,7 +121,17 @@ Page({
     clearInterval(this.data.TimeOut)
   },
   onLoad() {
-    
+    request({
+      url: '/user/util/personalInfo',
+      method: 'get'
+    }).then(value => {
+      console.log(value)
+      this.setData({
+        activityCount: value.data.activityCount,
+        groupCount: value.data.groupCount,
+        integral: value.data.integral
+      })
+    })
     this.setData({
       isLogin: wx.getStorageSync('isLogin'),
       nickName:wx.getStorageSync('nickName'),
@@ -166,6 +177,18 @@ Page({
         e = (e / 10000).toFixed(1) + 'W'
       }
       return e
+    },
+    jumpActivity() {
+      app.globalData.isSwitchMy = true
+      wx.switchTab({
+        url: '../activity/activity',
+      })
+    },
+    jumpGroup() {
+      app.globalData.isSwitchMy = true
+      wx.switchTab({
+        url: '../group/group',
+      })
     },
     CopyLink(e) {
       wx.setClipboardData({

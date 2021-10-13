@@ -623,6 +623,7 @@ Page({
 					data:this.data.postData
 				}).then(value => {
 					console.log(value,333)
+					app.globalData.toast = '活动修改成功'
 					wx.navigateBack()
 				})
 			} else {

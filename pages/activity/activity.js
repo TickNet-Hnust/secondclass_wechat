@@ -71,12 +71,6 @@ Page({
 			url: '../activity-release/activity-release',
 		  })
 	},
-	onChange(event) {
-		wx.showToast({
-		  title: `切换到标签 ${event.detail.name}`,
-		  icon: 'none',
-		});
-	},
 	getRecommend(pageNum = 1,pageSize=10) {
 		return request({
 			url:'/secondClass/activity/list',

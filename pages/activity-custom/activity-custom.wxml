@@ -2,6 +2,7 @@
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">{{title}}</view>
 </cu-custom>
+<van-toast id="van-toast" />
 <view class="custom">
 	<form>
 		<view class="cu-form-group">

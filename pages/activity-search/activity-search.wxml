@@ -2,6 +2,7 @@
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">活动查看</view>
 </cu-custom>
+<van-toast id="van-toast" />
 <wxs module="statusMap">
 	var arr = ['起草','待审核','审核通过','审核不通过','已取消','报名中','等待中','进行中','已结束']
 	module.exports = function(index) {

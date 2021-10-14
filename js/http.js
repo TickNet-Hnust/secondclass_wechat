@@ -66,7 +66,12 @@ export const request = (opt) => {
 							mask: true,
 							duration:1000
 						})
-					} else {
+					} else if(res.data.code == 500) {
+						wx.showModal({
+							content: '未知错误，请反馈给管理员',
+							showCancel: false
+						})
+					}else {
 						resolve(res.data)
 					}
  
@@ -76,13 +81,6 @@ export const request = (opt) => {
 			},
 			fail: function (err) {
 				console.log(err,123)
-				// wx.hideLoading()
-				// wx.showToast({
-				// 	title: '请求超时',
-				// 	icon: 'none',
-				// 	mask: true,
-				// 	duration: 2000
-				// })
 			},
 			complete: function () {
 				tryHideFullScreenLoading()

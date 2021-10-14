@@ -3,6 +3,7 @@ import {request} from '../../js/http.js'
 import getImgUrl from '../../utils/upload.js'
 import {filterGroupClassificationList} from '../../utils/filterGroupClassificationList.js'
 import {nullToast} from '../../utils/nullToast'
+import Toast from '@vant/weapp/toast/toast';
 const app = getApp()
 Page({
 
@@ -65,12 +66,8 @@ Page({
 			this.setData({
 				'farSearch' :value.data
 			})
-			wx.hideLoading()
 			if(value.data.length == 0) {
-				wx.showToast({
-				  title: '没有找到匹配的人',
-				  icon:'none'
-				})
+				Toast('没有找到匹配的人')
 			}
 		})
 		console.log(this.data.searchValue)
@@ -268,17 +265,9 @@ Page({
 				console.log(value)
 				app.globalData.toast = '群组修改成功'
 				if(value.code == 200) {
-					wx.showToast({
-						title: '成功',
-						icon: 'success',
-						duration: 2000,
-						success:() =>{
-							wx.navigateBack({
-							  delta: 1,
-							})
-						}
+					wx.navigateBack({
+						delta: 1,
 					})
-					
 				}
 			})
 			return 
@@ -292,25 +281,14 @@ Page({
 			}).then(value => {
 				console.log(value)
 				if(value.code == 200) {
-					wx.showToast({
-						title: '成功',
-						icon: 'success',
-						duration: 2000,
-						success:() =>{
-							wx.navigateBack({
-							  delta: 1,
-							})
-						}
+					Toast('成功')
+					wx.navigateBack({
+						delta: 1,
 					})
-					
 				}
 			})
 		} else {
-			wx.showToast({
-				title: msg,
-				icon: 'none',
-			  duration: 2000
-		  })
+			Toast(msg)
 		}
 		
 	},

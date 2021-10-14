@@ -569,7 +569,7 @@
 						</wxs>
 					<view class="cu-item solid-top" wx:for="{{memberList}}" wx:key="index">
 						<view wx:if="{{item.avatar}}" class="cu-avatar round lg" style="background-image:url({{item.avatar}})"></view>
-						<view wx:else class="cu-avatar round lg" style="background-image:url(../../images/person.jpg)"></view>
+						<view wx:else class="cu-avatar round lg" style="background-image:url(https://img-blog.csdnimg.cn/ecf947e557e34ca9bc72e036d53a27a6.jpg)"></view>
 						<view class="content">
 							<view class="text-grey">
 								<text class="text-cut">{{item.nickName}}</text>

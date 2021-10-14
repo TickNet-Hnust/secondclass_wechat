@@ -66,7 +66,7 @@ Page({
 	statusChange(e) {
 		let copy = {...this.data.memberList[this.data.targetUserIndex]}
 		copy.status = +e.currentTarget.dataset.state
-		copy.groupId = 363759
+		copy.groupId = this.data.gid
 		if(e.currentTarget.dataset.state == '1') {
 			request({
 				url: `/group/member/transfer?userId=${copy.userId}&groupId=${this.data.gid}`,
@@ -134,10 +134,7 @@ Page({
 			})
 			if(value.code == 200) {
 				console.log('群内消息发送成功',value)
-				wx.showToast({
-				  title: '发布成功',
-				  duration:2000
-				})
+				Toast('发布成功')
 				this.getDetail()
 				this.getMsg()
 			}
@@ -159,10 +156,7 @@ Page({
 						})
 					})
 				} else {
-					wx.showToast({
-					  title: '用户取消',
-					  icon:'none'
-					})
+					Toast('用户取消')
 				}
 			}
 		})
@@ -299,11 +293,7 @@ Page({
 						url: `/group/msg/${e.currentTarget.dataset.id}`,
 						method: 'DELETE'
 					}).then(value => {
-						wx.showToast({
-						  title: '删除成功',
-						  icon:'none',
-						  duration:2000,
-						})
+						Toast('删除成功')
 						setTimeout(() => {
 							this.getMsg()
 							this.getDetail()
@@ -341,10 +331,7 @@ Page({
 		}).then(value => {
 			console.log('收藏了',value)
 			this.getCollection()
-			wx.showToast({
-				title: '操作成功',
-				duration:1000
-			})
+			Toast('操作成功')
 		})
 	},
 	/**
@@ -361,7 +348,7 @@ Page({
 		})
 		console.log(options)
 		this.getMember().then(value => {
-			console.log(value.rows)
+			console.log('memberList',value.rows)
 			this.setData({
 				memberList:value.rows
 			})
@@ -390,6 +377,21 @@ Page({
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+		this.getMember().then(value => {
+			console.log('memberList',value.rows)
+			this.setData({
+				memberList:value.rows
+			})
+		})
+		this.getActivity().then(value => {
+			console.log(value)
+			this.setData({
+				activityList: value.rows
+			})
+		})
+		this.getDetail()
+		this.getMsg()
+		this.getCollection()
 		if(app.globalData.toast) {
 			Toast({
 				message:'群组修改成功',

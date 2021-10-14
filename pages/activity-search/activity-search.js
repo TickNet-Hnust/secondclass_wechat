@@ -1,5 +1,6 @@
 // pages/activity-search/activity-search.js
 import {request} from '../../js/http.js'
+import Toast from '@vant/weapp/toast/toast';
 const app = getApp()
 Page({
 
@@ -108,18 +109,10 @@ Page({
 					tags:[]
 				})
 				wx.setStorageSync('Atags', [])
-				wx.showToast({
-					title: '清除成功',
-					icon: 'success',
-					duration: 1000
-				})
+				Toast('清除成功')
 			  } else if (res.cancel) {
 				console.log('用户点击取消')
-				wx.showToast({
-					title: '用户取消',
-					icon: 'none',
-					duration: 1000
-				  })
+				Toast('用户取消')
 				  
 			  }
 			}
@@ -159,10 +152,7 @@ Page({
 			})
 			this.toggleDelay()
 		} else {
-			wx.showToast({
-			  title: '请输入内容再搜索',
-			  icon: 'none'
-			})
+			Toast('请输入内容再搜索')
 		}
 	
 	},

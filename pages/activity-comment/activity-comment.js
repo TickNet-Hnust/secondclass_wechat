@@ -1,5 +1,6 @@
 // pages/activity-comment/activity-comment.js
 import {request} from '../../js/http'
+import Toast from '@vant/weapp/toast/toast';
 Page({
 
 	/**
@@ -25,17 +26,11 @@ Page({
 	},
 	sure() {
 		if(this.data.postData.content=='') {
-			wx.showToast({
-				title: '文字内容不能为空',
-				icon: 'none'
-			})
+			Toast('文字内容不能为空')
 			return
 		}
 		if(this.data.postData.score=='') {
-			wx.showToast({
-				title: '请先评分再提交',
-				icon: 'none'
-			})
+			Toast('请先评分再提交')
 			return
 		}
 		request({
@@ -46,10 +41,7 @@ Page({
 			}
 		}).then(value => {
 			if(value.data.errcode == 87014) {
-				wx.showToast({
-				  title: JSON.stringify(value.data),
-				  icon: 'none'
-				})
+				Toast(JSON.stringify(value.data))
 			} else {
 				return request({
 					url: '/secondClass/activity/evaluation',

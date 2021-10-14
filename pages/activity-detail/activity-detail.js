@@ -224,16 +224,10 @@ Page({
 		})
 	},
 	canSendF() {
-		wx.showToast({
-			title: '该活动暂不允许发布花絮',
-			icon: 'none'
-		})
+		Toast('该活动暂不允许发布花絮')
 	},
 	canSendP() {
-		wx.showToast({
-			title: '该活动暂不允许发布评论',
-			icon: 'none'
-		})
+		Toast('该活动暂不允许发布评论')
 	},
 	//进入发布评论页面
 	jumpComment() {
@@ -272,10 +266,7 @@ Page({
 		}).then(value => {
 			console.log('收藏了',value)
 			this.getCollection()
-			wx.showToast({
-				title: '操作成功',
-				duration:1000
-			})
+			Toast('操作成功')
 		})
 	},
 	//改变活动状态
@@ -284,19 +275,11 @@ Page({
 			url: `/secondClass/activity/${this.data.aid}/${e.currentTarget.dataset.status}`,
 			method: 'PUT',
 		}).then(value => {
-			wx.showToast({
-			  title: value.msg,
-			  icon: 'none',
-			  duration:2000
-			})
 			if(value.code == 200) {
 				this.setData({
 					'showData.status': e.currentTarget.dataset.status
 				})
-				wx.showToast({
-				  title: '修改活动状态成功',
-				  icon: 'none'
-				})
+				Toast('修改活动状态成功')
 			}
 			
 		})
@@ -335,11 +318,7 @@ Page({
 				})
 				this.getMember()
 			} else {
-				wx.showToast({
-					title: value.msg,
-					icon: 'none',
-					duration:2000
-				})
+				Toast(value.msg)
 			}
 		})
 	},
@@ -369,19 +348,11 @@ Page({
 		  success: (res) => {
 			console.log(res,77,)
 			if(!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
-				wx.showToast({
-				  title: '图片只支持jpg格式',
-				  icon: 'none',
-				  duration:2000
-				})
+				Toast('图片只支持jpg格式')
 				return ;
 			}
 			if(res.tempFiles[0].size > 1024*1024*2) {
-				wx.showToast({
-				  title: '图片大小不能超过2M',
-				  icon: 'none',
-				  duration:2000
-				})
+				Toast('图片大小不能超过2M')
 				return ;
 			}
 			that.setData({
@@ -529,16 +500,12 @@ Page({
 				activityId: this.data.aid
 			}
 		}).then(value => {
-			console.log(value)
+			console.log('报名消息：',value)
 			if(value.code == 200) {
 				Toast('报名成功');
 				this.getMember()
 			} else {
-				wx.showToast({
-					title: value.msg,
-					icon: 'none',
-					duration:2000
-				})
+				Toast('报名失败:'+value.msg)
 			}
 			
 		})
@@ -576,21 +543,14 @@ Page({
 						}
 					}).then(value => {
 						console.log(value)
-						wx.hideLoading()
 						if(value.code == 200) {
 							Toast('签到成功');
 							this.enroll.disabled = true //防止用户狂点触发第二次
 							this.getMember()
 						} else {
-							wx.showToast({
-								title: value.msg,
-								icon: 'none',
-								mask:true,
-								duration:2000
-							})
+							Toast(value.msg)
 						}
 					}).catch(() => {
-						wx.hideLoading()
 					})
 				}
 			})
@@ -732,9 +692,6 @@ Page({
 				this.setData({
 					loadModal: false,
 				});
-				// wx.showToast({
-				// 	title: '修改成功',
-				// })
 			})
 			this.setData({
 				dict_admissionWay:wx.getStorageSync('dict_admissionWay'),

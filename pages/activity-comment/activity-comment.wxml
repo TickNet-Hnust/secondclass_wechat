@@ -1,6 +1,7 @@
 <!-- <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">发布评论</view>
 </cu-custom>
+<van-toast id="van-toast" />
 <view>
 	<textarea placeholder="在此处输入评论..." class="release" focus value="{{postData.content}}" bindinput="contentChange"></textarea>
 	<view class="bg-white padding">

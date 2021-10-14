@@ -166,7 +166,6 @@ Page({
         })
       }
     }
-    wx.hideLoading()
   },
   
     coutNum(e) {

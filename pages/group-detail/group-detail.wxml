@@ -1,13 +1,8 @@
 <!--pages/activity-detail/activity-detail.wxml-->
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
-	<view slot="content">群组详情</view>
+	<view slot="content">用户组详情</view>
 </cu-custom>
 <van-toast id="van-toast" />
-<view class='cu-load load-modal' wx:if="{{loadModal}}">
-  <!-- <view class='cuIcon-emojifill text-orange'></view> -->
-  <image src='../../images/logo.png' class='png' mode='aspectFit'></image>
-  <view class='gray-text'>加载中...</view>
-</view>
 <wxs module="m3">
 	function format(str) {
 		if(str == null) return undefined
@@ -21,13 +16,23 @@
 		return arr[index]
 	}
 </wxs>
+<wxs module="filterEndSign">
+	module.exports = function(str) {
+		if(str[str.length -1] == '、') {
+			return str.slice(0,str.length - 1)
+		} else {
+			return str
+		}
+	}
+</wxs>
 <view class="detail">
 	<view class="cu-list menu-avatar mainShow">
         <view class="cu-item">
           	<!-- <view class="cu-avatar radius lg" style="background-image:url({{showData.avatar}});">
 			  
 			</view> -->
-			<ab-easy-image placeholder="../../images/logo.png" bindtap="ViewImage" mode="aspectFill" class="cu-avatar radius lg" src="{{showData.avatar}}">
+			<!-- bindtap="ViewImage"  取消viewImage-->
+			<ab-easy-image placeholder="https://img-blog.csdnimg.cn/8e7018841dc04c62b3e6bc2c8882a45b.png" mode="aspectFill" class="cu-avatar radius lg" src="{{showData.avatar}}">
 				
 			</ab-easy-image>
           	<view class="content">
@@ -184,14 +189,11 @@
 							</view>
 						</van-col>
 						<van-col span="6" >
-							<button 
-								bindtap="joinGroup"
-								class="cu-btn radius bg-green text-sm fr"
+							<delay-button
+								className="cu-btn line-green md text-sm fr line-bbt"
+								bind:click="joinGroup"
 								disabled="{{showData.joinStatus != 0}}"
-							>
-							申请
-							
-							</button>
+							>申请</delay-button>
 						</van-col>
 					</van-row>
 				</view>
@@ -330,6 +332,25 @@
 				<view class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</scroll-view>
+			<view catchtouchmove="return" class="cu-modal {{modalName=='jobModal'?'show':''}}">
+				<view class="cu-dialog">
+					<view class="cu-bar bg-white justify-end">
+					<view class="content">编辑职位</view>
+						<view class="action" bindtap="hideModal">
+							<text class="cuIcon-close text-red"></text>
+						</view>
+					</view>
+					<view class="bg-white">
+						<view class="cu-form-group text-left">
+							<view class="title">职位：</view>
+							<!-- <view class="action"> -->
+								<input value="{{memberList[targetUserIndex].job}}" bindinput="jobChange" focus="{{jobfocus}}"></input>
+							<button class="cu-btn line-bbt" bindtap="sureUpdate" >修改</button>
+							<!-- </view> -->
+						</view>
+					</view>
+				</view>
+			</view>
 			<view bindtap="hideModal" class="cu-modal bottom-modal  {{modalName=='controlModal'?'show':''}}">
 				<view class="cu-dialog" >
 					<!-- <view class="cu-bar bg-white"> -->
@@ -338,6 +359,13 @@
 					<!-- </view> -->
 					<view class="">
 						<view class="cu-list menu text-left">
+							<view  class="cu-item" catchtap="updateJob">
+								<view class="content">
+									<text class="cuIcon-circlefill text-grey"></text>
+									<text class="text-grey">编辑职位</text>
+								</view>
+							</view>
+							
 							<view wx:if="{{memberList[targetUserIndex].status == 2}}" class="cu-item" bindtap="statusChange" data-state="1">
 								<view class="content">
 									<text class="cuIcon-circlefill text-grey"></text>
@@ -387,7 +415,7 @@
 								</view>
 							</view>
 							<view>
-								<text class="tabSideText">{{item.activityTag}}</text>
+								<text class="tabSideText">{{filterEndSign(item.activityTag)}}</text>
 							</view>
 							<view class="state">{{statusMap(item.status)}}</view>
 						</view>

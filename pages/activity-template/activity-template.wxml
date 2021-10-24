@@ -33,6 +33,7 @@
 
 				<l-select
 					title="积分分类"
+					wx:if="{{trainingProgramId}}"
 					range="{{courseClassificationList}}"
 					rangeKey="name"
 					valueKey="id"

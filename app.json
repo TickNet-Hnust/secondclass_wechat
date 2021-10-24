@@ -17,7 +17,8 @@
         "pages/activity-declare/activity-declare",
         "pages/activity-sideLight/activity-sideLight",
         "pages/activity-comment/activity-comment",
-        "pages/news/news"
+        "pages/news/news",
+        "pages/group-job/group-job"
     ],
     "window": {
         "backgroundTextStyle": "dark",
@@ -48,7 +49,7 @@
                 "pagePath": "pages/group/group",
                 "iconPath": "images/tabbar/group-off.png",
                 "selectedIconPath": "images/tabbar/group-on.png",
-                "text": "群组"
+                "text": "用户组"
             },
             {
                 "pagePath": "pages/my/my",

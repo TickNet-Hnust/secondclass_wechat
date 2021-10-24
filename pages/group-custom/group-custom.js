@@ -11,7 +11,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		title: '创建群组',
+		title: '创建用户组',
 		imgList:[],
 		searchShow:false,
 		multiArray:[],
@@ -104,7 +104,6 @@ Page({
 		})
 	},
 	change(e) {
-		console.log(e)
 		this.setData({
 			'postData.joinRule' :e.detail.value,
 			"index": e.detail.value,
@@ -130,7 +129,6 @@ Page({
 		})
 	},
 	MultiColumnChange(e) {
-		console.log(e)
 		//复制数组
 		let temp = [...this.data.multiArray]
 		let index = [...this.data.multiIndex]
@@ -245,7 +243,6 @@ Page({
 	},
 	//介绍改变
 	introduceChange(e) {
-		console.log(e)
 		this.setData({
 			'postData.introduce':e.detail.value.trim()
 		})
@@ -256,7 +253,7 @@ Page({
         this.data.postData.ancestors = 0 + ',' + this.data.postData.parentId
         this.data.postData.status = 2 //待审核
 		console.log(this.data.postData)
-		if(this.data.title == '修改群组信息') {
+		if(this.data.title == '修改用户组信息') {
 			request({
 				url: '/group',
 				method: 'PUT',
@@ -299,7 +296,7 @@ Page({
 		this.mapCtx = wx.createMapContext('myMap')
 		if(options.gid) {
 			this.setData({
-				title: '修改群组信息'
+				title: '修改用户组信息'
 			})
 			request({
 				url:`/group/${options.gid}/detail`,

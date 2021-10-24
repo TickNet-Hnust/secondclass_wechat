@@ -52,7 +52,6 @@ Component({
             return `${yy}-${mm}-${dd}`
         },
         timeChange(e) {
-            console.log(e)
             this.setData({
                 [e.currentTarget.dataset.time]: e.detail.value
             })

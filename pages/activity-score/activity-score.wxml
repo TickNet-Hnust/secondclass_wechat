@@ -160,7 +160,7 @@
 
         </van-row>	 
         <van-row style="width:100%;text-align: center;" wx:if="{{flag == 1}}">
-          <van-button type="primary" bindtap="jumpDeclare">现在申报</van-button>
+          <van-button custom-class="bg-bbt-g" type="primary" bindtap="jumpDeclare">现在申报</van-button>
         </van-row>
     </view>
   </view>

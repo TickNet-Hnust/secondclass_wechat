@@ -4,10 +4,10 @@
         "ignore": []
     },
     "setting": {
-        "urlCheck": true,
+        "urlCheck": false,
         "es6": true,
         "enhance": false,
-        "postcss": true,
+        "postcss": false,
         "preloadBackgroundData": false,
         "minified": true,
         "newFeature": false,

@@ -11,7 +11,6 @@ Page({
         memberList:[]
     },
     pass(e) {
-        console.log(e)
         request({
             url: '/secondClass/activity/enroll',
             method: 'put',

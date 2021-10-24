@@ -9,6 +9,15 @@
 		return arr[index]
 	}
 </wxs>
+<wxs module="filterEndSign">
+	module.exports = function(str) {
+		if(str[str.length -1] == '、') {
+			return str.slice(0,str.length - 1)
+		} else {
+			return str
+		}
+	}
+</wxs>
 <view class="backTop" bindtap="goTop">
 	<text class="cuIcon-top"></text>
 </view>
@@ -59,6 +68,7 @@
 						custom-class="tag"
 						data-index="{{index}}"
 						data-item="{{item}}"
+						color="#40a9ff"
 						bindtap="tagSearch"
 						class="{{toggleDelayOne?'animation-slide-right':''}}"
 						style="animation-delay: {{(index+1)*0.1}}s;"
@@ -80,7 +90,7 @@
 							</view>
 						</view>
 						<view class="tabSideText">
-							<text>{{item.activityTag}}</text>
+							<text>{{filterEndSign(item.activityTag)}}</text>
 						</view>
 						<view class="state">{{statusMap(item.status)}}</view>
 					</view>
@@ -104,7 +114,7 @@
 							</view>
 						</view>
 						<view class="tabSideText">
-							<text>{{item.activityTag}}</text>
+							<text>{{filterEndSign(item.activityTag)}}</text>
 						</view>
 						<view class="state">{{statusMap(item.status)}}</view>
 				</view>
@@ -126,7 +136,7 @@
 						</view>
 					</view>
 					<view class="tabSideText">
-						<text>{{item.activityTag}}</text>
+						<text>{{filterEndSign(item.activityTag)}}</text>
 					</view>
 					<view class="state">{{statusMap(item.status)}}</view>
 				</view>

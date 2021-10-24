@@ -14,7 +14,6 @@ Page({
 		}
 	},
 	onChange(e) {
-		console.log(e)
 		this.setData({
 			'postData.score':e.detail
 		})

@@ -12,7 +12,6 @@ Page({
 		//解决textarebug
 		textShow:true,
 		show:false,
-		loadModal:true,
 		loading: false,
 		gid: null,
 		isCollection: false,
@@ -41,7 +40,6 @@ Page({
 		})
 	},
 	showNotice(e) {
-		console.log(123)
 		if(this.data.title=='群组消息发布') {
 			this.setData({
 				textShow:false
@@ -88,7 +86,7 @@ Page({
 			}).then(value => {
 				console.log('设为管理员成功',value)
 				this.getMember().then(value => {
-					console.log(value.rows)
+					console.log('获得群组成员',value)
 					this.setData({
 						memberList:value.rows
 					})
@@ -97,16 +95,49 @@ Page({
 		}
 		
 	},
+	updateJob() {
+		// this.data.memberList[this.data.targetUserIndex]
+		
+			this.setData({
+				modalName: 'jobModal'
+			})
+	},
+	jobChange(e) {
+		this.data.memberList[this.data.targetUserIndex].job = e.detail.value
+	},
+	sureUpdate() {
+		this.data.memberList[this.data.targetUserIndex].groupId = this.data.gid
+		request({
+			url: '/group/member',
+			method: 'put',
+			data: this.data.memberList[this.data.targetUserIndex]
+		}).then(value => {
+			Toast('修改成功')
+			
+		this.setData({
+			memberList: this.data.memberList
+		})
+		this.hideModal()
+		})
+	},
 	ViewImage() {
+		
 		if(this.data.showData.avatar == null) {
 			wx.previewImage({
-				urls: ['../../images/group.png'],
-				current:'../../images/group.png'
+				urls: ['https://img-blog.csdnimg.cn/8e7018841dc04c62b3e6bc2c8882a45b.png'],
+				current:'https://img-blog.csdnimg.cn/8e7018841dc04c62b3e6bc2c8882a45b.png'
 			});
 		}else {
+			// if(this.data.showData.avatar.endsWith('.')) {
+			// 	this.data.showData.avatar = this.data.showData.avatar.slice(0,-1)
+			// }
+			console.log(this.data.showData.avatar)
 			wx.previewImage({
-				urls: [this.data.showData.avatar.split(';')[0]],
-				current:this.data.showData.avatar.split(';')[0]
+				urls: [this.data.showData.avatar],
+				current:this.data.showData.avatar,
+				complete:(res) => {
+					console.log(res)
+				}
 			});
 		}
 		
@@ -169,11 +200,10 @@ Page({
 			})
 		}
 		this.setData({
-		  modalName: e.currentTarget.dataset.target
+			modalName: e.currentTarget.dataset.target
 		})
 	},
 	hideModal(e) {
-		console.log(e,123)
 		this.setData({
 		  modalName: null,
 		})
@@ -209,16 +239,13 @@ Page({
 			url: `/group/member?groupId=${this.data.gid}`,
 			method: 'POST'
 		}).then(value => {
-			console.log(value)
-			// this.setData({
-			// 	memberList:value.rows
-			// })
+			console.log('申请加入群组',value)
+			Toast('申请成功')
 			this.getMember()
 			this.getDetail()
 		})
 	},
 	jumpDetail(e) {
-		console.log(e)
 		wx.navigateTo({
 		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
 		})
@@ -228,7 +255,7 @@ Page({
 			url: `/group/${this.data.gid}/detail`,
 			method: 'GET'
 		}).then(value => {
-			console.log(value)
+			console.log('获得群组详细数据',value)
 			this.setData({
 				showData: value.data.groupDetail,
 				messageList:value.data.msgList,
@@ -265,7 +292,7 @@ Page({
 				groupId: this.data.gid
 			}
 		}).then(value => {
-			console.log(value)
+			console.log('获得群组发布的消息',value)
 			this.setData({
 				AllMessageList: value.rows
 			})
@@ -273,7 +300,6 @@ Page({
 	},
 	//查看信息详情
 	showForm(e) {
-		console.log(e)
 		this.setData({
 			'postData.title': this.data.AllMessageList[e.currentTarget.dataset.index].title,
 			'postData.text':this.data.AllMessageList[e.currentTarget.dataset.index].text,
@@ -317,7 +343,7 @@ Page({
 				groupId: this.data.gid
 			}
 		}).then(value => {
-			console.log('是否收藏了',value)
+			console.log('是否收藏了群组',value)
 			this.setData({
 				isCollection: value.data
 			})
@@ -338,7 +364,7 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		console.log(options)
+		console.log('群组Id',options.gid)
 		this.setData({
 			gid:options.gid,
 			dict_ga_group_status: wx.getStorageSync('dict_ga_group_status'),
@@ -346,19 +372,19 @@ Page({
 			dict_ga_group_join_rule: wx.getStorageSync('dict_ga_group_join_rule'),
 			groupClassificationMap: wx.getStorageSync('groupClassificationMap')
 		})
-		console.log(options)
 		this.getMember().then(value => {
-			console.log('memberList',value.rows)
+			console.log('获得成员列表',value)
 			this.setData({
 				memberList:value.rows
 			})
 		})
 		this.getActivity().then(value => {
-			console.log(value)
+			console.log('获得活动列表',value)
 			this.setData({
 				activityList: value.rows
 			})
 		})
+		return
 		this.getDetail()
 		this.getMsg()
 		this.getCollection()
@@ -366,17 +392,18 @@ Page({
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function () {	
-		this.setData({
-			loadModal: false,
-		});
-		// this.selectComponent('#tabs').resize();
+	onReady: function () {
 	},
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+		
+		this.setData({
+			activityNum: 2,
+			memberNum: 2
+		})
 		this.getMember().then(value => {
 			console.log('memberList',value.rows)
 			this.setData({
@@ -384,12 +411,13 @@ Page({
 			})
 		})
 		this.getActivity().then(value => {
-			console.log(value)
+			console.log('获得活动列表',value)
 			this.setData({
 				activityList: value.rows
 			})
 		})
 		this.getDetail()
+		return
 		this.getMsg()
 		this.getCollection()
 		if(app.globalData.toast) {
@@ -449,7 +477,9 @@ Page({
 		if(this.data.TabCur == 1) {
 			this.getMember(this.data.memberNum).then(value => {
 				this.data.memberList.push(...value.rows)
-				this.data.memberNum++
+				if(value.rows.length) {
+					this.data.memberNum++
+				}
 				this.setData({
 					memberList: this.data.memberList,
 					memberNum: this.data.memberNum
@@ -461,7 +491,9 @@ Page({
 		} else if(this.data.TabCur == 2) {
 			this.getActivity(this.data.activityNum).then(value => {
 				this.data.activityList.push(...value.rows)
-				this.data.activityNum++
+				if(value.rows.length) {
+					this.data.activityNum++
+				}
 				this.setData({
 					activityList: this.data.activityList,
 					activityNum: this.data.activityNum

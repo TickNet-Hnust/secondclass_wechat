@@ -8,6 +8,15 @@
 		return arr[index]
 	}
 </wxs>
+<wxs module="filterEndSign">
+	module.exports = function(str) {
+		if(str[str.length -1] == '、') {
+			return str.slice(0,str.length - 1)
+		} else {
+			return str
+		}
+	}
+</wxs>
 <view class="containerActivity">
   <view class="activityTop">
 	<view class="activitySearch" bindtap="jumpSearch">
@@ -52,7 +61,7 @@
 						</view>
 					</view>
 					<view class="tabSideText">
-						<text>{{item.activityTag}}</text>
+						<text>{{filterEndSign(item.activityTag)}}</text>
 					</view>
 					<view class="state">{{statusMap(item.status)}}</view>
 				</view>
@@ -73,7 +82,7 @@
 						</view>
 					</view>
 					<view class="tabSideText">
-						<text>{{item.activityTag}}</text>
+						<text>{{filterEndSign(item.activityTag)}}</text>
 					</view>
 					<view class="state">{{statusMap(item.status)}}</view>
 				</view>
@@ -94,7 +103,7 @@
 						</view>
 					</view>
 					<view class="tabSideText">
-						<text>{{item.activityTag}}</text>
+						<text>{{filterEndSign(item.activityTag)}}</text>
 					</view>
 					<view class="state">{{statusMap(item.status)}}</view>
 				</view>

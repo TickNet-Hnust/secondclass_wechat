@@ -340,7 +340,6 @@ Page({
 		})
 	},
 	VALUECHANGED(e) {
-		console.log(e)
 		this.setData({
 			[e.currentTarget.dataset.value]:e.detail.value.trim()
 		})
@@ -368,7 +367,6 @@ Page({
 	},
 	//点击了课程
 	pickCourse(e) {
-		console.log(e)
 		this.setData({
 			'fakeData.courseName':e.target.dataset.name
 		})
@@ -551,7 +549,6 @@ Page({
 	},
 	//部门改变
 	deptChange(e) {  //over
-		console.log(e)
 		this.setData({
 			'postData.deptId' : e.detail
 		})

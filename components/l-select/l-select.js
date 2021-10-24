@@ -36,7 +36,6 @@ Component({
     },
     observers:{
         value(newValue){
-            console.log(newValue,'new')
             this.data.range.forEach((item,index) => {
                 if(item[this.data.valueKey] == newValue) {
                     this.setData({

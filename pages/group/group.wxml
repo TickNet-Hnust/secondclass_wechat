@@ -16,7 +16,7 @@
 		<text class="activitySideText text-xxl">
 			<text class="cuIcon-roundadd"></text>
 		</text>
-		<text class="activityText">创建群组</text>
+		<text class="activityText">创建用户组</text>
 	</view>
   </view>
   <view>
@@ -37,7 +37,7 @@
 			<view class="">
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{recommendGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayOne?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<ab-easy-image placeholder="../../images/logo.png" class="cu-avatar radius lg" src="{{item.avatar}}">
+						<ab-easy-image placeholder="https://img-blog.csdnimg.cn/8e7018841dc04c62b3e6bc2c8882a45b.png" class="cu-avatar radius lg" src="{{item.avatar}}">
 							
 						</ab-easy-image>
 						<view class="content">
@@ -72,7 +72,7 @@
 			<view class="">				
 				<view class="cu-list menu-avatar">
 					<view wx:for="{{myGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}"  bindtap="jumpDetail">
-						<ab-easy-image placeholder="../../images/logo.png" class="cu-avatar radius lg" src="{{item.avatar}}">
+						<ab-easy-image placeholder="https://img-blog.csdnimg.cn/8e7018841dc04c62b3e6bc2c8882a45b.png" class="cu-avatar radius lg" src="{{item.avatar}}">
 							
 						</ab-easy-image>
 						<view class="content">
@@ -106,7 +106,7 @@
 			<view class="">
 				<view class="cu-list menu-avatar">
 					<view  wx:for="{{collectionGroupList}}" wx:key="index"  class="cu-item solid-top {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-						<ab-easy-image placeholder="../../images/logo.png" class="cu-avatar radius lg" src="{{item.avatar}}">
+						<ab-easy-image placeholder="https://img-blog.csdnimg.cn/8e7018841dc04c62b3e6bc2c8882a45b.png" class="cu-avatar radius lg" src="{{item.avatar}}">
 							
 						</ab-easy-image>
 						<view class="content">

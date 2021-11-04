@@ -1,4 +1,3 @@
-
 var flag = false;
 var _baseUrl = '';
 if (flag) {
@@ -22,7 +21,7 @@ function showFullScreenLoading() {
     if (needLoadingRequestCount === 0) {
 		wx.showLoading({
 			title: '数据加载...',
-			// mask:true
+			mask:true
 		})
     }
     needLoadingRequestCount++
@@ -51,7 +50,31 @@ export const request = (opt) => {
 			dataType: dataType,
 			success: function (res) {
 				if (res && res.statusCode == 200 && res.data) {
-					if (res.data.code == 403) {
+					if(res.data.code == 401) {
+						wx.qy.login({
+							success: function(res) {
+							  console.log('登录请求发送成功：',res)
+							  if (res.code) {
+								//发起网络请求
+								wx.request({
+								  url: `https://admin.ticknet.hnust.cn/MpLoginByCode/${res.code}`,
+								  success:(res) => {
+									console.log('后端换取token请求发送成功：',res)
+									wx.setStorageSync('token', res.data.data.token)
+									resolve()
+								  },
+								  fail:(err) => {
+									console.log('后端换取token请求发送失败：',err)
+									
+								  }
+								})
+							  } else {
+								console.log('登录失败！' + res.errMsg)
+								reject()
+							  }
+							},
+						  })	
+					}else if (res.data.code == 403) {
 						
 						wx.showToast({
 							title: '无权限操作',
@@ -67,7 +90,13 @@ export const request = (opt) => {
 							mask: true,
 							duration:1000
 						})
-					} else {
+					} else if(res.data.code == 500 && res.data.data == null) {
+						console.log(res,res.data)
+						wx.showModal({
+							content: '未知错误，请反馈给管理员',
+							showCancel: false
+						})
+					}else {
 						resolve(res.data)
 					}
  
@@ -77,13 +106,6 @@ export const request = (opt) => {
 			},
 			fail: function (err) {
 				console.log(err,123)
-				// wx.hideLoading()
-				// wx.showToast({
-				// 	title: '请求超时',
-				// 	icon: 'none',
-				// 	mask: true,
-				// 	duration: 2000
-				// })
 			},
 			complete: function () {
 				tryHideFullScreenLoading()

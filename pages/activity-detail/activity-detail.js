@@ -118,7 +118,6 @@ Page({
 		isCollection:false,
 		CustomBar: app.globalData.CustomBar,
 		show:false,
-		loadModal:true,
 		name: 'sfaf',
 		aid: null,
 		memberList:[],
@@ -224,16 +223,10 @@ Page({
 		})
 	},
 	canSendF() {
-		wx.showToast({
-			title: '该活动暂不允许发布花絮',
-			icon: 'none'
-		})
+		Toast('该活动暂不允许发布花絮')
 	},
 	canSendP() {
-		wx.showToast({
-			title: '该活动暂不允许发布评论',
-			icon: 'none'
-		})
+		Toast('该活动暂不允许发布评论')
 	},
 	//进入发布评论页面
 	jumpComment() {
@@ -252,7 +245,7 @@ Page({
 			url: `/secondClass/activity/collection/${this.data.aid}`,
 			method: 'get'
 		}).then(value => {
-			console.log('是否收藏了',value)
+			console.log('是否收藏了该活动',value)
 			this.setData({
 				isCollection: value.data
 			})
@@ -272,10 +265,7 @@ Page({
 		}).then(value => {
 			console.log('收藏了',value)
 			this.getCollection()
-			wx.showToast({
-				title: '操作成功',
-				duration:1000
-			})
+			Toast('操作成功')
 		})
 	},
 	//改变活动状态
@@ -284,19 +274,11 @@ Page({
 			url: `/secondClass/activity/${this.data.aid}/${e.currentTarget.dataset.status}`,
 			method: 'PUT',
 		}).then(value => {
-			wx.showToast({
-			  title: value.msg,
-			  icon: 'none',
-			  duration:2000
-			})
 			if(value.code == 200) {
 				this.setData({
 					'showData.status': e.currentTarget.dataset.status
 				})
-				wx.showToast({
-				  title: '修改活动状态成功',
-				  icon: 'none'
-				})
+				Toast('修改活动状态成功')
 			}
 			
 		})
@@ -335,11 +317,7 @@ Page({
 				})
 				this.getMember()
 			} else {
-				wx.showToast({
-					title: value.msg,
-					icon: 'none',
-					duration:2000
-				})
+				Toast(value.msg)
 			}
 		})
 	},
@@ -354,7 +332,6 @@ Page({
 	},
 	
 	ViewFlower(e) {
-		console.log(e)
 		wx.previewImage({
 		  urls: e.currentTarget.dataset.all,
 		  current: e.currentTarget.dataset.all[e.target.dataset.index]
@@ -369,19 +346,11 @@ Page({
 		  success: (res) => {
 			console.log(res,77,)
 			if(!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
-				wx.showToast({
-				  title: '图片只支持jpg格式',
-				  icon: 'none',
-				  duration:2000
-				})
+				Toast('图片只支持jpg格式')
 				return ;
 			}
 			if(res.tempFiles[0].size > 1024*1024*2) {
-				wx.showToast({
-				  title: '图片大小不能超过2M',
-				  icon: 'none',
-				  duration:2000
-				})
+				Toast('图片大小不能超过2M')
 				return ;
 			}
 			that.setData({
@@ -419,7 +388,7 @@ Page({
 		})
 	},
 	computedState() {
-		
+		console.log('计算按钮状态')
 		//本人参加了
 		if(this.data?.memberList[0]?.identities.includes(4)) {
 			//报名了
@@ -529,16 +498,12 @@ Page({
 				activityId: this.data.aid
 			}
 		}).then(value => {
-			console.log(value)
+			console.log('报名消息：',value)
 			if(value.code == 200) {
 				Toast('报名成功');
 				this.getMember()
 			} else {
-				wx.showToast({
-					title: value.msg,
-					icon: 'none',
-					duration:2000
-				})
+				Toast('报名失败:'+value.msg)
 			}
 			
 		})
@@ -576,21 +541,14 @@ Page({
 						}
 					}).then(value => {
 						console.log(value)
-						wx.hideLoading()
 						if(value.code == 200) {
 							Toast('签到成功');
 							this.enroll.disabled = true //防止用户狂点触发第二次
 							this.getMember()
 						} else {
-							wx.showToast({
-								title: value.msg,
-								icon: 'none',
-								mask:true,
-								duration:2000
-							})
+							Toast(value.msg)
 						}
 					}).catch(() => {
-						wx.hideLoading()
 					})
 				}
 			})
@@ -612,7 +570,7 @@ Page({
 				pageSize
 			}
 		}).then(value => {
-			console.log(value,'getmember')
+			console.log('获得参与人',value)
 			this.setData({
 				memberList:value.rows
 			})
@@ -632,6 +590,7 @@ Page({
 				pageSize
 			}
 		}).then(value => {
+			console.log('获得花絮',value)
 			this.setData({
 				flowerList: value.rows
 			})
@@ -647,7 +606,7 @@ Page({
 				pageSize
 			}
 		}).then(value => {
-			console.log(value,'评论')
+			console.log('获得评论',value)
 			this.setData({
 				remarkList: value.rows
 			})
@@ -661,7 +620,7 @@ Page({
 				activityId:this.data.aid
 			}
 		}).then(value => {
-			console.log(value,'showdaata')
+			console.log('展示的数据',value)
 			this.setData({
 				showData: value.data
 			})
@@ -679,7 +638,7 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		console.log('aid',options.aid)
+		console.log('活动ID',options.aid)
 		this.setData({
 			aid:options.aid
 		})
@@ -690,9 +649,7 @@ Page({
 			this.getFlower(),
 			this.getEvaluation()
 		]).then(value => {
-			this.setData({
-				loadModal: false,
-			});
+			
 		})
 		this.setData({
 			dict_admissionWay:wx.getStorageSync('dict_admissionWay'),
@@ -707,15 +664,20 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		// this.selectComponent('#tabs').resize();
 	},
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+		if(app.globalData.toast) {
+			Toast({
+				message:'活动修改成功',
+				zIndex: 2000
+			});
+			app.globalData.toast = ''
+		}
 		if(this.isNeedToRefresh) {
-			
 			Promise.all([
 				this.getDetail(),
 				this.getCollection(),
@@ -726,11 +688,11 @@ Page({
 				this.setData({
 					loadModal: false,
 				});
-				// wx.showToast({
-				// 	title: '修改成功',
-				// })
 			})
 			this.setData({
+				evaluateNum: 2,
+				flowerNum: 2,
+				memberNum: 2,
 				dict_admissionWay:wx.getStorageSync('dict_admissionWay'),
 				dict_rank:wx.getStorageSync('dict_rank'),
 				dict_evaluate_scheme:wx.getStorageSync('dict_evaluate_scheme'),
@@ -760,7 +722,6 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-		console.log('onPullDownRefresh')
 		this.computedState()
 		let arr = []
 		if(this.data.TabCur == 0) {
@@ -783,9 +744,7 @@ Page({
 			]
 		}
 		Promise.all(arr).then(() => {
-			wx.stopPullDownRefresh({
-				success: (res) => {},
-			})
+			wx.stopPullDownRefresh()
 			app.showSuccess()
 		})
 		
@@ -808,11 +767,14 @@ Page({
 				}
 			}).then(value => {
 				this.data.memberList.push(...value.rows)
-				this.data.memberNum++
+				if(value.rows.length) {
+					this.data.memberNum++
+				}
 				this.setData({
 					memberList: this.data.memberList,
 					memberNum: this.data.memberNum,
 				})
+				console.log(`第${this.data.memberNum}页的数据：`,value)
 			})
 		} else if(this.data.TabCur == 2) {
 			request({
@@ -824,11 +786,14 @@ Page({
 				}
 			}).then(value => {
 				this.data.flowerList.push(...value.rows)
-				this.data.flowerNum++
+				if(value.rows.length) {
+					this.data.flowerNum++
+				}
 				this.setData({
 					flowerList: this.data.flowerList,
 					flowerNum: this.data.flowerNum
 				})
+				console.log(`第${this.data.flowerNum}页的数据：`,value)
 			})
 		} else if(this.data.TabCur == 3) {
 			request({
@@ -841,11 +806,14 @@ Page({
 				}
 			}).then(value => {
 				this.data.remarkList.push(...value.rows)
-				this.data.evaluateNum++
+				if(value.rows.length) {
+					this.data.evaluateNum++
+				}
 				this.setData({
 					remarkList: this.data.remarkList,
 					evaluateNum: this.data.evaluateNum
 				})
+				console.log(`第${this.data.evaluateNum}页的数据：`,value)
 			})
 		}
 		this.setData({

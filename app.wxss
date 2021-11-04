@@ -128,6 +128,15 @@
 	background-repeat: no-repeat;
 	animation: load 2s infinite;
 }
+.bg-bbt {
+	background-color: #40a9ff;
+}
+.bg-bbt-g {
+	background: linear-gradient(45deg,#69c0ff,#40a9ff);
+}
+.line-bbt {
+	color: #40a9ff
+}
 
 @keyframes load {
 	0% {

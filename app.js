@@ -9,7 +9,8 @@ App({
 			success: e => {
         console.log('系统硬件数据:',e)
 			  this.globalData.StatusBar = e.statusBarHeight;
-			  let capsule = wx.getMenuButtonBoundingClientRect();
+        let capsule = wx.getMenuButtonBoundingClientRect();
+        console.log(capsule)
 			  if (capsule) {
 				   this.globalData.Custom = capsule;
 				  this.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight;
@@ -33,8 +34,8 @@ App({
                 wx.setStorageSync('token', res.data.data.token)
                 resolve()
               },
-              fail:(res) => {
-                console.log('后端换取token请求发送失败：',res)
+              fail:(err) => {
+                console.log('后端换取token请求发送失败：',err)
                 
               }
             })
@@ -96,6 +97,8 @@ App({
     })
   },
   globalData: {
+    isSwitchMy: false, //是否需要切换到“我的”,
+    toast: '', //活动群组修改成功的弹窗
     ColorList: [{
         title: '嫣红',
         name: 'red',

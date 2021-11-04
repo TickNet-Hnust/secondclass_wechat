@@ -152,14 +152,23 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		// this.selectComponent('#tabs').resize();
 	},
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
+		if(app.globalData.isSwitchMy) {
+			this.setData({
+				TabCur: 1
+			})
+		}
 		if(this.data.isNeedToRefresh) {
+			this.setData({
+				recommendNum: 2,
+				myPageNum: 2,
+				collectionNum:2
+			})
 			this.getRecommend().then(value => {
 				console.log('获得推荐群组',value)
 				this.setData({
@@ -234,9 +243,12 @@ Page({
 		if(this.data.TabCur == '0') {
 			this.getRecommend(this.data.recommendNum,10).then(value => {
 				this.data.recommendGroupList.push(...value.rows)
+				if(value.rows.length) {
+					this.data.recommendNum ++
+				}
 				this.setData({
 					recommendGroupList:this.data.recommendGroupList,
-					recommendNum: this.data.recommendNum + 1,
+					recommendNum: this.data.recommendNum,
 					isLoading:false
 				})
 				console.log(`第${this.data.recommendNum}页的数据：`,value)
@@ -244,22 +256,28 @@ Page({
 		}else if(this.data.TabCur == '1') {
 			this.getMyGroup(this.data.myPageNum,10).then(value => {
 				this.data.myGroupList.push(...value.rows)
+				if(value.rows.length) {
+					this.data.myPageNum ++
+				}
 				this.setData({
 					myGroupList:this.data.myGroupList,
-					myPageNum: this.data.myPageNum + 1,
+					myPageNum: this.data.myPageNum,
 					isLoading:false
 				})
-				console.log(`第${this.data.recommendNum}页的数据：`,value)
+				console.log(`第${this.data.myPageNum}页的数据：`,value)
 			})
 		} else {
 			this.getCollection(this.data.collectionNum,10).then(value => {
 				this.data.collectionGroupList.push(...value.rows)
+				if(value.rows.length) {
+					this.data.collectionNum ++
+				}
 				this.setData({
 					collectionGroupList:this.data.collectionGroupList,
-					collectionNum: this.data.collectionNum + 1,
+					collectionNum: this.data.collectionNum,
 					isLoading:false
 				})
-				console.log(`第${this.data.recommendNum}页的数据：`,value)
+				console.log(`第${this.data.collectionNum}页的数据：`,value)
 			})
 		}
 		// setTimeout(() => {

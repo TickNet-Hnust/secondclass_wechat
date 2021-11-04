@@ -2,6 +2,7 @@
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">活动发布</view>
 </cu-custom>
+<van-toast id="van-toast" />
 <view class="template">
 	<view>
 		<scroll-view scroll-x class="bg-white nav text-center" style="height:90rpx">
@@ -32,6 +33,7 @@
 
 				<l-select
 					title="积分分类"
+					wx:if="{{trainingProgramId}}"
 					range="{{courseClassificationList}}"
 					rangeKey="name"
 					valueKey="id"

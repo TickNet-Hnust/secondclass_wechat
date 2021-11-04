@@ -1,6 +1,7 @@
 // pages/activity-declare/activity-declare.js
 import {request} from '../../js/http'
 import getImgUrl from '../../utils/upload.js'
+import Toast from '@vant/weapp/toast/toast';
 const app = getApp()
 Page({
 
@@ -216,11 +217,7 @@ Page({
 			console.log(postDataR,'签到要发送请求的数据postDataR');
 			if(postDataR.length==0||(postDataR[0].applyIntegral==''||postDataR[0].reason==''))
 			{
-				wx.showToast({
-					title: '请填写完全',
-					icon: 'error',
-					duration: 1000
-				})
+				Toast('请填写完全')
 				
 			}else{
 				request({
@@ -229,11 +226,7 @@ Page({
 				data:postDataR
 			}).then(value=>{
 				console.log(value,'签到提交申报积分接口返回值');
-				wx.showToast({
-					title: '提交成功',
-					icon: 'success',
-					duration: 1000
-				})
+				Toast('提交成功')
 				this.reset();
 			})
 			}
@@ -254,11 +247,7 @@ Page({
 			//method要搞清，要发POST而不是GET
 			if(postDataD.length==0||(postDataD[0].applyIntegral==''||postDataD[0].reason==''||postDataD[0].material==''))
 			{
-				wx.showToast({
-					title: '请填写完全',
-					icon: 'error',
-					duration: 1000
-				})
+				Toast('请填写完全')
 				
 			}else{
 				request({
@@ -267,11 +256,7 @@ Page({
 				data:postDataD
 			}).then(value=>{
 				console.log(value,'申报提交申报积分接口返回值');
-				wx.showToast({
-					title: '提交成功',
-					icon: 'success',
-					duration: 1000
-				})
+				Toast('提交成功')
 				this.reset();
 				this.setData({
 					imgList:[],
@@ -296,19 +281,11 @@ Page({
 		  success: (res) => {
 				
 				if(!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
-					wx.showToast({
-					  title: '图片只支持jpg',
-					  icon: 'none',
-					  duration:2000
-					})
+					Toast('图片只支持jpg')
 					return ;
 				}
 				if(res.tempFiles[0].size > 1024 * 1024 * 2) {
-					wx.showToast({
-					  title: '图片大小不能超过2M',
-					  icon: 'none',
-					  duration:2000
-					})
+					Toast('图片大小不能超过2M')
 					return ;
 				}
 				that.setData({
@@ -449,7 +426,7 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		this.selectComponent('#tabs').resize();
+		
 	},
 
 	/**

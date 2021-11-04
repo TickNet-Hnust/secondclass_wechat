@@ -76,8 +76,8 @@
                         nameStr = nameArray.join('/')
                         socreStr = scoreArray.join('/');
 
-                        if(item.type==2)
-                          return [item.name];    
+                        if(item.type==2||item.type==1)
+                          return [item.name];   
                         else
                           return [item.name+'('+nameStr+')',socreStr]
                     }
@@ -86,10 +86,15 @@
                 <text>{{it.getName(item)[0]}}</text>
                 </view>
 
-                <view style="text-align:right;width:100%;" wx:if="{{item.type!=2}}">
+                <view style="text-align:right;width:100%;" wx:if="{{item.type==0}}">
                   <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{it.getName(item)[1]}}</text>
                   <text>分</text>
-                </view>  
+                </view>
+
+                <view style="text-align:right;width:100%;" wx:if="{{item.type==1}}">
+                  <text style="font-weight:bold;font-size: 30rpx;margin-right: 12rpx;">{{item.integrationRange}}</text>
+                  <text>分</text>
+                </view>   
 
                 <view style="text-align:right;width:100%;" wx:if="{{item.type==2}}">
                   <text style="font-weight:bold;">备注项</text>
@@ -160,7 +165,7 @@
 
         </van-row>	 
         <van-row style="width:100%;text-align: center;" wx:if="{{flag == 1}}">
-          <van-button type="primary" bindtap="jumpDeclare">现在申报</van-button>
+          <van-button custom-class="bg-bbt-g" type="primary" bindtap="jumpDeclare">现在申报</van-button>
         </van-row>
     </view>
   </view>

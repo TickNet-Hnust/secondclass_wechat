@@ -3,6 +3,7 @@ import {request} from '../../js/http.js'
 import getImgUrl from '../../utils/upload.js'
 import {filterGroupClassificationList} from '../../utils/filterGroupClassificationList.js'
 import {nullToast} from '../../utils/nullToast'
+import Toast from '@vant/weapp/toast/toast';
 const app = getApp()
 Page({
 
@@ -10,7 +11,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		title: '创建群组',
+		title: '创建用户组',
 		imgList:[],
 		searchShow:false,
 		multiArray:[],
@@ -65,12 +66,8 @@ Page({
 			this.setData({
 				'farSearch' :value.data
 			})
-			wx.hideLoading()
 			if(value.data.length == 0) {
-				wx.showToast({
-				  title: '没有找到匹配的人',
-				  icon:'none'
-				})
+				Toast('没有找到匹配的人')
 			}
 		})
 		console.log(this.data.searchValue)
@@ -107,7 +104,6 @@ Page({
 		})
 	},
 	change(e) {
-		console.log(e)
 		this.setData({
 			'postData.joinRule' :e.detail.value,
 			"index": e.detail.value,
@@ -133,7 +129,6 @@ Page({
 		})
 	},
 	MultiColumnChange(e) {
-		console.log(e)
 		//复制数组
 		let temp = [...this.data.multiArray]
 		let index = [...this.data.multiIndex]
@@ -248,7 +243,6 @@ Page({
 	},
 	//介绍改变
 	introduceChange(e) {
-		console.log(e)
 		this.setData({
 			'postData.introduce':e.detail.value.trim()
 		})
@@ -259,25 +253,18 @@ Page({
         this.data.postData.ancestors = 0 + ',' + this.data.postData.parentId
         this.data.postData.status = 2 //待审核
 		console.log(this.data.postData)
-		if(this.data.title == '修改群组信息') {
+		if(this.data.title == '修改用户组信息') {
 			request({
 				url: '/group',
 				method: 'PUT',
 				data:this.data.postData
 			}).then(value => {
 				console.log(value)
+				app.globalData.toast = '群组修改成功'
 				if(value.code == 200) {
-					wx.showToast({
-						title: '成功',
-						icon: 'success',
-						duration: 2000,
-						success:() =>{
-							wx.navigateBack({
-							  delta: 1,
-							})
-						}
+					wx.navigateBack({
+						delta: 1,
 					})
-					
 				}
 			})
 			return 
@@ -291,25 +278,14 @@ Page({
 			}).then(value => {
 				console.log(value)
 				if(value.code == 200) {
-					wx.showToast({
-						title: '成功',
-						icon: 'success',
-						duration: 2000,
-						success:() =>{
-							wx.navigateBack({
-							  delta: 1,
-							})
-						}
+					Toast('成功')
+					wx.navigateBack({
+						delta: 1,
 					})
-					
 				}
 			})
 		} else {
-			wx.showToast({
-				title: msg,
-				icon: 'none',
-			  duration: 2000
-		  })
+			Toast(msg)
 		}
 		
 	},
@@ -320,7 +296,7 @@ Page({
 		this.mapCtx = wx.createMapContext('myMap')
 		if(options.gid) {
 			this.setData({
-				title: '修改群组信息'
+				title: '修改用户组信息'
 			})
 			request({
 				url:`/group/${options.gid}/detail`,

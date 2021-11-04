@@ -2,6 +2,7 @@
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">{{title}}</view>
 </cu-custom>
+<van-toast id="van-toast" />
 <view class="custom">
 	<form>
 		<view class="cu-form-group">
@@ -406,7 +407,7 @@
 	<view  class="stickyButton">
 		<!-- <cover-view > -->
 		<!-- <button class="cu-btn bg-red margin-tb-sm lg">嫣红</button> -->
-		<delay-button className="cu-btn bg-green lg" bind:click="postActivity">提交活动</delay-button>
+		<delay-button className="cu-btn bg-green lg bbt" bind:click="postActivity">提交活动</delay-button>
 	<!-- </cover-view> -->
 	</view>
 </view>

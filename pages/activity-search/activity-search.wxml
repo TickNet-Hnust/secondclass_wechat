@@ -2,10 +2,20 @@
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">活动查看</view>
 </cu-custom>
+<van-toast id="van-toast" />
 <wxs module="statusMap">
 	var arr = ['起草','待审核','审核通过','审核不通过','已取消','报名中','等待中','进行中','已结束']
 	module.exports = function(index) {
 		return arr[index]
+	}
+</wxs>
+<wxs module="filterEndSign">
+	module.exports = function(str) {
+		if(str[str.length -1] == '、') {
+			return str.slice(0,str.length - 1)
+		} else {
+			return str
+		}
 	}
 </wxs>
 <view class="backTop" bindtap="goTop">
@@ -58,6 +68,7 @@
 						custom-class="tag"
 						data-index="{{index}}"
 						data-item="{{item}}"
+						color="#40a9ff"
 						bindtap="tagSearch"
 						class="{{toggleDelayOne?'animation-slide-right':''}}"
 						style="animation-delay: {{(index+1)*0.1}}s;"
@@ -79,7 +90,7 @@
 							</view>
 						</view>
 						<view class="tabSideText">
-							<text>{{item.activityTag}}</text>
+							<text>{{filterEndSign(item.activityTag)}}</text>
 						</view>
 						<view class="state">{{statusMap(item.status)}}</view>
 					</view>
@@ -103,7 +114,7 @@
 							</view>
 						</view>
 						<view class="tabSideText">
-							<text>{{item.activityTag}}</text>
+							<text>{{filterEndSign(item.activityTag)}}</text>
 						</view>
 						<view class="state">{{statusMap(item.status)}}</view>
 				</view>
@@ -125,7 +136,7 @@
 						</view>
 					</view>
 					<view class="tabSideText">
-						<text>{{item.activityTag}}</text>
+						<text>{{filterEndSign(item.activityTag)}}</text>
 					</view>
 					<view class="state">{{statusMap(item.status)}}</view>
 				</view>

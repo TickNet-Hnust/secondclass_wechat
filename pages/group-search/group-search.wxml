@@ -3,6 +3,7 @@
 	<view slot="backText">返回</view>
 	<view slot="content">群组查看</view>
 </cu-custom>
+<van-toast id="van-toast" />
 <view class="backTop" bindtap="goTop">
 	<text class="cuIcon-top"></text>
 </view>
@@ -51,6 +52,7 @@
 						custom-class="tag"
 						data-index="{{index}}"
 						data-item="{{item}}"
+						color="#40a9ff"
 						catchtap="tagSearch"
 						class="{{toggleDelayOne?'animation-fade':''}}"
 						style="animation-delay: {{(index+1)*0.1}}s;"
@@ -64,7 +66,7 @@
 				<view class="">
 					<view class="cu-list menu-avatar">
 						<view wx:for="{{searchGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayOne?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-							<ab-easy-image placeholder="../../images/logo.png" error="../../images/group.png" class="cu-avatar radius lg" src="{{item.avatar}}">
+							<ab-easy-image placeholder="https://img-blog.csdnimg.cn/8e7018841dc04c62b3e6bc2c8882a45b.png" class="cu-avatar radius lg" src="{{item.avatar}}">
 							</ab-easy-image>
 						<view class="content">
 							<view class="text-grey">
@@ -100,7 +102,7 @@
 			<view>
 					<view class="cu-list menu-avatar">
 						<view wx:for="{{allGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayTwo?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-							<ab-easy-image placeholder="../../images/logo.png" error="../../images/group.png" class="cu-avatar radius lg" src="{{item.avatar}}">
+							<ab-easy-image placeholder="https://img-blog.csdnimg.cn/8e7018841dc04c62b3e6bc2c8882a45b.png" error="../../images/group.png" class="cu-avatar radius lg" src="{{item.avatar}}">
 							</ab-easy-image>
 						<view class="content">
 							<view class="text-grey">
@@ -134,7 +136,7 @@
 				<view >
 					<view class="cu-list menu-avatar">
 						<view wx:for="{{hotGroupList}}" wx:key="index" class="cu-item solid-top {{toggleDelayThree?'animation-fade':''}}" style="animation-delay: {{(index+1)*0.1}}s;" data-id="{{item.deptId}}" bindtap="jumpDetail">
-							<ab-easy-image placeholder="../../images/logo.png" error="../../images/group.png" class="cu-avatar radius lg" src="{{item.avatar}}">
+							<ab-easy-image placeholder="https://img-blog.csdnimg.cn/8e7018841dc04c62b3e6bc2c8882a45b.png" class="cu-avatar radius lg" src="{{item.avatar}}">
 							</ab-easy-image>
 						<view class="content">
 							<view class="text-grey">

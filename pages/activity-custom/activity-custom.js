@@ -4,6 +4,7 @@ import getImgUrl from '../../utils/upload.js'
 import {nullToast} from '../../utils/nullToast.js'
 import {filterTwoLayer} from '../../utils/filterTwoLayer.js'
 import {filter} from '../../utils/filter'
+import Toast from '@vant/weapp/toast/toast';
 const app = getApp()
 Page({
 
@@ -187,19 +188,11 @@ Page({
 				console.log(res,77,res.tempFiles[0].size)
 				
 				if(!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
-					wx.showToast({
-					  title: '图片只支持jpg',
-					  icon: 'none',
-					  duration:2000
-					})
+					Toast('图片只支持jpg')
 					return ;
 				}
 				if(res.tempFiles[0].size > 1024 * 1024 * 2) {
-					wx.showToast({
-					  title: '图片大小不能超过2M',
-					  icon: 'none',
-					  duration:2000
-					})
+					Toast('图片大小不能超过2M')
 					return ;
 				}
 				that.setData({
@@ -256,12 +249,8 @@ Page({
 			this.setData({
 				'farSearch' :value.data
 			})
-			wx.hideLoading()
 			if(value.data.length == 0) {
-				wx.showToast({
-				  title: '没有找到匹配的人',
-				  icon:'none'
-				})
+				Toast('没有找到匹配的人')
 			}
 		})
 		console.log(this.data.searchValue)
@@ -351,7 +340,6 @@ Page({
 		})
 	},
 	VALUECHANGED(e) {
-		console.log(e)
 		this.setData({
 			[e.currentTarget.dataset.value]:e.detail.value.trim()
 		})
@@ -379,7 +367,6 @@ Page({
 	},
 	//点击了课程
 	pickCourse(e) {
-		console.log(e)
 		this.setData({
 			'fakeData.courseName':e.target.dataset.name
 		})
@@ -562,7 +549,6 @@ Page({
 	},
 	//部门改变
 	deptChange(e) {  //over
-		console.log(e)
 		this.setData({
 			'postData.deptId' : e.detail
 		})
@@ -623,6 +609,7 @@ Page({
 					data:this.data.postData
 				}).then(value => {
 					console.log(value,333)
+					app.globalData.toast = '活动修改成功'
 					wx.navigateBack()
 				})
 			} else {
@@ -632,36 +619,18 @@ Page({
 					data:this.data.postData
 				}).then(value => {
 					console.log(value)
-					if(value.code == 500) {
-						wx.showToast({
-							title: value.msg,
-							icon: 'none',
-							duration: 2000
+					if(value.code == 200) {
+						Toast('发布活动成功')	
+						wx.navigateBack({
+							delta: 2,
 						})
-					} else if(value.code == 200) {
-						wx.showToast({
-							title: '成功',
-							icon: 'success',
-							duration: 2000,
-							success:() =>{
-								wx.navigateBack({
-								  delta: 2,
-								})
-							}
-						})
-						
 					}
 				})
 			}
 			
 		} else {
-			wx.showToast({
-			  	title: msg,
-			  	icon: 'none',
-				duration: 2000
-			})
+			Toast(msg)
 		}
-		
 		
 	},
 	/**

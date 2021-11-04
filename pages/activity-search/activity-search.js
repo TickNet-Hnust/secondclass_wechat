@@ -1,5 +1,6 @@
 // pages/activity-search/activity-search.js
 import {request} from '../../js/http.js'
+import Toast from '@vant/weapp/toast/toast';
 const app = getApp()
 Page({
 
@@ -63,7 +64,6 @@ Page({
 		}, 1500)
 	},
 	jumpDetail(e) {
-		console.log(e)
 		wx.navigateTo({
 		  url: `../activity-detail/activity-detail?aid=${e.currentTarget.dataset.id}`,
 		})
@@ -108,18 +108,10 @@ Page({
 					tags:[]
 				})
 				wx.setStorageSync('Atags', [])
-				wx.showToast({
-					title: '清除成功',
-					icon: 'success',
-					duration: 1000
-				})
+				Toast('清除成功')
 			  } else if (res.cancel) {
 				console.log('用户点击取消')
-				wx.showToast({
-					title: '用户取消',
-					icon: 'none',
-					duration: 1000
-				  })
+				Toast('用户取消')
 				  
 			  }
 			}
@@ -159,10 +151,7 @@ Page({
 			})
 			this.toggleDelay()
 		} else {
-			wx.showToast({
-			  title: '请输入内容再搜索',
-			  icon: 'none'
-			})
+			Toast('请输入内容再搜索')
 		}
 	
 	},
@@ -230,12 +219,13 @@ Page({
 	 */
 	onLoad: function (options) {
 		this.getHot().then(value => {
-			console.log(value)
+			console.log('获得热门群组',value)
 			this.setData({
 				hotActivityList:value.rows
 			})
 		})
 		this.getAll().then(value => {
+			console.log('获得所有群组',value)
 			this.setData({
 				allActivityList:value.rows
 			})
@@ -251,14 +241,13 @@ Page({
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
 	onReady: function () {
-		// this.selectComponent('#tabs').resize();
 	},
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
 	onShow: function () {
-		console.log(getCurrentPages())
+		
 	},
 
 	/**
@@ -281,12 +270,12 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-		console.log('onPullDownRefresh')
 		Promise.all([
 			this.getAll(),
 			this.getHot()
 		]).then(value => {
-			console.log(value)
+			console.log('获得所有群组',value[0])
+			console.log('获得热门群组',value[1])
 			this.setData({
 				allActivityList:value[0].rows,
 				hotActivityList:value[1].rows,
@@ -311,33 +300,42 @@ Page({
 		})
 		if(this.data.TabCur == '0') {
 			this.getSearch(this.data.searchNum,10,this.data.value).then(value => {
-				console.log(value)
 				this.data.searchActivityList.push(...value.rows)
+				if(value.rows.length) {
+					this.data.searchNum ++
+				}
 				this.setData({
 					searchActivityList:this.data.searchActivityList,
-					searchNum: this.data.searchNum + 1,
+					searchNum: this.data.searchNum,
 					isLoading:false
 				})
+				console.log(`第${this.data.searchNum}页的数据：`,value)
 			})
 		}else if(this.data.TabCur == '1') {
 			this.getAll(this.data.allNum,10).then(value => {
-				console.log(value)
+				if(value.rows.length) {
+					this.data.allNum ++
+				}
 				this.data.allActivityList.push(...value.rows)
 				this.setData({
 					allActivityList:this.data.allActivityList,
-					allNum: this.data.allNum + 1,
+					allNum: this.data.allNum,
 					isLoading:false
 				})
+				console.log(`第${this.data.allNum}页的数据：`,value)
 			})
 		} else {
 			this.getHot(this.data.hotNum,10).then(value => {
-				console.log(value)
+				if(value.rows.length) {
+					this.data.hotNum ++
+				}
 				this.data.hotActivityList.push(...value.rows)
 				this.setData({
 					hotActivityList:this.data.hotActivityList,
-					hotNum: this.data.hotNum + 1,
+					hotNum: this.data.hotNum,
 					isLoading:false
 				})
+				console.log(`第${this.data.hotNum}页的数据：`,value)
 			})
 		}
 	},

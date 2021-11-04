@@ -1,5 +1,5 @@
 <van-toast id="van-toast">
-  <image style="width: 100rpx;height: 100rpx;" class="load" src="../../images/logo2.png"></image>
+  <!-- <image style="width: 100rpx;height: 100rpx;" class="load" src="../../images/logo2.png"></image> -->
 </van-toast>
 <scroll-view scroll-y class="scrollPage">
   <view class="UCenter-bg">
@@ -24,20 +24,20 @@
     </view>
   </view>
   <view class="padding flex text-center bg-white text-grey" style="z-index: 20;position: relative;">
-    <view class="flex flex-sub flex-direction solid-right">
-      <view class="text-xxl text-orange">0</view>
+    <view class="flex flex-sub flex-direction solid-right" bindtap="jumpActivity">
+      <view class="text-xxl text-orange">{{activityCount}}</view>
       <view class="margin-top-sm">
-        待办</view>
+        活动</view>
     </view>
-    <view class="flex flex-sub flex-direction solid-right">
-      <view class="text-xxl text-blue">0</view>
+    <view class="flex flex-sub flex-direction solid-right" bindtap="jumpGroup">
+      <view class="text-xxl text-blue">{{groupCount}}</view>
       <view class="margin-top-sm">
         群组</view>
     </view>
     <view class="flex flex-sub flex-direction">
-      <view class="text-xxl text-green">0</view>
+      <view class="text-xxl text-green">{{integral}}</view>
       <view class="margin-top-sm">
-        活动</view>
+        积分</view>
     </view>
   </view>
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
@@ -65,12 +65,12 @@
         <text class="text-grey">意见反馈</text>
       </button>
     </view>
-    <view class="cu-item arrow" bindtap="login" wx:if="{{isLogin}}">
+    <!-- <view class="cu-item arrow" bindtap="login" wx:if="{{isLogin}}">
       <navigator class="content" hover-class="none">
         <text class="cuIcon-pullright text-orange"></text>
         <text class="text-grey">同步微信头像</text>
       </navigator>
-    </view>
+    </view> -->
   </view>
   <!-- <view class="cu-tabbar-height"></view> -->
 </scroll-view>

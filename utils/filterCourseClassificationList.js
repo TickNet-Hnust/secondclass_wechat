@@ -71,7 +71,8 @@ export function filterCourseClassificationList2(data,current,id)
         if(count==1&&array.length==0)
         {
             console.log('没有子节点')
-            return data
+            maxLayer = 1;
+            return '';
         }
         else{
            array.forEach(item => {

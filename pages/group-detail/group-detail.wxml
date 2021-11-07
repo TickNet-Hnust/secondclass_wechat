@@ -1,6 +1,6 @@
 <!--pages/activity-detail/activity-detail.wxml-->
 <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
-	<view slot="content">用户组详情</view>
+	<view slot="content">群组详情</view>
 </cu-custom>
 <van-toast id="van-toast" />
 <wxs module="m3">

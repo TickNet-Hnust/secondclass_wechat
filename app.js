@@ -1,6 +1,6 @@
 // app.js
 let {requestAll,request} = require('js/http.js')
-
+let login = require('./js/login.js')
 App({
   async onLaunch() {
     // 登录
@@ -21,30 +21,8 @@ App({
     })
   },
   getToken() {
-    return new Promise((resolve) => {
-      wx.qy.login({
-        success: function(res) {
-          console.log('登录请求发送成功：',res)
-          if (res.code) {
-            //发起网络请求
-            wx.request({
-              url: `https://admin.ticknet.hnust.cn/MpLoginByCode/${res.code}`,
-              success:(res) => {
-                console.log('后端换取token请求发送成功：',res)
-                wx.setStorageSync('token', res.data.data.token)
-                resolve()
-              },
-              fail:(err) => {
-                console.log('后端换取token请求发送失败：',err)
-                
-              }
-            })
-          } else {
-            console.log('登录失败！' + res.errMsg)
-            reject()
-          }
-        },
-      })
+    return new Promise((resolve,reject) => {
+      login(resolve,reject)
     })
   },
   getDict() {
@@ -99,6 +77,7 @@ App({
   globalData: {
     isSwitchMy: false, //是否需要切换到“我的”,
     toast: '', //活动群组修改成功的弹窗
+    env: 'wx',
     ColorList: [{
         title: '嫣红',
         name: 'red',

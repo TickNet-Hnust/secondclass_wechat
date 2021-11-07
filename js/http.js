@@ -1,12 +1,14 @@
-var flag = false;
-var _baseUrl = '';
+const reLogin = require('./login.js')
+
+let flag = true;
+let _baseUrl = '';
 if (flag) {
 	_baseUrl = 'http://127.0.0.1:8080';
 } else {
 	_baseUrl = 'https://admin.ticknet.hnust.cn';
 }
-var baseUrl = _baseUrl;
-var commonParams = {
+export const baseUrl = _baseUrl;
+let commonParams = {
 	url: '',
 	data: {},
 	method: 'POST',
@@ -51,29 +53,7 @@ export const request = (opt) => {
 			success: function (res) {
 				if (res && res.statusCode == 200 && res.data) {
 					if(res.data.code == 401) {
-						wx.qy.login({
-							success: function(res) {
-							  console.log('登录请求发送成功：',res)
-							  if (res.code) {
-								//发起网络请求
-								wx.request({
-								  url: `https://admin.ticknet.hnust.cn/MpLoginByCode/${res.code}`,
-								  success:(res) => {
-									console.log('后端换取token请求发送成功：',res)
-									wx.setStorageSync('token', res.data.data.token)
-									resolve()
-								  },
-								  fail:(err) => {
-									console.log('后端换取token请求发送失败：',err)
-									
-								  }
-								})
-							  } else {
-								console.log('登录失败！' + res.errMsg)
-								reject()
-							  }
-							},
-						  })	
+						reLogin(resolve,reject)	
 					}else if (res.data.code == 403) {
 						
 						wx.showToast({
@@ -113,7 +93,7 @@ export const request = (opt) => {
 		})
 	})
 }
-//并发
+//并发,meishayong
 export const requestAll = (requests) => {
 	let promiseList = [];
 	for (let i = 0; i < requests.length; i++) {

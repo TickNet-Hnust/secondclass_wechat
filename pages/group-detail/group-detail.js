@@ -240,7 +240,11 @@ Page({
 			method: 'POST'
 		}).then(value => {
 			console.log('申请加入群组',value)
-			Toast('申请成功')
+			if(value.data == 200) {
+				Toast('申请成功')
+			} else if(value.msg == "该群组不允许加入") {
+				Toast('该群组不允许加入')
+			}
 			this.getMember()
 			this.getDetail()
 		})

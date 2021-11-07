@@ -12,7 +12,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		trainingProgramId: null,
+		
 		trainingProgramList:[], //培养方案列表
 		courseClassificationList:[], //积分分类列表
 		courseClassificationListTwoId: null, //二级积分分类列表
@@ -78,7 +78,7 @@ Page({
 			name:'', //活动名称
 			groupId: '', //主办方
 			activityReleaserId: '', //活动发布人
-			deptId: null, //指导单位
+			deptId: '', //指导单位
 			guideTeacherId: '', //指导老师ID
 
 			enrollStartTime: '', //报名开始时间
@@ -89,10 +89,12 @@ Page({
 			maxAdmissionNumber: '', //最大录取人数
 			enrollNotice: '', //报名须知
 
-			rankId: 0, //活动级别
+			rankId: '', //活动级别
+			trainingProgramId: '',
 			activityTag: '', //活动标签
 			courseId:'',
 			courseClassificationId: '', //课程分类
+			courseClassificationListTwoId:'', //二级分类
 			courseClassificationPath: '', //关联的课程的课程分类Id
 			courseClassificationName: '', //关联的课程的课程分类完整名字
 			integralScheme: '', //积分方案
@@ -491,7 +493,7 @@ Page({
 	//培养方案改变
 	trainingProgramChange(e) { //over
 		this.setData({
-			'trainingProgramId' : e.detail
+			'postData.trainingProgramId' : e.detail
 		})
 	},
 	//一级分类改变
@@ -507,7 +509,7 @@ Page({
 				schoolYearId: this.data.nowYear,
 				status: 1,
 				rank: 0, //todo 假设现在都是院级
-				trainingProgramId: this.data.trainingProgramId
+				trainingProgramId: this.data.postData.trainingProgramId
 			}
 		}).then(value => {
 			this.setData({
@@ -541,7 +543,7 @@ Page({
 			return item.id == e.detail
 		}).name
 		this.setData({
-			'courseClassificationListTwoId' : e.detail,
+			'postData.courseClassificationListTwoId' : e.detail,
 			'postData.courseClassificationPath': `${this.data.postData.courseClassificationId}、${e.detail}`,
 			'postData.courseClassificationName': `${frontName}、${endName}`
 		})
@@ -734,22 +736,22 @@ Page({
 					showCourse: true
 				})
 				//课程
-				request({
-					url: '/secondClass/course/list',
-					method: 'GET',
-					data:{
-						classificationId: this.data.courseClassificationList[index_first].children[index_second].id,
-						schoolYearId: this.data.nowYear, 
-						status: 1,
-						term: 1,
-						rank: this.data.postData.rankId
-					}
-				}).then(value => {
-					console.log(value,'课程2')
-					this.setData({
-						multiCourse:value.data
-					})
-				})
+				// request({
+				// 	url: '/secondClass/course/list',
+				// 	method: 'GET',
+				// 	data:{
+				// 		classificationId: this.data.courseClassificationList[index_first].children[index_second].id,
+				// 		schoolYearId: this.data.nowYear, 
+				// 		status: 1,
+				// 		term: 1,
+				// 		rank: this.data.postData.rankId
+				// 	}
+				// }).then(value => {
+				// 	console.log(value,'课程2')
+				// 	this.setData({
+				// 		multiCourse:value.data
+				// 	})
+				// })
 			})
 		}
 	},

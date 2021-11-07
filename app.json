@@ -49,7 +49,7 @@
                 "pagePath": "pages/group/group",
                 "iconPath": "images/tabbar/group-off.png",
                 "selectedIconPath": "images/tabbar/group-on.png",
-                "text": "用户组"
+                "text": "群组"
             },
             {
                 "pagePath": "pages/my/my",

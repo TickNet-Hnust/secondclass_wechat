@@ -47,7 +47,7 @@
 					range="{{courseClassificationListTwo}}"
 					rangeKey="name"
 					valueKey="id"
-					value="{{courseClassificationListTwoId}}"
+					value="{{postData.courseClassificationListTwoId}}"
 					bind:change="courseClassificationTwoChange"
 				></l-select>
 

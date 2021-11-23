@@ -549,7 +549,7 @@ Page({
 			return item.id == e.detail
 		}).name
 		this.setData({
-			'courseClassificationListTwoId' : e.detail,
+			'postData.courseClassificationListTwoId' : e.detail,
 			'postData.courseClassificationPath': `${this.data.postData.courseClassificationId}、${e.detail}`,
 			'postData.courseClassificationName': `${frontName}、${endName}`
 		})
@@ -581,6 +581,10 @@ Page({
 	},
 	//提交
 	postActivity() {
+		if(this.data.trainingProgramId == null) {
+			Toast("培养方案不能为空")
+			return 
+		}
 		this.setData({
 			'postData.schoolYearId': this.data.nowYear //默认当前学年
 		})
@@ -638,6 +642,7 @@ Page({
 				activityEndTime:this.data.postData.activityEndTime,
 				registeStartTime:this.data.postData.registeStartTime,
 				registeEndTime:this.data.postData.registeEndTime,
+				courseClassificationListTwoId: this.data.courseClassificationListTwoId,
 				integralScheme: 0,
 				recommend: 0
 			})

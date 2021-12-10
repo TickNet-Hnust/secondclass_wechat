@@ -23,7 +23,7 @@ console.log(data)
 			(data.integralScheme === '' && '积分方案') ||
 			(data.flowerStatus === '' && '花絮管理') ||
 			(data.evaluateStatus === '' && '评价管理') ||
-			(data.activityPlace == null && '活动地点') ||
+			([null,''].includes(data.activityPlace) && '活动地点') ||
 			([null,''].includes(data.activityPlaceName) && '地点详细描述') ||
 			([null,''].includes(data.activityRegisteDistance) && '签到距离') ||
 			(data.activityManagerId == '' && '活动负责人') ||

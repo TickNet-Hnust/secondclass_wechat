@@ -677,6 +677,20 @@ Page({
 			});
 			app.globalData.toast = ''
 		}
+		if(app.globalData.evaluateToast) {
+			Toast({
+				message:'评论发布成功，审核成功后显示',
+				zIndex: 2000
+			});
+			app.globalData.evaluateToast = false
+		}
+		if(app.globalData.flowerToast) {
+			Toast({
+				message:'花絮发布成功，审核通过后显示',
+				zIndex: 2000
+			});
+			app.globalData.flowerToast = false
+		}
 		if(this.isNeedToRefresh) {
 			Promise.all([
 				this.getDetail(),

@@ -15,7 +15,7 @@ Page({
 		
 		trainingProgramList:[], //培养方案列表
 		courseClassificationList:[], //积分分类列表
-		courseClassificationListTwoId: null, //二级积分分类列表
+		courseClassificationId: null, //二级积分分类列表
 		courseClassificationListTwo:[], //二级积分分类列表
 		courseList:[], //课程列表
 		title: '自定义活动',//页面标题
@@ -93,8 +93,8 @@ Page({
 			trainingProgramId: '',
 			activityTag: '', //活动标签
 			courseId:'',
-			courseClassificationId: '', //课程分类
-			courseClassificationListTwoId:'', //二级分类
+			courseClassificationListOneId: '', //一级分类
+			courseClassificationId:'', //二级分类
 			courseClassificationPath: '', //关联的课程的课程分类Id
 			courseClassificationName: '', //关联的课程的课程分类完整名字
 			integralScheme: '', //积分方案
@@ -499,8 +499,9 @@ Page({
 	//一级分类改变
 	courseClassificationChange(e) {
 		this.setData({
-			'postData.courseClassificationId' : e.detail
+			'postData.courseClassificationListOneId' : e.detail
 		})
+		console.log(e.detail,this.data.nowYear,this.data.postData.trainingProgramId,'classiftaion')
 		request({
 			url: '/secondClass/course/list',
 			method: 'get',
@@ -512,6 +513,7 @@ Page({
 				trainingProgramId: this.data.postData.trainingProgramId
 			}
 		}).then(value => {
+			console.log(value,'classiftaion')
 			this.setData({
 				courseList: value.data
 			})
@@ -537,14 +539,14 @@ Page({
 	//二级分类改变
 	courseClassificationTwoChange(e) {
 		const frontName = this.data.courseClassificationList.find(item => {
-			return item.id == this.data.postData.courseClassificationId
+			return item.id == this.data.postData.courseClassificationListOneId
 		}).name
 		const endName = this.data.courseClassificationListTwo.find(item => {
 			return item.id == e.detail
 		}).name
 		this.setData({
-			'postData.courseClassificationListTwoId' : e.detail,
-			'postData.courseClassificationPath': `${this.data.postData.courseClassificationId}、${e.detail}`,
+			'postData.courseClassificationId' : e.detail,
+			'postData.courseClassificationPath': `${this.data.postData.courseClassificationListOneId}、${e.detail}`,
 			'postData.courseClassificationName': `${frontName}、${endName}`
 		})
 

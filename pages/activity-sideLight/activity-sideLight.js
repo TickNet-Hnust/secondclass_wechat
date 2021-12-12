@@ -1,6 +1,7 @@
 // pages/activity-sideLight/activity-sideLight.js
 import getImgUrl from '../../utils/upload.js'
 import {request} from '../../js/http'
+const app = getApp()
 Page({
 
 	/**
@@ -57,9 +58,9 @@ Page({
 		})
 		.then(value => {
 			console.log(value)
-			value.code == 200 && wx.showToast({
-			  title: '发布成功'
-			})
+			if(value.code == 200) {
+				app.globalData.flowerToast = true
+			}
 			wx.navigateBack()
 		})
 	},

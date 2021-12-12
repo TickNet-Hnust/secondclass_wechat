@@ -189,6 +189,11 @@ Page({
         url: '../group/group',
       })
     },
+    jumpIntegral(e) {
+      wx.navigateTo({
+        url: '../integralDetail/integralDetail',
+      })
+    },
     CopyLink(e) {
       wx.setClipboardData({
         data: e.currentTarget.dataset.link,

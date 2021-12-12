@@ -78,6 +78,8 @@ App({
     isSwitchMy: false, //是否需要切换到“我的”,
     toast: '', //活动群组修改成功的弹窗
     env: 'wx',
+    evaluateToast: false,
+    flowerToast: false,
     ColorList: [{
         title: '嫣红',
         name: 'red',

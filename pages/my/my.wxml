@@ -34,7 +34,7 @@
       <view class="margin-top-sm">
         群组</view>
     </view>
-    <view class="flex flex-sub flex-direction">
+    <view class="flex flex-sub flex-direction" bindtap="jumpIntegral">
       <view class="text-xxl text-green">{{integral}}</view>
       <view class="margin-top-sm">
         积分</view>

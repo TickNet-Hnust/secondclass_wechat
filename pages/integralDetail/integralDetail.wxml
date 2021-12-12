@@ -1,0 +1,26 @@
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}">
+	<view slot="backText">返回</view>
+	<view slot="content">积分详情</view>
+</cu-custom>
+
+<view>
+    <view class="cu-list menu ">
+        <view class="cu-item" wx:for="{{interalList}}" wx:key="index">
+            <view class="content padding-tb-sm">
+                <view>{{item.content}}</view>
+                <view class="text-gray text-sm">
+                <text class="cuIcon-infofill text-blue margin-right-xs"></text>{{item.type}}</view>
+            </view>
+            <view class="action">
+                <view class="cu-capsule round">
+                    <view class="cu-tag bg-blue sm">
+                        积分
+                    </view>
+                    <view class="cu-tag line-blue sm">
+                        +{{item.score}}
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -18,7 +18,8 @@
         "pages/activity-sideLight/activity-sideLight",
         "pages/activity-comment/activity-comment",
         "pages/news/news",
-        "pages/group-job/group-job"
+        "pages/group-job/group-job",
+        "pages/integralDetail/integralDetail"
     ],
     "window": {
         "backgroundTextStyle": "dark",

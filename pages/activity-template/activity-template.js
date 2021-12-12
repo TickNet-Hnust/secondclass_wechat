@@ -16,7 +16,7 @@ Page({
 		trainingProgramId: null,
 		trainingProgramList:[], //培养方案列表
 		courseClassificationList:[], //积分分类列表
-		courseClassificationListTwoId: null, //二级积分分类列表
+		courseClassificationId: null, //二级积分分类列表
 		courseClassificationListTwo:[], //二级积分分类列表
 		courseList:[], //课程列表
 		title: '自定义活动',//页面标题
@@ -93,7 +93,7 @@ Page({
 			rankId: 0, //活动级别
 			activityTag: '', //活动标签
 			courseId:'',
-			courseClassificationId: '', //课程分类
+			courseClassificationListOneId: '', //课程分类
 			courseClassificationPath: '', //关联的课程的课程分类Id
 			courseClassificationName: '', //关联的课程的课程分类完整名字
 			integralScheme: '', //积分方案
@@ -505,7 +505,7 @@ Page({
 	//一级分类改变
 	courseClassificationChange(e) {
 		this.setData({
-			'postData.courseClassificationId' : e.detail
+			'postData.courseClassificationListOneId' : e.detail
 		})
 		request({
 			url: '/secondClass/course/list',
@@ -543,14 +543,14 @@ Page({
 	//二级分类改变
 	courseClassificationTwoChange(e) {
 		const frontName = this.data.courseClassificationList.find(item => {
-			return item.id == this.data.postData.courseClassificationId
+			return item.id == this.data.postData.courseClassificationListOneId
 		}).name
 		const endName = this.data.courseClassificationListTwo.find(item => {
 			return item.id == e.detail
 		}).name
 		this.setData({
-			'postData.courseClassificationListTwoId' : e.detail,
-			'postData.courseClassificationPath': `${this.data.postData.courseClassificationId}、${e.detail}`,
+			'postData.courseClassificationId' : e.detail,
+			'postData.courseClassificationPath': `${this.data.postData.courseClassificationListOneId}、${e.detail}`,
 			'postData.courseClassificationName': `${frontName}、${endName}`
 		})
 
@@ -642,7 +642,7 @@ Page({
 				activityEndTime:this.data.postData.activityEndTime,
 				registeStartTime:this.data.postData.registeStartTime,
 				registeEndTime:this.data.postData.registeEndTime,
-				courseClassificationListTwoId: this.data.courseClassificationListTwoId,
+				courseClassificationId: this.data.courseClassificationId,
 				integralScheme: 0,
 				recommend: 0
 			})

@@ -37,23 +37,23 @@
 					range="{{courseClassificationList}}"
 					rangeKey="name"
 					valueKey="id"
-					value="{{postData.courseClassificationId}}"
+					value="{{postData.courseClassificationListOneId}}"
 					bind:change="courseClassificationChange"
 				></l-select>
 
 				<l-select
 					title="二级分类"
-					wx:if="{{postData.courseClassificationId}}"
+					wx:if="{{postData.courseClassificationListOneId}}"
 					range="{{courseClassificationListTwo}}"
 					rangeKey="name"
 					valueKey="id"
-					value="{{postData.courseClassificationListTwoId}}"
+					value="{{postData.courseClassificationId}}"
 					bind:change="courseClassificationTwoChange"
 				></l-select>
 
 				<l-select
 					title="课程"
-					wx:if="{{trainingProgramId && postData.courseClassificationId}}"
+					wx:if="{{trainingProgramId && postData.courseClassificationListOneId}}"
 					range="{{courseList}}"
 					rangeKey="name"
 					valueKey="id"
@@ -344,14 +344,14 @@
 					range="{{courseClassificationList}}"
 					rangeKey="name"
 					valueKey="id"
-					value="{{postData.courseClassificationId}}"
+					value="{{postData.courseClassificationListOneId}}"
 					bind:change="courseClassificationChange"
 				></l-select>
 
 				<l-select
 					title="课程"
 					wx:if="{{title== '自定义活动'}}"
-					wx:if="{{trainingProgramId && postData.courseClassificationId}}"
+					wx:if="{{trainingProgramId && postData.courseClassificationListOneId}}"
 					range="{{courseList}}"
 					rangeKey="name"
 					valueKey="id"
@@ -365,7 +365,7 @@
 					range="{{courseClassificationListTwo}}"
 					rangeKey="name"
 					valueKey="id"
-					value="{{courseClassificationListTwoId}}"
+					value="{{courseClassificationId}}"
 					bind:change="courseClassificationTwoChange"
 				></l-select>
 

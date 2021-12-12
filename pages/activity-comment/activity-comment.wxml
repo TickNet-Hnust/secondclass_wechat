@@ -1,4 +1,4 @@
-<!-- <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">发布评论</view>
 </cu-custom>
 <van-toast id="van-toast" />
@@ -19,4 +19,4 @@
 		<button class="bg-blue" bindtap="sure">确认发布</button>
 	</view>
 </view>
- -->
+

@@ -1,6 +1,7 @@
 // pages/activity-comment/activity-comment.js
 import {request} from '../../js/http'
 import Toast from '@vant/weapp/toast/toast';
+const app = getApp()
 Page({
 
 	/**
@@ -51,9 +52,9 @@ Page({
 		})
 		.then(value => {
 			console.log(value)
-			value.code == 200 && wx.showToast({
-			  title: '发布成功'
-			})
+			if(value.code == 200) {
+				app.globalData.evaluateToast = true
+			}
 			wx.navigateBack()
 		})
 	},

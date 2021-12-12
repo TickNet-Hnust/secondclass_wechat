@@ -1,4 +1,4 @@
-<!-- <cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
+<cu-custom bgColor="bg-keda-blue" isBack="{{true}}"><view slot="backText">返回</view>
 	<view slot="content">发布花絮</view>
 </cu-custom>
 <view class="sideLight">
@@ -11,7 +11,7 @@
 					<text class="cuIcon-close"></text>
 				</view>
 			</view>
-			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length <= 9}}">
+			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length == 0}}">
 				<text class="cuIcon-cameraadd"></text>
 			</view>
 		</view>
@@ -19,4 +19,4 @@
 	<view class="bg-white padding">
 		<button class="bg-blue" bindtap="sure">确认发布</button>
 	</view>
-</view> -->
+</view>

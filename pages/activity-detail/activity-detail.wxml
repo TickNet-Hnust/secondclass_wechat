@@ -11,12 +11,12 @@
 		<view class="cu-item transition {{1==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{1}}">
 			参与人
 		</view>
-		<!-- <view class="cu-item transition {{2==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{2}}">
+		<view class="cu-item transition {{2==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{2}}">
 			花絮
 		</view>
 		<view class="cu-item transition {{3==TabCur?'text-blue cur text-xl':''}}" bindtap="tabSelect" data-id="{{3}}">
 			评论
-		</view> -->
+		</view>
 	</scroll-view>
 	<!-- 概况 -->
 	<view  hidden="{{0!=TabCur}}" class="">
@@ -591,17 +591,18 @@
 			</scroll-view>
 	</view>
 	<!-- 花絮 -->
-	<!-- <view  hidden="{{2!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
-		<view wx:if="{{flowerList.length == 0}}">
-			<view style="height:50vw;width:100%;background-size:100%;background-image:url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/18/9e1d20ff-96de-47c2-874d-066a187e55a0.png);background-repeat: no-repeat;"></view>
-			<van-empty
-				image=""
-				description="暂时还没有人发布花絮"
-			/>
-		</view>
+	<view  hidden="{{2!=TabCur}}">
+			<scroll-view scroll-y >
+			<view wx:if="{{flowerList.length == 0}}">
+				<view style="height:50vw;width:100%;background-size:100%;background-image:url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/18/9e1d20ff-96de-47c2-874d-066a187e55a0.png);background-repeat: no-repeat;"></view>
+				<van-empty
+					image=""
+					description="暂时还没有人发布花絮"
+				/>
+			</view>
 			<view class="activityTemplate">
 				<view class="cu-card dynamic no-card">
-					<view class="cu-item shadow" wx:for="{{flowerList}}" wx:key="index">
+					<view class="cu-item shadow solids-top" wx:for="{{flowerList}}" wx:key="index">
 						<view class="cu-list menu-avatar">
 						<view class="cu-item">
 							<view class="cu-avatar round lg" style="background-image:url({{item.userImage}});"></view>
@@ -658,11 +659,12 @@
 						</view>
 					</view>
 					<view wx:if="{{flowerList.length != 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
-					</view>
+				</view>
 			</view>
-	</view> -->
+			</scroll-view>
+	</view>
 	<!-- 评论 -->
-	<!-- <view  hidden="{{3!=TabCur}}" style="height:calc(100vh - {{CustomBar}}px - 49px)">
+	<view  hidden="{{3!=TabCur}}">
 		
 		<view wx:if="{{remarkList.length == 0}}">
 			<view style="height:69vw;width:100%;background-size:100%;background-image:url(https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/18/ad7ba15c-6a4f-48ca-8e59-761fefd3e638.png);background-repeat: no-repeat;"></view>
@@ -675,7 +677,7 @@
 				<view class="activityTemplate">
 					<view class="cu-list menu-avatar comment ">
 					<view class="cu-item solids-top" wx:for="{{remarkList}}" wx:key="index">
-						<view class="cu-avatar round" style="background-image:url({{item.avatar}})"></view>
+						<view class="cu-avatar round" style="background-image:url({{item.userImage}})"></view>
 							<view class="content">
 								<view class="text-grey">{{item.nickName}}</view>
 								<view class="text-gray text-content text-df">
@@ -699,7 +701,7 @@
 					<view wx:if="{{remarkList.length != 0}}" class="cu-load bg-white {{isLoading?'loading':'over'}}"></view>
 				</view>
 			</scroll-view>
-	</view> -->
+	</view>
 </view>
 
 <view class="addBtn" hidden="{{TabCur != 2}}" bindtap="{{showData.flowerStatus!=0? 'jumpSideLight': 'canSendF'}}">+</view>

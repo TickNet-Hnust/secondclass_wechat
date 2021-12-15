@@ -388,7 +388,7 @@ Page({
 		})
 	},
 	computedState() {
-		console.log('计算按钮状态')
+		console.log('计算按钮状态',this.data?.memberList)
 		//本人参加了
 		if(this.data?.memberList[0]?.identities.includes(4)) {
 			//报名了
@@ -439,8 +439,11 @@ Page({
 				'registe.disabled': true,
 				'leave.disabled': true,
 				'enroll.content': '报名',
+				'enroll.hint': '未报名',
 				'registe.content': '签到',
+				'registe.hint': '未签到',
 				'leave.content': '请假',
+				'leave.hint': '未请假',
 			})
 		}
 	},
@@ -506,6 +509,24 @@ Page({
 				Toast('报名失败:'+value.msg)
 			}
 			
+		})
+	},
+	cancelEnroll() {
+		wx.showModal({
+			title: '提示',
+  			content: '您确定要取消报名吗？',
+		}).then(value => {
+			console.log(value)
+			if(value.confirm) {
+				request({
+					url: `/secondClass/activity/enroll/cancel?activityId=${this.data.aid}`,
+					method: 'delete'
+				}).then(value => {
+					this.getMember()
+					console.log(value)
+					Toast('取消成功')
+				})
+			}
 		})
 	},
 	registe(e) {

@@ -5,9 +5,12 @@
 
 <view>
     <view class="cu-list menu ">
+        <van-empty description="空空如也" wx:if="{{interalList.length == 0}}"/>
         <view class="cu-item" wx:for="{{interalList}}" wx:key="index">
             <view class="content padding-tb-sm">
-                <view>{{item.content}}</view>
+                <view>
+                    {{item.content ? item.content : '未知活动'}}
+                </view>
                 <view class="text-gray text-sm">
                 <text class="cuIcon-infofill text-blue margin-right-xs"></text>{{item.type}}</view>
             </view>

@@ -1,9 +1,9 @@
 const reLogin = require('./login.js')
 
-let flag = false;
+let flag = true;
 let _baseUrl = '';
 if (flag) {
-	_baseUrl = 'http://127.0.0.1:8080';
+	_baseUrl = 'http://localhost:8080';
 } else {
 	_baseUrl = 'https://admin.ticknet.hnust.cn';
 }
@@ -70,7 +70,7 @@ export const request = (opt) => {
 							mask: true,
 							duration:1000
 						})
-					} else if(res.data.code == 500 && res.data.data == null) {
+					} else if(res.data.code == 500 && res.data.data == null && res.data.msg != '操作失败') {
 						console.log(res,res.data)
 						wx.showModal({
 							content: '未知错误，请反馈给管理员',

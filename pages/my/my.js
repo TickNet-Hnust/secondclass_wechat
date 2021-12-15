@@ -86,6 +86,22 @@ Page({
     // Toast({
     //   duration:300000,
     // })
+    request({
+      url: '/user/util/personalInfo',
+      method: 'get'
+    }).then(value => {
+      console.log(value)
+      this.setData({
+        activityCount: value.data.activityCount,
+        groupCount: value.data.groupCount,
+        integral: value.data.integral
+      })
+    })
+    this.setData({
+      isLogin: wx.getStorageSync('isLogin'),
+      nickName:wx.getStorageSync('nickName'),
+      avatarUrl:wx.getStorageSync('avatarUrl')
+    })
     let that = this
     wx.request({   //湘潭市天气越热，变化越快
       url: 'https://secondclass.ticknet.hnust.cn/weather/weather_mini?city=%E6%B9%98%E6%BD%AD%E5%B8%82',
@@ -121,22 +137,7 @@ Page({
     clearInterval(this.data.TimeOut)
   },
   onLoad() {
-    request({
-      url: '/user/util/personalInfo',
-      method: 'get'
-    }).then(value => {
-      console.log(value)
-      this.setData({
-        activityCount: value.data.activityCount,
-        groupCount: value.data.groupCount,
-        integral: value.data.integral
-      })
-    })
-    this.setData({
-      isLogin: wx.getStorageSync('isLogin'),
-      nickName:wx.getStorageSync('nickName'),
-      avatarUrl:wx.getStorageSync('avatarUrl')
-    })
+    
   },
   attached() {
     console.log("success")

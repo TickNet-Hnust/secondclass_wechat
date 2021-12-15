@@ -190,6 +190,12 @@
 						</van-col>
 						<van-col span="6" >
 							<delay-button
+								wx:if="{{showData.joinStatus != 0}}"
+								className="cu-btn line-green md text-sm fr line-bbt"
+								bind:click="quitGroup"
+							>退出</delay-button>
+							<delay-button
+								wx:if="{{showData.joinStatus == 0}}"
 								className="cu-btn line-green md text-sm fr line-bbt"
 								bind:click="joinGroup"
 								disabled="{{showData.joinStatus != 0}}"
@@ -197,7 +203,27 @@
 						</van-col>
 					</van-row>
 				</view>
-				
+				<!-- <view class="flexLines" wx:if="{{showData.flag}}">
+					<van-row>
+						<van-col span="4">
+							<view>
+								
+							</view>
+						</van-col>
+						<van-col span="15">
+							
+						</van-col>
+						<van-col span="5" >
+							<button 
+								bindtap="showModal"
+								data-target="DrawerModalL"
+								class="cu-btn radius bg-green text-sm fr"
+							>退出</button>
+							
+						</van-col>
+						
+					</van-row>
+				</view> -->
 				<view class="flexLines" wx:if="{{showData.flag}}">
 					<van-row>
 						<van-col span="4">
@@ -213,7 +239,7 @@
 							<button 
 								bindtap="showModal"
 								data-target="DrawerModalL"
-								class="cu-btn radius bg-green text-sm fr"
+								class="cu-btn radius line-bbt text-sm fr"
 							>控制台</button>
 							<!-- <text style="font-size: 24rpx;color:#bbb" ></text> -->
 						</van-col>
@@ -321,7 +347,7 @@
 							<text class="text-cut">{{item.deptName}}-{{item.userName}}</text>
 							</view>
 						</view>
-						<view class="action" wx:if="{{showData.joinStatus==1 && memberList[0].status == 1 && index!=0}}">
+						<view class="action" wx:if="{{showData.flag && (showData.joinStatus==1 && index!=0 || showData.joinStatus!=1)}}">
 							<view class=" radius sm text-xl">
 								<text class=" cuIcon-moreandroid" bindtap="showModal" data-target="controlModal" data-index="{{index}}"></text>
 							</view>

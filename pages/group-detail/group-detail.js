@@ -70,7 +70,8 @@ Page({
 				url: `/group/member/transfer?userId=${copy.userId}&groupId=${this.data.gid}`,
 				method: 'PUT'
 			}).then(value => {
-				console.log('转让负责人成功',value)
+				// console.log('转让负责人成功',)
+				Toast('转让负责人成功')
 				this.getMember().then(value => {
 					console.log(value.rows)
 					this.setData({
@@ -85,6 +86,7 @@ Page({
 				data: copy
 			}).then(value => {
 				console.log('设为管理员成功',value)
+				Toast(value.msg)
 				this.getMember().then(value => {
 					console.log('获得群组成员',value)
 					this.setData({
@@ -193,6 +195,33 @@ Page({
 		})
 		
 	},
+	quitGroup() {
+		wx.showModal({
+			title: '提示',
+  			content: '您确定要退出群组吗？',
+		}).then(value => {
+			if(value.confirm) {
+				request({
+					url: `/group/member?groupId=${this.data.gid}`,
+					method: 'DELETE',
+				}).then(value => {
+					console.log(value)
+					if(value.msg == '您负责的该群组还有其他成员，无法退出！') {
+						Toast('您负责的该群组还有其他成员，无法退出！')
+					} else {
+						Toast('退出成功')
+						this.getMember().then(value => {
+							console.log('获得成员列表',value)
+							this.setData({
+								memberList:value.rows
+							})
+						})
+						this.getDetail()
+					}
+				})
+			}
+		})
+	},
 	showModal(e) {
 		if(e.currentTarget.dataset.target == 'controlModal') {
 			this.setData({
@@ -245,7 +274,12 @@ Page({
 			} else if(value.msg == "该群组不允许加入") {
 				Toast('该群组不允许加入')
 			}
-			this.getMember()
+			this.getMember().then(value => {
+				console.log('获得成员列表',value)
+				this.setData({
+					memberList:value.rows
+				})
+			})
 			this.getDetail()
 		})
 	},
@@ -388,7 +422,7 @@ Page({
 				activityList: value.rows
 			})
 		})
-		return
+	
 		this.getDetail()
 		this.getMsg()
 		this.getCollection()
@@ -421,7 +455,7 @@ Page({
 			})
 		})
 		this.getDetail()
-		return
+	
 		this.getMsg()
 		this.getCollection()
 		if(app.globalData.toast) {
@@ -459,7 +493,9 @@ Page({
 			this.getCollection()
 		]).then(value => {
 				this.setData({
-					memberList:value[0].rows
+					memberList:value[0].rows,
+					memberNum: 2,//记录成员的页数
+					activityNum: 2,
 				})
 				this.setData({
 					activityList: value[2].rows

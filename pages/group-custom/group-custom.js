@@ -266,6 +266,12 @@ Page({
 						delta: 1,
 					})
 				}
+				if(value.msg == '操作失败') {
+					Toast('只有群组负责人才能修改信息')
+				}
+				if(value.msg == '群组名称已存在') {
+					Toast('群组名称已存在')
+				}
 			})
 			return 
 		}

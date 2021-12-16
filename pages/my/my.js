@@ -206,6 +206,49 @@ Page({
         }
       })
     },
+    onTabItemTap: function (item) {
+      console.log(item,'item')
+      let isLogin = wx.getStorageSync('isLogin')
+      if(isLogin) {
+        return 
+      }
+      wx.getUserProfile({
+        desc: '获取的信息用于展示',
+        success:(res) => {
+          console.log(res)
+          request({
+            url: '/user/util/avatar',
+            method: 'put',
+            data:{
+              avatar: res.userInfo.avatarUrl
+            }
+          }).then(value => {
+            console.log(value)
+          })
+          let content = this.data.isLogin ? '同步成功' : '登录成功'
+          Toast(content)
+          this.setData({
+            isLogin:true,
+            nickName: res.userInfo.nickName,
+            avatarUrl: res.userInfo.avatarUrl
+          })
+          wx.setStorage({
+            key:'isLogin',
+            data:true
+          })
+          wx.setStorage({
+            key:'nickName', 
+            data:res.userInfo.nickName
+          })
+          wx.setStorage({
+            key:'avatarUrl', 
+            data:res.userInfo.avatarUrl
+          })
+          
+          
+        }
+      })
+    },
     showModal(e) {
       this.setData({
         modalName: e.currentTarget.dataset.target

@@ -85,14 +85,24 @@ Page({
 				method: 'PUT',
 				data: copy
 			}).then(value => {
-				console.log('设为管理员成功',value)
-				Toast(value.msg)
-				this.getMember().then(value => {
-					console.log('获得群组成员',value)
+				if(value.msg == '此操作需要负责人权限') {
+					
+					Toast('负责人才可以设置管理员')
+				}
+				if(value.code == 200) {
+					this.data.memberList[this.data.targetUserIndex].status = copy.status
 					this.setData({
-						memberList:value.rows
+						memberList: this.data.memberList
 					})
-				})
+					Toast(value.msg)
+				}
+				// console.log('改变状态成功',value)
+				// this.getMember().then(value => {
+				// 	console.log('获得群组成员',value) 不要刷新人员列表为好
+				// 	this.setData({
+				// 		memberList:value.rows
+				// 	})
+				// })
 			})
 		}
 		

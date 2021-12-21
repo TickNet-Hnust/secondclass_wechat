@@ -1,28 +1,21 @@
 <van-toast id="van-toast">
   <!-- <image style="width: 100rpx;height: 100rpx;" class="load" src="../../images/logo2.png"></image> -->
 </van-toast>
-<scroll-view scroll-y class="scrollPage">
   <view class="UCenter-bg">
     <view class="text-center">
       <image wx:if="{{!isLogin}}" catchtap="login" class="round solid-green" style="height: 130rpx;width: 130rpx;" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/da921004-9be9-41c8-8a6b-ba41af82129f.jpg"></image>
       <image wx:else class="round solid-green" style="border:2px solid #eee;height: 130rpx;width: 130rpx;" src="{{avatarUrl}}"></image>
     </view>
-    <!-- <image src="../../images/logo.png" class="png" mode="widthFix"></image> -->
-    <!-- <view class="text-xl">第二课堂成绩单
-      <text class="text-df">v2.0</text>
-    </view>
-    <view class="margin-top-sm">
-      <text>By:TickNet</text>
-    </view> -->
     <view class="text-xl" style="color:#3f3d56">
       <text wx:if="{{!isLogin}}" catchtap="login">点击头像登录</text>
       <text wx:else sty>{{nickName}}</text>
     </view>
     <view class="girfather">
-      <image style="transform: rotate({{angle}}deg);transition: all {{multiple/1000}}s;" class="gifImg gif-wave" mode="aspectFill" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/88fa6475-d5eb-4178-bbf9-0bf656762779.gif" mode="scaleToFill"></image>
-      <view style="transform: rotate({{angle}}deg);transition: all {{multiple/1000}}s;" class="bg-white gif-buttom"></view>
+      <image animation="{{animationData}}"  class="gifImg gif-wave" mode="aspectFill" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/88fa6475-d5eb-4178-bbf9-0bf656762779.gif" mode="scaleToFill"></image>
+      <view animation="{{animationData}}" class="bg-white gif-buttom"></view>
     </view>
   </view>
+  <view style="z-index: 99;position: relative;background-color: #f1f1f1;">
   <view class="padding flex text-center bg-white text-grey" style="z-index: 20;position: relative;">
     <view class="flex flex-sub flex-direction solid-right" bindtap="jumpActivity">
       <view class="text-xxl text-orange">{{activityCount}}</view>
@@ -40,37 +33,13 @@
         积分</view>
     </view>
   </view>
-  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-    <!-- <view class="cu-item arrow">
-      <view class="content" bindtap="switchColor">
-        <text class="cuIcon-colorlens text-blue"></text>
-        <text class="text-grey">切换主题色</text>
-      </view>
-    </view> -->
-    <!-- <view class="cu-item arrow">
-      <navigator class="content" hover-class="none" bindtap="switchColor">
-        <text class="cuIcon-group text-green"></text>
-        <text class="text-grey">关于</text>
-      </navigator>
-    </view> -->
-    <!-- <view class="cu-item arrow">
-      <view class="content" bindtap="showQrcode">
-        <text class="cuIcon-appreciatefill text-red"></text>
-        <text class="text-grey">赞赏支持</text>
-      </view>
-    </view> -->
+  
+    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
     <view class="cu-item arrow">
       <button class="cu-btn content" open-type="feedback">
         <text class="cuIcon-writefill text-cyan"></text>
         <text class="text-grey">意见反馈</text>
       </button>
     </view>
-    <!-- <view class="cu-item arrow" bindtap="login" wx:if="{{isLogin}}">
-      <navigator class="content" hover-class="none">
-        <text class="cuIcon-pullright text-orange"></text>
-        <text class="text-grey">同步微信头像</text>
-      </navigator>
-    </view> -->
   </view>
-  <!-- <view class="cu-tabbar-height"></view> -->
-</scroll-view>
+  </view>

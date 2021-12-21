@@ -109,6 +109,39 @@ Page({
       modalName: "jobModal",
     });
   },
+  kickMember() {
+    wx.showModal({
+      title: "提示框",
+      content: "确定踢出该成员吗？",
+      cancelText: "取消",
+      confirmText: "确定",
+      success: (res) => {
+        if (res.confirm) {
+          request({
+            url: '/group/member/kickOut',
+            method: 'delete',
+            data: {
+              groupId: this.data.gid,
+              userIds: [this.data.memberList[this.data.targetUserIndex].userId]
+            }
+          }).then(value => {
+            console.log(value)
+            if(value.code == 500 && value.msg) {
+              Toast(value.msg)
+            }
+            if(value.code == 200) {
+              Toast('踢出成功')
+              this.data.memberList.splice(this.data.targetUserIndex, 1)
+              this.setData({
+                memberList: this.data.memberList
+              })
+            }
+          })
+        }
+      }
+    })
+    
+  },
   jobChange(e) {
     this.data.memberList[this.data.targetUserIndex].job = e.detail.value;
   },

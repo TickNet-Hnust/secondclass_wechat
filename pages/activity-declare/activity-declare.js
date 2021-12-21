@@ -239,14 +239,18 @@ Page({
       });
       console.log(postDataD, "申报要发送请求的数据postDataD");
       //method要搞清，要发POST而不是GET
+      if(postDataD[0].material == "") {
+        Toast("请上传图片材料");
+        return
+      }
       if (
         postDataD.length == 0 ||
         postDataD[0].applyIntegral == "" ||
-        postDataD[0].reason == "" ||
-        postDataD[0].material == ""
+        postDataD[0].reason == ""  
       ) {
         Toast("请填写完全");
-      } else {
+        return 
+      }
         request({
           url: "/secondClass/activity/integral",
           method: "POST",
@@ -259,7 +263,7 @@ Page({
             imgList: [],
           });
         });
-      }
+      
     }
   },
   ViewImage(e) {

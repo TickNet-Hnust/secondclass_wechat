@@ -175,28 +175,28 @@
 					<van-row>
 						<van-col span="4">
 							<view>
-								<icon class="icon-box-img" type="success" size="35"></icon>
+								<image class="leftImg" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/12/21/6eed120b-b6df-4c3c-8761-8b21a5e05cfe.svg"></image>
 							</view>
 						</van-col>
 						<van-col span="14">
 							<view class="flexMainTitle">
 								加入群组
-								<view style="vertical-align: text-top;" class="cu-tag round line-green sm" wx:if="{{showData.joinStatus == 1}}">已加入</view>
+								<view style="vertical-align: text-top;" class="cu-tag round line-blue sm" wx:if="{{showData.joinStatus == 1}}">已加入</view>
 								<view style="vertical-align: text-top;" class="cu-tag round line-gray sm" wx:elif="{{showData.joinStatus == 2}}">待审核</view>
 							</view>
 							<view class="flexSideTitle">
-								加入规则: <text class="text-green">{{showData.joinRule ? dict_ga_group_join_rule[showData.joinRule].dictLabel: '无'}}</text>
+								加入规则: <text class="text-blue">{{showData.joinRule ? dict_ga_group_join_rule[showData.joinRule].dictLabel: '无'}}</text>
 							</view>
 						</van-col>
 						<van-col span="6" >
 							<delay-button
 								wx:if="{{showData.joinStatus != 0}}"
-								className="cu-btn line-green md text-sm fr line-bbt"
+								className="cu-btn line-blue md text-sm fr line-bbt"
 								bind:click="quitGroup"
 							>退出</delay-button>
 							<delay-button
 								wx:if="{{showData.joinStatus == 0}}"
-								className="cu-btn line-green md text-sm fr line-bbt"
+								className="cu-btn line-blue md text-sm fr line-bbt"
 								bind:click="joinGroup"
 								disabled="{{showData.joinStatus != 0}}"
 							>申请</delay-button>
@@ -217,7 +217,7 @@
 							<button 
 								bindtap="showModal"
 								data-target="DrawerModalL"
-								class="cu-btn radius bg-green text-sm fr"
+								class="cu-btn radius bg-blue text-sm fr"
 							>退出</button>
 							
 						</van-col>
@@ -228,7 +228,7 @@
 					<van-row>
 						<van-col span="4">
 							<view>
-								<icon class="icon-box-img" type="success" size="35"></icon>
+								<image class="leftImg" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/12/21/2b609417-92d6-404d-8cc5-fd4487a8c53b.svg"></image>
 							</view>
 						</van-col>
 						<van-col span="15">
@@ -266,7 +266,7 @@
 											<view>活动统计表</view>
 										</view>
 										<view class="action" bindtap="kaifa">
-											<button class="sm cu-btn round bg-green shadow">
+											<button class="sm cu-btn round bg-blue shadow">
 											<text class="cuIcon-down"></text> 下载</button>
 										</view>
 									</view>
@@ -275,7 +275,7 @@
 											<view>人员报名表</view>
 										</view>
 										<view class="action" bindtap="kaifa">
-											<button class="sm cu-btn round bg-green shadow">
+											<button class="sm cu-btn round bg-blue shadow">
 											<text class="cuIcon-down"></text> 下载</button>
 										</view>
 									</view>
@@ -284,7 +284,7 @@
 											<view>花名册</view>
 										</view>
 										<view class="action" bindtap="kaifa">
-											<button class="sm cu-btn round bg-green shadow">
+											<button class="sm cu-btn round bg-blue shadow">
 											<text class="cuIcon-down"></text> 下载</button>
 										</view>
 									</view> -->
@@ -315,7 +315,7 @@
 										</form>
 										<view class="stickyButton" wx:if="{{title=='群组消息发布'}}">
 											<!-- <button class="cu-btn bg-red margin-tb-sm lg">嫣红</button> -->
-											<button class="cu-btn bg-green lg" bindtap="postMsg">发布</button>
+											<button class="cu-btn bg-blue lg" bindtap="postMsg">发布</button>
 										</view>
 									</view>
 								</view>
@@ -340,8 +340,8 @@
 								<!-- <view class="cu-tag round bg-blue sm" wx:for="{{item.identities}}" wx:key="index">{{item}}</view> -->
 								<view class="cu-tag round bg-blue sm" wx:if="{{showData.joinStatus==1 && index == 0}}">本人</view>
 								<view class="cu-tag round bg-orange sm">{{dict_ga_group_user_status[item.status].dictLabel}}</view>
-								<view class="cu-tag round bg-green sm" wx:if="{{item.fenzu}}">{{item.fenzu}}</view>
-								<view class="cu-tag round bg-green sm" wx:if="{{item.job}}">{{item.job}}</view>
+								<view class="cu-tag round bg-blue sm" wx:if="{{item.fenzu}}">{{item.fenzu}}</view>
+								<view class="cu-tag round bg-blue sm" wx:if="{{item.job}}">{{item.job}}</view>
 							</view>
 							<view class="text-gray text-xs flex">
 							<text class="text-cut">{{item.deptName}}-{{item.userName}}</text>
@@ -380,7 +380,7 @@
 			<view bindtap="hideModal" class="cu-modal bottom-modal  {{modalName=='controlModal'?'show':''}}">
 				<view class="cu-dialog" >
 					<!-- <view class="cu-bar bg-white"> -->
-					<!-- <view class="action text-green" >确定</view> -->
+					<!-- <view class="action text-blue" >确定</view> -->
 					<!-- <view class="action text-blue" >取消</view> -->
 					<!-- </view> -->
 					<view class="">
@@ -420,6 +420,12 @@
 								<view class="content">
 									<text class="cuIcon-circlefill text-grey"></text>
 									<text class="text-grey">清退成员</text>
+								</view>
+							</view>
+							<view wx:if="{{showData.flag}}" class="cu-item" bindtap="kickMember" data-state="5">
+								<view class="content">
+									<text class="cuIcon-circlefill text-grey"></text>
+									<text class="text-grey">踢除成员</text>
 								</view>
 							</view>
 						</view>

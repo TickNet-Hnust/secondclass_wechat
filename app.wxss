@@ -146,3 +146,10 @@
     background-position-y: 0rpx;
   }
 }
+
+.leftImg {
+	width: 79rpx;
+	height: 65rpx;
+  margin-top: 10rpx;
+  margin-left: 10rpx;
+}

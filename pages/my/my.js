@@ -6,6 +6,7 @@ Page({
     addGlobalClass: true,
   },
   data: {
+    animationData: {},
     TimeOut: null,
     angle: 0, //感应角度
     isLogin: false,
@@ -16,6 +17,10 @@ Page({
     integral: 0,
   },
   login() {
+    let isLogin = wx.getStorageSync("isLogin");
+    if (isLogin) {
+      return;
+    }
     wx.getUserProfile({
       desc: "获取的信息用于展示",
       success: (res) => {
@@ -80,9 +85,6 @@ Page({
     });
   },
   onShow() {
-    // Toast({
-    //   duration:300000,
-    // })
     request({
       url: "/user/util/personalInfo",
       method: "get",
@@ -99,90 +101,47 @@ Page({
       nickName: wx.getStorageSync("nickName"),
       avatarUrl: wx.getStorageSync("avatarUrl"),
     });
-    let that = this;
-    wx.request({
-      //湘潭市天气越热，变化越快
-      url: "https://secondclass.ticknet.hnust.cn/weather/weather_mini?city=%E6%B9%98%E6%BD%AD%E5%B8%82",
-      method: "GET",
-      success: (res) => {
-        console.log(res);
-        if (res.data.data) {
-          let high = /\d+/.exec(res.data.data.forecast[0].high)[0];
-          let low = /\d+/.exec(res.data.data.forecast[0].low)[0];
-          let avg = (Number(high) + Number(low)) / 2;
-          this.data.multiple = 2000 / (avg / 20);
-          this.data.multiple =
-            this.data.multiple > 8000 ? 8000 : this.data.multiple;
-          this.data.multiple =
-            this.data.multiple < 1000 ? 1000 : this.data.multiple;
-        } else {
-          console.log("获取天气接口错误");
-          this.data.multiple = 2000; //接口默认值
-        }
-        console.log("时间间隔", this.data.multiple);
-        this.setData({
-          multiple: this.data.multiple,
-        });
-        that.data.TimeOut = setInterval(() => {
-          console.log(Math.random());
-          that.setData({
-            angle: (Math.random() - 0.5) * 10, //最大旋转10deg
-          });
-        }, this.data.multiple);
-      },
-    });
+    wx.startDeviceMotionListening()
+    wx.onDeviceMotionChange(this.getTimer())
+    this.getTimer()
+    var animation = wx.createAnimation({
+      duration: 800,
+      timingFunction: 'ease',
+    })
+    this.data.animation = animation
+    this.setData({
+      animationData:this.data.animation.export()
+    })
   },
-  onHide() {
-    clearInterval(this.data.TimeOut);
-  },
-  onLoad() {},
-  attached() {
-    console.log("success");
-    let that = this;
-    wx.showLoading({
-      title: "数据加载中",
-      mask: true,
-    });
-    let i = 0;
-    numDH();
-    function numDH() {
-      if (i < 20) {
-        setTimeout(function () {
-          that.setData({
-            starCount: i,
-            forksCount: i,
-            visitTotal: i,
-          });
-          i++;
-          numDH();
-        }, 20);
-      } else {
-        that.setData({
-          starCount: that.coutNum(3000),
-          forksCount: that.coutNum(484),
-          visitTotal: that.coutNum(24000),
-        });
+  getTimer() {
+    let time = true
+    return (e) => {
+      if(time) {
+        time = false
+        setTimeout(() => {
+          
+          this.data.animation.rotate(e.gamma / 9 * 1.7).step()
+          this.setData({
+            animationData:this.data.animation.export()
+          })
+          time = true
+        },200)
       }
     }
   },
-
-  coutNum(e) {
-    if (e > 1000 && e < 10000) {
-      e = (e / 1000).toFixed(1) + "k";
-    }
-    if (e > 10000) {
-      e = (e / 10000).toFixed(1) + "W";
-    }
-    return e;
+  onHide() {
+    wx.stopDeviceMotionListening()
+  },
+  onLoad() {
   },
   jumpActivity() {
-    app.globalData.isSwitchMy = true;
+    app.globalData.isSwitchActivityMy = true;
     wx.switchTab({
       url: "../activity/activity",
     });
   },
   jumpGroup() {
-    app.globalData.isSwitchMy = true;
+    app.globalData.isSwitchGroupMy = true;
     wx.switchTab({
       url: "../group/group",
     });
@@ -192,79 +151,7 @@ Page({
       url: "../integralDetail/integralDetail",
     });
   },
-  CopyLink(e) {
-    wx.setClipboardData({
-      data: e.currentTarget.dataset.link,
-      success: (res) => {
-        wx.showToast({
-          title: "已复制",
-          duration: 1000,
-        });
-      },
-    });
-  },
   onTabItemTap: function (item) {
-    console.log(item, "item");
-    let isLogin = wx.getStorageSync("isLogin");
-    if (isLogin) {
-      return;
-    }
-    wx.getUserProfile({
-      desc: "获取的信息用于展示",
-      success: (res) => {
-        console.log(res);
-        request({
-          url: "/user/util/avatar",
-          method: "put",
-          data: {
-            avatar: res.userInfo.avatarUrl,
-          },
-        }).then((value) => {
-          console.log(value);
-        });
-        let content = this.data.isLogin ? "同步成功" : "登录成功";
-        Toast(content);
-        this.setData({
-          isLogin: true,
-          nickName: res.userInfo.nickName,
-          avatarUrl: res.userInfo.avatarUrl,
-        });
-        wx.setStorage({
-          key: "isLogin",
-          data: true,
-        });
-        wx.setStorage({
-          key: "nickName",
-          data: res.userInfo.nickName,
-        });
-        wx.setStorage({
-          key: "avatarUrl",
-          data: res.userInfo.avatarUrl,
-        });
-      },
-    });
-  },
-  showModal(e) {
-    this.setData({
-      modalName: e.currentTarget.dataset.target,
-    });
-  },
-  hideModal(e) {
-    this.setData({
-      modalName: null,
-    });
-  },
-  //切换主题色
-  switchColor() {
-    wx.showModal({
-      title: "提示",
-      content: "该功能还在开发中，敬请期待...",
-    });
-  },
-  showQrcode() {
-    wx.previewImage({
-      urls: ["https://image.weilanwl.com/color2.0/zanCode.jpg"],
-      current: "https://image.weilanwl.com/color2.0/zanCode.jpg", // 当前显示图片的http链接
-    });
+    this.login()
   },
 });

@@ -33,7 +33,7 @@
 			</view>
 		</view>
 	</view>
-	<button class="cu-btn bg-green margin" bindtap="submit">提交申请</button>
+	<button class="cu-btn bg-blue margin" bindtap="submit">提交申请</button>
 
 	<!-- 单选弹出框1 -->
 	<view wx:if="{{restore1}}" class="cu-modal {{modalName=='RadioModal1'?'show':''}}" bindtap="hideModal">
@@ -88,8 +88,8 @@
 	<van-checkbox-group value="{{ result1 }}" bind:change="onChange1">
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">
-				<button class="cu-btn line-green margin-right" bindtap = "selectAll1">全选</button>
-				<button class="cu-btn line-green margin-right" bindtap = "selectCancel1">取消全选</button>
+				<button class="cu-btn line-blue margin-right" bindtap = "selectAll1">全选</button>
+				<button class="cu-btn line-blue margin-right" bindtap = "selectCancel1">取消全选</button>
 			</view>
 			<view class="action">
 				{{result1.length}}/{{registerList.length}}
@@ -119,8 +119,8 @@
 	<van-checkbox-group value="{{ result2 }}" bind:change="onChange2">
 		<view class="cu-bar bg-white solid-bottom margin-top">
 			<view class="action">
-				<button class="cu-btn line-green margin-right" bindtap = "selectAll2">全选</button>
-				<button class="cu-btn line-green margin-right" bindtap = "selectCancel2">取消全选</button>
+				<button class="cu-btn line-blue margin-right" bindtap = "selectAll2">全选</button>
+				<button class="cu-btn line-blue margin-right" bindtap = "selectCancel2">取消全选</button>
 			</view>
 			<view class="action">
 				{{result2.length}}/{{declareList.length}}

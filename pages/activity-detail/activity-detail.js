@@ -780,6 +780,7 @@ Page({
         this.setData({
           memberList: this.data.memberList,
           memberNum: this.data.memberNum,
+          isLoading: false
         });
         console.log(`第${this.data.memberNum}页的数据：`, value);
       });
@@ -789,7 +790,7 @@ Page({
         method: "GET",
         data: {
           activityId: this.data.aid,
-          pageNum: this.data.flowerNum,
+          pageNum: this.data.flowerNum
         },
       }).then((value) => {
         this.data.flowerList.push(...value.rows);
@@ -799,6 +800,7 @@ Page({
         this.setData({
           flowerList: this.data.flowerList,
           flowerNum: this.data.flowerNum,
+          isLoading: false
         });
         console.log(`第${this.data.flowerNum}页的数据：`, value);
       });
@@ -819,13 +821,11 @@ Page({
         this.setData({
           remarkList: this.data.remarkList,
           evaluateNum: this.data.evaluateNum,
+          isLoading: false,
         });
         console.log(`第${this.data.evaluateNum}页的数据：`, value);
       });
     }
-    this.setData({
-      isLoading: false,
-    });
   },
 
   /**

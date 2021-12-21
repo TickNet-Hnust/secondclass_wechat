@@ -3,7 +3,7 @@ const reLogin = require("./login.js");
 let flag = false;
 let _baseUrl = "";
 if (flag) {
-  _baseUrl = "http://localhost:8080";
+  _baseUrl = "http://192.168.124.10:8080";
 } else {
   _baseUrl = "https://admin.ticknet.hnust.cn";
 }

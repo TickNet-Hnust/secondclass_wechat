@@ -1,7 +1,6 @@
 {
   "navigationBarTitleText": "活动搜索",
   "usingComponents": {},
-  "enablePullDownRefresh":true,
-  "onReachBottomDistance":50
-  
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50
 }

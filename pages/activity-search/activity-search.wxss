@@ -1,48 +1,47 @@
 /* pages/activity-search/activity-search.wxss */
 
 .search {
-	position: relative;
-	background-color: #f1f1f1;
+  position: relative;
+  background-color: #f1f1f1;
 }
 .hotNow {
-	position: absolute;
-	right: 23rpx;
-	top: 25rpx;
-	z-index: 99;
+  position: absolute;
+  right: 23rpx;
+  top: 25rpx;
+  z-index: 99;
 }
 .search .title {
-	font-size: 25rpx;
-	vertical-align: super;
-	margin-right: 12rpx;
+  font-size: 25rpx;
+  vertical-align: super;
+  margin-right: 12rpx;
 }
 .search .van-tabs__wrap {
-	width: 50%;
+  width: 50%;
 }
 .search .searchBody {
-	padding: 10rpx 30rpx;
-	background-color: #fff;
+  padding: 10rpx 30rpx;
+  background-color: #fff;
 }
-.searchResult,.searchAll,.searchHot {
-	padding: 0 2%;
-	
+.searchResult,
+.searchAll,
+.searchHot {
+  padding: 0 2%;
 }
 .history {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 .history text {
-	font-weight: 700;
-
+  font-weight: 700;
 }
 .historyText {
-	display: flex;
-	justify-content: start;
-	flex-wrap: wrap;
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
 }
 .tag {
-	margin: 15rpx 10rpx;
+  margin: 15rpx 10rpx;
 }
 .tag:last-child {
-    margin-right: auto;
+  margin-right: auto;
 }
-

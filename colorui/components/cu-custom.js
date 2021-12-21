@@ -5,7 +5,7 @@ Component({
    */
   options: {
     addGlobalClass: true,
-    multipleSlots: true
+    multipleSlots: true,
   },
   /**
    * 组件的对外属性
@@ -13,21 +13,21 @@ Component({
   properties: {
     bgColor: {
       type: String,
-      default: ''
-    }, 
+      default: "",
+    },
     isCustom: {
       type: Boolean,
-      optionalTypes:[String],
-      default: false
+      optionalTypes: [String],
+      default: false,
     },
     isBack: {
       type: Boolean,
-      optionalTypes:[String],
-      default: false
+      optionalTypes: [String],
+      default: false,
     },
     bgImage: {
       type: String,
-      default: ''
+      default: "",
     },
   },
   /**
@@ -36,7 +36,7 @@ Component({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    Custom: app.globalData.Custom
+    Custom: app.globalData.Custom,
   },
   /**
    * 组件的方法列表
@@ -44,13 +44,13 @@ Component({
   methods: {
     BackPage() {
       wx.navigateBack({
-        delta: 1
+        delta: 1,
       });
     },
-    toHome(){
+    toHome() {
       wx.reLaunch({
-        url: '/pages/index/index',
-      })
-    }
-  }
-})
+        url: "/pages/index/index",
+      });
+    },
+  },
+});

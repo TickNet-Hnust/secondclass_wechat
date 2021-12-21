@@ -1,115 +1,114 @@
 /* pages/activity-detail/activity-detail.wxss */
 .detail {
-	padding: 0 2%;
-	overflow: hidden;
-	background-color: #f8f9fb;
+  padding: 0 2%;
+  overflow: hidden;
+  background-color: #f8f9fb;
 }
 .detail .van-tabs__wrap {
-	width: 65%;
-	margin: 0 auto;
+  width: 65%;
+  margin: 0 auto;
 }
 .adImg {
-	width: 100%;
-	height: 220rpx;
+  width: 100%;
+  height: 220rpx;
 }
 
 .customTitle {
-	padding: 10rpx 36rpx;
-	font-size: 24rpx;
-	color: #646566;
-	margin: 40rpx 0 0 0;
+  padding: 10rpx 36rpx;
+  font-size: 24rpx;
+  color: #646566;
+  margin: 40rpx 0 0 0;
 }
 .leftTitle {
-	font-weight: 700;
-    font-size: 24rpx;
+  font-weight: 700;
+  font-size: 24rpx;
 }
 .rightContent {
-	font-size: 24rpx;
-	
-	color: rgba(51, 51, 51, 0.647058823529412);
+  font-size: 24rpx;
+
+  color: rgba(51, 51, 51, 0.647058823529412);
 }
 .rightContent view {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .boxs {
-	position: relative;
-	background-color: #fff; 
-	border-radius: 18rpx;
-	margin-top: 30rpx;
+  position: relative;
+  background-color: #fff;
+  border-radius: 18rpx;
+  margin-top: 30rpx;
 }
 .actTitle {
-	position: absolute;
-	top: 11%;
-	color:#fff;
-	font-size: 35rpx;
-	opacity: 0.9;
-	padding: 0 60rpx
+  position: absolute;
+  top: 11%;
+  color: #fff;
+  font-size: 35rpx;
+  opacity: 0.9;
+  padding: 0 60rpx;
 }
 .box-p {
-	font-size: 24rpx;
-	color: rgba(51, 51, 51, 0.647058823529412);
-
+  font-size: 24rpx;
+  color: rgba(51, 51, 51, 0.647058823529412);
 }
 .flexLines {
-	padding: 20rpx;
-	background-color: #fff; 
-	border-radius: 18rpx;
-	margin-top: 20rpx;
+  padding: 20rpx;
+  background-color: #fff;
+  border-radius: 18rpx;
+  margin-top: 20rpx;
 }
 .flexMainTitle {
-	font-weight: 700;
-	font-size: 31rpx;
+  font-weight: 700;
+  font-size: 31rpx;
 }
 .flexSideTitle {
-	font-size: 24rpx;
-	color: rgba(128, 128, 128, 0.6);
+  font-size: 24rpx;
+  color: rgba(128, 128, 128, 0.6);
 }
-.flexLines button{
-	margin: 10rpx auto !important;
+.flexLines button {
+  margin: 10rpx auto !important;
 }
 .iconBg {
-	text-align: center;
-	height: 83rpx;
-	font-size: 32rpx;
-	/* border-top: 1px solid #ddd; */
+  text-align: center;
+  height: 83rpx;
+  font-size: 32rpx;
+  /* border-top: 1px solid #ddd; */
 }
 .cu-list .action {
-	width: 150rpx !important;
-	text-align: right !important;
+  width: 150rpx !important;
+  text-align: right !important;
 }
 .cu-form-group .title {
-	min-width: calc(4em + 30rpx);
+  min-width: calc(4em + 30rpx);
 }
 .peoples .cu-item {
-	height: 160rpx !important;
+  height: 160rpx !important;
 }
 .collectionStar {
-	position: absolute;
-	right: 8%;
-	font-size: 38rpx;
-	top: 11%;
+  position: absolute;
+  right: 8%;
+  font-size: 38rpx;
+  top: 11%;
 }
 .addBtn {
-	position: fixed;
-	width: 100rpx;
-	border-radius: 50rpx;
-	height: 100rpx;
-	text-align: center;
-	line-height: 100rpx;
-	font-size: 60rpx;
-	background-color: #09bb07;
-	color: #fff;
-	bottom: 40rpx;
-	left: 50%;
-	transform: translateX(-50%);
+  position: fixed;
+  width: 100rpx;
+  border-radius: 50rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 60rpx;
+  background-color: #09bb07;
+  color: #fff;
+  bottom: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .flowerImage {
-	width: 27vw;
-	height: 27vw;
-	margin: 1vw 1.1vw;
+  width: 27vw;
+  height: 27vw;
+  margin: 1vw 1.1vw;
 }
 .mh {
-	min-height: 100vh;
+  min-height: 100vh;
 }

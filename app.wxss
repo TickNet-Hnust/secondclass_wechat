@@ -4,7 +4,7 @@
 @import "colorui/icon.wxss";
 @import "colorui/animation.wxss";
 @import "font/iconfont.wxss";
-  
+
 .container {
   height: 100%;
   display: flex;
@@ -14,135 +14,135 @@
   justify-content: space-between;
   box-sizing: border-box;
   background-color: #f8f9fb;
-} 
+}
 /** 活动css */
 .activityAbstract {
-	display: flex;
-	padding:  1% 0;
-	/* background-color: #fff; */
-	justify-content: space-between;
-	flex-wrap: wrap;
+  display: flex;
+  padding: 1% 0;
+  /* background-color: #fff; */
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 .activityAbstract > view {
-	width: 47vw; 
-	height: 340rpx;
-	margin-top: 20rpx;
-	/* background-color: red; */
-	margin: 10rpx 0;
+  width: 47vw;
+  height: 340rpx;
+  margin-top: 20rpx;
+  /* background-color: red; */
+  margin: 10rpx 0;
 }
 .activityAbstract > view > view:first-child {
-	height:28vw
+  height: 28vw;
 }
 .activityAbstract image {
-	/* border-radius: 20rpx; */
-	width: 47vw;
-	height: 28vw;
+  /* border-radius: 20rpx; */
+  width: 47vw;
+  height: 28vw;
 }
 .van-empty image {
-	height: 100%;
+  height: 100%;
 }
 .van-sticky-wrap {
-	background-color: #fff ;
+  background-color: #fff;
 }
 .tabMainText {
-	font-size: 25rpx;
-	padding: 0 20rpx;
-	/* font-weight: 700; */
-	padding-top: 10rpx;
-	/* padding-bottom: 20rpx; */
-	/* overflow: hidden; */
-	/* text-overflow:ellipsis; */
-	/* white-space: nowrap; */
-	text-overflow:ellipsis;
+  font-size: 25rpx;
+  padding: 0 20rpx;
+  /* font-weight: 700; */
+  padding-top: 10rpx;
+  /* padding-bottom: 20rpx; */
+  /* overflow: hidden; */
+  /* text-overflow:ellipsis; */
+  /* white-space: nowrap; */
+  text-overflow: ellipsis;
 
-	z-index: -1;
-  
-	display: -webkit-box;
-  
-	word-break: break-all;
-  
-	-webkit-box-orient: vertical;
-  
-	-webkit-line-clamp: 2;
-  
-	overflow: hidden;
-	color: #333333;
+  z-index: -1;
+
+  display: -webkit-box;
+
+  word-break: break-all;
+
+  -webkit-box-orient: vertical;
+
+  -webkit-line-clamp: 2;
+
+  overflow: hidden;
+  color: #333333;
 }
 .tabSideText {
-	position: absolute;
-	bottom: 8rpx;
-	width: 100%;
-	font-size: 22rpx;
-	padding: 0 20rpx;
-	margin-bottom: 10rpx;
-	overflow: hidden;
-	text-overflow:ellipsis;
-	white-space: nowrap;
-	color: #7F7F7F;
+  position: absolute;
+  bottom: 8rpx;
+  width: 100%;
+  font-size: 22rpx;
+  padding: 0 20rpx;
+  margin-bottom: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #7f7f7f;
 }
 .activityFull {
-	position: relative;
-	box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
-	background-color: #fff;
-	border-radius: 5px;
+  position: relative;
+  box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 5px;
 }
-.activityFull  image {
-	overflow: hidden;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	/* background-color: #fff; */
-	/* box-shadow:  0 0 8rpx #ccc; */
+.activityFull image {
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  /* background-color: #fff; */
+  /* box-shadow:  0 0 8rpx #ccc; */
 }
 .backTop {
-	position: fixed;
-	right: 5vw;
-	bottom: 5vw;
-	width: 100rpx;
-	height: 100rpx;
-	line-height: 100rpx;
-	text-align: center;
-	font-size: 23px;
-	color: #f1f1f1;
-	border-radius: 50rpx;
-	z-index: 9999;
-	background-color: rgba(0,0,0,0.3);
+  position: fixed;
+  right: 5vw;
+  bottom: 5vw;
+  width: 100rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 23px;
+  color: #f1f1f1;
+  border-radius: 50rpx;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .transition {
-	transition: font-size .4s;
+  transition: font-size 0.4s;
 }
 .state {
-	position: absolute;
-	top: 15rpx;
-	background-color: #f1f1f1;
-	padding: 3rpx 6rpx;
-	right: 15rpx;
-	border-radius: 5rpx;
-	font-size: 22rpx;
+  position: absolute;
+  top: 15rpx;
+  background-color: #f1f1f1;
+  padding: 3rpx 6rpx;
+  right: 15rpx;
+  border-radius: 5rpx;
+  font-size: 22rpx;
 }
 .load {
-	clip-path:circle(50%);
-	background-image: url(https://img-blog.csdnimg.cn/ec9ab88485a348c6af565ad4d742632c.png);
-	background-size: 100rpx 100rpx;
-	background-position-y: 100rpx;
-	background-repeat: no-repeat;
-	animation: load 2s infinite;
+  clip-path: circle(50%);
+  background-image: url(https://img-blog.csdnimg.cn/ec9ab88485a348c6af565ad4d742632c.png);
+  background-size: 100rpx 100rpx;
+  background-position-y: 100rpx;
+  background-repeat: no-repeat;
+  animation: load 2s infinite;
 }
 .bg-bbt {
-	background-color: #40a9ff;
+  background-color: #40a9ff;
 }
 .bg-bbt-g {
-	background: linear-gradient(45deg,#69c0ff,#40a9ff);
+  background: linear-gradient(45deg, #69c0ff, #40a9ff);
 }
 .line-bbt {
-	color: #40a9ff
+  color: #40a9ff;
 }
 
 @keyframes load {
-	0% {
-		background-position-y: 100rpx;
-	}
-	100% {
-		background-position-y: 0rpx;
-	}
+  0% {
+    background-position-y: 100rpx;
+  }
+  100% {
+    background-position-y: 0rpx;
+  }
 }

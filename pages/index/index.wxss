@@ -5,7 +5,7 @@
   background-color: #fff;
 }
 .adImg {
-  width: 100%; 
+  width: 100%;
 }
 .navs {
   display: flex;
@@ -21,7 +21,6 @@
   height: 50rpx;
 }
 
-
 .chooseMiddle {
   overflow: hidden;
   position: relative;
@@ -34,19 +33,18 @@
 .chooseMsg {
   font-size: 25rpx;
   overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	-o-text-overflow: ellipsis;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
   margin: 15rpx 20rpx;
   margin-right: 90rpx;
-  color:#666;
+  color: #666;
 }
 .Middlearrow {
   position: absolute;
   right: 25rpx;
   top: 56rpx;
 }
-
 
 .chooseBottom {
   overflow: hidden;
@@ -74,28 +72,27 @@
   border-bottom: 1px solid #ddd;
 }
 .topping {
-  color:#d9001b;
+  color: #d9001b;
   font-size: 25rpx;
   margin-right: 10rpx;
 }
 .chooseFootText {
   font-size: 25rpx;
   margin-right: 10rpx;
-  color:#999;
+  color: #999;
 }
 .chooseMiddle .cu-item {
   min-height: 60rpx !important;
 }
 .chooseMiddle .content {
   font-size: 23rpx !important;
-
 }
 
 .actTitle {
-	position: absolute;
-	top: 26%;
-	color:#fff;
-	font-size: 34rpx;
-	opacity: 0.9;
-	padding: 0 60rpx
+  position: absolute;
+  top: 26%;
+  color: #fff;
+  font-size: 34rpx;
+  opacity: 0.9;
+  padding: 0 60rpx;
 }

@@ -1,47 +1,45 @@
 /* pages/activity-custom/activity-custom.wxss */
 .custom {
-	padding-bottom: 140rpx;
+  padding-bottom: 140rpx;
 }
 .customTitle {
-	padding: 10rpx 36rpx;
-	font-size: 24rpx;
-	color: #646566;
-	margin: 25rpx 0 0 0;
+  padding: 10rpx 36rpx;
+  font-size: 24rpx;
+  color: #646566;
+  margin: 25rpx 0 0 0;
 }
 .customStyle {
-	background-color: red;
+  background-color: red;
 }
 .custom .van-field__label {
-	font-size: 32rpx;
-	color: #000;
+  font-size: 32rpx;
+  color: #000;
 }
 .stickyButton {
-	position: fixed;
-	left: 50%;
-	transform: translateX(-50%);
-	padding: 20rpx 0;
-	bottom: 0;
-	z-index: 99;
-	width: 100%;
-    background-color: #fff;
-    text-align: center;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20rpx 0;
+  bottom: 0;
+  z-index: 99;
+  width: 100%;
+  background-color: #fff;
+  text-align: center;
 }
 .cu-form-group .title {
-	min-width: calc(6em + 30rpx);
+  min-width: calc(6em + 30rpx);
 }
-  .maker {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-100%);
-	width: 20px;
-	height: 20px;
-	font-family: 'iconfont';
+.maker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  width: 20px;
+  height: 20px;
+  font-family: "iconfont";
 }
-#myMap{
-	position: relative;
-	width: 100vw;
-	height: 60vh;
+#myMap {
+  position: relative;
+  width: 100vw;
+  height: 60vh;
 }
-
-  

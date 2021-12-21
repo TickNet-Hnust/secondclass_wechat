@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "精选",
   "backgroundColor": "#00a2e6",
-  "enablePullDownRefresh":true,
-  "onReachBottomDistance":50
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50
 }

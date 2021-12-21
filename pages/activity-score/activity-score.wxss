@@ -2,40 +2,40 @@
 page {
   background-color: #f8f9fb;
 }
-.score{
-	padding: 0 30rpx;
-	overflow: hidden;
+.score {
+  padding: 0 30rpx;
+  overflow: hidden;
   background-color: #f8f9fb;
 }
 .score .van-tabs__wrap {
-	width: 65%;
-	margin: 0 auto;
+  width: 65%;
+  margin: 0 auto;
 }
-.score .van-sticky-wrap{
+.score .van-sticky-wrap {
   background-color: white;
 }
 .score .van-ellipsis {
-   font-size: 34rpx;
+  font-size: 34rpx;
 }
 
-.activitySocreInfor{
+.activitySocreInfor {
   margin-bottom: 20rpx;
   padding: 30rpx;
   background-color: white;
   font-size: 25rpx;
 }
 
-.leftTitle{
-   font-weight: bold;
-   font-size: 25rpx;
+.leftTitle {
+  font-weight: bold;
+  font-size: 25rpx;
 }
 
-.van-col{
+.van-col {
   margin-bottom: 10rpx;
 }
 
-.activityClassify1{
-    color: green;
+.activityClassify1 {
+  color: green;
 }
 /* .activityClassify2{
     background-color:#f07c82;
@@ -51,28 +51,28 @@ page {
     display: block;
 } */
 
-.activityScoreRule{
+.activityScoreRule {
   /* background-color: rgba(196, 255, 226, 0.904); */
   font-size: 25rpx;
 }
 
-.ruleText .van-col{
+.ruleText .van-col {
   font-weight: bold;
   font-size: 25rpx;
   padding-left: 32rpx;
 }
 
-.van-grid{
+.van-grid {
   margin-top: 20rpx;
   margin-bottom: 10rpx;
   padding-left: 0px !important;
 }
 
-.van-grid-item{
+.van-grid-item {
   padding-right: 5px !important;
 }
 
-.van-button--normal{
+.van-button--normal {
   height: 68rpx !important;
   width: 290rpx;
   color: white;

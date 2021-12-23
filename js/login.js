@@ -12,10 +12,15 @@ function reLogin(resolve, reject) {
                 url: `${baseUrl}/MpLoginByCode/${res.code}`,
                 success: (res) => {
                   console.log("后端换取token请求发送成功：", res);
-                  wx.setStorageSync("token", res.data.data.token);
+                  res.data.data && wx.setStorageSync("token", res.data.data.token);
                   resolve();
                 },
                 fail: (err) => {
+                  wx.showToast({
+                    title: '获取运营商服务失败，请尝试连接校园网后重启！',
+                    icon: 'none',
+                    duration: 3000
+                  })
                   console.log("后端换取token请求发送失败：", err);
                   reject();
                 },
@@ -36,10 +41,15 @@ function reLogin(resolve, reject) {
                 url: `${baseUrl}/WxLoginByCode/${res.code}`,
                 success: (res) => {
                   console.log("后端换取token请求发送成功：", res);
-                  wx.setStorageSync("token", res.data.data.token);
+                  res.data.data && wx.setStorageSync("token", res.data.data.token);
                   resolve();
                 },
                 fail: (err) => {
+                  wx.showToast({
+                    title: '获取运营商服务失败，请尝试连接校园网后重启！',
+                    icon: 'none',
+                    duration: 3000
+                  })
                   console.log("后端换取token请求发送失败：", err);
                   reject();
                 },

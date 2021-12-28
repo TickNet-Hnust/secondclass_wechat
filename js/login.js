@@ -16,10 +16,8 @@ function reLogin(resolve, reject) {
                   resolve();
                 },
                 fail: (err) => {
-                  wx.showToast({
-                    title: '获取运营商服务失败，请尝试连接校园网后重启！',
-                    icon: 'none',
-                    duration: 3000
+                  wx.showModal({
+                    content: '获取运营商服务失败，请尝试连接校园网后重启！',
                   })
                   console.log("后端换取token请求发送失败：", err);
                   reject();
@@ -45,10 +43,8 @@ function reLogin(resolve, reject) {
                   resolve();
                 },
                 fail: (err) => {
-                  wx.showToast({
-                    title: '获取运营商服务失败，请尝试连接校园网后重启！',
-                    icon: 'none',
-                    duration: 3000
+                  wx.showModal({
+                    content: '获取运营商服务失败，请尝试连接校园网后重启！',
                   })
                   console.log("后端换取token请求发送失败：", err);
                   reject();

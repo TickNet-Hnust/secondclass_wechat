@@ -8,21 +8,11 @@
     </view>
   </view>
 </cu-custom>
-<!-- <video id="video" bindtap="fd" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/09/07/f7d4810c-a8ab-41a1-9ded-93a46ac30892.mp4"></video> -->
 <view class="container">
   <view class="chooseTop padding-top-sm">
     <swiper autoplay interval="5000" duration="500" style="height: 230rpx;">
-          <!-- <swiper-item wx:for="{{recommendList}}" data-id="{{item.id}}" wx:key="index" catchtap="jumpActivity">
-            <image style="width:100%;text-align:center;line-height:41px;" mode="widthFix" class="adImg" src="../../images/choose/ad3.png" alt="" srcset=""></image>
-            <view class="actTitle">
-						  {{item.name}}
-            </view>
-          </swiper-item> -->
           <swiper-item>
             <image mode="widthFix" class="adImg" src="../../images/choose/ad4.png" alt="" srcset="" data-id="4671896" catchtap="jumpActivity"></image>
-            <view class="actTitle">
-						  
-            </view>
           </swiper-item>
       </swiper>
     

@@ -5,7 +5,7 @@ import { request } from "../../js/http.js";
 Page({
   data: {
     newList: [],
-    recommendList: [],
+    ratationList: []
   },
   jumpSearch() {
     wx.hideKeyboard();
@@ -48,17 +48,12 @@ Page({
   getActivity() {
     //推荐活动
     request({
-      url: "/secondClass/activity/list",
-      method: "get",
-      data: {
-        recommend: 1,
-        pageNum: 1,
-        pageSize: 5,
-      },
+      url: "/admins/secondClass/activity/hot",
+      method: "get"
     }).then((value) => {
       console.log("获取推荐活动成功：", value);
       this.setData({
-        recommendList: value.rows,
+        ratationList: value.rows,
       });
     });
   },

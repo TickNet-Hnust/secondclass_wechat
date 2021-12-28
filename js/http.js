@@ -1,6 +1,6 @@
 const reLogin = require("./login.js");
 
-let flag = false;
+let flag = true;
 let _baseUrl = "";
 if (flag) {
   _baseUrl = "http://192.168.124.10:8080";

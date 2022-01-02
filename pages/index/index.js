@@ -48,7 +48,7 @@ Page({
   getActivity() {
     //推荐活动
     request({
-      url: "/admins/secondClass/activity/hot",
+      url: "/secondClass/home/activityHot",
       method: "get"
     }).then((value) => {
       console.log("获取推荐活动成功：", value);
@@ -59,10 +59,9 @@ Page({
   },
   async onLoad() {
     await app.getToken(); //等待获取token
-    app.getDict();
-
-    this.getNews();
-    this.getActivity();
+    app.getDict()
+    this.getNews()
+    this.getActivity()
     request({
       url: "/utils/getCourseClassificationUpdateTime",
       method: "GET",

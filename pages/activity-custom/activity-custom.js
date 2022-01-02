@@ -194,10 +194,10 @@ Page({
       success: (res) => {
         console.log(res, 77, res.tempFiles[0].size);
 
-        if (!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
-          Toast("图片只支持jpg");
-          return;
-        }
+        // if (!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
+        //   Toast("图片只支持jpg");
+        //   return;
+        // }
         if (res.tempFiles[0].size > 1024 * 1024 * 2) {
           Toast("图片大小不能超过2M");
           return;

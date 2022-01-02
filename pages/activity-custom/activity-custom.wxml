@@ -178,7 +178,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">最大录取人数</view>
-		<input value="{{postData.maxAdmissionNumber}}" placeholder="例如：150" bindinput="numberChanged"></input>
+		<input value="{{postData.maxAdmissionNumber}}" placeholder="例：150" bindinput="numberChanged"></input>
 	</view>
 	<view class="cu-form-group align-start"  bindtap="showNotice" data-thing="enrollNoticeShow">
 		<view class="title">报名须知</view>

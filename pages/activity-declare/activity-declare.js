@@ -279,10 +279,10 @@ Page({
       sizeType: ["original", "compressed"], //可以指定是原图还是压缩图，默认二者都有
       sourceType: ["album", "camera"], //从相册选择
       success: (res) => {
-        if (!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
-          Toast("图片只支持jpg");
-          return;
-        }
+        // if (!["jpg"].includes(res.tempFiles[0].path.slice(-3))) {
+        //   Toast("图片只支持jpg");
+        //   return;
+        // }
         if (res.tempFiles[0].size > 1024 * 1024 * 2) {
           Toast("图片大小不能超过2M");
           return;

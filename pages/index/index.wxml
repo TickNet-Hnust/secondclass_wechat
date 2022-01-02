@@ -11,8 +11,11 @@
 <view class="container">
   <view class="chooseTop padding-top-sm">
     <swiper autoplay interval="5000" duration="500" style="height: 230rpx;">
-          <swiper-item>
-            <image mode="widthFix" class="adImg" src="../../images/choose/ad4.png" alt="" srcset="" data-id="4671896" catchtap="jumpActivity"></image>
+          <swiper-item
+            wx:for="{{ratationList}}"
+            wx:key="index"
+          >
+            <image mode="widthFix" class="adImg" src="{{item.activityImage}}" alt="" srcset="" data-id="{{item.activityId}}" catchtap="jumpActivity"></image>
           </swiper-item>
       </swiper>
     

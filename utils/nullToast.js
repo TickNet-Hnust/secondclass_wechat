@@ -17,8 +17,8 @@ export function nullToast(data, state) {
       (data.rankId === "" && "活动级别") ||
       (data.activityTag == "" && "活动标签") ||
       (data.trainingProgramId == "" && "培养方案") ||
-      ([null, ""].includes(data.courseClassificationId) && "二级分类") ||
       ([null, ""].includes(data.courseClassificationListOneId) && "积分分类") ||
+      ([null, ""].includes(data.courseClassificationId) && "二级分类") ||
       (data.courseId == "" && "课程") ||
       (data.integralScheme === "" && "积分方案") ||
       (data.flowerStatus === "" && "花絮管理") ||

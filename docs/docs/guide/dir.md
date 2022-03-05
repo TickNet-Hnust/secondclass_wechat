@@ -22,99 +22,58 @@ $ git clone -b master git@gitlab.com:peterroe/second_class_front_weapp.git
 ## 目录结构
 
 ```shell {}
-├─ .git         # git文件夹
-├─ bin          # 可执行文件，没啥用
+├─ colorui      # colorUI的css文件
+├─ component    # 开发者封装的组件文件夹
+├─ config       # 腾讯位置服务示例
 ├─ docs         # 此文档的仓库
-├─ out          # 不用管
-├─ public       # 配合webpack打包的静态目录
-├─ src          # 开发根目录
-├─ tests        # 不用管
-├─ .editorconfig        # 不用管
-├─ .env.development     # 不用管
-├─ .env.production      # 不用管
-├─ .env.staging         # 不用管
-├─ .eslintignore        # 不用管
-├─ .eslintrc.js         # 不用管
+├─ font         # icon图标
+├─ images       # 图片文件夹
+├─ js           # 封装的登录和请求的脚本文件
+├─ pages        # 页面文件夹
+├─ utils        # 封装的js工具脚本
 ├─ .gitignore           # git提交时忽略提交的文件
 ├─ .prettierignore      # 不用管
-├─ .prettierrc.js       # 不用管
-├─ babel.config.js      # 不用管
-├─ deploy.config.js     # 自动化部署相关
-├─ docs-loader.js       # 不用管
-├─ jest.config.js       # 不用管
-├─ jsdoc-vue.js         # 不用管
-├─ jsdoc.config.js      # 不用管
+├─ app.js               # 微信小程序相关全局脚本
+├─ app.json             # 微信小程序相关全局配置
+├─ app.wxss             # 微信小程序相关全局样式
+├─ fide.project.config.json        # 不用管
 ├─ package-lock.json    # 不用管
 ├─ package.json         # 不用管
+├─ project.config.json  # 可以不用管
 ├─ README.md            # readme文档
-├─ vue.config.js        # 打包时候的配置
-└─ yarn.lock            # 不用管
+├─ sitemap.json        # 打包时候的配置
 ```
 
 ## 安装
 
-采用 **npm** 安装，而且必须使用 **6** 开头的版本
+*用微信开发者工具进行开发*
 
-查看 npm 版本:
+采用 **npm** 安装，对版本无需求，这里我使用的是`8.3.1`
 
-```shell
-$ npm -v
-6.14.15
-```
-
-如果不是，升级或降级到6版本
+执行：
 
 ```shell
-$ npm install -g npm@6
-```
-
-确保使用6开头的npm之后，执行：
-
-```shell
-$ npm install
+$ npm i
 ```
 
 安装完成后可能会产生一些过期警告，但是没报错就行
 
-现在的目录结构：
+然后执行下图的操作，构建`npm`:
 
-```shell {4}
-├─ .git         # git文件夹
-├─ bin          # 可执行文件，没啥用
-├─ docs         # 此文档的仓库
-├─ node_modules # 懂得都懂
-├─ out          # 不用管
-├─ public       # 配合webpack打包的静态目录
-├─ src          # 开发根目录
-├─ tests        # 不用管
-├─ .editorconfig        # 不用管
-├─ .env.development     # 不用管
-├─ .env.production      # 不用管
-├─ .env.staging         # 不用管
-├─ .eslintignore        # 不用管
-├─ .eslintrc.js         # 不用管
-├─ .gitignore           # git提交时忽略提交的文件
-├─ .prettierignore      # 不用管
-├─ .prettierrc.js       # 不用管
-├─ babel.config.js      # 不用管
-├─ deploy.config.js     # 自动化部署相关
-├─ docs-loader.js       # 不用管
-├─ jest.config.js       # 不用管
-├─ jsdoc-vue.js         # 不用管
-├─ jsdoc.config.js      # 不用管
-├─ package-lock.json    # 不用管
-├─ package.json         # 不用管
-├─ README.md            # readme文档
-├─ vue.config.js        # 打包时候的配置
-└─ yarn.lock            # 不用管
-```
+![img](https://img-blog.csdnimg.cn/701600821bc741d6ac0af2ba48f9d639.png)
 
-## 启动
+待构建完成之后，可以看到小程序成功运行，如果加载失败，可以像下图那样点击右上角的按钮，弹出预览窗口(可能解决这个问题)：
 
-```shell
-$ npm run dev
-```
+![img](https://img-blog.csdnimg.cn/36ae57ef1d1c46e0ab957d153a3e4989.png)
 
-打开 [http://localhost:80](http://localhost:80)
+## 其他情况
 
-![img](https://img-blog.csdnimg.cn/c16324d980eb4673bc57174c0a76f066.png)
+如果遇到了某些问题你可能需要进行这些操作：
+
+* 确认微信开发者工具已经登录，并且在小程序后台把你加入了开发者
+* 确认基础库版本
+* 以及下面相关的配置（可以和我的保持一致）
+
+![img](https://img-blog.csdnimg.cn/d38deb7da47146b98a80101d109e1c4e.png)
+
+更多问题请联系原开发者

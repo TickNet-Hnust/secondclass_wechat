@@ -1,6 +1,6 @@
 ## 请求流程
 
-微信小程序是自己封装的请求，可以查看`js/http.js`
+请求是我自己封装的请求，可以查看`js/http.js`
 
 出去弹窗提示，下面是核心的代码
 
@@ -21,7 +21,7 @@ let commonParams = {
   dataType: "json",
 };
 
-export const request = (opt) => {
+export const request = (opt) => { //用的是这个
   let options = Object.assign({}, commonParams, opt);
   let { url, data, method, header, dataType } = options;
   header["Authorization"] = wx.getStorageSync("token") || ""; //提取储存的token，放到请求头上面

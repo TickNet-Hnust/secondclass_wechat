@@ -27,7 +27,8 @@ export default {
                 text: '其他',
                 children: [
                     { text: '登录流程', link: '/guide/login' },
-                    { text: 'request请求', link: '/guide/request' }
+                    { text: 'request请求', link: '/guide/request' },
+                    { text: '上传版本', link: '/guide/put' }
                 ]
             }, ]
         }

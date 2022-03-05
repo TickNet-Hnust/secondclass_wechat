@@ -12,7 +12,7 @@ export default {
             { text: 'Guide', link: '/', activeMatch: '^/$|^/guide/' },
             {
                 text: 'Address',
-                link: 'https://github.com/peterroe/secondClass_vue2'
+                link: 'https://gitlab.com/peterroe/second_class_front_weapp'
             }
 
         ],

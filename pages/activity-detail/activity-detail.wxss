@@ -38,6 +38,7 @@
   background-color: #fff;
   border-radius: 18rpx;
   margin-top: 30rpx;
+  box-shadow: 8px 0px 8px #ddd;
 }
 .actTitle {
   position: absolute;

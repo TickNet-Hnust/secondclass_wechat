@@ -64,7 +64,7 @@ $ npm i
 
 待构建完成之后，可以看到小程序成功运行，如果加载失败，可以像下图那样点击右上角的按钮，弹出预览窗口(可能解决这个问题)：
 
-![img](https://img-blog.csdnimg.cn/36ae57ef1d1c46e0ab957d153a3e4989.png)
+![img](https://img-blog.csdnimg.cn/ac065aa4162840c6ac55bcc6b7b2952a.png)
 
 ## 其他情况
 

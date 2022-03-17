@@ -7,10 +7,12 @@
     "@vant/weapp": "^1.7.2",
     "mp-html": "^2.1.5"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "vitepress": "^0.20.10"
+  }
 }

@@ -22,7 +22,7 @@
 	<view  hidden="{{0!=TabCur}}" class="">
 		<scroll-view scroll-y >
 				<view class="activityTemplate">
-				<view class="boxs solid shadow-warp">
+				<view class="boxs solid">
 					<image mode="aspectFill" class="adImg" src="../../images/choose/ad2.png" alt="" srcset=""></image>
 					<view class="actTitle">
 							{{showData.name}}

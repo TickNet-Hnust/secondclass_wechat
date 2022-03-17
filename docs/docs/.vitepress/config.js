@@ -12,7 +12,7 @@ export default {
             { text: 'Guide', link: '/', activeMatch: '^/$|^/guide/' },
             {
                 text: 'Address',
-                link: 'https://github.com/peterroe/secondClass_vue2'
+                link: 'https://gitlab.com/peterroe/second_class_front_weapp'
             }
 
         ],
@@ -24,11 +24,11 @@ export default {
                     { text: '本地开发', link: '/guide/dev' }
                 ]
             }, {
-                text: '目录结构',
+                text: '其他',
                 children: [
-                    { text: 'src', link: '/guide/src' },
-                    { text: 'src/views', link: '/guide/views' },
-                    { text: 'src/api', link: '/guide/api' },
+                    { text: '登录流程', link: '/guide/login' },
+                    { text: 'request请求', link: '/guide/request' },
+                    { text: '上传版本', link: '/guide/put' }
                 ]
             }, ]
         }

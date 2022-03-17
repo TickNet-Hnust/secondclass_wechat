@@ -1,21 +1,23 @@
 <van-toast id="van-toast">
   <!-- <image style="width: 100rpx;height: 100rpx;" class="load" src="../../images/logo2.png"></image> -->
 </van-toast>
-  <view class="UCenter-bg">
-    <view class="text-center">
-      <image wx:if="{{!isLogin}}" catchtap="login" class="round solid-green" style="height: 130rpx;width: 130rpx;" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/da921004-9be9-41c8-8a6b-ba41af82129f.jpg"></image>
-      <image wx:else class="round solid-green" style="border:2px solid #eee;height: 130rpx;width: 130rpx;" src="{{avatarUrl}}"></image>
-    </view>
-    <view class="text-xl" style="color:#3f3d56">
-      <text wx:if="{{!isLogin}}" catchtap="login">点击头像登录</text>
-      <text wx:else sty>{{nickName}}</text>
-    </view>
-    <view class="girfather">
-      <image animation="{{animationData}}"  class="gifImg gif-wave" mode="aspectFill" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/88fa6475-d5eb-4178-bbf9-0bf656762779.gif" mode="scaleToFill"></image>
-      <view animation="{{animationData}}" class="bg-white gif-buttom"></view>
-    </view>
+
+<view class="UCenter-bg" style="{{bgColor}}">
+  <view class="text-center">
+    <image wx:if="{{!isLogin}}" catchtap="login" class="round solid-green" style="height: 130rpx;width: 130rpx;" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/da921004-9be9-41c8-8a6b-ba41af82129f.jpg"></image>
+    <image wx:else class="round solid-green" style="border:2px solid #eee;height: 130rpx;width: 130rpx;" src="{{avatarUrl}}"></image>
   </view>
-  <view style="z-index: 99;position: relative;background-color: #f1f1f1;">
+  <view class="text-xl" style="color:#3f3d56">
+    <text wx:if="{{!isLogin}}" catchtap="login">点击头像登录</text>
+    <text wx:else sty>{{nickName}}</text>
+  </view>
+  <view class="girfather">
+    <image animation="{{animationData}}"  class="gifImg gif-wave" mode="aspectFill" src="https://hnust-ticknet-swzl.oss-cn-hangzhou.aliyuncs.com/secondClass/2021/08/30/88fa6475-d5eb-4178-bbf9-0bf656762779.gif" mode="scaleToFill"></image>
+    <view animation="{{animationData}}" class="bg-white gif-buttom"></view>
+  </view>
+</view>
+
+<view style="z-index: 99;position: relative;background-color: #f1f1f1;">
   <view class="padding flex text-center bg-white text-grey" style="z-index: 20;position: relative;">
     <view class="flex flex-sub flex-direction solid-right" bindtap="jumpActivity">
       <view class="text-xxl text-orange">{{activityCount}}</view>
@@ -33,7 +35,7 @@
         积分</view>
     </view>
   </view>
-  
+
     <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
     <view class="cu-item arrow">
       <button class="cu-btn content" open-type="feedback">
@@ -41,5 +43,35 @@
         <text class="text-grey">意见反馈</text>
       </button>
     </view>
+    <view class="cu-item arrow">
+      <button class="cu-btn content" bindtap="openColor">
+        <text class="cuIcon-colorlens text-orange"></text>
+        <text class="text-grey">色彩切换</text>
+      </button>
+    </view>
   </view>
+</view>
+
+<view class="colorList text-xxl {{listIsShow? 'showColor': ''}}" bindtap="sureColor">
+  <view 
+    data-color="background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);" 
+    style="background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);">
   </view>
+  <view 
+    data-color="background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);" 
+    style="background-image: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);">
+  </view>
+  <view 
+    data-color="background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);" 
+    style="background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);">
+  </view>
+  <view 
+    data-color="background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);" 
+    style="background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);">
+  </view>
+  <view 
+    data-color="background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);"
+    style="background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);">
+  </view>
+  <text class="cuIcon-roundclose text-orange" style="line-height: 60rpx;" bindtap="closeColor"></text>
+</view>

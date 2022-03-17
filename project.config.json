@@ -5,14 +5,14 @@
     },
     "setting": {
         "urlCheck": false,
-        "es6": true,
-        "enhance": false,
-        "postcss": false,
+        "es6": false,
+        "enhance": true,
+        "postcss": true,
         "preloadBackgroundData": false,
         "minified": true,
         "newFeature": false,
         "coverView": true,
-        "nodeModules": true,
+        "nodeModules": false,
         "autoAudits": false,
         "showShadowRootInWxmlPanel": true,
         "scopeDataCheck": false,
@@ -22,24 +22,18 @@
         "uploadWithSourceMap": true,
         "compileHotReLoad": false,
         "lazyloadPlaceholderEnable": false,
-        "useMultiFrameRuntime": true,
-        "useApiHook": true,
-        "useApiHostProcess": true,
+        "useMultiFrameRuntime": false,
+        "useApiHook": false,
+        "useApiHostProcess": false,
         "babelSetting": {
             "ignore": [],
             "disablePlugins": [],
             "outputPath": ""
         },
-        "enableEngineNative": false,
         "useIsolateContext": true,
         "userConfirmedBundleSwitch": false,
         "packNpmManually": false,
-        "packNpmRelationList": [
-            {
-                "packageJsonPath": "./package.json",
-                "miniprogramNpmDistDir": "./../miniprogram-2"
-            }
-        ],
+        "packNpmRelationList": [],
         "minifyWXSS": true,
         "showES6CompileOption": false
     },
@@ -50,5 +44,6 @@
     },
     "appid": "wxfe0efd6ba9a93a68",
     "libVersion": "2.17.0",
+    "projectname": "secondclass",
     "condition": {}
 }

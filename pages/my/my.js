@@ -15,6 +15,8 @@ Page({
     activityCount: 0,
     groupCount: 0,
     integral: 0,
+    bgColor: 'background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);',
+    listIsShow: false,
   },
   login() {
     let isLogin = wx.getStorageSync("isLogin");
@@ -96,6 +98,13 @@ Page({
         integral: value.data.integral,
       });
     });
+    const color = wx.getStorageSync('bgColor')
+    console.log('storagecolor:', color )
+    if(color) {
+      this.setData({
+        bgColor: color
+      })
+    }
     this.setData({
       isLogin: wx.getStorageSync("isLogin"),
       nickName: wx.getStorageSync("nickName"),
@@ -111,6 +120,25 @@ Page({
     this.data.animation = animation
     this.setData({
       animationData:this.data.animation.export()
+    })
+  },
+  openColor() {
+    this.setData({
+      listIsShow: true
+    })
+  },
+  sureColor(e) {
+    wx.setStorage({
+      key: 'bgColor',
+      data: e.target.dataset.color
+    });
+    this.setData({
+      bgColor: e.target.dataset.color
+    })
+  },
+  closeColor() {
+    this.setData({
+      listIsShow: false
     })
   },
   getTimer() {
@@ -133,6 +161,13 @@ Page({
     wx.stopDeviceMotionListening()
   },
   onLoad() {
+    const color = wx.getStorageSync('bgColor')
+    console.log('storagecolor:', color )
+    if(color) {
+      this.setData({
+        bgColor: color
+      })
+    }
   },
   jumpActivity() {
     app.globalData.isSwitchActivityMy = true;
